@@ -6,7 +6,7 @@ This is a template repository for bootstraping your dotfiles with [Dotbot][1].
 To get started, you can [fork][2] this repository (and probably delete this
 README and rename your version to something like just `dotfiles`).
 
-In general, I suggest using symbolic links for everything, and using git
+In general, you should be using symbolic links for everything, and using git
 submodules whenever possible.
 
 To keep submodules at their proper versions, you could include something like
@@ -28,8 +28,17 @@ Dotbot.
 
 * [anishathalye's dotfiles][3]
 
-If you're using Dotbot and you'd like to include a link to your dotfiles as an
-inspiration to others, please submit a pull request.
+If you're using Dotbot and you'd like to include a link to your dotfiles here
+as an inspiration to others, please submit a pull request.
+
+License
+-------
+
+This software is released into the public domain. That means you can do
+whatever you want with it without restriction.
+
+That being said, I would appreciate it if you could maintain a link back to
+Dotbot (or this repository) to help other people discover Dotbot.
 
 [1]: https://github.com/anishathalye/dotbot
 [2]: https://github.com/anishathalye/dotfiles_template/fork
