@@ -27,6 +27,7 @@ kinds of things you can include, you could take a look at some repos using
 Dotbot.
 
 * [anishathalye's dotfiles][3]
+* [csivanich's dotfiles][4]
 
 If you're using Dotbot and you'd like to include a link to your dotfiles here
 as an inspiration to others, please submit a pull request.
@@ -43,3 +44,4 @@ Dotbot (or this repository) to help other people discover Dotbot.
 [1]: https://github.com/anishathalye/dotbot
 [2]: https://github.com/anishathalye/dotfiles_template/fork
 [3]: https://github.com/anishathalye/dotfiles
+[4]: https://github.com/csivanich/dotfiles
