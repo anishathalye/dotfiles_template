@@ -1,9 +1,9 @@
 Dotfiles Template
 =================
 
-This is a template repository for bootstraping your dotfiles with [Dotbot][1].
+This is a template repository for bootstraping your dotfiles with [Dotbot][dotbot].
 
-To get started, you can [fork][2] this repository (and probably delete this
+To get started, you can [fork][fork] this repository (and probably delete this
 README and rename your version to something like just `dotfiles`).
 
 In general, you should be using symbolic links for everything, and using git
@@ -26,8 +26,8 @@ If you're looking for inspiration for how to structure your dotfiles or what
 kinds of things you can include, you could take a look at some repos using
 Dotbot.
 
-* [anishathalye's dotfiles][3]
-* [csivanich's dotfiles][4]
+* [anishathalye's dotfiles][anishathalye_dotfiles]
+* [csivanich's dotfiles][csivanich_dotfiles]
 
 If you're using Dotbot and you'd like to include a link to your dotfiles here
 as an inspiration to others, please submit a pull request.
@@ -41,7 +41,7 @@ whatever you want with it without restriction. See `LICENSE.md` for details.
 That being said, I would appreciate it if you could maintain a link back to
 Dotbot (or this repository) to help other people discover Dotbot.
 
-[1]: https://github.com/anishathalye/dotbot
-[2]: https://github.com/anishathalye/dotfiles_template/fork
-[3]: https://github.com/anishathalye/dotfiles
-[4]: https://github.com/csivanich/dotfiles
+[dotbot]: https://github.com/anishathalye/dotbot
+[fork]: https://github.com/anishathalye/dotfiles_template/fork
+[anishathalye_dotfiles]: https://github.com/anishathalye/dotfiles
+[csivanich_dotfiles]: https://github.com/csivanich/dotfiles
