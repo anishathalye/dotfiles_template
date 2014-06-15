@@ -28,6 +28,7 @@ Dotbot.
 
 * [anishathalye's dotfiles][anishathalye_dotfiles]
 * [csivanich's dotfiles][csivanich_dotfiles]
+* [m45t3r's dotfiles][m45t3r_dotfiles]
 
 If you're using Dotbot and you'd like to include a link to your dotfiles here
 as an inspiration to others, please submit a pull request.
@@ -45,3 +46,4 @@ Dotbot (or this repository) to help other people discover Dotbot.
 [fork]: https://github.com/anishathalye/dotfiles_template/fork
 [anishathalye_dotfiles]: https://github.com/anishathalye/dotfiles
 [csivanich_dotfiles]: https://github.com/csivanich/dotfiles
+[m45t3r_dotfiles]: https://github.com/m45t3r/dotfiles
