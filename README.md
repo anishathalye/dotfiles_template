@@ -13,11 +13,7 @@ To keep submodules at their proper versions, you could include something like
 `git submodule update --init --recursive` in your `install.conf.json`.
 
 To upgrade your submodules to their latest versions, you could periodically run
-something like the following.
-
-```bash
-git submodule foreach 'git checkout master && git pull && cd "${toplevel}" && git add ":/${path}"'
-```
+`git submodule update --init --remote`.
 
 Inspiration
 -----------
