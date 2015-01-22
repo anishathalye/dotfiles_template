@@ -20,3 +20,4 @@ export EDITOR='/usr/bin/vi'
 export CHEATCOLORS=true
 export CHEATPATH='~/.cheat'
 
+export PATH=~/.dotfiles/bin:${PATH}

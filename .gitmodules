@@ -1,3 +1,6 @@
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
+[submodule "libs/cheat"]
+	path = libs/cheat
+	url = git@github.com:chrisallenlane/cheat.git

@@ -6,6 +6,7 @@
    - "~"
 
 - link:
+    ~/.dotfiles: .
     ~/.env: env
     ~/.alias: alias
     ~/.bashrc: bashrc
