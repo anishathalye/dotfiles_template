@@ -1,0 +1,14 @@
+[
+  {
+    "caption":"Google Translate selected text",
+    "command": "go_translate"
+  },
+  {
+    "caption":"Google Translate selected to...",
+    "command": "go_translate_to"
+  },
+  {
+    "caption":"Google Translate Print the available translate variants",
+    "command": "go_translate_info"
+  }
+]

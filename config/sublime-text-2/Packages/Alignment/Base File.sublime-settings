@@ -1,0 +1,28 @@
+{
+	// If the indent level of a multi-line selection should be aligned
+	"align_indent": true,
+
+	// If indentation is done via tabs, set this to true to also align
+	// mid-line characters via tabs. This may cause alignment issues when
+	// viewing the file in an editor with different tab width settings. This
+	// will also cause multi-character operators to be left-aligned to the
+	// first character in the operator instead of the character from the
+	// "alignment_chars" setting.
+	"mid_line_tabs": false,
+
+	// The mid-line characters to align in a multi-line selection, changing
+	// this to an empty array will disable mid-line alignment
+	"alignment_chars": ["="],
+
+	// If the following character is matched for alignment, insert a space
+	// before it in the final alignment
+	"alignment_space_chars": ["="],
+
+	// The characters to align along with "alignment_chars"
+	// For instance if the = is to be aligned, there are a number of
+	// symbols that can be combined with the = to make an operator, and all
+	// of those must be kept next to the = for the operator to be parsed
+	"alignment_prefix_chars": [
+		"+", "-", "&", "|", "<", ">", "!", "~", "%", "/", "*", "."
+	]
+}

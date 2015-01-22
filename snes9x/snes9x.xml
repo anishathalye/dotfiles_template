@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<snes9x>
+ <preferences>
+  <option name="full_screen_on_open" value="0"/>
+  <option name="change_display_resolution" value="0"/>
+  <option name="video_mode" value="0"/>
+  <option name="video_mode_width" value="0"/>
+  <option name="video_mode_height" value="0"/>
+  <option name="scale_to_fit" value="1"/>
+  <option name="maintain_aspect_ratio" value="0"/>
+  <option name="aspect_ratio" value="0"/>
+  <option name="scale_method" value="0"/>
+  <option name="overscan" value="0"/>
+  <option name="hires_effect" value="1"/>
+  <option name="force_inverted_byte_order" value="0"/>
+  <option name="multithreading" value="0"/>
+  <option name="last_directory" value=""/>
+  <option name="sram_directory" value=""/>
+  <option name="savestate_directory" value="~/Dropbox/snes_savestates "/>
+  <option name="cheat_directory" value=""/>
+  <option name="patch_directory" value=""/>
+  <option name="export_directory" value=""/>
+  <option name="window_width" value="408"/>
+  <option name="window_height" value="334"/>
+  <option name="preferences_width" value="-1"/>
+  <option name="preferences_height" value="-1"/>
+  <option name="pause_emulation_on_switch" value="0"/>
+  <option name="num_threads" value="2"/>
+  <option name="default_esc_behavior" value="1"/>
+  <option name="prevent_screensaver" value="0"/>
+  <option name="fullscreen" value="0"/>
+  <option name="ui_visible" value="1"/>
+  <option name="statusbar_visible" value="0"/>
+  <option name="modal_dialogs" value="1"/>
+  <option name="ntsc_hue" value="0.000000"/>
+  <option name="ntsc_saturation" value="0.000000"/>
+  <option name="ntsc_contrast" value="0.000000"/>
+  <option name="ntsc_brightness" value="0.000000"/>
+  <option name="ntsc_sharpness" value="0.000000"/>
+  <option name="ntsc_artifacts" value="0.000000"/>
+  <option name="ntsc_gamma" value="0.000000"/>
+  <option name="ntsc_bleed" value="0.000000"/>
+  <option name="ntsc_fringing" value="0.000000"/>
+  <option name="ntsc_resolution" value="0.000000"/>
+  <option name="ntsc_merge_fields" value="1"/>
+  <option name="ntsc_scanline_intensity" value="1"/>
+  <option name="scanline_filter_intensity" value="0"/>
+  <option name="hw_accel" value="0"/>
+  <option name="bilinear_filter" value="0"/>
+  <option name="sync_to_vblank" value="1"/>
+  <option name="sync_every_frame" value="0"/>
+  <option name="use_pbos" value="1"/>
+  <option name="pbo_format" value="0"/>
+  <option name="npot_textures" value="0"/>
+  <option name="use_shaders" value="0"/>
+  <option name="fragment_shader" value=""/>
+  <option name="joystick_threshold" value="40"/>
+  <option name="netplay_is_server" value="0"/>
+  <option name="netplay_sync_reset" value="1"/>
+  <option name="netplay_send_rom" value="0"/>
+  <option name="netplay_default_port" value="6096"/>
+  <option name="netplay_max_frame_loss" value="10"/>
+  <option name="netplay_last_port" value="6096"/>
+  <option name="netplay_last_rom" value=""/>
+  <option name="netplay_last_host" value=""/>
+  <option name="mute_sound" value="0"/>
+  <option name="sound_buffer_size" value="32"/>
+  <option name="sound_driver" value="0"/>
+  <option name="sound_input_rate" value="31950"/>
+  <option name="sound_sync" value="1"/>
+  <option name="transparency" value="1"/>
+  <option name="show_frame_rate" value="0"/>
+  <option name="frameskip" value="200"/>
+  <option name="save_sram_after_secs" value="0"/>
+  <option name="16bit_sound" value="1"/>
+  <option name="stereo" value="1"/>
+  <option name="reverse_stereo" value="0"/>
+  <option name="playback_rate" value="5"/>
+  <option name="block_invalid_vram_access" value="1"/>
+  <option name="upanddown" value="0"/>
+ </preferences>
+ <controls>
+  <joypad number="0">
+   <binding name="Up" binding="0"/>
+   <binding name="Down" binding="0"/>
+   <binding name="Left" binding="0"/>
+   <binding name="Right" binding="0"/>
+   <binding name="Start" binding="0"/>
+   <binding name="Select" binding="0"/>
+   <binding name="A" binding="0"/>
+   <binding name="B" binding="0"/>
+   <binding name="X" binding="0"/>
+   <binding name="Y" binding="0"/>
+   <binding name="L" binding="0"/>
+   <binding name="R" binding="0"/>
+   <binding name="Turbo A" binding="0"/>
+   <binding name="Turbo B" binding="0"/>
+   <binding name="Turbo X" binding="0"/>
+   <binding name="Turbo Y" binding="0"/>
+   <binding name="Turbo L" binding="0"/>
+   <binding name="Turbo R" binding="0"/>
+   <binding name="Sticky A" binding="0"/>
+   <binding name="Sticky B" binding="0"/>
+   <binding name="Sticky X" binding="0"/>
+   <binding name="Sticky Y" binding="0"/>
+   <binding name="Sticky L" binding="0"/>
+   <binding name="Sticky R" binding="0"/>
+  </joypad>
+  <joypad number="1">
+   <binding name="Up" binding="0"/>
+   <binding name="Down" binding="0"/>
+   <binding name="Left" binding="0"/>
+   <binding name="Right" binding="0"/>
+   <binding name="Start" binding="0"/>
+   <binding name="Select" binding="0"/>
+   <binding name="A" binding="0"/>
+   <binding name="B" binding="0"/>
+   <binding name="X" binding="0"/>
+   <binding name="Y" binding="0"/>
+   <binding name="L" binding="0"/>
+   <binding name="R" binding="0"/>
+   <binding name="Turbo A" binding="0"/>
+   <binding name="Turbo B" binding="0"/>
+   <binding name="Turbo X" binding="0"/>
+   <binding name="Turbo Y" binding="0"/>
+   <binding name="Turbo L" binding="0"/>
+   <binding name="Turbo R" binding="0"/>
+   <binding name="Sticky A" binding="0"/>
+   <binding name="Sticky B" binding="0"/>
+   <binding name="Sticky X" binding="0"/>
+   <binding name="Sticky Y" binding="0"/>
+   <binding name="Sticky L" binding="0"/>
+   <binding name="Sticky R" binding="0"/>
+  </joypad>
+  <joypad number="2">
+   <binding name="Up" binding="0"/>
+   <binding name="Down" binding="0"/>
+   <binding name="Left" binding="0"/>
+   <binding name="Right" binding="0"/>
+   <binding name="Start" binding="0"/>
+   <binding name="Select" binding="0"/>
+   <binding name="A" binding="0"/>
+   <binding name="B" binding="0"/>
+   <binding name="X" binding="0"/>
+   <binding name="Y" binding="0"/>
+   <binding name="L" binding="0"/>
+   <binding name="R" binding="0"/>
+   <binding name="Turbo A" binding="0"/>
+   <binding name="Turbo B" binding="0"/>
+   <binding name="Turbo X" binding="0"/>
+   <binding name="Turbo Y" binding="0"/>
+   <binding name="Turbo L" binding="0"/>
+   <binding name="Turbo R" binding="0"/>
+   <binding name="Sticky A" binding="0"/>
+   <binding name="Sticky B" binding="0"/>
+   <binding name="Sticky X" binding="0"/>
+   <binding name="Sticky Y" binding="0"/>
+   <binding name="Sticky L" binding="0"/>
+   <binding name="Sticky R" binding="0"/>
+  </joypad>
+  <joypad number="3">
+   <binding name="Up" binding="0"/>
+   <binding name="Down" binding="0"/>
+   <binding name="Left" binding="0"/>
+   <binding name="Right" binding="0"/>
+   <binding name="Start" binding="0"/>
+   <binding name="Select" binding="0"/>
+   <binding name="A" binding="0"/>
+   <binding name="B" binding="0"/>
+   <binding name="X" binding="0"/>
+   <binding name="Y" binding="0"/>
+   <binding name="L" binding="0"/>
+   <binding name="R" binding="0"/>
+   <binding name="Turbo A" binding="0"/>
+   <binding name="Turbo B" binding="0"/>
+   <binding name="Turbo X" binding="0"/>
+   <binding name="Turbo Y" binding="0"/>
+   <binding name="Turbo L" binding="0"/>
+   <binding name="Turbo R" binding="0"/>
+   <binding name="Sticky A" binding="0"/>
+   <binding name="Sticky B" binding="0"/>
+   <binding name="Sticky X" binding="0"/>
+   <binding name="Sticky Y" binding="0"/>
+   <binding name="Sticky L" binding="0"/>
+   <binding name="Sticky R" binding="0"/>
+  </joypad>
+  <joypad number="4">
+   <binding name="Up" binding="0"/>
+   <binding name="Down" binding="0"/>
+   <binding name="Left" binding="0"/>
+   <binding name="Right" binding="0"/>
+   <binding name="Start" binding="0"/>
+   <binding name="Select" binding="0"/>
+   <binding name="A" binding="0"/>
+   <binding name="B" binding="0"/>
+   <binding name="X" binding="0"/>
+   <binding name="Y" binding="0"/>
+   <binding name="L" binding="0"/>
+   <binding name="R" binding="0"/>
+   <binding name="Turbo A" binding="0"/>
+   <binding name="Turbo B" binding="0"/>
+   <binding name="Turbo X" binding="0"/>
+   <binding name="Turbo Y" binding="0"/>
+   <binding name="Turbo L" binding="0"/>
+   <binding name="Turbo R" binding="0"/>
+   <binding name="Sticky A" binding="0"/>
+   <binding name="Sticky B" binding="0"/>
+   <binding name="Sticky X" binding="0"/>
+   <binding name="Sticky Y" binding="0"/>
+   <binding name="Sticky L" binding="0"/>
+   <binding name="Sticky R" binding="0"/>
+  </joypad>
+  <joypad number="5">
+   <binding name="Up" binding="0"/>
+   <binding name="Down" binding="0"/>
+   <binding name="Left" binding="0"/>
+   <binding name="Right" binding="0"/>
+   <binding name="Start" binding="0"/>
+   <binding name="Select" binding="0"/>
+   <binding name="A" binding="0"/>
+   <binding name="B" binding="0"/>
+   <binding name="X" binding="0"/>
+   <binding name="Y" binding="0"/>
+   <binding name="L" binding="0"/>
+   <binding name="R" binding="0"/>
+   <binding name="Turbo A" binding="0"/>
+   <binding name="Turbo B" binding="0"/>
+   <binding name="Turbo X" binding="0"/>
+   <binding name="Turbo Y" binding="0"/>
+   <binding name="Turbo L" binding="0"/>
+   <binding name="Turbo R" binding="0"/>
+   <binding name="Sticky A" binding="0"/>
+   <binding name="Sticky B" binding="0"/>
+   <binding name="Sticky X" binding="0"/>
+   <binding name="Sticky Y" binding="0"/>
+   <binding name="Sticky L" binding="0"/>
+   <binding name="Sticky R" binding="0"/>
+  </joypad>
+  <joypad number="6">
+   <binding name="Up" binding="0"/>
+   <binding name="Down" binding="0"/>
+   <binding name="Left" binding="0"/>
+   <binding name="Right" binding="0"/>
+   <binding name="Start" binding="0"/>
+   <binding name="Select" binding="0"/>
+   <binding name="A" binding="0"/>
+   <binding name="B" binding="0"/>
+   <binding name="X" binding="0"/>
+   <binding name="Y" binding="0"/>
+   <binding name="L" binding="0"/>
+   <binding name="R" binding="0"/>
+   <binding name="Turbo A" binding="0"/>
+   <binding name="Turbo B" binding="0"/>
+   <binding name="Turbo X" binding="0"/>
+   <binding name="Turbo Y" binding="0"/>
+   <binding name="Turbo L" binding="0"/>
+   <binding name="Turbo R" binding="0"/>
+   <binding name="Sticky A" binding="0"/>
+   <binding name="Sticky B" binding="0"/>
+   <binding name="Sticky X" binding="0"/>
+   <binding name="Sticky Y" binding="0"/>
+   <binding name="Sticky L" binding="0"/>
+   <binding name="Sticky R" binding="0"/>
+  </joypad>
+  <joypad number="7">
+   <binding name="Up" binding="0"/>
+   <binding name="Down" binding="0"/>
+   <binding name="Left" binding="0"/>
+   <binding name="Right" binding="0"/>
+   <binding name="Start" binding="0"/>
+   <binding name="Select" binding="0"/>
+   <binding name="A" binding="0"/>
+   <binding name="B" binding="0"/>
+   <binding name="X" binding="0"/>
+   <binding name="Y" binding="0"/>
+   <binding name="L" binding="0"/>
+   <binding name="R" binding="0"/>
+   <binding name="Turbo A" binding="0"/>
+   <binding name="Turbo B" binding="0"/>
+   <binding name="Turbo X" binding="0"/>
+   <binding name="Turbo Y" binding="0"/>
+   <binding name="Turbo L" binding="0"/>
+   <binding name="Turbo R" binding="0"/>
+   <binding name="Sticky A" binding="0"/>
+   <binding name="Sticky B" binding="0"/>
+   <binding name="Sticky X" binding="0"/>
+   <binding name="Sticky Y" binding="0"/>
+   <binding name="Sticky L" binding="0"/>
+   <binding name="Sticky R" binding="0"/>
+  </joypad>
+  <joypad number="8">
+   <binding name="Up" binding="0"/>
+   <binding name="Down" binding="0"/>
+   <binding name="Left" binding="0"/>
+   <binding name="Right" binding="0"/>
+   <binding name="Start" binding="0"/>
+   <binding name="Select" binding="0"/>
+   <binding name="A" binding="0"/>
+   <binding name="B" binding="0"/>
+   <binding name="X" binding="0"/>
+   <binding name="Y" binding="0"/>
+   <binding name="L" binding="0"/>
+   <binding name="R" binding="0"/>
+   <binding name="Turbo A" binding="0"/>
+   <binding name="Turbo B" binding="0"/>
+   <binding name="Turbo X" binding="0"/>
+   <binding name="Turbo Y" binding="0"/>
+   <binding name="Turbo L" binding="0"/>
+   <binding name="Turbo R" binding="0"/>
+   <binding name="Sticky A" binding="0"/>
+   <binding name="Sticky B" binding="0"/>
+   <binding name="Sticky X" binding="0"/>
+   <binding name="Sticky Y" binding="0"/>
+   <binding name="Sticky L" binding="0"/>
+   <binding name="Sticky R" binding="0"/>
+  </joypad>
+  <joypad number="9">
+   <binding name="Up" binding="0"/>
+   <binding name="Down" binding="0"/>
+   <binding name="Left" binding="0"/>
+   <binding name="Right" binding="0"/>
+   <binding name="Start" binding="0"/>
+   <binding name="Select" binding="0"/>
+   <binding name="A" binding="0"/>
+   <binding name="B" binding="0"/>
+   <binding name="X" binding="0"/>
+   <binding name="Y" binding="0"/>
+   <binding name="L" binding="0"/>
+   <binding name="R" binding="0"/>
+   <binding name="Turbo A" binding="0"/>
+   <binding name="Turbo B" binding="0"/>
+   <binding name="Turbo X" binding="0"/>
+   <binding name="Turbo Y" binding="0"/>
+   <binding name="Turbo L" binding="0"/>
+   <binding name="Turbo R" binding="0"/>
+   <binding name="Sticky A" binding="0"/>
+   <binding name="Sticky B" binding="0"/>
+   <binding name="Sticky X" binding="0"/>
+   <binding name="Sticky Y" binding="0"/>
+   <binding name="Sticky L" binding="0"/>
+   <binding name="Sticky R" binding="0"/>
+  </joypad>
+  <binding name="GTK_open_rom" binding="0"/>
+  <binding name="EmuTurbo" binding="0"/>
+  <binding name="ToggleEmuTurbo" binding="0"/>
+  <binding name="GTK_pause" binding="0"/>
+  <binding name="DecFrameRate" binding="0"/>
+  <binding name="IncFrameRate" binding="0"/>
+  <binding name="DecFrameTime" binding="0"/>
+  <binding name="IncFrameTime" binding="0"/>
+  <binding name="Reset" binding="0"/>
+  <binding name="SoftReset" binding="0"/>
+  <binding name="GTK_quit" binding="0"/>
+  <binding name="ToggleBG0" binding="0"/>
+  <binding name="ToggleBG1" binding="0"/>
+  <binding name="ToggleBG2" binding="0"/>
+  <binding name="ToggleBG3" binding="0"/>
+  <binding name="ToggleSprites" binding="0"/>
+  <binding name="BGLayeringHack" binding="0"/>
+  <binding name="Screenshot" binding="0"/>
+  <binding name="GTK_fullscreen" binding="0"/>
+  <binding name="QuickSave000" binding="0"/>
+  <binding name="QuickSave001" binding="0"/>
+  <binding name="QuickSave002" binding="0"/>
+  <binding name="QuickSave003" binding="0"/>
+  <binding name="QuickSave004" binding="0"/>
+  <binding name="QuickSave005" binding="0"/>
+  <binding name="QuickSave006" binding="0"/>
+  <binding name="QuickSave007" binding="0"/>
+  <binding name="QuickSave008" binding="0"/>
+  <binding name="QuickLoad000" binding="0"/>
+  <binding name="QuickLoad001" binding="0"/>
+  <binding name="QuickLoad002" binding="0"/>
+  <binding name="QuickLoad003" binding="0"/>
+  <binding name="QuickLoad004" binding="0"/>
+  <binding name="QuickLoad005" binding="0"/>
+  <binding name="QuickLoad006" binding="0"/>
+  <binding name="QuickLoad007" binding="0"/>
+  <binding name="QuickLoad008" binding="0"/>
+  <binding name="SoundChannel0" binding="0"/>
+  <binding name="SoundChannel1" binding="0"/>
+  <binding name="SoundChannel2" binding="0"/>
+  <binding name="SoundChannel3" binding="0"/>
+  <binding name="SoundChannel4" binding="0"/>
+  <binding name="SoundChannel5" binding="0"/>
+  <binding name="SoundChannel6" binding="0"/>
+  <binding name="SoundChannel7" binding="0"/>
+  <binding name="SoundChannelsOn" binding="0"/>
+  <binding name="GTK_save_spc" binding="0"/>
+  <binding name="BeginRecordingMovie" binding="0"/>
+  <binding name="EndRecordingMovie" binding="0"/>
+  <binding name="LoadMovie" binding="0"/>
+  <binding name="GTK_seek_to_frame" binding="0"/>
+  <binding name="GTK_swap_controllers" binding="0"/>
+ </controls>
+</snes9x>

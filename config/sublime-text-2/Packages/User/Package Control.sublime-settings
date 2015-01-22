@@ -1,0 +1,17 @@
+{
+	"installed_dependencies":
+	[
+		"0_package_control_loader",
+		"bz2",
+		"ssl-linux"
+	],
+	"installed_packages":
+	[
+		"Alignment",
+		"Github Tools",
+		"Indent XML",
+		"IndentX",
+		"Inline Google Translate",
+		"Package Control"
+	]
+}

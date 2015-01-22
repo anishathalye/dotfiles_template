@@ -1,0 +1,1629 @@
+{
+	"folder_history":
+	[
+		"/home/lbesnard/github_repo/data-services/FAIMMS/FAIMMS_data_rss_channels_process_matlab",
+		"/home/lbesnard/github_repo/data-services/ANMN/NRS_AIMS_Darwin_Yongala_data_rss_channels_process_matlab",
+		"/home/lbesnard/github_repo/data-services/AATAMS/AATAMS_sattag_dm",
+		"/home/lbesnard/data-services/lib/MATLAB/sqlite",
+		"/home/lbesnard/IMOS/auv"
+	],
+	"last_window_id": 6,
+	"settings":
+	{
+		"new_window_height": 480.0,
+		"new_window_settings":
+		{
+			"auto_complete":
+			{
+				"selected_items":
+				[
+					[
+						"low",
+						"lowLlat"
+					],
+					[
+						"index",
+						"index_equivalent"
+					],
+					[
+						"input",
+						"input_Lon"
+					]
+				]
+			},
+			"build_system": "",
+			"command_palette":
+			{
+				"height": 54.0,
+				"selected_items":
+				[
+					[
+						"Package Control: instal",
+						"Package Control: Install Package"
+					],
+					[
+						"Package Control: ena",
+						"Package Control: Enable Package"
+					],
+					[
+						"Package Control: inst",
+						"Package Control: Install Package"
+					],
+					[
+						"Package Control: in",
+						"Package Control: Install Package"
+					],
+					[
+						"Package Control: ",
+						"Package Control: Install Package"
+					],
+					[
+						"",
+						"Package Control: Enable Package"
+					]
+				],
+				"width": 593.0
+			},
+			"console":
+			{
+				"height": 66.0
+			},
+			"distraction_free":
+			{
+				"menu_visible": true,
+				"show_minimap": false,
+				"show_open_files": false,
+				"show_tabs": false,
+				"side_bar_visible": false,
+				"status_bar_visible": false
+			},
+			"file_history":
+			[
+				"/home/lbesnard/IMOS/chef/shared_src/geoserver/security/masterpw.xml",
+				"/home/lbesnard/IMOS/chef/shared_src/geoserver/global.xml",
+				"/home/lbesnard/github_repo/data-services/AATAMS/AATAMS_sattag_dm/aatams_sattag_dm_main.m",
+				"/home/lbesnard/Desktop/photobook.cls",
+				"/home/lbesnard/.cache/.fr-dG7DVz/ike/README.TXT",
+				"/home/lbesnard/.cache/.fr-Hq0AkM/JVpnc-0.0.1-src/INSTALL",
+				"/home/lbesnard/Downloads/JVpnc-0.0.1-src/INSTALL",
+				"/home/lbesnard/vpn/General-UTAS-VPN.vpn",
+				"/home/lbesnard/.reicast/emu.cfg",
+				"/home/lbesnard/.cache/.fr-kixl5y/ike/TODO.TXT",
+				"/home/lbesnard/testdata",
+				"/home/lbesnard/Dropbox/nat",
+				"/home/lbesnard/Dropbox/work/gtg/gtg_tasks-b44054cd-f959-40c1-bde0-02016a88541f.xml",
+				"/home/lbesnard/.cache/.fr-3Jh8Dl/console.log",
+				"/home/lbesnard/github_repo/reicast-emulator/shell/lin86/Makefile",
+				"/home/lbesnard/github_repo/reicast-emulator/shell/reicast.sln",
+				"/home/lbesnard/github_repo/reicast-emulator/shell/README.md",
+				"/home/lbesnard/AATAMS_output/AATAMS_sattag_dm/aatamsLog.txt",
+				"/home/lbesnard/data-services/FAIMMS/FAIMMS_data_rss_channels_process_matlab/subroutines/FAIMMS/authorisedChannel.m",
+				"/home/lbesnard/data-services/lib/MATLAB/sqlite/getColumnType_sqlite.m",
+				"/home/lbesnard/data-services/lib/MATLAB/sqlite/getColumnValues_sqlite.m",
+				"/home/lbesnard/data-services/FAIMMS/FAIMMS_data_rss_channels_process_matlab/subroutines/FAIMMS/report.m",
+				"/home/lbesnard/data-services/FAIMMS/FAIMMS_data_rss_channels_process_matlab/subroutines/std/listSubDir.m",
+				"/home/lbesnard/data-services/lib/MATLAB/checksum.m",
+				"/home/lbesnard/data-services/lib/MATLAB/dir/mkpath.m",
+				"/home/lbesnard/data-services/lib/java/class/mdb-sqlite-1.0.2/README_LOZ.md",
+				"/home/lbesnard/data-services/lib/MATLAB/java/addJarToPath.m",
+				"/home/lbesnard/data-services/lib/MATLAB/dir/uunique.m",
+				"/home/lbesnard/data-services/lib/MATLAB/dir/listSubDir.m",
+				"/home/lbesnard/data-services/SOOP/SOOP_aggregation_dataset_matlab/subroutines/std/listSubDir.m",
+				"/home/lbesnard/data-services/SOOP/SOOP_aggregation_dataset_matlab/subroutines/std/listFiles.m",
+				"/home/lbesnard/data-services/SOOP/SOOP_aggregation_dataset_matlab/Aggregate_SOOP.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/std/addJarToPath.m",
+				"/home/lbesnard/data-services/lib/MATLAB/sqlite/getColumnTypeSQLITE.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/std/listSubDir.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/std/unique_no_sort.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/std/uunique.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/listVarNC.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/getVarNC.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/getVarInfo.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/getTimeOffsetNC.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/getTimeData.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/getGlobAttNC.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/aatams_sattags_dm_main.sh",
+				"/tmp/AATAMS_SATTAG_DM.log",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/config.txt",
+				"/tmp/native_ff_events_log",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/isTableSQLITE.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/isFieldSQLITE.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getTEXT_sqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getMachineTimezone.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getFieldDATA_sqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getDOUBLE_sqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getDATETIME_sqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getColumnValues_sqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getColumnTypeSQLITE.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/convertTimeSqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/AATAMS_proccess/importAustralianTagCSV.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/AATAMS_proccess/read_writeInfo.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/AATAMS_proccess/loadCTD_datafromDB.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/AATAMS_proccess/createSattagProgFolderName.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/myJavaClasses/mdb-sqlite-1.0.2/src/java/com/plausiblelabs/mdb/AccessExporter.java",
+				"/tmp/tp19e7ef8d_bd4f_4d86_bed7_a26db94851f3",
+				"/tmp/tp0b58d49e_43db_4030_abe2_aae538033f50",
+				"/tmp/tp3a77d2dc_46cc_4623_bad6_eb6ce111899c",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/AATAMS_proccess/createAATAMS_Netcdf.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/aatams_sattags_dm_main.m",
+				"/tmp/tp77470496_7061_48d7_938d_a91617655977",
+				"/tmp/tp9b4b68c3_e2d4_4e1c_8d96_8246a21fc4fb",
+				"/tmp/tp08d857c0_0619_4d08_9907_e1e14d3c1509",
+				"/tmp/tpafc9c7f1_edfa_48fe_b707_98387c662485",
+				"/tmp/tpd3fa38ea_f068_4a72_a930_33457c1dacd6",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/myJavaClasses/mdb-sqlite-1.0.2/src/java/com/plausiblelabs/mdb/Main.java",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/myJavaClasses/mdb-sqlite-1.0.2/src/java/com/plausiblelabs/mdb/AccessExporterTests.java",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/myJavaClasses/mdb-sqlite-1.0.2/build.xml",
+				"/tmp/tp7b87ec5a_98bb_44af_a386_c2ae7bb79c45",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/Untitled Document",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_nrt/aatams_sealtags_nrt_main.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_nrt/aatams_sealtags_nrt_main.sh",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_nrt/config.txt",
+				"/home/lbesnard/data-services/FAIMMS/FAIMMS_data_rss_channels_process_matlab/subroutines/FAIMMS.py",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/config.txt",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/aatams_sealtags_nrt_main.sh",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/testdata",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/subroutines/aatams/AATAMS_seals_aggregation_profiles.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/subroutines/aatams/aatamsProcessDat.m",
+				"/home/lbesnard/AATAMS_output/aatams_sealtag_nrt/AATAMS_TAGS_LOGS_matlab_processing.txt",
+				"/home/lbesnard/riverHeight.log",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/australiantags.txt",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_dm/subroutines/sqlite/getFieldDATA_sqlite.m",
+				"/mnt/imos-t4/IMOS/archive/eMII/TALEND_harvester/AATAMS/metadata/aatams_sattag_metadata.csv",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_dm/subroutines/AATAMS_proccess/loadCTD_datafromDB.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_dm/subroutines/AATAMS_proccess/createAATAMS_Netcdf.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_dm/subroutines/AATAMS_proccess/aggregateAATAMS.m",
+				"/home/lbesnard/data-services/AUV/auv_viewer_campaign_processing_matlab/subroutines/AUV_proc/matchST_data.m",
+				"/home/lbesnard/data-services/AUV/auv_viewer_campaign_processing_matlab/subroutines/AUV_proc/matchB_data.m",
+				"/home/lbesnard/data-services/AUV/auv_viewer_campaign_processing_matlab/subroutines/AUV_proc/matchData.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/subroutines/aatamsProcessDat.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/AATAMS_seals_aggregation_profiles_UNIX.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/AATAMS_TAGS_LOGS_matlab_processing.txt",
+				"/home/lbesnard/AATAMS_output/aatams_sealtag_nrt/aatamsLog.txt",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/AATAMS_SEALS_main_function_UNIX.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/AATAMS_SEALS_subfunction1_UNIX.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/mdb2psql.py",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/compareOldNewTables.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/AATAMS_proccess/plotAggregatedData.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/AATAMS_proccess/loadCTD_datafromDB.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/database/getSchemaInfo_psql.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/database/readDB.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/database/getSchemaInfo.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/database/getPgPass.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/database/getFieldDATA_psql.m",
+				"/home/lbesnard/AATAMS_output/Biologging/aatamsLog.txt",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/AATAMS_proccess/createAATAMS_Netcdf.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/config.txt",
+				"/home/lbesnard/IMOS/imos-user-code-library/MATLAB_R2011/commons/NetCDF/ncParse.m",
+				"/home/lbesnard/data-services/SOOP/SOOP_aggregation_dataset_matlab/config.txt",
+				"/home/lbesnard/data-services/FAIMMS/FAIMMS_data_rss_channels_process_matlab/config.txt",
+				"/home/lbesnard/data-services/FAIMMS/FAIMMS_data_rss_channels_process_matlab/FAIMMS_Launcher.m",
+				"/home/lbesnard/AATAMS_sealtag_MDB2NetCDF/aatams_sealtags_main.m",
+				"/home/lbesnard/Downloads/wms (4)",
+				"/tmp/tpe741e7d6_8d6d_4b30_9ee2_088d667bc099",
+				"/tmp/d20141203-16029-1wkm6at/config",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/sqlite/getFieldDATA_sqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/sqlite/convertTimeSqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/AATAMS_proccess/createAATAMS_1profile_netcdf.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/AATAMS_proccess/findUUID.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/AATAMS_proccess/cleanNetCDF.m"
+			],
+			"find":
+			{
+				"height": 179.0
+			},
+			"find_in_files":
+			{
+				"height": 0.0,
+				"where_history":
+				[
+				]
+			},
+			"find_state":
+			{
+				"case_sensitive": false,
+				"find_history":
+				[
+					"dataset",
+					"include",
+					"lEGL",
+					"profile_layer",
+					"profile_download",
+					"__",
+					"sha1sumValueCurrent_mdbFile",
+					"mdb_checksum.mat",
+					"matFile",
+					"mdb_checksum_matFile",
+					"mdb_checksum_AlreadyProcessed_filename",
+					"mdb_checksum_AlreadyProcessed_value",
+					"sha1sumValueCurrent_csvFile_now",
+					"sha1sumValueCurrent_csvFile_previousRun",
+					"sqlitejdbc-v048-nested",
+					"scriptPath",
+					"scriptpath",
+					"|",
+					"	",
+					"DATA_FOLDER",
+					"tagName",
+					"='",
+					"time",
+					"function",
+					"\"",
+					"legacy_argo",
+					"argo-platform-views-4",
+					"download",
+					"anmn_ts",
+					"acorn_hourly_avg_qc_timeseries_url",
+					"_data",
+					"geoserver-123.aodn.org.au",
+					"trac_csv.I",
+					"trac_csv.im",
+					"header_data",
+					"header_data(index_equivalent).",
+					"header_data.",
+					"header_data_md.",
+					"metadata_ST",
+					"index_equivalent2",
+					"1",
+					"ERROR",
+					"error",
+					"DataFabricFolder",
+					"alignment_prefix_chars\n\n",
+					"..",
+					"	",
+					",Survey drowned reefs on the Great Barrier Reef, Qld,",
+					",Dense grids for baited remote underwater video stations, wide grids for kelp distribution investigation,",
+					"Dense grids for baited remote underwater video stations	 wide grids for kelp distribution investigation\n",
+					",Sample a range of sites at different lattitudes, looking at species gradients,",
+					",Sample a range of sites at different lattitudes, looking at species gradients,SIRIUS,",
+					",IMOS AUV Facility surveys, temperate reefs, south-western WA: Rottnest Island; Jurien Bay; Leeman; Abrolhos.,",
+					"IMOS AUV Facility surveys, temperate reefs, south-western WA: Rottnest Island; Jurien Bay; Leeman; Abrolhos.,",
+					"IMOS AUV Facility surveys,temperate reefs,south-western WA: Rottnest Island; Jurien Bay; Leeman; Abrolhos.\n",
+					"IMOS AUV Facility surveys	 temperate reefs	 south-western WA: Rottnest Island; Jurien Bay; Leeman; Abrolhos.\n",
+					"|",
+					"	",
+					"/tmp/",
+					"/mnt",
+					"/tmp/",
+					"corrupted",
+					"html_page",
+					"soup",
+					"web_adress",
+					"aeronetUnZip",
+					"aeronetZip",
+					"nasaLev2Webpage",
+					"AeronetUnZipFolder",
+					"configFilePath",
+					"aeronetUnZipFolder",
+					"download_aeronetData",
+					"a href=\\\"http:",
+					"sys",
+					"here is no data a",
+					"abos_pulse_",
+					"srs_L3P_DATA",
+					"Heron_Island/Weather_Station_Platform/air_pressure/air_pressure_channel_190/2014/IMOS_FAIMMS_M_20140601T000000Z_HIWS_FV00_END-20140602T115024Z_C-20140602T220152Z.nc \n",
+					"path",
+					"image_",
+					"pass",
+					"AUV_MATLAB_CODE",
+					"id_BigDecimal",
+					"tweet",
+					"id_Double",
+					"tweet",
+					"date_time_utc",
+					"quote_grab",
+					"abos_currents",
+					"harvest",
+					"anfog_rt",
+					"soop_co2",
+					"soop_ba",
+					"soop_tmv",
+					"soop_asf_mft",
+					"soop_soopco2",
+					"Stroke",
+					"Line",
+					"Rule",
+					"</f",
+					"<f",
+					"stroke",
+					"LineSymbolizer",
+					"\\",
+					"context.file_id",
+					"srs_oc_bodbaw.",
+					"WHERE id =1",
+					"WHERE file_id =1",
+					"WHERE file_id =1 ",
+					"srs_oc_bodbaw.",
+					"\"",
+					"srs_oc_bodbaw.",
+					"\\",
+					"voyage_id",
+					"soop_soopco2",
+					"'chl_oc3'",
+					"timeCruise",
+					"strftime",
+					"sst",
+					"'lon'",
+					"'lat'",
+					"sea_surface_temperature",
+					"srs_L3S",
+					"L3C",
+					"sst",
+					"sea_surface_temperature",
+					"L3S",
+					"gedit.desktop"
+				],
+				"highlight": true,
+				"in_selection": false,
+				"preserve_case": false,
+				"regex": true,
+				"replace_history":
+				[
+					"**",
+					"sha1sum_mdbFile_now",
+					"sha1sumLog.mat",
+					"matFileSha1sum",
+					"matFile",
+					"mdb_alreadyProcessed",
+					"sha1sum_mdb_alreadyProcessed",
+					"sha1sum_csvFile_now",
+					"sha1sum_csvFile_previousRun",
+					"sqlite-jdbc-3.8.7",
+					"scriptPath",
+					"    ",
+					"dataWIP_Path",
+					"= '",
+					"",
+					"argo",
+					"srs_sst_gridded",
+					"srs_sst_gridded_url",
+					"10.11.12.13",
+					"header_data_md",
+					"header_data",
+					"header_data_md",
+					"header_data(index_equivalent(kk)).",
+					"header_data(index_equivalent)",
+					"header_data_md(kk,1).",
+					"header_data_md",
+					"index_equivalent",
+					"destinationPath",
+					"  ",
+					".....",
+					",\"Survey drowned reefs on the Great Barrier Reef, Qld\",",
+					",\"Dense grids for baited remote underwater video stations, wide grids for kelp distribution investigation\",",
+					",\"Sample a range of sites at different lattitudes, looking at species gradients\",",
+					",\"Sample a range of sites at different lattitudes, looking at species gradients,SIRIUS\",",
+					",\"IMOS AUV Facility surveys, temperate reefs, south-western WA: Rottnest Island; Jurien Bay; Leeman; Abrolhos.\",",
+					",",
+					".",
+					"/",
+					"/tmp/mnt",
+					"/",
+					"htmlPage",
+					"htmlPageSoup",
+					"dataWebLink",
+					"aeronetData",
+					"aeronetZipTemporary",
+					"nasaLev2Webpage",
+					"aeronetUnZipFolder",
+					"ConfigFilePath",
+					"AeronetUnZipFolder",
+					"downloadAeronetData",
+					"abos_sots_timeseries_",
+					"srs_AODAAC_DATA",
+					"wiki_image/image_",
+					"auv_viewer_campaign_processing_matlab",
+					"id_Double",
+					"id_BigDecimal",
+					"TIME",
+					"station_info",
+					"soop_auscpr",
+					"harvest2",
+					"soop_trv",
+					"abos_currents",
+					"soop_co2",
+					"soop_ba",
+					"soop_tmv",
+					"soop_asf_mft",
+					"Point",
+					"</F",
+					"<F",
+					"fill",
+					"PointSymbolizer",
+					"",
+					"1",
+					"",
+					"WHERE file_id = \" + context.file_id +\" ",
+					"WHERE id = \" + context.file_id +\" ",
+					"WHERE file_id = \" + context.file_id +\" ",
+					"",
+					"\\\"",
+					"",
+					"cruise_id",
+					"srs_oc_bodbaw",
+					"mainVarname",
+					"chl",
+					"'longitude'",
+					"'latitude'",
+					"chl_oc3",
+					"srs_chl_oc",
+					"L3S",
+					"chlor",
+					"chlor_MODIS",
+					"L3C",
+					"sublime.desktop"
+				],
+				"reverse": false,
+				"show_context": true,
+				"use_buffer2": true,
+				"whole_word": false,
+				"wrap": true
+			},
+			"incremental_find":
+			{
+				"height": 34.0
+			},
+			"input":
+			{
+				"height": 0.0
+			},
+			"layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						1,
+						1
+					]
+				],
+				"cols":
+				[
+					0.0,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					1.0
+				]
+			},
+			"menu_visible": true,
+			"output.exec":
+			{
+				"height": 51.0
+			},
+			"replace":
+			{
+				"height": 64.0
+			},
+			"save_all_on_build": true,
+			"select_file":
+			{
+				"height": 0.0,
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_project":
+			{
+				"height": 0.0,
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"show_minimap": true,
+			"show_open_files": false,
+			"show_tabs": true,
+			"side_bar_visible": true,
+			"side_bar_width": 320.0,
+			"status_bar_visible": true
+		},
+		"new_window_width": 1161.0
+	},
+	"windows":
+	[
+		{
+			"auto_complete":
+			{
+				"selected_items":
+				[
+					[
+						"low",
+						"lowLlat"
+					],
+					[
+						"index",
+						"index_equivalent"
+					],
+					[
+						"input",
+						"input_Lon"
+					]
+				]
+			},
+			"buffers":
+			[
+				{
+					"contents": "OLD=\"references,,\"\nNEW=\"references,www.marine.csiro.au\\/marq\\/edd_search.Browse_Citation?txtSession=14224,\"\nDPATH=\"/home/lbesnard/IMOS/SRS/SRS-OC-BODBAW/data_files/AC9-HS6/AO06_v5a/*.csv\"\nfor f in $DPATH\ndo\n  sed -i.bak s/$OLD/$NEW/g $f\n \ndone",
+					"settings":
+					{
+						"buffer_size": 243,
+						"line_ending": "Unix",
+						"name": "OLD=\"references,,\""
+					}
+				},
+				{
+					"contents": "\nopenssl rsa -in ~/.ssh/id_rsa -out /tmp/id_rs_plain\n\nsudo umount /mnt/opendap-nec/2/\nsshfs_mount 10-nec-hob.emii.org.au:/mnt/opendap/2 /mnt/opendap-nec/2/\n\n\nsshfs_mount 10-nsp-mel.emii.org.au:/mnt/imos-t4/ /mnt/imos-t4/\nsshfs_mount 10-nsp-mel.emii.org.au:/mnt/opendap/ /mnt/imos-t3\n\nfrom configobj import ConfigObj \n\n",
+					"settings":
+					{
+						"buffer_size": 318,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"contents": "discard unstaged changes in git\ngit clean -df & git checkout .\n\nTo delete all branches that are already merged into the currently checked out branch:\ngit branch --merged | grep -v \"\\*\" | xargs -n 1 git branch -d\n\ngit clean -df\nCleans the working tree by recursively removing files that are not under version control, starting from the current directory.\n-d = Remove untracked directories in addition to untracked files -f = Force (might be not necessary depending on  clean.requireForce setting)\n\n\nThis checks out the current index for the current directory, throwing away all changes in files from the current directory downwards.\ngit checkout .",
+					"settings":
+					{
+						"buffer_size": 646,
+						"line_ending": "Unix",
+						"name": "discard unstaged changes in git"
+					}
+				},
+				{
+					"contents": "///REGEXP///\necho this,isatest |grep -Po ','  ## -P perl-style regexes, -o print only what matches the pattern\n^A	\"A\" at the beginning of a line\nA$	\"A\" at the end of a line\nA^	\"A^\" anywhere on a line\n$A	\"$A\" anywhere on a line\n^^	\"^\" at the beginning of a line\n$$	\"$\" at the end of a line\n*	0 or more occurrence of previous character.\n.	To match any character\n[]	Range of character\n[^char]		negate of occurrence of a character set\n<word>		Actual word finding\n[a-z]		Match’s any single char between a to z.\n[A-Z]		Match’s any single char between a to z.\n[0-9]		Match’s any single char between 0 to 9.\n[a-zA-Z0-9] Match’s any single character either a to z or A to Z or 0 to 9\n[!@#$%^]	Match’s any ! or @ or # or $ or % or ^ character.\n\n\n\necho $HOSTNAME \necho $RANDOM\necho $UID\n\ncat /etc/passwd | sed '1,10d'  ## remove 10 first lines of file\ncat /etc/passwd | sed '4,10p' #Lines starting from 4th till 10th are printed\n\ncat /etc/passwd | sed 's/root/amrood/'\ncat /etc/passwd | sed 's/root/amrood/g' ## do a global substitution\ncat /etc/passwd | sed -n '/^daem/p' ## p command with n to print all the matching lines\necho '1stPattern,randometext,2ndPattern' | sed 's/\\(1st.*\\),\\(.*\\),\\(2nd.*\\)/\\3,\\2,\\1/g'  ## reverse order \n\n\n\nPerformance Tools:\nnice/renice	Run a program with modified scheduling priority\nnetstat		Print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships\ntime		Time a simple command or give resource usage\nuptime		System Load Average\nps			Report a snapshot of the current processes.\nvmstat		Report virtual memory statistics\ngprof		Display call graph profile data\nprof		Process Profiling\ntop			Display system tasks\n\n\nhead -1 test \nsuffixe=`head -1 test`\n\n\nhttp://unix.stackexchange.com/questions/139657/a-challenge-for-sed-convert-code-from-mathematica-to-matlab\n$ echo 'Complex(1.3, 2.7)*Power(kappa, 2.0) + Complex(0.3, 2.0)*Power(kappa,5.0)*log(alpha)' | sed 's/Complex(\\([0-9]*\\.[0-9]*\\), \\([0-9]*\\.[0-9]*\\))/(\\1 +i*\\2)/g' | sed 's/Power(\\(.*\\), \\([0-9]*\\.[0-9]*\\))/\\1^\\2/g' | sed 's/Power(\\(.*\\),\\([0-9]*\\.[0-9]*\\))/\\1^\\2/g'\n> (1.3 +i*2.7)*kappa^2.0 + (0.3 +i*2.0)*kappa^5.0*log(alpha)\n\n\ntar -tvf AUV.tar | grep tif$ | wc -l  # count occurences of tif files in tar file without extracting\n",
+					"settings":
+					{
+						"buffer_size": 2266,
+						"line_ending": "Unix",
+						"name": "///REGEXP///"
+					}
+				},
+				{
+					"contents": "sed -e \"s/^/select * from auv_viewer_track.auv_images_vw where image_filename = '/\" AUV_martin.csv >auv.psql\nsed  \"s/.$/' || '_LC16' UNION ALL/\" auv.psql > auv2.psql\n\n\n",
+					"settings":
+					{
+						"buffer_size": 168,
+						"line_ending": "Unix",
+						"name": "sed -e \"s/^/select * from auv_viewer_track.auv_ima"
+					}
+				},
+				{
+					"contents": "Install viewer :\nlbesnard-Latitude-E6320 $ git clone git@github.com:aodn/auv.git\n\nsudo apt-get install curl\ncurl -s get.gvmtool.net | bash\ngvm install grails 1.3.7\n\n\nexport JAVA_HOME='/usr/lib/jvm/java-1.6.0-openjdk-amd64'\n\ngrails run-app",
+					"settings":
+					{
+						"buffer_size": 238,
+						"line_ending": "Unix",
+						"name": "Install viewer :"
+					}
+				},
+				{
+					"contents": "ElCaminoLoco\n\n_______\n\nNORWAY\n_______\n\n\n__________\n\nKAYAKING\n__________\n\n_______\n\nPAINTING\n_______\n\n\n_________\n\nWESTERN ARTHURS\n__________\n\n\n________________\n\nFRANCE and PG\n______________\n\n",
+					"settings":
+					{
+						"buffer_size": 189,
+						"line_ending": "Unix",
+						"name": "ElCaminoLoco"
+					}
+				},
+				{
+					"contents": "",
+					"file": "/media/lbesnard/Laurent_emII/bckp_mint12_201402/Desktop/Desktop_icons/Norway.txt",
+					"file_size": -1,
+					"file_write_time": -1,
+					"settings":
+					{
+						"buffer_size": 0,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"contents": "\nMetal Warriors	\nZero the Kamikaze Squirrel	\nRendering Ranger	\nRainbow Bell Adventures	\nSuper Aleste/\n\nfileNew = '/home/lbesnard/AATAMS_output/AATAMS_sattag_dm/NETCDF/2007_ct31_South-Australia/ct31-441-07/IMOS_AATAMS-SATTAG_TSP_20080306T210200Z_ct31-441-07_END-20080417T030800Z_FV00.nc'\nnc = netcdf.open(fileNew,'NO_WRITE');\n[allVarnames,allVaratts]=listVarNC(nc)\nDATA_new= getTimeData(nc,allVarnames);\ndatestr(DATA_new(1))\n\nfileOld ='/mnt/imos-t3/1/IMOS/opendap/AATAMS/marine_mammal_ctd-tag/2007_ct31_South_Australia/ct31-441-07/IMOS_AATAMS-SATTAG_TSP_20080306T210200Z_ct31-441-07_END-20080417T030800Z_FV00.nc'\nnc = netcdf.open(fileOld,'NO_WRITE');\n[allVarnames,allVaratts]=listVarNC(nc)\nDATA_old= getTimeData(nc,allVarnames);\ndatestr(DATA_old(1))\n\ntime to finish metroid",
+					"settings":
+					{
+						"buffer_size": 772,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"contents": "\nport forwarding on my machine via its6 : \nssh -fNg -L 5556:dbprod.emii.org.au:5432 6-its-hob.emii.org.au ssh -A lbesnard@dbprod.emii.org.au\n\nport forwarding to scp via ssh tunnel :\nStep 1: Establish SSH tunnel. Pick a temporary port between 1024 and 32768 (12345 in this example). Port 22 will be used by scp.\nssh -fNg -L 12345:10-nsp-mel.emii.org.au:22 6-its-hob.emii.org.au\nStep 2: Run scp against port 1234 pretending 127.0.0.1 (localhost) is the remote machine R, and the command will be sent to R.\nscp -r  -P 12345 lbesnard@127.0.0.1:/mnt/opendap/1/IMOS/opendap/Argo/dac/csiro/5903665 /home/lbesnard/IMOS_DATA/Argo/\n\npsql -h dbprod.emii.org.au -p 5432 -d harvest -U laurent -W laurent\npsql -h 14-nsp-mel.emii.org.au -p 5432 -d harvest -U laurent -W laurent\n\n#list schemas\nselect nspname from pg_catalog.pg_namespace;\nor \n\\dn\n \n\nList tables in a PostgreSQL schema\nIn all schemas:\n\n=> \\dt *.*\nIn a particular schema:\n\n=> \\dt public.*",
+					"settings":
+					{
+						"buffer_size": 937,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"file": "/home/lbesnard/IMOS/chef/shared_src/geoserver/security/usergroup/default/users.xml",
+					"settings":
+					{
+						"buffer_size": 237,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"contents": "export VAGRANT_STATIC_IP=11.12.13.1\nscp -r  -P 12345 lbesnard@127.0.0.1:/mnt/opendap/1/IMOS/opendap/Argo/dac/csiro/5903665 /home/lbesnard/IMOS_DATA/Argo/\n\nssh -fNg -L 12345:10-nsp-mel.emii.org.au:22 6-its-hob.emii.org.au\nmkdir -p /home/lbesnard/IMOS_DATA/FAIMMS/Rib_Reef/Sensor_Float_1/water_temperature \nscp -r  -P 12345 lbesnard@127.0.0.1:/mnt/opendap/1/IMOS/opendap/FAIMMS/Rib_Reef/Sensor_Float_1/water_temperature /home/lbesnard/IMOS_DATA/FAIMMS/Rib_Reef/Sensor_Float_1/ ",
+					"settings":
+					{
+						"buffer_size": 475,
+						"line_ending": "Unix",
+						"name": "export VAGRANT_STATIC_IP=11.12.13.1"
+					}
+				},
+				{
+					"contents": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<databaseChangeLog xmlns=\"http://www.liquibase.org/xml/ns/dbchangelog\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd\">\n\n<changeSet author=\"talend\" id=\"measurements_merged\" runOnChange = \"true\">\n       <sql>\nDROP VIEW IF EXISTS measurements_merged;\nCREATE OR REPLACE VIEW measurements_merged AS (\n(       SELECT measurements_noqaqc.channel_id,\n       measurements_noqaqc.file_id as file_id_no_qaqc,\n       measurements_qaqc.file_id as file_id_qaqc,\n       measurements_noqaqc.\"TIME\", \n       measurements_noqaqc.\"VALUES\",\n       measurements_noqaqc.\"VALUES_quality_control\"\n       from measurements_noqaqc \nLEFT JOIN measurements_qaqc\nON\n  measurements_qaqc.\"TIME\" = measurements_noqaqc.\"TIME\" AND \n  measurements_qaqc.channel_id = measurements_noqaqc.channel_id\n WHERE   measurements_qaqc.\"VALUES\" IS  NULL) \n  UNION ALL\n (\n SELECT measurements_qaqc.channel_id,\n       measurements_noqaqc.file_id as file_id_no_qaqc,\n       measurements_qaqc.file_id as file_id_qaqc,\n       measurements_noqaqc.\"TIME\", \n       measurements_noqaqc.\"VALUES\",\n       measurements_qaqc.\"VALUES_quality_control\"\n       from measurements_qaqc \nLEFT JOIN measurements_noqaqc\nON\n  measurements_noqaqc.\"TIME\" = measurements_qaqc.\"TIME\" AND \n  measurements_noqaqc.channel_id = measurements_qaqc.channel_id\n WHERE   measurements_noqaqc.\"VALUES\" IS NOT NULL\n\n )\n ORDER BY channel_id,\"TIME\"\n );\n </sql>\n </changeSet>\n\n<changeSet author=\"talend\" id=\"timeseries_map\" runOnChange = \"true\">\n       <sql>\nDROP VIEW IF EXISTS faimms_timeseries_map;\nCREATE OR REPLACE VIEW faimms_timeseries_map AS (\n WITH table_b AS (\n         SELECT timeseries_feature_deployments_varname.channel_id, \n                CASE\n                  WHEN site_code ~ 'DAV' THEN 'Davies Reef' \n      WHEN site_code ~ 'HI' THEN 'Heron Island' \n      WHEN site_code ~ 'LIZ' THEN 'Lizard Island' \n      WHEN site_code ~ 'MRY' THEN 'Myrmidon Reef' \n      WHEN site_code ~ 'OTI' THEN 'One Tree Island' \n      WHEN site_code ~ 'RIB' THEN 'Rib Reef' \n      WHEN site_code ~ 'OI' THEN 'Orpheus Island' \n                ELSE timeseries_feature_deployments_varname.site_code\n                END AS platform_code, time_start, time_end\n           FROM timeseries_feature_deployments_varname\n        )\n SELECT timeseries_feature_deployments_varname.channel_id, table_b.time_start, table_b.time_end, table_b.platform_code, timeseries_feature_deployments_varname.site_code, timeseries_feature_deployments_varname.\"VARNAME\", timeseries_feature_deployments_varname.\"DEPTH\", timeseries_feature_deployments_varname.geom\n   FROM timeseries_feature_deployments_varname\n   JOIN table_b ON table_b.channel_id = timeseries_feature_deployments_varname.channel_id);\n\n\n </sql>\n </changeSet>\n\n<changeSet author=\"talend\" id=\"timeseries_data\" runOnChange = \"true\">\n       <sql>\nDROP VIEW IF EXISTS faimms_timeseries_data;\nCREATE OR REPLACE VIEW faimms_timeseries_data AS \n SELECT measurements_merged.file_id_qaqc,measurements_merged.file_id_no_qaqc, table_a.url,  measurements_merged.channel_id, \n        CASE\n            WHEN table_b.site_code::text ~ 'DAV'::text THEN 'Davies Reef'::character varying\n            WHEN table_b.site_code::text ~ 'HI'::text THEN 'Heron Island'::character varying\n            WHEN table_b.site_code::text ~ 'LIZ'::text THEN 'Lizard Island'::character varying\n            WHEN table_b.site_code::text ~ 'MRY'::text THEN 'Myrmidon Reef'::character varying\n            WHEN table_b.site_code::text ~ 'OTI'::text THEN 'One Tree Island'::character varying\n            WHEN table_b.site_code::text ~ 'RIB'::text THEN 'Rib Reef'::character varying\n            WHEN table_b.site_code::text ~ 'OI'::text THEN 'Orpheus Island'::character varying\n            ELSE table_b.site_code\n        END AS platform_code, table_b.site_code, measurements_merged.\"TIME\", table_b.\"LATITUDE\", table_b.\"LONGITUDE\", table_b.\"DEPTH\", table_b.\"VARNAME\", measurements_merged.\"VALUES\", measurements_merged.\"VALUES_quality_control\", table_b.geom\n   FROM measurements_merged\n   JOIN indexed_file table_a ON table_a.id = measurements_merged.file_id_no_qaqc\n   JOIN timeseries_feature_deployments_varname table_b ON table_b.channel_id = measurements_merged.channel_id;\n\n   </sql>\n    </changeSet>\n\n</databaseChangeLog>",
+					"settings":
+					{
+						"buffer_size": 4414,
+						"line_ending": "Unix",
+						"name": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"n"
+					}
+				},
+				{
+					"contents": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<databaseChangeLog xmlns=\"http://www.liquibase.org/xml/ns/dbchangelog\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd\">\n\n<changeSet author=\"talend\" id=\"measurements_merged\" runOnChange = \"true\">\n       <sql>\nDROP VIEW IF EXISTS faimms_timeseries_data;\nDROP VIEW IF EXISTS measurements_merged;\nCREATE OR REPLACE VIEW measurements_merged AS (\n(       SELECT measurements_noqaqc.channel_id,\n       measurements_noqaqc.file_id as file_id_no_qaqc,\n       measurements_qaqc.file_id as file_id_qaqc,\n       measurements_noqaqc.\"TIME\", \n       measurements_noqaqc.\"VALUES\",\n       measurements_noqaqc.\"VALUES_quality_control\"\n       from measurements_noqaqc \nLEFT JOIN measurements_qaqc\nON\n  measurements_qaqc.\"TIME\" = measurements_noqaqc.\"TIME\" AND \n  measurements_qaqc.channel_id = measurements_noqaqc.channel_id\n WHERE   measurements_qaqc.\"VALUES\" IS  NULL) \n  UNION ALL\n (\n SELECT measurements_qaqc.channel_id,\n       measurements_noqaqc.file_id as file_id_no_qaqc,\n       measurements_qaqc.file_id as file_id_qaqc,\n       measurements_noqaqc.\"TIME\", \n       measurements_noqaqc.\"VALUES\",\n       measurements_qaqc.\"VALUES_quality_control\"\n       from measurements_qaqc \nLEFT JOIN measurements_noqaqc\nON\n  measurements_noqaqc.\"TIME\" = measurements_qaqc.\"TIME\" AND \n  measurements_noqaqc.channel_id = measurements_qaqc.channel_id\n WHERE   measurements_noqaqc.\"VALUES\" IS NOT NULL\n\n )\n );\n </sql>\n       <sql>\nDROP VIEW IF EXISTS faimms_timeseries_map;\nCREATE OR REPLACE VIEW faimms_timeseries_map AS (\n WITH table_b AS (\n         SELECT timeseries_feature_deployments_varname.channel_id, \n                CASE\n                  WHEN site_code ~ 'DAV' THEN 'Davies Reef' \n      WHEN site_code ~ 'HI' THEN 'Heron Island' \n      WHEN site_code ~ 'LIZ' THEN 'Lizard Island' \n      WHEN site_code ~ 'MRY' THEN 'Myrmidon Reef' \n      WHEN site_code ~ 'OTI' THEN 'One Tree Island' \n      WHEN site_code ~ 'RIB' THEN 'Rib Reef' \n      WHEN site_code ~ 'OI' THEN 'Orpheus Island' \n                ELSE timeseries_feature_deployments_varname.site_code\n                END AS platform_code, time_start, time_end\n           FROM timeseries_feature_deployments_varname\n        )\n SELECT timeseries_feature_deployments_varname.channel_id, table_b.time_start, table_b.time_end, table_b.platform_code, timeseries_feature_deployments_varname.site_code, timeseries_feature_deployments_varname.\"VARNAME\", timeseries_feature_deployments_varname.\"DEPTH\", timeseries_feature_deployments_varname.geom\n   FROM timeseries_feature_deployments_varname\n   JOIN table_b ON table_b.channel_id = timeseries_feature_deployments_varname.channel_id);\n\n\n </sql>\n\n\n       <sql>\nDROP VIEW IF EXISTS faimms_timeseries_data;\nCREATE OR REPLACE VIEW faimms_timeseries_data AS \n SELECT measurements_merged.file_id_qaqc,measurements_merged.file_id_no_qaqc, table_a.url,  measurements_merged.channel_id, \n        CASE\n            WHEN table_b.site_code::text ~ 'DAV'::text THEN 'Davies Reef'::character varying\n            WHEN table_b.site_code::text ~ 'HI'::text THEN 'Heron Island'::character varying\n            WHEN table_b.site_code::text ~ 'LIZ'::text THEN 'Lizard Island'::character varying\n            WHEN table_b.site_code::text ~ 'MRY'::text THEN 'Myrmidon Reef'::character varying\n            WHEN table_b.site_code::text ~ 'OTI'::text THEN 'One Tree Island'::character varying\n            WHEN table_b.site_code::text ~ 'RIB'::text THEN 'Rib Reef'::character varying\n            WHEN table_b.site_code::text ~ 'OI'::text THEN 'Orpheus Island'::character varying\n            ELSE table_b.site_code\n        END AS platform_code, table_b.site_code, measurements_merged.\"TIME\", table_b.\"LATITUDE\", table_b.\"LONGITUDE\", table_b.\"DEPTH\", table_b.\"VARNAME\", measurements_merged.\"VALUES\", measurements_merged.\"VALUES_quality_control\", table_b.geom\n   FROM measurements_merged\n   JOIN indexed_file table_a ON table_a.id = measurements_merged.file_id_no_qaqc\n   JOIN timeseries_feature_deployments_varname table_b ON table_b.channel_id = measurements_merged.channel_id;\n\n   </sql>\n    </changeSet>\n\n</databaseChangeLog>",
+					"settings":
+					{
+						"buffer_size": 4263,
+						"line_ending": "Unix",
+						"name": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"n"
+					}
+				},
+				{
+					"contents": "(       SELECT measurements_noqaqc.channel_id,\n       measurements_noqaqc.file_id as file_id_no_qaqc,\n       measurements_qaqc.file_id as file_id_qaqc,\n       measurements_noqaqc.\"TIME\", \n       measurements_noqaqc.\"VALUES\",\n       measurements_noqaqc.\"VALUES_quality_control\"\n       from measurements_noqaqc \nLEFT JOIN measurements_qaqc\nON\n  measurements_qaqc.\"TIME\" = measurements_noqaqc.\"TIME\" AND \n  measurements_qaqc.channel_id = measurements_noqaqc.channel_id\n WHERE   measurements_qaqc.\"VALUES\" IS  NULL) \n  UNION ALL\n (\n SELECT measurements_qaqc.channel_id,\n       measurements_noqaqc.file_id as file_id_no_qaqc,\n       measurements_qaqc.file_id as file_id_qaqc,\n       measurements_noqaqc.\"TIME\", \n       measurements_noqaqc.\"VALUES\",\n       measurements_qaqc.\"VALUES_quality_control\"\n       from measurements_qaqc \nLEFT JOIN measurements_noqaqc\nON\n  measurements_noqaqc.\"TIME\" = measurements_qaqc.\"TIME\" AND \n  measurements_noqaqc.channel_id = measurements_qaqc.channel_id\n WHERE   measurements_noqaqc.\"VALUES\" IS NOT NULL\n\n )\n );\n\n SELECT measurements_merged.file_id_qaqc,measurements_merged.file_id_no_qaqc, table_a.url,  measurements_merged.channel_id, \n        CASE\n            WHEN table_b.site_code::text ~ 'DAV'::text THEN 'Davies Reef'::character varying\n            WHEN table_b.site_code::text ~ 'HI'::text THEN 'Heron Island'::character varying\n            WHEN table_b.site_code::text ~ 'LIZ'::text THEN 'Lizard Island'::character varying\n            WHEN table_b.site_code::text ~ 'MRY'::text THEN 'Myrmidon Reef'::character varying\n            WHEN table_b.site_code::text ~ 'OTI'::text THEN 'One Tree Island'::character varying\n            WHEN table_b.site_code::text ~ 'RIB'::text THEN 'Rib Reef'::character varying\n            WHEN table_b.site_code::text ~ 'OI'::text THEN 'Orpheus Island'::character varying\n            ELSE table_b.site_code\n        END AS platform_code, table_b.site_code, measurements_merged.\"TIME\", table_b.\"LATITUDE\", table_b.\"LONGITUDE\", table_b.\"DEPTH\", table_b.\"VARNAME\", measurements_merged.\"VALUES\", measurements_merged.\"VALUES_quality_control\", table_b.geom\n   FROM measurements_merged\n   JOIN indexed_file table_a ON table_a.id = measurements_merged.file_id_no_qaqc\n   JOIN timeseries_feature_deployments_varname table_b ON table_b.channel_id = measurements_merged.channel_id;\n",
+					"settings":
+					{
+						"buffer_size": 2336,
+						"line_ending": "Unix",
+						"name": "(       SELECT measurements_noqaqc.channel_id,"
+					}
+				},
+				{
+					"contents": "(\n      SELECT measurements_noqaqc.channel_id,\n       measurements_noqaqc.file_id as file_id_no_qaqc,\n       measurements_qaqc.file_id as file_id_qaqc,\n       measurements_noqaqc.\"TIME\", \n       measurements_noqaqc.\"VALUES\",\n       measurements_noqaqc.\"VALUES_quality_control\",\n       table_a.url,\n       CASE\n            WHEN table_b.site_code::text ~ 'DAV'::text THEN 'Davies Reef'::character varying\n            WHEN table_b.site_code::text ~ 'HI'::text THEN 'Heron Island'::character varying\n            WHEN table_b.site_code::text ~ 'LIZ'::text THEN 'Lizard Island'::character varying\n            WHEN table_b.site_code::text ~ 'MRY'::text THEN 'Myrmidon Reef'::character varying\n            WHEN table_b.site_code::text ~ 'OTI'::text THEN 'One Tree Island'::character varying\n            WHEN table_b.site_code::text ~ 'RIB'::text THEN 'Rib Reef'::character varying\n            WHEN table_b.site_code::text ~ 'OI'::text THEN 'Orpheus Island'::character varying\n            ELSE table_b.site_code\n        END AS platform_code, \n        table_b.site_code,  table_b.\"LATITUDE\", table_b.\"LONGITUDE\", table_b.\"DEPTH\", \n        table_b.\"VARNAME\", table_b.geom     \n      \n       from faimms.measurements_noqaqc\n       \nLEFT JOIN faimms.measurements_qaqc\nON\n  measurements_qaqc.\"TIME\" = measurements_noqaqc.\"TIME\" AND \n  measurements_qaqc.channel_id = measurements_noqaqc.channel_id\nJOIN faimms.indexed_file table_a ON table_a.id = measurements_noqaqc.file_id\nJOIN faimms.timeseries_feature_deployments_varname table_b ON table_b.channel_id = measurements_noqaqc.channel_id\n  \n WHERE   measurements_qaqc.\"VALUES\" IS  NULL)  \n\n UNION ALL\n(\n SELECT measurements_qaqc.channel_id,\n       measurements_noqaqc.file_id as file_id_no_qaqc,\n       measurements_qaqc.file_id as file_id_qaqc,\n       measurements_noqaqc.\"TIME\", \n       measurements_noqaqc.\"VALUES\",\n       measurements_qaqc.\"VALUES_quality_control\",\n       table_a.url,\n       CASE\n            WHEN table_b.site_code::text ~ 'DAV'::text THEN 'Davies Reef'::character varying\n            WHEN table_b.site_code::text ~ 'HI'::text THEN 'Heron Island'::character varying\n            WHEN table_b.site_code::text ~ 'LIZ'::text THEN 'Lizard Island'::character varying\n            WHEN table_b.site_code::text ~ 'MRY'::text THEN 'Myrmidon Reef'::character varying\n            WHEN table_b.site_code::text ~ 'OTI'::text THEN 'One Tree Island'::character varying\n            WHEN table_b.site_code::text ~ 'RIB'::text THEN 'Rib Reef'::character varying\n            WHEN table_b.site_code::text ~ 'OI'::text THEN 'Orpheus Island'::character varying\n            ELSE table_b.site_code\n        END AS platform_code, \n        table_b.site_code,  table_b.\"LATITUDE\", table_b.\"LONGITUDE\", table_b.\"DEPTH\", \n        table_b.\"VARNAME\", table_b.geom  \n       from faimms.measurements_qaqc \nLEFT JOIN faimms.measurements_noqaqc\nON\n  measurements_noqaqc.\"TIME\" = measurements_qaqc.\"TIME\" AND \n  measurements_noqaqc.channel_id = measurements_qaqc.channel_id\n  JOIN faimms.indexed_file table_a ON table_a.id = measurements_qaqc.file_id\nJOIN faimms.timeseries_feature_deployments_varname table_b ON table_b.channel_id = measurements_noqaqc.channel_id\n  \n WHERE   measurements_noqaqc.\"VALUES\" IS NOT NULL\n\n )\n \n LIMIT 100",
+					"settings":
+					{
+						"buffer_size": 3254,
+						"line_ending": "Unix",
+						"name": "("
+					}
+				}
+			],
+			"build_system": "",
+			"command_palette":
+			{
+				"height": 54.0,
+				"selected_items":
+				[
+					[
+						"Package Control: instal",
+						"Package Control: Install Package"
+					],
+					[
+						"Package Control: ena",
+						"Package Control: Enable Package"
+					],
+					[
+						"Package Control: inst",
+						"Package Control: Install Package"
+					],
+					[
+						"Package Control: in",
+						"Package Control: Install Package"
+					],
+					[
+						"Package Control: ",
+						"Package Control: Install Package"
+					],
+					[
+						"",
+						"Package Control: Enable Package"
+					]
+				],
+				"width": 593.0
+			},
+			"console":
+			{
+				"height": 66.0
+			},
+			"distraction_free":
+			{
+				"menu_visible": true,
+				"show_minimap": false,
+				"show_open_files": false,
+				"show_tabs": false,
+				"side_bar_visible": false,
+				"status_bar_visible": false
+			},
+			"file_history":
+			[
+				"/home/lbesnard/Downloads/ioquake3-q3a-1.32-9.run",
+				"/home/lbesnard/.cache/.fr-dsHXtA/ike/TODO.TXT",
+				"/home/lbesnard/Desktop/null/stats_file.txt",
+				"/home/lbesnard/Desktop/null/logs_file.txt",
+				"/home/lbesnard/Desktop/prepatch.log",
+				"/home/lbesnard/.cache/.fr-OAufN6/GemRB_0.6.3+_Dingux/Readme_Dingux.txt",
+				"/home/lbesnard/.cache/.fr-Aathar/readme.txt",
+				"/home/lbesnard/.cache/.fr-sAjvKQ/readme.txt",
+				"/home/lbesnard/Desktop/patch/Super Mario Omega/Super Mario Omega READ ME.txt",
+				"/home/lbesnard/.cache/.fr-zrhbub/VLDC 2014 - Read This!.txt",
+				"/home/lbesnard/.cache/.fr-W5Tr2j/SMB3X Final 2.6/Readme + CREDITS.txt",
+				"/home/lbesnard/Desktop/patch/dwtlc110/readme.txt",
+				"/home/lbesnard/.cache/.fr-1byaFs/SMB3X Final 2.6/Readme + CREDITS.txt",
+				"/home/lbesnard/Desktop/patch/dwtlc110/le113/readme.txt",
+				"/home/lbesnard/.cache/.fr-N97SSZ/Readme and FAQs.txt",
+				"/home/lbesnard/Desktop/patch/log.txt",
+				"/home/lbesnard/Downloads/ips.pl",
+				"/home/lbesnard/.cache/.fr-dhUikm/Text.txt",
+				"/home/lbesnard/.cache/.fr-Cl4oq8/Readme v2.2.txt",
+				"/home/lbesnard/IMOS/chef/shared_src/geoserver/security/masterpw.xml",
+				"/home/lbesnard/IMOS/chef/shared_src/geoserver/global.xml",
+				"/home/lbesnard/github_repo/data-services/AATAMS/AATAMS_sattag_dm/aatams_sattag_dm_main.m",
+				"/home/lbesnard/Desktop/photobook.cls",
+				"/home/lbesnard/.cache/.fr-dG7DVz/ike/README.TXT",
+				"/home/lbesnard/.cache/.fr-Hq0AkM/JVpnc-0.0.1-src/INSTALL",
+				"/home/lbesnard/Downloads/JVpnc-0.0.1-src/INSTALL",
+				"/home/lbesnard/vpn/General-UTAS-VPN.vpn",
+				"/home/lbesnard/.reicast/emu.cfg",
+				"/home/lbesnard/.cache/.fr-kixl5y/ike/TODO.TXT",
+				"/home/lbesnard/testdata",
+				"/home/lbesnard/Dropbox/nat",
+				"/home/lbesnard/Dropbox/work/gtg/gtg_tasks-b44054cd-f959-40c1-bde0-02016a88541f.xml",
+				"/home/lbesnard/.cache/.fr-3Jh8Dl/console.log",
+				"/home/lbesnard/github_repo/reicast-emulator/shell/lin86/Makefile",
+				"/home/lbesnard/github_repo/reicast-emulator/shell/reicast.sln",
+				"/home/lbesnard/github_repo/reicast-emulator/shell/README.md",
+				"/home/lbesnard/AATAMS_output/AATAMS_sattag_dm/aatamsLog.txt",
+				"/home/lbesnard/data-services/FAIMMS/FAIMMS_data_rss_channels_process_matlab/subroutines/FAIMMS/authorisedChannel.m",
+				"/home/lbesnard/data-services/lib/MATLAB/sqlite/getColumnType_sqlite.m",
+				"/home/lbesnard/data-services/lib/MATLAB/sqlite/getColumnValues_sqlite.m",
+				"/home/lbesnard/data-services/FAIMMS/FAIMMS_data_rss_channels_process_matlab/subroutines/FAIMMS/report.m",
+				"/home/lbesnard/data-services/FAIMMS/FAIMMS_data_rss_channels_process_matlab/subroutines/std/listSubDir.m",
+				"/home/lbesnard/data-services/lib/MATLAB/checksum.m",
+				"/home/lbesnard/data-services/lib/MATLAB/dir/mkpath.m",
+				"/home/lbesnard/data-services/lib/java/class/mdb-sqlite-1.0.2/README_LOZ.md",
+				"/home/lbesnard/data-services/lib/MATLAB/java/addJarToPath.m",
+				"/home/lbesnard/data-services/lib/MATLAB/dir/uunique.m",
+				"/home/lbesnard/data-services/lib/MATLAB/dir/listSubDir.m",
+				"/home/lbesnard/data-services/SOOP/SOOP_aggregation_dataset_matlab/subroutines/std/listSubDir.m",
+				"/home/lbesnard/data-services/SOOP/SOOP_aggregation_dataset_matlab/subroutines/std/listFiles.m",
+				"/home/lbesnard/data-services/SOOP/SOOP_aggregation_dataset_matlab/Aggregate_SOOP.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/std/addJarToPath.m",
+				"/home/lbesnard/data-services/lib/MATLAB/sqlite/getColumnTypeSQLITE.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/std/listSubDir.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/std/unique_no_sort.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/std/uunique.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/listVarNC.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/getVarNC.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/getVarInfo.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/getTimeOffsetNC.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/getTimeData.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/netcdf/getGlobAttNC.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/aatams_sattags_dm_main.sh",
+				"/tmp/AATAMS_SATTAG_DM.log",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/config.txt",
+				"/tmp/native_ff_events_log",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/isTableSQLITE.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/isFieldSQLITE.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getTEXT_sqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getMachineTimezone.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getFieldDATA_sqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getDOUBLE_sqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getDATETIME_sqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getColumnValues_sqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/getColumnTypeSQLITE.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/sqlite/convertTimeSqlite.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/AATAMS_proccess/importAustralianTagCSV.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/AATAMS_proccess/read_writeInfo.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/AATAMS_proccess/loadCTD_datafromDB.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/AATAMS_proccess/createSattagProgFolderName.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/myJavaClasses/mdb-sqlite-1.0.2/src/java/com/plausiblelabs/mdb/AccessExporter.java",
+				"/tmp/tp19e7ef8d_bd4f_4d86_bed7_a26db94851f3",
+				"/tmp/tp0b58d49e_43db_4030_abe2_aae538033f50",
+				"/tmp/tp3a77d2dc_46cc_4623_bad6_eb6ce111899c",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/subroutines/AATAMS_proccess/createAATAMS_Netcdf.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/aatams_sattags_dm_main.m",
+				"/tmp/tp77470496_7061_48d7_938d_a91617655977",
+				"/tmp/tp9b4b68c3_e2d4_4e1c_8d96_8246a21fc4fb",
+				"/tmp/tp08d857c0_0619_4d08_9907_e1e14d3c1509",
+				"/tmp/tpafc9c7f1_edfa_48fe_b707_98387c662485",
+				"/tmp/tpd3fa38ea_f068_4a72_a930_33457c1dacd6",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/myJavaClasses/mdb-sqlite-1.0.2/src/java/com/plausiblelabs/mdb/Main.java",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/myJavaClasses/mdb-sqlite-1.0.2/src/java/com/plausiblelabs/mdb/AccessExporterTests.java",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/myJavaClasses/mdb-sqlite-1.0.2/build.xml",
+				"/tmp/tp7b87ec5a_98bb_44af_a386_c2ae7bb79c45",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_dm/Untitled Document",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_nrt/aatams_sealtags_nrt_main.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_nrt/aatams_sealtags_nrt_main.sh",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sattag_nrt/config.txt",
+				"/home/lbesnard/data-services/FAIMMS/FAIMMS_data_rss_channels_process_matlab/subroutines/FAIMMS.py",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/config.txt",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/aatams_sealtags_nrt_main.sh",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/testdata",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/subroutines/aatams/AATAMS_seals_aggregation_profiles.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/subroutines/aatams/aatamsProcessDat.m",
+				"/home/lbesnard/AATAMS_output/aatams_sealtag_nrt/AATAMS_TAGS_LOGS_matlab_processing.txt",
+				"/home/lbesnard/riverHeight.log",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/australiantags.txt",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_dm/subroutines/sqlite/getFieldDATA_sqlite.m",
+				"/mnt/imos-t4/IMOS/archive/eMII/TALEND_harvester/AATAMS/metadata/aatams_sattag_metadata.csv",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_dm/subroutines/AATAMS_proccess/loadCTD_datafromDB.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_dm/subroutines/AATAMS_proccess/createAATAMS_Netcdf.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_dm/subroutines/AATAMS_proccess/aggregateAATAMS.m",
+				"/home/lbesnard/data-services/AUV/auv_viewer_campaign_processing_matlab/subroutines/AUV_proc/matchST_data.m",
+				"/home/lbesnard/data-services/AUV/auv_viewer_campaign_processing_matlab/subroutines/AUV_proc/matchB_data.m",
+				"/home/lbesnard/data-services/AUV/auv_viewer_campaign_processing_matlab/subroutines/AUV_proc/matchData.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/subroutines/aatamsProcessDat.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/AATAMS_seals_aggregation_profiles_UNIX.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/AATAMS_TAGS_LOGS_matlab_processing.txt",
+				"/home/lbesnard/AATAMS_output/aatams_sealtag_nrt/aatamsLog.txt",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/AATAMS_SEALS_main_function_UNIX.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_nrt/AATAMS_SEALS_subfunction1_UNIX.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/mdb2psql.py",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/compareOldNewTables.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/AATAMS_proccess/plotAggregatedData.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/AATAMS_proccess/loadCTD_datafromDB.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/database/getSchemaInfo_psql.m",
+				"/home/lbesnard/data-services/AATAMS/AATAMS_sealtag_MDB2NetCDF/subroutines/database/readDB.m"
+			],
+			"find":
+			{
+				"height": 179.0
+			},
+			"find_in_files":
+			{
+				"height": 0.0,
+				"where_history":
+				[
+				]
+			},
+			"find_state":
+			{
+				"case_sensitive": false,
+				"find_history":
+				[
+					"faimms.",
+					"deploy_id",
+					"measurements",
+					"dataset",
+					"include",
+					"lEGL",
+					"profile_layer",
+					"profile_download",
+					"__",
+					"sha1sumValueCurrent_mdbFile",
+					"mdb_checksum.mat",
+					"matFile",
+					"mdb_checksum_matFile",
+					"mdb_checksum_AlreadyProcessed_filename",
+					"mdb_checksum_AlreadyProcessed_value",
+					"sha1sumValueCurrent_csvFile_now",
+					"sha1sumValueCurrent_csvFile_previousRun",
+					"sqlitejdbc-v048-nested",
+					"scriptPath",
+					"scriptpath",
+					"|",
+					"	",
+					"DATA_FOLDER",
+					"tagName",
+					"='",
+					"time",
+					"function",
+					"\"",
+					"legacy_argo",
+					"argo-platform-views-4",
+					"download",
+					"anmn_ts",
+					"acorn_hourly_avg_qc_timeseries_url",
+					"_data",
+					"geoserver-123.aodn.org.au",
+					"trac_csv.I",
+					"trac_csv.im",
+					"header_data",
+					"header_data(index_equivalent).",
+					"header_data.",
+					"header_data_md.",
+					"metadata_ST",
+					"index_equivalent2",
+					"1",
+					"ERROR",
+					"error",
+					"DataFabricFolder",
+					"alignment_prefix_chars\n\n",
+					"..",
+					"	",
+					",Survey drowned reefs on the Great Barrier Reef, Qld,",
+					",Dense grids for baited remote underwater video stations, wide grids for kelp distribution investigation,",
+					"Dense grids for baited remote underwater video stations	 wide grids for kelp distribution investigation\n",
+					",Sample a range of sites at different lattitudes, looking at species gradients,",
+					",Sample a range of sites at different lattitudes, looking at species gradients,SIRIUS,",
+					",IMOS AUV Facility surveys, temperate reefs, south-western WA: Rottnest Island; Jurien Bay; Leeman; Abrolhos.,",
+					"IMOS AUV Facility surveys, temperate reefs, south-western WA: Rottnest Island; Jurien Bay; Leeman; Abrolhos.,",
+					"IMOS AUV Facility surveys,temperate reefs,south-western WA: Rottnest Island; Jurien Bay; Leeman; Abrolhos.\n",
+					"IMOS AUV Facility surveys	 temperate reefs	 south-western WA: Rottnest Island; Jurien Bay; Leeman; Abrolhos.\n",
+					"|",
+					"	",
+					"/tmp/",
+					"/mnt",
+					"/tmp/",
+					"corrupted",
+					"html_page",
+					"soup",
+					"web_adress",
+					"aeronetUnZip",
+					"aeronetZip",
+					"nasaLev2Webpage",
+					"AeronetUnZipFolder",
+					"configFilePath",
+					"aeronetUnZipFolder",
+					"download_aeronetData",
+					"a href=\\\"http:",
+					"sys",
+					"here is no data a",
+					"abos_pulse_",
+					"srs_L3P_DATA",
+					"Heron_Island/Weather_Station_Platform/air_pressure/air_pressure_channel_190/2014/IMOS_FAIMMS_M_20140601T000000Z_HIWS_FV00_END-20140602T115024Z_C-20140602T220152Z.nc \n",
+					"path",
+					"image_",
+					"pass",
+					"AUV_MATLAB_CODE",
+					"id_BigDecimal",
+					"tweet",
+					"id_Double",
+					"tweet",
+					"date_time_utc",
+					"quote_grab",
+					"abos_currents",
+					"harvest",
+					"anfog_rt",
+					"soop_co2",
+					"soop_ba",
+					"soop_tmv",
+					"soop_asf_mft",
+					"soop_soopco2",
+					"Stroke",
+					"Line",
+					"Rule",
+					"</f",
+					"<f",
+					"stroke",
+					"LineSymbolizer",
+					"\\",
+					"context.file_id",
+					"srs_oc_bodbaw.",
+					"WHERE id =1",
+					"WHERE file_id =1",
+					"WHERE file_id =1 ",
+					"srs_oc_bodbaw.",
+					"\"",
+					"srs_oc_bodbaw.",
+					"\\",
+					"voyage_id",
+					"soop_soopco2",
+					"'chl_oc3'",
+					"timeCruise",
+					"strftime",
+					"sst",
+					"'lon'",
+					"'lat'",
+					"sea_surface_temperature",
+					"srs_L3S",
+					"L3C",
+					"sst"
+				],
+				"highlight": true,
+				"in_selection": false,
+				"preserve_case": false,
+				"regex": true,
+				"replace_history":
+				[
+					"",
+					"measurements_noqaqc",
+					"**",
+					"sha1sum_mdbFile_now",
+					"sha1sumLog.mat",
+					"matFileSha1sum",
+					"matFile",
+					"mdb_alreadyProcessed",
+					"sha1sum_mdb_alreadyProcessed",
+					"sha1sum_csvFile_now",
+					"sha1sum_csvFile_previousRun",
+					"sqlite-jdbc-3.8.7",
+					"scriptPath",
+					"    ",
+					"dataWIP_Path",
+					"= '",
+					"",
+					"argo",
+					"srs_sst_gridded",
+					"srs_sst_gridded_url",
+					"10.11.12.13",
+					"header_data_md",
+					"header_data",
+					"header_data_md",
+					"header_data(index_equivalent(kk)).",
+					"header_data(index_equivalent)",
+					"header_data_md(kk,1).",
+					"header_data_md",
+					"index_equivalent",
+					"destinationPath",
+					"  ",
+					".....",
+					",\"Survey drowned reefs on the Great Barrier Reef, Qld\",",
+					",\"Dense grids for baited remote underwater video stations, wide grids for kelp distribution investigation\",",
+					",\"Sample a range of sites at different lattitudes, looking at species gradients\",",
+					",\"Sample a range of sites at different lattitudes, looking at species gradients,SIRIUS\",",
+					",\"IMOS AUV Facility surveys, temperate reefs, south-western WA: Rottnest Island; Jurien Bay; Leeman; Abrolhos.\",",
+					",",
+					".",
+					"/",
+					"/tmp/mnt",
+					"/",
+					"htmlPage",
+					"htmlPageSoup",
+					"dataWebLink",
+					"aeronetData",
+					"aeronetZipTemporary",
+					"nasaLev2Webpage",
+					"aeronetUnZipFolder",
+					"ConfigFilePath",
+					"AeronetUnZipFolder",
+					"downloadAeronetData",
+					"abos_sots_timeseries_",
+					"srs_AODAAC_DATA",
+					"wiki_image/image_",
+					"auv_viewer_campaign_processing_matlab",
+					"id_Double",
+					"id_BigDecimal",
+					"TIME",
+					"station_info",
+					"soop_auscpr",
+					"harvest2",
+					"soop_trv",
+					"abos_currents",
+					"soop_co2",
+					"soop_ba",
+					"soop_tmv",
+					"soop_asf_mft",
+					"Point",
+					"</F",
+					"<F",
+					"fill",
+					"PointSymbolizer",
+					"",
+					"1",
+					"",
+					"WHERE file_id = \" + context.file_id +\" ",
+					"WHERE id = \" + context.file_id +\" ",
+					"WHERE file_id = \" + context.file_id +\" ",
+					"",
+					"\\\"",
+					"",
+					"cruise_id",
+					"srs_oc_bodbaw",
+					"mainVarname",
+					"chl",
+					"'longitude'",
+					"'latitude'",
+					"chl_oc3",
+					"srs_chl_oc",
+					"L3S",
+					"chlor",
+					"chlor_MODIS",
+					"L3C",
+					"sublime.desktop"
+				],
+				"reverse": false,
+				"show_context": true,
+				"use_buffer2": true,
+				"whole_word": false,
+				"wrap": true
+			},
+			"groups":
+			[
+				{
+					"selected": 15,
+					"sheets":
+					[
+						{
+							"buffer": 0,
+							"settings":
+							{
+								"buffer_size": 243,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										243,
+										239
+									]
+								],
+								"settings":
+								{
+									"auto_name": "OLD=\"references,,\"",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 1,
+							"settings":
+							{
+								"buffer_size": 318,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										318,
+										318
+									]
+								],
+								"settings":
+								{
+									"auto_name": "",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 2,
+							"settings":
+							{
+								"buffer_size": 646,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										646,
+										646
+									]
+								],
+								"settings":
+								{
+									"auto_name": "discard unstaged changes in git",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 3,
+							"settings":
+							{
+								"buffer_size": 2266,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										617,
+										617
+									]
+								],
+								"settings":
+								{
+									"auto_name": "///REGEXP///",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 45.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 4,
+							"settings":
+							{
+								"buffer_size": 168,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										168,
+										168
+									]
+								],
+								"settings":
+								{
+									"auto_name": "sed -e \"s/^/select * from auv_viewer_track.auv_ima",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 5,
+							"settings":
+							{
+								"buffer_size": 238,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										238,
+										238
+									]
+								],
+								"settings":
+								{
+									"auto_name": "Install viewer :",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 6,
+							"settings":
+							{
+								"buffer_size": 189,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										187,
+										187
+									]
+								],
+								"settings":
+								{
+									"auto_name": "ElCaminoLoco",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 7,
+							"file": "/media/lbesnard/Laurent_emII/bckp_mint12_201402/Desktop/Desktop_icons/Norway.txt",
+							"settings":
+							{
+								"buffer_size": 0,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										0,
+										0
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 8,
+							"settings":
+							{
+								"buffer_size": 772,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										772,
+										772
+									]
+								],
+								"settings":
+								{
+									"auto_name": "",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 9,
+							"settings":
+							{
+								"buffer_size": 937,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										377,
+										377
+									]
+								],
+								"settings":
+								{
+									"auto_name": "",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 10,
+							"file": "/home/lbesnard/IMOS/chef/shared_src/geoserver/security/usergroup/default/users.xml",
+							"settings":
+							{
+								"buffer_size": 237,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										0,
+										0
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/XML/XML.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 11,
+							"settings":
+							{
+								"buffer_size": 475,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										305,
+										305
+									]
+								],
+								"settings":
+								{
+									"auto_name": "export VAGRANT_STATIC_IP=11.12.13.1",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 90.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 12,
+							"settings":
+							{
+								"buffer_size": 4414,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										4414,
+										4414
+									]
+								],
+								"settings":
+								{
+									"auto_name": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"n",
+									"syntax": "Packages/Text/Plain text.tmLanguage",
+									"tab_size": 2,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 153.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 13,
+							"settings":
+							{
+								"buffer_size": 4263,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										4103,
+										4103
+									]
+								],
+								"settings":
+								{
+									"auto_name": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"n",
+									"syntax": "Packages/Text/Plain text.tmLanguage",
+									"tab_size": 2,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 990.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 14,
+							"settings":
+							{
+								"buffer_size": 2336,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										1036,
+										1036
+									]
+								],
+								"settings":
+								{
+									"auto_name": "(       SELECT measurements_noqaqc.channel_id,",
+									"syntax": "Packages/Text/Plain text.tmLanguage",
+									"tab_size": 2,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 540.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 15,
+							"settings":
+							{
+								"buffer_size": 3254,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										2810,
+										2810
+									]
+								],
+								"settings":
+								{
+									"auto_name": "(",
+									"syntax": "Packages/Text/Plain text.tmLanguage",
+									"tab_size": 2,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 47.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						}
+					]
+				}
+			],
+			"incremental_find":
+			{
+				"height": 34.0
+			},
+			"input":
+			{
+				"height": 0.0
+			},
+			"layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						1,
+						1
+					]
+				],
+				"cols":
+				[
+					0.0,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					1.0
+				]
+			},
+			"menu_visible": true,
+			"output.exec":
+			{
+				"height": 51.0
+			},
+			"position": "0,0,0,0,0,0,0,1161,480,1366,768",
+			"replace":
+			{
+				"height": 64.0
+			},
+			"save_all_on_build": true,
+			"select_file":
+			{
+				"height": 0.0,
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_project":
+			{
+				"height": 0.0,
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"show_minimap": true,
+			"show_open_files": false,
+			"show_tabs": true,
+			"side_bar_visible": true,
+			"side_bar_width": 150.0,
+			"status_bar_visible": true,
+			"window_id": 1,
+			"workspace_name": ""
+		}
+	],
+	"workspaces":
+	{
+		"recent_workspaces":
+		[
+		]
+	}
+}

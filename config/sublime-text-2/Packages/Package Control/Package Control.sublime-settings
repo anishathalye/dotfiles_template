@@ -1,0 +1,165 @@
+{
+	// A list of URLs that each contain a JSON file with a list of repositories.
+	// The repositories from these channels are placed in order after the
+	// repositories from the "repositories" setting
+	"channels": [
+		"https://packagecontrol.io/channel_v3.json"
+	],
+
+	// A list of URLs that contain a packages JSON file. These repositories
+	// are placed in order before repositories from the "channels"
+	// setting
+	"repositories": [],
+
+	// A list of packages to install pre-release versions for. Versions
+	// under 1.0.0 are not considered pre-release, only those using the SemVer
+	// -prerelease suffixes will be ignored if the package is not in this
+	// list.
+	"install_prereleases": [],
+
+	// If debugging information for HTTP/HTTPS connections should be printed
+	// to the Sublime Text console
+	"debug": false,
+
+	// This helps solve naming issues where a repository it not named the
+	// same as the package should be. This is primarily only useful for
+	// GitHub and BitBucket repositories. This mapping will override the
+	// mapping that is retrieved from the repository channels.
+	"package_name_map": {},
+
+	// If package install, upgrade and removal info should be submitted to
+	// the channel for aggregated statistics
+	"submit_usage": true,
+
+	// The URL to post install, upgrade and removal notices to
+	"submit_url": "https://packagecontrol.io/submit",
+
+	// If packages should be automatically upgraded when ST starts
+	"auto_upgrade": true,
+
+	// If missing packages should be automatically installed when ST starts
+	"install_missing": true,
+
+	// If a package was installed by Package Control (has a
+	// package-metadata.json file) but is not in installed_packages, remove it
+	// based upon the assumption that it was removed on another machine and
+	// the Package Control.sublime-settings file was synced to this machine.
+	"remove_orphaned": true,
+
+	// The minimum frequency in hours in which to check for automatic upgrades,
+	// setting this to 0 will always check for automatic upgrades
+	"auto_upgrade_frequency": 1,
+
+	// Packages to not auto upgrade
+	"auto_upgrade_ignore": [],
+
+	// Timeout for downloading channels, repositories and packages. Doesn't
+	// have an effect on Windows due to a bug in WinINet.
+	"timeout": 30,
+
+	// The number of seconds to cache repository and package info for
+	"cache_length": 300,
+
+	// An HTTP proxy server to use for requests. Not used on Windows since the
+	// system proxy configuration is utilized via WinINet.
+	"http_proxy": "",
+	// An HTTPS proxy server to use for requests - this will inherit from
+	// http_proxy if it is set to "" or null and http_proxy has a value. You
+	// can set this to false to prevent inheriting from http_proxy. Not used on
+	// Windows since the system proxy configuration is utilized via WinINet.
+	"https_proxy": "",
+
+	// Username and password for both http_proxy and https_proxy. May be used
+	// with WinINet to set credentials for system-level proxy config.
+	"proxy_username": "",
+	"proxy_password": "",
+
+	// If HTTP responses should be cached to disk
+	"http_cache": true,
+
+	// Number of seconds to cache HTTP responses for, defaults to one week
+	"http_cache_length": 604800,
+
+	// User agent for HTTP requests. If "%s" is present, will be replaced
+	// with the current version.
+	"user_agent": "Package Control v%s",
+
+	// Setting this to true will cause Package Control to ignore all git
+	// and hg repositories - this may help if trying to list packages to install
+	// hangs
+	"ignore_vcs_packages": false,
+
+	// Custom path(s) to "git" binary for when it can't be automatically
+	// found on the system and a package includes a .git metadata directory.
+	// Supports more than one path to allow users to sync settings across
+	// operating systems.
+	"git_binary": [],
+
+	// This should NOT contain the name of the remote or branch - that will
+	// be automatically determined.
+	"git_update_command": ["pull", "--ff", "--commit"],
+
+	// Custom path(s) to "hg" binary for when it can't be automatically
+	// found on the system and a package includes a .hg metadata directory.
+	// Supports more than one path to allow users to sync settings across
+	// operating systems.
+	"hg_binary": [],
+
+	// For HG repositories, be sure to use "default" as the remote URL.
+	// This is the default behavior when cloning an HG repo.
+	"hg_update_command": ["pull", "--update"],
+
+	// Additional packages to ignore when listing unmanaged packages.
+	"unmanaged_packages_ignore": [],
+
+	// Directories to ignore when creating a package
+	"dirs_to_ignore": [
+		".hg", ".git", ".svn", "_darcs", "CVS"
+	],
+
+	// Files to ignore when creating a package
+	"files_to_ignore": [
+		"*.pyc", ".hgignore", ".gitignore", ".bzrignore",
+		"*.sublime-project", "*.sublime-workspace", "*.tmTheme.cache"
+	],
+
+	// Files to include, even if they match a pattern in files_to_ignore
+	"files_to_include": [],
+
+	// When a package is created, copy it to this folder - defaults to Desktop
+	"package_destination": "",
+
+	// A way to create different packaging profiles for different types of
+	// package releases, such as for different platforms or binary-only
+	// releases.
+	//
+	// The key of the object will be the profile name and a list of them will
+	// be presenting when running the "Create Package File" command. The
+	// profile "Default" will use the top-level version on the following
+	// settings:
+	//
+	// - "dirs_to_ignore"
+	// - "files_to_ignore"
+	// - "files_to_include"
+	// - "package_destination"
+	//
+	// If a profile does not include one of those three setting, it will fall
+	// back to the top-level settings.
+	"package_profiles": {
+		"Binaries Only": {
+			// Exclude all .py files, but consequently include all .pyc files
+			"files_to_ignore": [
+				"*.py", ".hgignore", ".gitignore", ".bzrignore",
+				"*.sublime-project", "*.sublime-workspace", "*.tmTheme.cache"
+			],
+
+			// Include __init__.py so Sublime Text will load the package
+			"files_to_include": [
+				"__init__.py"
+			]
+		}
+	},
+
+	// Enable the ability to run the tests - this is only for development
+	"enable_tests": false
+}

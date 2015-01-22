@@ -1,0 +1,14 @@
+[
+    {
+        "caption": "Auto indent",
+        "command": "auto_indent"
+    },
+    {
+        "caption": "Indent XML",
+        "command": "indent_xml"
+    },
+    {
+        "caption": "Indent JSON",
+        "command": "indent_json"
+    }    
+]

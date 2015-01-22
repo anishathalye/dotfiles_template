@@ -1,0 +1,6 @@
+[
+    {
+        "keys": ["super+shift+,"],
+        "command": "basic_indent_tags"
+    }
+]

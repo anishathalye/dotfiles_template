@@ -1,0 +1,9 @@
+{
+	"source_language": "",// Auto detect if leave blank
+    "target_language": "en",// Must be specified	
+    "target_type": "html",	// or plain or html
+    "proxy_enable": "no",	// enable or disable proxy
+    "proxy_type": "socks5",	// socks4 or socks5 or http
+    "proxy_host": "127.0.0.1",	// eg. 127.0.0.1
+    "proxy_port": "9050"	// eg. 9050
+}

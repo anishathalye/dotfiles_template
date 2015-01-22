@@ -1,0 +1,34 @@
+[
+  {
+    "caption": "Github: Open File",
+    "command": "github_open"
+  },
+  {
+    "caption": "Github: Blame",
+    "command": "github_blame"
+  },
+  {
+    "caption": "Github: Plugin Settings",
+    "command": "github_plugin_settings"
+  },
+  {
+    "caption": "Github: Copy Link To File",
+    "command": "github_copy_link"
+  },
+  {
+    "caption": "Github: Repository",
+    "command": "github_repository"
+  },
+  {
+    "caption": "Github: Issues",
+    "command": "github_issues"
+  },
+  {
+    "caption": "Github: Pull Requests",
+    "command": "github_pulls"
+  },
+  {
+    "caption": "Github: Create Pull Request",
+    "command": "github_create_pr"
+  }
+]

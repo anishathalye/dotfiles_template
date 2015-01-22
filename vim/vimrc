@@ -1,0 +1,97 @@
+" Include default global config
+source /etc/vimrc
+
+" Start pathogen
+" https://github.com/tpope/vim-pathogen
+execute pathogen#infect()
+
+" Default options
+" https://wiki.archlinux.org/index.php/vim/.vimrc
+" colorscheme gruvbox
+" colorscheme solarized
+colorscheme molokai
+let g:molokai_original = 1
+let g:rehash256 = 1
+
+set background=dark
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set expandtab
+set showcmd
+set number
+set showmatch
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set backspace=2
+set autoindent
+" set textwidth=79
+set ruler
+set mouse=a
+syntax on
+filetype plugin indent on
+set colorcolumn=+1        " highlight column after 'textwidth'
+
+" Airline options
+" https://github.com/bling/vim-airline
+let g:airline_powerline_fonts = 1
+set encoding=utf-8
+set laststatus=2
+
+" NERDTree Options
+" Start if no file opened
+"autocmd vimenter * if !argc() | NERDTree | endif
+" Assign command to TAB
+"map <TAB> :NERDTreeToggle<CR>
+" Fix encoding issues surrounding arrows
+" (https://superuser.com/questions/387777/what-could-cause-strange-characters-in-vim)
+let g:NERDTreeDirArrows=0
+
+" Taglist toggle
+map <TAB> :Tlist<CR>
+
+" Trailing whitespace highlighting
+" http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" Auto enable rainbow parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+
+" JFLex support
+augroup filetype
+    au BufRead,BufNewFile *.flex,*.jflex,*.jlex    set filetype=jflex
+augroup END
+    au Syntax jflex    so ~/.vim/syntax/jflex.vimrc
+
+" Java Cup support
+autocmd BufNewFile,BufRead *.cup setf cup

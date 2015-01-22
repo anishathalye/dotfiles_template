@@ -1,0 +1,65 @@
+{
+	"schema_version": "3.0.0",
+
+	// All repositories must be an HTTPS URL. SSL certificates help prevent
+	// unauthorized code being loaded onto users' machines.
+	"repositories": [
+		"https://packagecontrol.io/packages.json",
+		"https://github.com/buymeasoda/soda-theme",
+		"https://github.com/SublimeText"
+	],
+
+	// The "packages_cache" is completely optional, but allows the
+	// channel to cache and deliver package data from multiple
+	// repositories in a single HTTP request, allowing for significantly
+	// improved performance.
+	"packages_cache": {
+
+		// The first level keys are the repository URLs
+		"https://packagecontrol.io/packages.json": [
+
+			// Each repository has an array of packages with their fully
+			// expanded info. This means that the "details" key must be expanded
+			// into the various keys it provides.
+			{
+				"name": "Alignment",
+				"description": "Multi-line and multiple selection alignment plugin",
+				"author": "wbond",
+				"homepage": "http://wbond.net/sublime_packages/alignment",
+				"releases": [
+					{
+						"version": "2.0.0",
+						"url": "https://packagecontrol.io/Alignment.sublime-package",
+						"date": "2011-09-18 20:12:41"
+					}
+				]
+			}
+		]
+	},
+
+	// The "dependencies_cache" is just like "packages_cache", but for
+	// dependencies
+	"dependencies_cache": {
+		"https://packagecontrol.io/packages.json": [
+
+			// Like with packages, dependency info must be fully resolved,
+			// which for packages means releases must have "url", "version",
+			// "sublime_text" and "platforms" keys instead of "base" and "tags".
+			{
+				"name": "bz2",
+				"load_order": "02",
+				"description": "Python bz2 module",
+				"author": "wbond",
+				"issues": "https://github.com/wbond/package_control/issues",
+				"releases": [
+					{
+						"version": "1.0.0",
+						"url": "https://codeload.github.com/codexns/sublime-bz2/zip/1.0.0",
+						"sublime_text": "*",
+						"platforms": ["*"]
+					}
+				]
+			}
+		]
+	}
+}

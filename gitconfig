@@ -1,0 +1,13 @@
+[core]
+	editor = vim
+[user]
+	name = lbesnard
+	email = laurent.besnard@utas.edu.au
+[credential]
+	helper = cache --timeout=36000
+[color]
+	ui = auto
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
