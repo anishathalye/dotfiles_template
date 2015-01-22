@@ -1,12 +1,12 @@
 - shell: 
     - [mkdir -p ~/downloads, Creating downloads directory]
     - [git submodule update --init --recursive "libs", Installing submodules]
-    - ["sudo pip install cheat;sudo pip install docopt pygments;sudo python libs/cheat/setup.py install", install cheat]
+    - ["sudo pip install docopt pygments;cd libs/cheat; sudo python setup.py install", install cheat]
 - clean:  
    - "~"
 
 - link:
-    ~/.dotfiles: .
+    ~/.dotfiles: ''
     ~/.env: env
     ~/.alias: alias
     ~/.bashrc: bashrc

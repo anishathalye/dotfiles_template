@@ -47,3 +47,9 @@ Dotbot (or this repository) to help other people discover Dotbot.
 [m45t3r_dotfiles]: https://github.com/m45t3r/dotfiles
 [alexwh_dotfiles]: https://github.com/alexwh/dotfiles
 [azd325_dotfiles]: https://github.com/Azd325/dotfiles
+
+
+Other Submodules
+----------------
+[cheat]:https://github.com/chrisallenlane/cheat
+
