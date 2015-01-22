@@ -17,7 +17,9 @@
         path: config/sublime-text-2/
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
-    ~/.wallpaper: wallpaper/
+    ~/.wallpaper: 
+        create: true
+        path: wallpaper/
     ~/.snes9x:
         create: true
         path: snes9x/
@@ -33,3 +35,6 @@
         create: true
         force: true
         path: gconf/apps/guake/
+
+- shell:
+    - [sudo dpkg --set-selections < packages; sudo apt-get -u dselect-upgrade, install debian packages]
