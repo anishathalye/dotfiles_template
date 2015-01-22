@@ -12,6 +12,10 @@ alias nsp14='ssh lbesnard@14-nsp-mel.emii.org.au'
 alias nsp14_vpn='ssh -A -t 6-its-hob.emii.org.au ssh -A lbesnard@14-nsp-mel.emii.org.au'
 alias its6='ssh -A 6-its-hob.emii.org.au'
 
+#gcw0
+alias gcw_ssh_wlan='ssh root@10.1.2.1'
+alias gcw_ssh_usb0='ssh root@10.1.1.2'
+
 # shortcuts
 alias cc='ls -1 | wc -l'
 alias ccat='source-highlight --out-format=esc -o STDOUT -i'

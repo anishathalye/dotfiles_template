@@ -6,7 +6,7 @@
    - "~"
 
 - link:
-    ~/.dotfiles: ''
+    ~/.dotfiles: .
     ~/.env: env
     ~/.alias: alias
     ~/.bashrc:
@@ -14,10 +14,10 @@
        path: bashrc
     ~/.config/sublime-text-2: 
         create: true
-        path: config/sublime-text-2
+        path: config/sublime-text-2/
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
-    ~/.wallpaper: wallpaper
+    ~/.wallpaper: wallpaper/
     ~/.snes9x:
         create: true
         path: snes9x/
@@ -29,7 +29,7 @@
         create: true
         path: vim/vim
     ~/.vimrc" : vim/vimrc
-    ~/gconf/apps/guake:
+    ~/.gconf/apps/guake:
         create: true
         force: true
-        path: gconf/apps/guake
+        path: gconf/apps/guake/
