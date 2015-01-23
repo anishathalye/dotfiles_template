@@ -2,6 +2,7 @@
     - [mkdir -p ~/Downloads, Creating downloads directory]
     - [git submodule update --init --recursive "libs", Installing submodules]
     - ["sudo pip install docopt pygments;cd libs/cheat; sudo python setup.py install", install cheat]
+    - [sudo ln -s /usr/share/applications/guake.desktop /etc/xdg/autostart/", autostart guake]
 - clean:  
    - "~"
 
