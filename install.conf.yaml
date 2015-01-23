@@ -38,4 +38,4 @@
         path: gconf/apps/guake/
 
 - shell:
-    - [rm -Rf ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/ ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/gtg_tasks*.xml /.local/share/gtg/gtg_tasks.xml, link Getting Things Done from DROPBOX]
+    - [rm -Rf ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/ ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/gtg_tasks*.xml ~/.local/share/gtg/gtg_tasks.xml, link Getting Things Done from DROPBOX]
