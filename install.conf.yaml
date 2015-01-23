@@ -37,5 +37,4 @@
         path: gconf/apps/guake/
 
 - shell:
-    - [sudo apt-get update ; sudo dpkg --set-selections < packages; sudo apt-get -u dselect-upgrade, install debian packages]
     - [rm -Rf /.local/share/gtg; ln -sf ~/Dropbox/work/gtg/ ~/.local/share/gtg, link Getting Things Done from DROPBOX]
