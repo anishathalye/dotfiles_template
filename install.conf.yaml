@@ -1,5 +1,5 @@
 - shell: 
-    - [mkdir -p ~/downloads, Creating downloads directory]
+    - [mkdir -p ~/Downloads, Creating downloads directory]
     - [git submodule update --init --recursive "libs", Installing submodules]
     - ["sudo pip install docopt pygments;cd libs/cheat; sudo python setup.py install", install cheat]
 - clean:  
@@ -37,5 +37,5 @@
         path: gconf/apps/guake/
 
 - shell:
-    - [sudo dpkg --set-selections < packages; sudo apt-get -u dselect-upgrade, install debian packages]
+    - [sudo apt-get update ; sudo dpkg --set-selections < packages; sudo apt-get -u dselect-upgrade, install debian packages]
     - [rm -Rf /.local/share/gtg; ln -sf ~/Dropbox/work/gtg/ ~/.local/share/gtg, link Getting Things Done from DROPBOX]
