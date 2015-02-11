@@ -55,3 +55,22 @@ git show 83fb499:path/fo/file.ext                       # Shows the file as it a
 git diff branch_1 branch_2                              # Check difference between branches
 git log                                                 # Show all the commits
 git status                                              # Show the changes from last commit
+
+
+# merge last n commits
+git rebase -i HEAD~n
+->replace with squash or s all commits you wanna merged to the picked one
+->change the commit message
+git push -f origin branch_name  	                      # to force the merge on github in case the branch was already pushed
+
+
+git clean -df & git checkout .                                #  discard unstaged changes in git
+git branch --merged | grep -v "\*" | xargs -n 1 git branch -d #To delete all branches that are already merged into the currently checked out branch:
+
+#Cleans the working tree by recursively removing files that are not under version control, starting from the current directory.
+#-d = Remove untracked directories in addition to untracked files -f = Force (might be not necessary depending on  clean.requireForce setting)
+git clean -df
+
+
+#This checks out the current index for the current directory, throwing away all changes in files from the current directory downwards.
+git checkout .

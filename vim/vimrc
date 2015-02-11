@@ -95,3 +95,7 @@ augroup END
 
 " Java Cup support
 autocmd BufNewFile,BufRead *.cup setf cup
+
+" Vim 80 column layout concerns
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/

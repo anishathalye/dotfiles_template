@@ -1,0 +1,22 @@
+Host nsp10
+    Hostname 10-nsp-mel.emii.org.au
+    Port 22
+    User lbesnard
+
+Host github.com
+    IdentityFile ~/.ssh/id_rsa
+
+
+VisualHostKey=yes
+
+Host its6
+    Hostname 6-its-hob.emii.org.au
+    User lbesnard
+    Port 22
+
+Host nsp10_tunnel
+    Hostname 10-nsp-mel.emii.org.au
+    Port 22
+    User lbesnard
+    Proxycommand ssh -A -t  6-its-hob.emii.org.au nc  %h %r 2> /dev/null
+

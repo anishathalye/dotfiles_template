@@ -36,6 +36,10 @@
         create: true
         force: true
         path: gconf/apps/guake/
+    ~/.ssh/config:
+        create: true
+        force: true
+        path: ssh/config
 
 - shell:
     - [rm -Rf ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/ ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/gtg_tasks-*.xml ~/.local/share/gtg/gtg_tasks.xml, link Getting Things Done from DROPBOX]

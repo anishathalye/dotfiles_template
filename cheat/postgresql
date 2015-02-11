@@ -1,0 +1,12 @@
+#list schemas
+select nspname from pg_catalog.pg_namespace;
+or 
+\dn
+ 
+
+#List tables in a PostgreSQL schema
+#In all schemas:
+\dt *.*
+
+#In a particular schema:
+\dt public.*

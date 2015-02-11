@@ -103,10 +103,8 @@ fi
 
 #cowsay -s "G'Day Mate"
 
-#https://shellycloud.com/blog/2014/01/synchronize-your-settings-with-dropbox-and-mackup
-export PATH=~/Dropbox/Mackup/bin/mackup:$PATH
+export PATH=$HOME/bin:$PATH
 
-PS1="\h $ "
 
 function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
 
@@ -140,4 +138,4 @@ source ~/.alias
 # load env variables
 source ~/.env
 
-
+export HISTFILESIZE=5000
