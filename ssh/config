@@ -1,22 +1,81 @@
-Host nsp10
-    Hostname 10-nsp-mel.emii.org.au
-    Port 22
-    User lbesnard
+# ssh_config
+
+# MAIN OPTIONS
+VisualHostKey=yes
+
 
 Host github.com
     IdentityFile ~/.ssh/id_rsa
 
-
-VisualHostKey=yes
-
+# UTAS GATEWAY
 Host its6
     Hostname 6-its-hob.emii.org.au
     User lbesnard
     Port 22
 
-Host nsp10_tunnel
-    Hostname 10-nsp-mel.emii.org.au
-    Port 22
+# NSP machines Melbourne
+Host nsp5
+    Hostname 5-nsp-mel.emii.org.au
     User lbesnard
-    Proxycommand ssh -A -t  6-its-hob.emii.org.au nc  %h %r 2> /dev/null
+    Port 22
+
+Host nsp9
+    Hostname 9-nsp-mel.emii.org.au
+    User lbesnard
+    Port 22
+
+Host nsp10
+    Hostname 10-nsp-mel.emii.org.au
+    User lbesnard
+    Port 22
+
+Host nsp14
+    Hostname 14-nsp-mel.emii.org.au
+    User lbesnard
+    Port 22
+
+# Nectar
+Host nec10
+    Hostname 10-nec-hob.emii.org.au 
+    User lbesnard
+    Port 22
+
+# katabatic ACECRC
+Host katabatic
+     hostname acecompute.antcrc.utas.edu.au
+     user lbesnard
+     port 22
+
+# gcw0
+Host gcw0_wlan
+    hostname 10.1.2.1
+    user lbesnard
+    port 22
+    IdentityFile ~/.ssh/id_dsa.pub
+
+Host gcw0_usb0
+    hostname 10.1.1.2
+    user lbesnard
+    port 22
+    IdentityFile ~/.ssh/id_rsa.pub
+
+# tunnel through its6
+Host nsp10_tunnel
+    Hostname  10-nsp-mel.emii.org.au
+    Proxycommand ssh -q its6 nc -q0 %h  22 
+
+Host nec10_tunnel
+    Hostname  10-nec-hob.emii.org.au
+    Proxycommand ssh -q its6 nc -q0 %h  22 
+
+Host nsp14_tunnel
+    Hostname 14-nsp-mel.emii.org.au
+    Proxycommand ssh -q its6 nc -q0 %h  22 
+
+
+# port forwarding
+#Host testdbprod
+#    Hostname
+#    LocalForward 5555 dbprod.emii.org.au:5432
+
 

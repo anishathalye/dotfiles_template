@@ -1,21 +1,3 @@
-# machines
-alias ace_computer='ssh -X lbesnard@acecompute.antcrc.utas.edu.au'
-alias nsp5='ssh lbesnard@5-nsp-mel.emii.org.au'
-alias nsp5_vpn='ssh -A -t 6-its-hob.emii.org.au ssh -A lbesnard@5-nsp-mel.emii.org.au'
-alias nsp9='ssh lbesnard@9-nsp-mel.emii.org.au'
-alias nsp9_vpn='ssh -A -t 6-its-hob.emii.org.au ssh -A lbesnard@9-nsp-mel.emii.org.au'
-alias nsp10='ssh lbesnard@10-nsp-mel.emii.org.au'
-alias nsp10_nec='ssh lbesnard@10-nec-hob.emii.org.au'
-alias nsp10_nec_vpn='ssh -A -t 6-its-hob.emii.org.au ssh -A lbesnard@10-nec-hob.emii.org.au'
-alias nsp10_vpn='ssh -A -t 6-its-hob.emii.org.au ssh -A lbesnard@10-nsp-mel.emii.org.au'
-alias nsp14='ssh lbesnard@14-nsp-mel.emii.org.au'
-alias nsp14_vpn='ssh -A -t 6-its-hob.emii.org.au ssh -A lbesnard@14-nsp-mel.emii.org.au'
-alias its6='ssh -A 6-its-hob.emii.org.au'
-
-#gcw0
-alias gcw_ssh_wlan='ssh root@10.1.2.1'
-alias gcw_ssh_usb0='ssh root@10.1.1.2'
-
 # shortcuts
 alias cc='ls -1 | wc -l'
 alias ccat='source-highlight --out-format=esc -o STDOUT -i'
