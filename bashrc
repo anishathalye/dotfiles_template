@@ -92,39 +92,20 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 
-
-
-
 #cowsay -s "G'Day Mate"
-
-
-function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
-
-
-## nsf mount for nsp1-
-#sshfs_mount() {
-#    local src=$1; shift
-#    local dst=$1; shift
-#    local user=lbesnard
-#
-#    local tmp_id_rsa=`mktemp $tmp_id_rsa`
-#    openssl rsa -in ~/.ssh/id_rsa -out $tmp_id_rsa
-#
-#    sudo mount $user@$src $dst -t fuse.sshfs -o ro,noauto,_netdev,users,idmap=user,IdentityFile=$tmp_id_rsa,allow_other,reconnect,NumberOfPasswordPrompts=0,UserKnownHostsFile=/dev/null,StrictHostKeyChecking=no
-#
-#    rm -f $tmp_id_rsa
-#}
-
 
 # color shell
 PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;35m\]'
 trap 'echo -ne "\e[0m"' DEBUG
 
-# load aliases
-source ~/.alias
+function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
 
-# load env variables
-source ~/.env
+
+source ~/.alias  # load aliases
+source ~/.env    # load env variables
+
+source bin/jenkins-trigger
+
 
 export HISTFILESIZE=5000
 

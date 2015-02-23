@@ -6,39 +6,46 @@ VisualHostKey=yes
 
 Host github.com
     IdentityFile ~/.ssh/id_rsa
-
+    Hostname ssh.github.com
+    
 # UTAS GATEWAY
 Host its6
     Hostname 6-its-hob.emii.org.au
     User lbesnard
     Port 22
+    ForwardAgent yes
 
 # NSP machines Melbourne
 Host nsp5
     Hostname 5-nsp-mel.emii.org.au
     User lbesnard
     Port 22
+    ForwardAgent yes
 
 Host nsp9
     Hostname 9-nsp-mel.emii.org.au
     User lbesnard
     Port 22
+    ForwardAgent yes
 
 Host nsp10
     Hostname 10-nsp-mel.emii.org.au
     User lbesnard
     Port 22
+    ForwardAgent  yes
 
 Host nsp14
     Hostname 14-nsp-mel.emii.org.au
     User lbesnard
     Port 22
+    ForwardAgent yes
 
 # Nectar
 Host nec10
     Hostname 10-nec-hob.emii.org.au 
     User lbesnard
     Port 22
+    ForwardAgent yes
 
 # katabatic ACECRC
 Host katabatic
@@ -49,13 +56,13 @@ Host katabatic
 # gcw0
 Host gcw0_wlan
     hostname 10.1.2.1
-    user lbesnard
+    user root
     port 22
     IdentityFile ~/.ssh/id_dsa.pub
 
 Host gcw0_usb0
     hostname 10.1.1.2
-    user lbesnard
+    user root
     port 22
     IdentityFile ~/.ssh/id_rsa.pub
 
@@ -63,14 +70,17 @@ Host gcw0_usb0
 Host nsp10_tunnel
     Hostname  10-nsp-mel.emii.org.au
     Proxycommand ssh -q its6 nc -q0 %h  22 
+    ForwardAgent yes
 
 Host nec10_tunnel
     Hostname  10-nec-hob.emii.org.au
     Proxycommand ssh -q its6 nc -q0 %h  22 
+    ForwardAgent yes
 
 Host nsp14_tunnel
     Hostname 14-nsp-mel.emii.org.au
     Proxycommand ssh -q its6 nc -q0 %h  22 
+    ForwardAgent yes
 
 
 # port forwarding

@@ -3,3 +3,8 @@
 *.pyc
 .svn
 *.swp
+
+*/ftp_elcamino_riverTas_upload.sh
+*/sheryl.sh
+
+*/jenkins-trigger

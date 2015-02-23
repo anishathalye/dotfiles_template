@@ -1,0 +1,26 @@
+# nsf mount for nsp1-
+sshfs_mount() {
+    local src=$1; shift
+    local dst=$1; shift
+    local user=$USER
+
+    local tmp_id_rsa=`mktemp $tmp_id_rsa`
+    openssl rsa -in ~/.ssh/id_rsa -out $tmp_id_rsa
+
+    sudo mount $user@$src $dst -t fuse.sshfs -o ro,noauto,_netdev,users,idmap=user,IdentityFile=$tmp_id_rsa,allow_other,reconnect,NumberOfPasswordPrompts=0,UserKnownHostsFile=/dev/null,StrictHostKeyChecking=no
+
+    rm -f $tmp_id_rsa
+}
+
+if mount | grep /mnt/opendap/1 > /dev/null; then
+   sudo umount /mnt/opendap/1;
+fi
+
+
+if mount | grep /mnt/imos-t4 > /dev/null; then
+   sudo umount /mnt/imos-t4;
+fi
+
+sshfs_mount 10-nsp-mel.emii.org.au:/mnt/opendap/1 /mnt/opendap/1/;
+sshfs_mount 10-nsp-mel.emii.org.au:/mnt/imos-t4 /mnt/imos-t4/;
+

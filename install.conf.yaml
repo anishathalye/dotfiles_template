@@ -1,9 +1,10 @@
-- shell: 
+- shell:
     - [mkdir -p ~/Downloads, Creating downloads directory]
+    - [mkdir -p ~/.ssh, Creating ssh directory]
     - [git submodule update --init --recursive "libs", Installing submodules]
     - ["sudo pip install docopt pygments;cd libs/cheat; sudo python setup.py install", install cheat]
     - [sudo ln -s /usr/share/applications/guake.desktop /etc/xdg/autostart/", autostart guake]
-- clean:  
+- clean:
    - "~"
 
 - link:
@@ -13,22 +14,22 @@
     ~/.bashrc:
        force: true
        path: bashrc
-    ~/.config/sublime-text-2: 
+    ~/.config/sublime-text-2:
         create: true
         path: config/sublime-text-2/
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
-    ~/.wallpaper: 
+    ~/.wallpaper:
         create: true
         path: wallpaper/
     ~/.snes9x:
         create: true
         path: snes9x/
     ~/bin: bin
-    ~/cheat: 
+    ~/.cheat:
         create: true
         path: cheat
-    ~/.vim: 
+    ~/.vim:
         create: true
         path: vim/vim
     ~/.vimrc" : vim/vimrc
@@ -36,10 +37,9 @@
         create: true
         force: true
         path: gconf/apps/guake/
-    ~/.ssh:
-        create: true
-        force: true
-        path: ssh/
+    ~/.ssh/config: "ssh/config"
+    ~/.ssh/id_rsa.pub: "ssh/id_rsa.pub"
+    ~/.ssh/id_rsa.pub.pem: "ssh/id_rsa.pub.pem"
 
 - shell:
     - [rm -Rf ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/ ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/gtg_tasks-*.xml ~/.local/share/gtg/gtg_tasks.xml, link Getting Things Done from DROPBOX]

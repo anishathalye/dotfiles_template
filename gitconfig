@@ -1,13 +1,51 @@
 [core]
 	editor = vim
+
 [user]
 	name = lbesnard
 	email = laurent.besnard@utas.edu.au
+
 [credential]
 	helper = cache --timeout=36000
+
 [color]
 	ui = auto
 	branch = auto
 	diff = auto
 	interactive = auto
 	status = auto
+
+[color "branch"]
+        current = yellow reverse
+        local = yellow
+        remote = green
+[color "diff"]
+        meta = yellow bold
+        frag = magenta bold
+        old = red bold
+        new = green bold
+[color "status"]
+        added = yellow
+        changed = green
+        untracked = cyan
+
+
+# http://haacked.com/archive/2014/07/28/github-flow-aliases/
+[alias]
+	alias = !tac ~/.gitconfig | sed -e '/alias/q' |tac | tail -n+2
+	# alias = !git config --get-regexp ^alias\. | sed -e s/^alias\.// -e s/\ /\ =\ /
+	s = status
+	p = pull
+	b = branch
+        co = checkout
+        ec = config --global -e
+        up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+        cob = checkout -b
+        cm = !git add -A && git commit -m
+        save = !git add -A && git commit -m 'SAVEPOINT'
+        wip = !git add -u && git commit -m "WIP" 
+        undo = reset HEAD~1 --mixed
+        amend = commit -a --amend
+        wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+        bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
+        bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"

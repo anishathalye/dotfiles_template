@@ -20,6 +20,9 @@ git commit --amend
 # To removed staged and working directory changes
 git reset --hard
 
+# To discard modified files
+git reset --hard HEAD
+
 # OR How to reset my local repository to be just like the remote repository HEAD
 git fetch origin
 git reset --hard origin/master
@@ -67,10 +70,32 @@ git push -f origin branch_name  	                      # to force the merge on g
 git clean -df & git checkout .                                #  discard unstaged changes in git
 git branch --merged | grep -v "\*" | xargs -n 1 git branch -d #To delete all branches that are already merged into the currently checked out branch:
 
-#Cleans the working tree by recursively removing files that are not under version control, starting from the current directory.
+# Cleans the working tree by recursively removing files that are not under version control, starting from the current directory.
 #-d = Remove untracked directories in addition to untracked files -f = Force (might be not necessary depending on  clean.requireForce setting)
 git clean -df
 
 
-#This checks out the current index for the current directory, throwing away all changes in files from the current directory downwards.
+# This checks out the current index for the current directory, throwing away all changes in files from the current directory downwards.
 git checkout .
+
+# Set up a repository's origin branch to be SSH - (modify)
+git remote set-url origin git@github.com:nikhilbhardwaj/abc.git
+
+
+# List git-ignored files
+$ git ls-files . --ignored --exclude-standard --others
+
+# List untracked files
+$ git ls-files . --exclude-standard --others
+
+# rebase against master (when working on different branch)
+git checkout master;git pull;
+git checkout workingBranch;
+git rebase master;
+
+
+# Force Git to overwrite local files on pull
+git fetch --all
+git reset --hard origin/'branch'
+# git fetch downloads the latest from remote without trying to merge or rebase anything.
+# Then the git reset resets the master branch to what you just fetched. The --hard option changes all the files in your working tree to match the files in origin/master

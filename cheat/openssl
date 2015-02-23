@@ -26,5 +26,11 @@ openssl genrsa -out www.example.com.key 4096
 # To create a new password protected Private Key (Remember the passphrase)
 openssl genrsa -des3 -out www.example.com.key.password 4096
 
-#To remove the passphrase from the password protected Private Key
-openssl rsa -in www.example.com.key.password -out www.example.com.key
+# To remove the passphrase from the password protected Private Key
+iopenssl rsa -in www.example.com.key.password -out www.example.com.key
+
+# to convert a private rsa key to a private pem key
+openssl rsa -in ~/.ssh/id_rsa -outform pem > id_rsa.pem
+
+# to convert a public rsa key to a public pem key
+ssh-keygen -f id_rsa -e -m pem

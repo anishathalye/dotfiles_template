@@ -16,3 +16,12 @@ alias killall='killall -SIGUSR1'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+
+# chef imos repository
+CHEF_DIR="$HOME/github_repo/chef"
+
+alias chef="cd $CHEF_DIR"
+alias chef_imos="chef && rm -f private; ln -s ../chef-private private"
+alias chef_sample="chef && rm -f private; ln -s ../chef-private-sample private"
+

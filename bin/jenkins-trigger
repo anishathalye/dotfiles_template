@@ -1,0 +1,22 @@
+export JENKINS_USERNAME=lbesnard
+export JENKINS_PASSWORD=ddd
+
+# trigger a jenkins job from command line
+# $1 - job to trigger
+# "$@" - parameters
+trigger_jenkins_job() {
+    local job=$1; shift
+    local url="https://jenkins.aodn.org.au/job/$job/buildWithParameters"
+    local curl_cmd_line="curl '$url'"
+    if [ x"$@" != x ]; then
+        curl_cmd_line="$curl_cmd_line -d '$@'"
+    fi
+    local curl_cmd_line="$curl_cmd_line -u $JENKINS_USERNAME:$JENKINS_PASSWORD"
+    eval $curl_cmd_line
+}
+
+jenkins_chef_cook_node() {
+    local node=$1; shift
+    trigger_jenkins_job Chef_cook_node "NODE_NAME=$node&GIT_BRANCH=production"
+}
+
