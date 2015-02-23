@@ -4,3 +4,6 @@
 [submodule "libs/cheat"]
 	path = libs/cheat
 	url = https://github.com/chrisallenlane/cheat
+[submodule "bin/encryption"]
+	path = bin/encryption
+	url = git@github.com:lbesnard/encryption.git

@@ -93,39 +93,27 @@ fi
 
 
 
-#if [ $(mount | grep -c /home/lbesnard/df_root) != 1 ]  && [ $(ifconfig eth0 |grep -c '131.217.38.4') = 1 ]
-#then
-#        /bin/mount /home/lbesnard/df_root || exit 1
-#        echo "/home/lbesnard/df_root is now mounted"
-#fi
-
 
 
 #cowsay -s "G'Day Mate"
-
-export PATH=$HOME/bin:$PATH
 
 
 function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
 
 
-#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
-[[ -s "/home/lbesnard/.gvm/bin/gvm-init.sh" ]] && source "/home/lbesnard/.gvm/bin/gvm-init.sh"
-
-
 ## nsf mount for nsp1-
-sshfs_mount() {
-    local src=$1; shift
-    local dst=$1; shift
-    local user=lbesnard
-
-    local tmp_id_rsa=`mktemp $tmp_id_rsa`
-    openssl rsa -in ~/.ssh/id_rsa -out $tmp_id_rsa
-
-    sudo mount $user@$src $dst -t fuse.sshfs -o ro,noauto,_netdev,users,idmap=user,IdentityFile=$tmp_id_rsa,allow_other,reconnect,NumberOfPasswordPrompts=0,UserKnownHostsFile=/dev/null,StrictHostKeyChecking=no
-
-    rm -f $tmp_id_rsa
-}
+#sshfs_mount() {
+#    local src=$1; shift
+#    local dst=$1; shift
+#    local user=lbesnard
+#
+#    local tmp_id_rsa=`mktemp $tmp_id_rsa`
+#    openssl rsa -in ~/.ssh/id_rsa -out $tmp_id_rsa
+#
+#    sudo mount $user@$src $dst -t fuse.sshfs -o ro,noauto,_netdev,users,idmap=user,IdentityFile=$tmp_id_rsa,allow_other,reconnect,NumberOfPasswordPrompts=0,UserKnownHostsFile=/dev/null,StrictHostKeyChecking=no
+#
+#    rm -f $tmp_id_rsa
+#}
 
 
 # color shell
@@ -139,3 +127,9 @@ source ~/.alias
 source ~/.env
 
 export HISTFILESIZE=5000
+
+#The Groovy enVironment Manager
+#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
+[[ -s "/home/lbesnard/.gvm/bin/gvm-init.sh" ]] && source "/home/lbesnard/.gvm/bin/gvm-init.sh"
+
+
