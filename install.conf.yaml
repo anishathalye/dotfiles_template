@@ -1,3 +1,13 @@
-- clean: []
-- link: {}
+- shell:
+    -
+      - "git submodule foreach git pull origin master"
+      - "Updating submodules"
+- clean:
+    - "~"
+    - "~/.dotfiles"
+    - "~/.liquidprompt"
+- link:
+    ~/.bashrc: bashrc
+    ~/.liquidprompt: liquidprompt
+    ~/.dotfiles: ''
 - shell: []
