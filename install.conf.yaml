@@ -7,9 +7,11 @@
     - "~/.dotfiles"
     - "~/.liquidprompt"
     - "~/.irssi"
+    - "~/.i3"
 - link:
     ~/.bashrc: bashrc
     ~/.liquidprompt: liquidprompt
     ~/.dotfiles: ''
     ~/.irssi: irssi
+    ~/.i3: i3
 - shell: []
