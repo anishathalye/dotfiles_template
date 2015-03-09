@@ -6,8 +6,10 @@
     - "~"
     - "~/.dotfiles"
     - "~/.liquidprompt"
+    - "~/.irssi"
 - link:
     ~/.bashrc: bashrc
     ~/.liquidprompt: liquidprompt
     ~/.dotfiles: ''
+    ~/.irssi: irssi
 - shell: []
