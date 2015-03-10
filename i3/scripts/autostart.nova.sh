@@ -105,6 +105,15 @@ start "gnome-terminal -t irssi -x irssi"
 wait_for_title "irssi"
 sleep 2
 
+# 7: vm
+# start xp on weekdays
+if [[ $(date +%u) -lt 6 ]] ; then
+    i3-msg Workspace 7: vm
+    start "vboxmanage startvm xp"
+    wait_for_title "Oracle VM Virtualbox"
+    sleep 2
+fi
+
 # 8: audio
 i3-msg Workspace 8: audio
 start "gnome-terminal -t pianobar -x pianobar"
