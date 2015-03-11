@@ -209,6 +209,7 @@ bar {
 bindsym XF86Sleep exec vboxmanage startvm xp
 ## f9 - music
 bindsym XF86AudioMedia workspace $audio
+bindsym $mod+XF86AudioMedia exec --no-startup-id audio -o speakers && killall -SIGUSR1 i3status
 ## f10 - audio back
 
 ## f11 - audio play/pause
