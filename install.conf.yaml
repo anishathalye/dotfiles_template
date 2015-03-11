@@ -2,6 +2,9 @@
     -
       - "git submodule foreach git pull origin master"
       - "Updating submodules"
+    -
+      - "i3/create-config"
+      - "Generating host-specific i3 config"
 - clean:
     - "~"
     - "~/.dotfiles"
