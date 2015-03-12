@@ -43,7 +43,8 @@ wait_for_title () {
 dex -ae i3
 
 # background
-feh --bg-tile /home/matt/Pictures/wallpaper/pattern/stardust.png
+feh --bg-fill /home/matt/Pictures/wallpaper/abstract-sphere.jpg
+# feh --bg-tile /home/matt/Pictures/wallpaper/pattern/stardust.png
 # feh --bg-scale /home/matt/Pictures/wallpaper/Night-city-street_1920x1080.jpg
 
 # 1: Personal
@@ -70,18 +71,19 @@ start "gnome-terminal -t byobu -x ssh matt-thinkpad"
 wait_for_title "matt@matt-thinkpad.* - byobu"
 sleep 2
 
+# terminal to enterprise-01 on lower right
+i3-msg Workspace 3: terminal
+i3-msg split v
+start "gnome-terminal -t byobu -x ssh enterprise-01"
+wait_for_title "matt@enterprise-01.* - byobu"
+sleep 2
+
 # terminal to pegasus on lower left
 i3-msg Workspace 3: terminal
+i3-msg focus left
 i3-msg split v
 start "gnome-terminal -t byobu -x ssh pegasus"
 wait_for_title "matt@pegasus.* - byobu"
-sleep 2
-
-# terminal to enterprise-01 on lower right
-i3-msg Workspace 3: terminal
-i3-msg split h
-start "gnome-terminal -t byobu -x ssh enterprise-01"
-wait_for_title "matt@enterprise-01.* - byobu"
 sleep 2
 
 # 4: dev
