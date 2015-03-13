@@ -43,7 +43,7 @@ wait_for_title () {
 dex -ae i3
 
 # background
-feh --bg-fill /home/matt/Pictures/wallpaper/abstract-sphere.jpg
+feh --bg-fill --no-xinerama /home/matt/Pictures/wallpaper/abstract-sphere.jpg
 # feh --bg-tile /home/matt/Pictures/wallpaper/pattern/stardust.png
 # feh --bg-scale /home/matt/Pictures/wallpaper/Night-city-street_1920x1080.jpg
 
