@@ -192,6 +192,7 @@ for_window [class="Steam" title="Chat$"] floating enable
 for_window [class="Civ5XP"] floating enable
 for_window [class="XCOM"] floating enable
 for_window [class="[gG]calctool"] floating enable
+for_window [title="Cities"] floating enable
 
 # host specific config
 ######################
