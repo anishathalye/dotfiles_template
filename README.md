@@ -27,6 +27,7 @@ Dotbot.
 * [m45t3r's dotfiles][m45t3r_dotfiles]
 * [alexwh's dotfiles][alexwh_dotfiles]
 * [azd325's dotfiles][azd325_dotfiles]
+* [bluekeys' dotfiles][bluekeys_dotfiles]
 
 If you're using Dotbot and you'd like to include a link to your dotfiles here
 as an inspiration to others, please submit a pull request.
@@ -47,3 +48,4 @@ Dotbot (or this repository) to help other people discover Dotbot.
 [m45t3r_dotfiles]: https://github.com/m45t3r/dotfiles
 [alexwh_dotfiles]: https://github.com/alexwh/dotfiles
 [azd325_dotfiles]: https://github.com/Azd325/dotfiles
+[bluekeys_dotfiles]: https://github.com/bluekeys/.dotfiles
