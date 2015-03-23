@@ -1,6 +1,6 @@
 - shell:
     -
-      - "git submodule foreach git pull origin master"
+      - "git submodule update --init --recursive --remote"
       - "Updating submodules"
     -
       - "i3/create-config"
