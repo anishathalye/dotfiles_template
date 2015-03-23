@@ -1,0 +1,41 @@
+# custom keybinds for logitech k800
+## f1 - home
+# bindsym XF86HomePage
+## f2 - mail
+# bindsym XF86Mail
+## f3 - search
+# bindsym XF86Search
+## f4 - windows
+# Alt+Tab
+## f5 - brightness down (doesn't work)
+# bindsym XF86MonBrightnessDown gnome-calculator
+## f6 - brightness up (doesn't work)
+# bindsym XF86MonBrightnessUp
+## f7 - battery (doesn't work)
+
+## f8 - power
+# bindsym XF86Sleep exec vboxmanage startvm xp
+## f9 - music
+# bindsym XF86AudioMedia workspace $audio
+# bindsym $mod+XF86AudioMedia exec --no-startup-id audio -o speakers && killall -SIGUSR1 i3status
+## f10 - audio back
+
+## f11 - audio play/pause
+
+## f12 - audio forward
+
+## print
+bindsym Print exec shutter -s
+## fn+print
+# bindsym Menu
+
+## mute
+bindsym XF86AudioMute exec --no-startup-id audio mute && killall -SIGUSR1 i3status
+# bindsym XF86AudioMute+1 exec --no-startup-id audio mute 1m && killall -SIGUSR1 i3status
+## volume down
+bindsym XF86AudioLowerVolume exec --no-startup-id audio down && killall -SIGUSR1 i3status
+## volume up
+bindsym XF86AudioRaiseVolume exec --no-startup-id audio up && killall -SIGUSR1 i3status
+
+## calculator
+bindsym XF86Calculator exec gnome-calculator
