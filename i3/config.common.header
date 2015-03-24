@@ -194,6 +194,7 @@ for_window [class="Civ5XP"] floating enable
 for_window [class="XCOM"] floating enable
 for_window [class="[gG]calctool"] floating enable
 for_window [title="^Cities\: Skylines$"] floating enable
+for_window [class="^jquest"] floating enable
 
 # host specific config
 ######################
