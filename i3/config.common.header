@@ -180,6 +180,7 @@ assign [instance="google-chrome.Default"] $personal
 assign [instance="google-chrome.Profile.1"] $work
 assign [title="byobu$"] $terminal
 assign [class="[Ss]team"] $game
+assign [title="[Ss]team"] $game
 assign [class="Skype"] $chat
 assign [class="Atom"] $dev
 assign [title="^xp.*VirtualBox$"] $vm
