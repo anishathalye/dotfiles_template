@@ -3,6 +3,12 @@ Dotfiles Template
 
 This is my repository for bootstraping dotfiles with [Dotbot][dotbot].
 
+Prerequisites
+-------------
+* [dex](https://github.com/jceb/dex)
+* [i3blocks](https://github.com/vivien/i3blocks)
+* i3
+
 Usage
 -----
 
@@ -24,6 +30,10 @@ Actions
 1. Use included bashrc (may require you to rename the original ~/.bashrc
 1. Set the prompt colors (part of bashrc)
 1. Pull [liquidprompt][liquidprompt] repository and use it for the bash prompt (part of bashrc)
+
+### i3
+
+1. Generate a config for i3 based on common and host specific configurations
 
 Inspiration
 -----------
