@@ -1,3 +1,6 @@
+# Try to prevent transparency issues
+new_window pixel
+
 # rotate left monitor counter-clockwise
 exec xrandr --output DVI-I-1 --rotate left
 
