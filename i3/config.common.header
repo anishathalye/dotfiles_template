@@ -188,6 +188,12 @@ assign [instance="www.yahoosportsradio.com__listen"] $audio
 assign [instance="espn.go.com__espnradio_play"] $audio
 
 ## floating windows
+### run xprop to get window settings
+### instance: first part of WM_CLASS
+### class: second part of WM_CLASS
+### window_role: WM_WINDOW_ROLE
+### title: _NET_WM_NAME or WM_NAME
+
 for_window [title="Hangouts"] floating enable
 for_window [class="[Ss]hutter"] floating enable
 for_window [class="Steam" title="Chat$"] floating enable
@@ -197,7 +203,7 @@ for_window [class="[gG]calctool"] floating enable
 for_window [title="^Cities\: Skylines$"] floating enable
 for_window [class="^jquest"] floating enable
 for_window [title="^Endless Space"] floating enable
-for_window [class="^StarRealms"] floating enable
+for_window [instance="^StarRealms"] floating enable
 
 # host specific config
 ######################
