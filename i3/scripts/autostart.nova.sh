@@ -58,8 +58,9 @@ feh --bg-fill --no-xinerama /home/matt/Pictures/wallpaper/nature/YS4_5968_69_70-
 # 1: Personal
 # 2: Work
 ## chrome has window rules
-start "google-chrome --user-data-dir=.config/google-chrome/Default"
-start "google-chrome --user-data-dir=.config/google-chrome/Profile\ 1"
+# start "google-chrome --user-data-dir=.config/google-chrome/Default"
+# start "google-chrome --user-data-dir=.config/google-chrome/Profile\ 1"
+dex ~/.local/share/applications/google-chrome-personal.desktop ~/.local/share/applications/google-chrome-work.desktop
 wait_for_title "Google Chrome"
 
 # 3: terminal

@@ -20,4 +20,6 @@
     ~/.irssi: irssi
     ~/.i3: i3
     ~/.config/gtk-3.0: gtk-3.0
+    ~/.local/share/applications/google-chrome-personal.desktop: applications/google-chrome-personal.desktop
+    ~/.local/share/applications/google-chrome-work.desktop: applications/google-chrome-work.desktop
 - shell: []
