@@ -11,10 +11,13 @@
     - "~/.liquidprompt"
     - "~/.irssi"
     - "~/.i3"
+    - "~/.gtkrc-2.0"
+    - "~/.config/gtk-3.0"
 - link:
     ~/.bashrc: bashrc
     ~/.liquidprompt: liquidprompt
     ~/.dotfiles: ''
     ~/.irssi: irssi
     ~/.i3: i3
+    ~/.config/gtk-3.0: gtk-3.0
 - shell: []
