@@ -101,11 +101,8 @@ current_project="~/src/space-sim"
 start "atom $current_project"
 wait_for_title "Atom"
 i3-msg split h
-start "gnome-terminal -t dev-terminal-1 $current_project"
-wait_for_title "dev-terminal-1"
-i3-msg split v
-start "gnome-terminal -t dev-terminal-2 $current_project"
-wait_for_title "dev-terminal-2"
+dex /usr/share/applications/byobu.desktop
+wait_for_title "byobu"
 sleep 2
 
 # 5: chat
