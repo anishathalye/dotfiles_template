@@ -204,6 +204,7 @@ for_window [title="^Cities\: Skylines$"] floating enable
 for_window [class="^jquest"] floating enable
 for_window [title="^Endless Space"] floating enable
 for_window [instance="^StarRealms"] floating enable
+for_window [instance="^X\-Wing"] floating enable
 
 # host specific config
 ######################
