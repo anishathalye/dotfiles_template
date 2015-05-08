@@ -43,15 +43,15 @@ wait_for_title () {
 dex -ae i3
 
 # background
-feh --bg-fill --no-xinerama /home/matt/Pictures/wallpaper/abstract-sphere.jpg
+feh --bg-fill --no-xinerama /home/matt/Pictures/wallpaper/nature/YS4_5968_69_70-2-3.jpg
+# feh --bg-fill --no-xinerama /home/matt/Pictures/wallpaper/abstract-sphere.jpg
 # feh --bg-tile /home/matt/Pictures/wallpaper/pattern/stardust.png
 # feh --bg-scale /home/matt/Pictures/wallpaper/Night-city-street_1920x1080.jpg
 
 # 1: Personal
 # 2: Work
 ## chrome has window rules
-start "google-chrome --user-data-dir=.config/google-chrome/Default"
-start "google-chrome --user-data-dir=.config/google-chrome/Profile\ 1"
+dex ~/.local/share/applications/google-chrome-personal.desktop ~/.local/share/applications/google-chrome-work.desktop
 wait_for_title "Google Chrome"
 
 # 3: terminal
@@ -66,14 +66,14 @@ sleep 2
 # 4: dev
 i3-msg Workspace 4: dev
 current_project="~/src/space-sim"
-start "atom $current_project"
-wait_for_title "Atom"
-i3-msg split h
-start "gnome-terminal -t dev-terminal-1 $current_project"
-wait_for_title "dev-terminal-1"
-i3-msg split v
-start "gnome-terminal -t dev-terminal-2 $current_project"
-wait_for_title "dev-terminal-2"
+# start "atom $current_project"
+# wait_for_title "Atom"
+# i3-msg split h
+# start "gnome-terminal -t dev-terminal-1 $current_project"
+# wait_for_title "dev-terminal-1"
+# i3-msg split v
+# start "gnome-terminal -t dev-terminal-2 $current_project"
+# wait_for_title "dev-terminal-2"
 sleep 2
 
 # 5: chat
