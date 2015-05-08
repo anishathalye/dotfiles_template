@@ -16,6 +16,7 @@
     - "~/.i3"
     - "~/.gtkrc-2.0"
     - "~/.config/gtk-3.0"
+    - "~/.fonts"
 - link:
     ~/.bashrc: bashrc
     ~/.liquidprompt: liquidprompt
@@ -25,4 +26,5 @@
     ~/.config/gtk-3.0: gtk-3.0
     ~/.local/share/applications/google-chrome-personal.desktop: applications/google-chrome-personal.desktop
     ~/.local/share/applications/google-chrome-work.desktop: applications/google-chrome-work.desktop
+    ~/.fonts: fonts
 - shell: []
