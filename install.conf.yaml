@@ -6,7 +6,7 @@
       - "i3/create-config"
       - "Generating host-specific i3 config"
     -
-      - "ls ~/.theme || mkdir ~/.theme;tar xvfz MediterraneanNight-2.03.tar.gz -C ~/.theme"
+      - "ls ~/.themes || mkdir ~/.themes;tar xvfz MediterraneanNight-2.03.tar.gz -C ~/.themes"
       - "Installing GTK themes"
 - clean:
     - "~"
