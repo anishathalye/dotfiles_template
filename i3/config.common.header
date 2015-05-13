@@ -194,7 +194,8 @@ assign [instance="espn.go.com__espnradio_play"] $audio
 ### window_role: WM_WINDOW_ROLE
 ### title: _NET_WM_NAME or WM_NAME
 
-for_window [title="Hangouts"] floating enable
+for_window [title="Hangouts"] move container to workspace $chat
+for_window [role="pop-up"] floating enable
 for_window [class="[Ss]hutter"] floating enable
 for_window [class="Steam" title="Chat$"] floating enable
 for_window [class="Civ5XP"] floating enable
