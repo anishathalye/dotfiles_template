@@ -85,3 +85,6 @@ alias gitl='git log --pretty=oneline --abbrev-commit --all --graph --color'
 
 # https://github.com/rupa/z via homebrew
 . `brew --prefix`/etc/profile.d/z.sh
+
+# Private configuration.
+source ~/.zshrc.private

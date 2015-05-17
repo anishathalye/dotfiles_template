@@ -1,6 +1,7 @@
 - clean: ['~']
 - link:
     ~/.gvimrc: gvimrc
-    ~/.zshrc: zshrc
     ~/.vimrc: vimrc
+    ~/.zshrc: zshrc
+    ~/.zshrc.private: zshrc.private
 - shell: []
