@@ -5,7 +5,7 @@ export ZSH=/Users/claudine/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="clean"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -82,3 +82,6 @@ source $ZSH/oh-my-zsh.sh
 # Git log with graph.
 # See http://gist.github.com/223905
 alias gitl='git log --pretty=oneline --abbrev-commit --all --graph --color'
+
+# https://github.com/rupa/z via homebrew
+. `brew --prefix`/etc/profile.d/z.sh
