@@ -99,3 +99,7 @@ git fetch --all
 git reset --hard origin/'branch'
 # git fetch downloads the latest from remote without trying to merge or rebase anything.
 # Then the git reset resets the master branch to what you just fetched. The --hard option changes all the files in your working tree to match the files in origin/master
+
+# GIT: ignoring changes in tracked files
+git update-index --assume-unchanged <file> # run the following command on the file or path you want to ignore the changes of:
+git update-index --no-assume-unchanged <file> # If you wanna start tracking changes again run the following command
