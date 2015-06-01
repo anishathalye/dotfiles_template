@@ -8,6 +8,9 @@
     -
       - "ls ~/.themes || mkdir ~/.themes;tar xvfz MediterraneanNight-2.03.tar.gz -C ~/.themes"
       - "Installing GTK themes"
+    -
+      - "for SCRIPT in colors/*;do if [ -f $SCRIPT -a -x $SCRIPT ];then $SCRIPT;fi;done"
+      - "Installing base16 gnome colors"
 - clean:
     - "~"
     - "~/.dotfiles"
