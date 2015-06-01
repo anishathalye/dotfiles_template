@@ -135,4 +135,4 @@ alias ddrpi='sudo dd bs=1M'
 # Colors
 ########
 
-source ~/.dotfiles/colors/base16-shell-bespin.dark.sh
+source ~/.dotfiles/colors/base16-shell-bright.dark.sh
