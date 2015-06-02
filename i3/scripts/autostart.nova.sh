@@ -72,24 +72,24 @@ start "gnome-terminal -t byobu -x byobu"
 wait_for_title "matt@nova.* - byobu"
 sleep 2
 
-# terminal to matt-thinkpad on upper right
-i3-msg Workspace 3: terminal
-i3-msg split h
+# terminal to matt-thinkpad
+# i3-msg Workspace 3: terminal
+# i3-msg split v
 ## provide byobu as the title so it goes to the correct workspace
-start "gnome-terminal -t byobu -x ssh matt-thinkpad"
-wait_for_title "matt@matt-thinkpad.* - byobu"
-sleep 2
+# start "gnome-terminal -t byobu -x ssh matt-thinkpad"
+# wait_for_title "matt@matt-thinkpad.* - byobu"
+# sleep 2
 
-# terminal to enterprise-01 on lower right
-i3-msg Workspace 3: terminal
-i3-msg split v
-start "gnome-terminal -t byobu -x ssh enterprise-01"
-wait_for_title "matt@enterprise-01.* - byobu"
-sleep 2
+# terminal to enterprise-01
+# i3-msg Workspace 3: terminal
+# i3-msg split v
+# start "gnome-terminal -t byobu -x ssh enterprise-01"
+# wait_for_title "matt@enterprise-01.* - byobu"
+# sleep 2
 
-# terminal to pegasus on lower left
+# terminal to pegasus
 i3-msg Workspace 3: terminal
-i3-msg focus left
+# i3-msg focus left
 i3-msg split v
 start "gnome-terminal -t byobu -x ssh pegasus"
 wait_for_title "matt@pegasus.* - byobu"
@@ -100,9 +100,9 @@ i3-msg Workspace 4: dev
 current_project="~/src/space-sim"
 start "atom $current_project"
 wait_for_title "Atom"
-i3-msg split h
-dex /usr/share/applications/byobu.desktop
-wait_for_title "byobu"
+# i3-msg split h
+# dex /usr/share/applications/byobu.desktop
+# wait_for_title "byobu"
 sleep 2
 
 # 5: chat
@@ -115,19 +115,19 @@ sleep 2
 
 # 7: vm
 # start xp on weekdays
-if [[ $(date +%u) -lt 6 ]] ; then
-    i3-msg Workspace 7: vm
-    start "vboxmanage startvm xp"
-    wait_for_title "Oracle VM Virtualbox"
-    sleep 2
-fi
+# if [[ $(date +%u) -lt 6 ]] ; then
+#     i3-msg Workspace 7: vm
+#     start "vboxmanage startvm xp"
+#     wait_for_title "Oracle VM Virtualbox"
+#     sleep 2
+# fi
 
 # 8: audio
-i3-msg Workspace 8: audio
-start "gnome-terminal -t pianobar -x pianobar"
-wait_for_title "pianobar"
-i3-msg split v
-sleep 2
+# i3-msg Workspace 8: audio
+# start "gnome-terminal -t pianobar -x pianobar"
+# wait_for_title "pianobar"
+# i3-msg split v
+# sleep 2
 
 # return to 3: terminal
 i3-msg Workspace 3: terminal

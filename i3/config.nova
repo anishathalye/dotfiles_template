@@ -2,12 +2,12 @@
 new_window pixel
 
 # rotate left monitor counter-clockwise
-exec xrandr --output DVI-I-1 --rotate left
+exec xrandr --output DVI-I-1 --rotate left --output DVI-D-0 --right-of DVI-I-1 --output HDMI-0 --rotate left --right-of DVI-D-0
 
 # workspace screens
 workspace $personal output DVI-I-1
 workspace $work output DVI-I-1
-workspace $terminal output DVI-D-0
+workspace $terminal output HDMI-0
 workspace $dev output DVI-D-0
 workspace $chat output DVI-D-0
 workspace $game output DVI-D-0
