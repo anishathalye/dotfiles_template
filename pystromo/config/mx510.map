@@ -1,0 +1,16 @@
+# Some custom remappings for the Logitech MX510 mouse
+
+[Device:mx510]
+vendor=0x46d
+product=0xc01d
+
+[Map:mx510]
+# Thumb-button, closest to you => Backward (in most web browsers AFAIK)
+BTN_SIDE:KEY_LEFTALT+KEY_LEFT
+# Thumb-button, furthest away => Forward (in most web browsers AFAIK)
+BTN_EXTRA:KEY_LEFTALT+KEY_RIGHT
+# 'Application' button => K-Menu
+BTN_FORWARD:KEY_LEFTALT+KEY_F1
+# Up-scroll button, above the mousewheel => Home key (why not)
+BTN_BACK:KEY_HOME
+# The down-scroll button actually counts as a mousewheel-down

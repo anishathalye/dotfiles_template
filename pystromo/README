@@ -1,0 +1,157 @@
+Pystromo
+========
+A generic input remapper for Linux
+
+https://launchpad.net/pystromo
+Copyright 2007 Mel Collins <mel@raumkraut.net>
+
+
+
+INSTALLATION
+============
+While the actual remapping software can be run as any user, there are some
+initial changes which must be made to the system as the superuser (root):
+
+1.  Add the line "uinput" (without quotes) to the file /etc/modules
+
+
+If you will want to use Pystromo before your next reboot (which is likely),
+you will also need to perform the following command (also as root):
+
+2.  modprobe uinput
+
+
+3. If you intend to run the software as a normal user, and not just as root,
+you will need to copy one of the .rules files from the config subdirectory
+to /etc/udev/rules.d/.
+There are a few such files, named by the Linux distro they are intended for.
+Pick the most appropriate file for your installation, or use the plain
+52-pystromo.rules if none are more specific.
+Ubuntu users should use the 52-pystromo-debian.rules file.
+
+eg.  cp config/52-pystromo.rules /etc/udev/rules.d/
+
+
+A NOTE ABOUT SECURITY:
+Copying the .rules file to /etc/udev/rules.d/ will allow non-root users access
+to the raw input from your input devices. This opens the possibility that
+other users on your system could theoretically snoop in on what you type.
+I have attempted to minimise the permissiveness of the rules in the distro-
+specific .rules files, but the nature of the software requires a certain amount
+of permissiveness.
+Running the software as the root user, without installing the .rules file,
+does not open your raw input, but of course comes with the dangers of
+running any third-party process as a super-user.
+
+
+
+UNINSTALLATION
+==============
+
+1.  Remove any 52-pystromo*.rules file installed to /etc/udev/rules.d/.
+
+2.  If you are certain that no other software on your system uses the uinput
+kernel module, you can remove the 'uinput' line from your /etc/modules file.
+
+
+
+USAGE
+=====
+There are currently two parts to the software; the input-remapper itself, and
+a monitoring daemon:
+
+
+REMAPPER
+--------
+The program which performs the remapping is called pystromo-remap.py
+(this file has previously been called "input-remapper.py" or "remapper.py"
+in older releases of the software)
+The -h or --help arguments can be used to get usage information:
+
+$ ./pystromo-remap.py -h
+usage: pystromo-remap.py [options]
+
+options:
+  -h, --help            show this help message and exit
+  -m FILE, --map=FILE   Use mappings from the given file
+  -v, --verbose         Will print out some information about found devices,
+                        etc. Use this option twice to print information about
+                        all incoming events, and three times (!) to display
+                        outgoing events.
+
+Multiple instances of the map argument can be supplied, which will make the
+input remapper combine settings from all the files. Settings supplied in
+latterly specified files will override similar earlier ones.
+
+Pystromo comes with several .map files by default in the "config" subdirectory.
+The most useful mapping file for learning how they work is test.map; a
+collection of mappings designed to both document and demonstrate every
+remapping feature of Pystromo. Most of the mappings in this file make use of
+input from the left-hand side of a keyboard, due to this being the default
+setup for an n52. :)
+
+
+MONITOR
+-------
+Also part of Pystromo is a monitoring daemon; pystromo-mon.py; whose job it is
+to start and stop a remapper daemon in response to the running of processes.
+This means that you can have the remapper start automatically, with specific
+mapping files, when you start a specific application.
+Similar to the remapper script, you can use the -h or --help arguments:
+
+$ ./pystromo-mon.py -h
+usage: pystromo-mon.py [options]
+
+options:
+  -h, --help            show this help message and exit
+  -c FILE, --conf=FILE  Use configuration settings from the given file
+  -a, --all-users       Check processes for all users, not just the current
+                        one.
+  -v, --verbose         In verbose mode, will output a status line whenever
+                        the input-remapper changes state.
+
+As with the remapper's mapping files, multiple configuration files can be
+specified with multiple -c options. However no settings will be overridden by
+other files, they will instead be aggregated.
+If started without specifying any config files, it will try to use the file:
+$HOME/.config/pystromo/monitor.conf
+
+There is a single, simple, demonstration configuration file included with
+Pystromo - "config/monitor.conf". It is simple because it has no need to be
+complex.
+
+
+
+CONFIGURATION
+=============
+It is recommended to keep personal configuration and mapping files in a
+directory named "pystromo" within ".config/" in your home directory. At some
+point in the future, this may be automatically created by an install script,
+GUI, or such.
+
+For creating your own configuration files, there are two main points of
+reference:
+- Custom mapping files; the file "config/test.map" contains fairly exhaustive
+information and examples of input remappings.
+- Monitor configuration; the file "config/monitor.conf" contains a short
+demonstration of how to set it up. There isn't a lot to it, so it's pretty
+succinct.
+
+
+
+BUGS AND TROUBLESHOOTING
+========================
+If you come across any bugs in the program, or are having problems with the
+software, you can submit a bug report or ask a question via the project's
+site on Launchpad:
+https://launchpad.net/pystromo
+
+Alternatively you can email me directly:
+mel@raumkraut.net
+
+
+
+LICENSE
+=======
+This software is released under the terms of the Gnu General Public License.
+See the included GPL.txt for more information.

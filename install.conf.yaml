@@ -11,6 +11,9 @@
     -
       - "for SCRIPT in colors/*;do if [ -f $SCRIPT -a -x $SCRIPT ];then $SCRIPT;fi;done"
       - "Installing base16 gnome colors"
+    -
+      - "ls ~/.local/share/applications || mkdir -p ~/.local/share/applications"
+      - "Creating user applications directory if it does not exist"
 - clean:
     - "~"
     - "~/.dotfiles"
@@ -19,6 +22,7 @@
     - "~/.i3"
     - "~/.gtkrc-2.0"
     - "~/.config/gtk-3.0"
+    - "~/.config/pystromo"
     - "~/.fonts"
 - link:
     ~/.bashrc: bashrc
@@ -27,6 +31,7 @@
     ~/.irssi: irssi
     ~/.i3: i3
     ~/.config/gtk-3.0: gtk-3.0
+    ~/.config/pystromo: pystromo
     ~/.local/share/applications/google-chrome-personal.desktop: applications/google-chrome-personal.desktop
     ~/.local/share/applications/google-chrome-work.desktop: applications/google-chrome-work.desktop
     ~/.fonts: fonts
