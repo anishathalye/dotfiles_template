@@ -1,0 +1,86 @@
+#!/bin/bash
+
+# Configuration
+###############
+
+
+# Functions
+###########
+function show_help {
+    echo "Create an i3 config file from parts"
+    echo "Usage: $0 [options]"
+    echo "Options:"
+    echo -e "-h\tShow this help"
+}
+
+# Ask a question, defaults to yes
+function yes_no_question () {
+    read -r -p "$1 [Y/n] " response
+    response=${response,,}
+    if [[ "$response" =~ ^(yes|y|)$ ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Ask a question, defaults to no
+function no_yes_question () {
+    read -r -p "$1 [Y/n] " response
+    response=${response,,}
+    if [[ "$response" =~ ^(no|n|)$ ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Useful Variables
+##################
+# Directory containing this script
+#  (no matter where it is called from)
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+script_dir="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+# Script
+########
+
+# Read Command Line Arguments
+while getopts "h" opt; do
+    case "$opt" in
+        h)
+            show_help
+            exit 0
+            ;;
+  esac
+done
+
+config="$script_dir/config"
+config_common_header="$script_dir/config.common.header"
+host=`hostname`
+config_host="$script_dir/config.$host"
+config_common_footer="$script_dir/config.common.footer"
+
+echo "Deleting existing config ($config)..."
+if [ -a "$config" ]; then
+    eval "mv $config $config.previous"
+fi
+echo "Creating i3 config as $config..."
+eval "touch $config"
+if [ -a "$config_common_header" ]; then
+    echo "Including $config_common_header..."
+    eval "cat $config_common_header >> $config"
+fi
+if [ -a "$config_host" ]; then
+    echo "Including $config_host..."
+    eval "cat $config_host >> $config"
+fi
+if [ -a "$config_common_footer" ]; then
+    echo "Including $config_common_footer..."
+    eval "cat $config_common_footer >> $config"
+fi

@@ -1,0 +1,2 @@
+KERNEL=="uinput", MODE="660", GROUP="users"
+KERNEL=="event[0-9]*", MODE="660", GROUP="users"

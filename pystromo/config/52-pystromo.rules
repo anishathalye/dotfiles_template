@@ -1,0 +1,2 @@
+KERNEL=="uinput", MODE="666"
+KERNEL=="event[0-9]*", MODE="666"

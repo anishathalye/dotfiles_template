@@ -1,0 +1,5 @@
+##########################
+# end host specific config
+
+# workspace start scripts
+exec --no-startup-id ~/.i3/scripts/autostart.sh > ~/.i3/scripts/autostart.log

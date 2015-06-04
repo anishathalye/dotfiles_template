@@ -1,0 +1,7 @@
+# Nostromo N52 Speedpad
+[Device:n52]
+vendor=0x050d
+product=0x0815
+
+[Map:n52]
+KEY_TAB:

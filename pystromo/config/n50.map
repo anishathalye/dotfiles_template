@@ -1,0 +1,24 @@
+# This remaps the n50's controls to something closer to the n52's keyset
+
+[Device:n50]
+vendor=0x050d
+product=0x0805
+
+[Map:n50]
+# The keys, from 1 to 10
+BTN_A:KEY_TAB
+BTN_B:KEY_Q
+BTN_C:KEY_W
+BTN_X:KEY_E
+BTN_Y:KEY_R
+BTN_Z:KEY_LEFTSHIFT
+BTN_TL:KEY_A
+BTN_TR:KEY_S
+BTN_TL2:KEY_D
+BTN_TR2:KEY_F
+# D-pad
+ABS_X<128:KEY_LEFT
+ABS_X>128:KEY_RIGHT
+ABS_Y<128:KEY_UP
+ABS_Y>128:KEY_DOWN
+# The throttle wheel is mapped to ABS_THROTTLE, so we don't change it

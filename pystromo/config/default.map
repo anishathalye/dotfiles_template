@@ -1,0 +1,137 @@
+# This file contains demonstration devices and key re-mappings.
+
+########################################
+## First we must define which devices to 'grab'
+
+# Each [Device:*] section indicates we should grab any input from
+# devices which match certain key=value pairs inside that section.
+# The string after the colon will be used as the device ID, and should
+# be unique. Please keep your device IDs to alpha-numeric characters,
+# underscore (_), and minus (-). I may cry if you don't.
+# Latterly defined [Device] sections will override previously defined
+# [Device] sections with the same ID.
+# Valid keys for device-matching are:
+#	name (string)
+#	bus (int); see constants.py:BUS_* for valid bus values.
+#	vendor (int)
+#	product (int)
+#	version (int)
+
+
+# Nostromo n52
+[Device:n52]
+vendor=0x050d
+product=0x0815
+
+
+########################################
+## Now we can specify which inputs to remap
+
+# Mappings within this default section apply to all grabbed devices.
+[Map:]
+
+# A remapping statement consists of two input:output halves, seperated by a
+# colon or equals sign. Whitespace is ignored.
+# See constants.py for possible values for the in and out-put keys.
+# If a remapping is specified more than once, the latter definition will rule.
+
+# Eg.:
+## Replace the TAB key with the 1 key.
+#KEY_TAB:KEY_1
+
+
+# You can assign multiple keys to the same output:
+## Both Q and W should press 2.
+#KEY_Q,KEY_W:KEY_2
+
+
+# It is also possible to use chording on the input:
+## Both E and R at the same time will result in an 'enter' keypress.
+#KEY_E+KEY_R: KEY_ENTER
+
+## But it's probably a good idea to neutralise either key when pressed alone!
+#KEY_E:
+#KEY_R:none
+
+
+# The output can perform a sequence of keypresses:
+## A is remapped to write out "apple"
+#KEY_A:KEY_A, KEY_P, KEY_P, KEY_L, KEY_E
+
+
+# Or simultaneous keypress combinations:
+# (each key is pressed in the order given, then released in reverse order)
+## S is remapped to press alt-F2
+#KEY_S:KEY_LEFTALT + KEY_F2
+
+
+# Delays can also be introduced:
+# (delays won't block other events from being processed, don't worry)
+## D will type "D'oh" at one key per second
+#KEY_D:KEY_LEFTSHIFT+KEY_D, 1000, KEY_APOSTROPHE, 1000, KEY_O, 1000, KEY_H
+
+
+# Delays can also be put on output combinations.
+# These will cause that combination to be held for that amount of time.
+# For example, UT2004 requires movement keys to be held down for a (small)
+# amount of time before it is counted as part of a dodge move.
+# Why do you think I implemented this feature? :)
+## This will hold down 'F' for half a second, twice.
+#KEY_F:KEY_F+500,1000,KEY_F+500
+
+
+# You can also make cycles of keypresses, such that the first press of a key
+# does one thing, the next another, and so forth.
+## Pressing left-shift will trigger a, then b, then c, and so on
+#KEY_LEFTSHIFT:KEY_A. KEY_B,KEY_B. KEY_C,KEY_C,KEY_C. KEY_D,KEY_D,KEY_D,KEY_D. #KEY_E,KEY_T,KEY_C,KEY_DOT
+
+
+# Something such as "KEY_? + (KEY_?, KEY_?, KEY_?), KEY_?" may come later.
+# But don't count on it.
+
+
+# You may assign remappings to a specific device, or set of devices, by
+# specifying a name after the colon in the 'Map' section heading.
+
+[Map:n52]
+# For the nostromo n52, we remap key #6 (capslock) to print 'w00t!'.
+# NB. "!" is not a basic key, so it's location may depend on keyboard layout.
+#KEY_CAPSLOCK=KEY_W, KEY_0, KEY_0, KEY_T, KEY_LEFTSHIFT + KEY_1
+
+
+# For relative actions (such as wheels) you need to specify the direction of
+# motion to match using ">" (positive/up/right) and "<" (negative/down/left)
+## Remap the positive wheel motion to "+"
+REL_WHEEL>=KEY_LEFTSHIFT+KEY_EQUAL
+## Remap the negative wheel motion to "-"
+REL_WHEEL<=KEY_MINUS
+
+
+# We can toggle LED status lights by triggering LED_* events
+## Light the blue light while key #14 ('c') is pressed
+KEY_C: LED_SCROLLL
+
+
+## Light the red, green, then blue LEDs with sequential presses of key #15 (space)
+KEY_SPACE: LED_NUML@1 + LED_CAPSL@0 + LED_SCROLLL@0. LED_NUML@0 + LED_CAPSL@1 + LED_SCROLLL@0. LED_NUML@0 + LED_CAPSL@0 + LED_SCROLLL@1. LED_NUML@1 + LED_CAPSL@1 + LED_SCROLLL@0. LED_NUML@0 + LED_CAPSL@0 + LED_SCROLLL@0.
+
+
+## Red button causes a lightshow!
+KEY_LEFTALT: LED_NUML@1, 100, LED_NUML@0, LED_CAPSL@1, 100, LED_CAPSL@0, LED_SCROLLL@1, 100, LED_SCROLLL@0, LED_CAPSL@1, 100, LED_CAPSL@0, LED_NUML@1, 100, LED_NUML@0, 100, LED_CAPSL@1, LED_NUML@1, LED_SCROLLL@1, 100, LED_CAPSL@0, LED_NUML@0, LED_SCROLLL@0, 100, LED_CAPSL@1, LED_NUML@1, LED_SCROLLL@1, 100, LED_CAPSL@0, LED_NUML@0, LED_SCROLLL@0, 100
+
+
+# We can assign mappings for specific LED statii by adding one or more LED_*
+# keywords to the end of the section header, each preceded by a plus.
+## The n52's #06 key should print 'red' in red-mode
+[Map:n52 + LED_NUML]
+KEY_CAPSLOCK: KEY_R, KEY_E, KEY_D
+
+
+## Key #12 ('z') should toggle the green LED when already in red mode.
+KEY_Z: LED_CAPSL@1. LED_CAPSL@0
+
+
+## key #11 should print 'yellow' in red-and-green mode(!)
+[Map:n52 + LED_NUML + LED_CAPSL]
+KEY_LEFTSHIFT: KEY_Y, KEY_E, KEY_L, KEY_L, KEY_O, KEY_W
+

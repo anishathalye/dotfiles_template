@@ -1,0 +1,6 @@
+*.log
+i3/config
+i3/config.previous
+i3/scripts/.config
+liquidprompt
+dotbot

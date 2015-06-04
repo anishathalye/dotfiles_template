@@ -1,19 +1,39 @@
 Dotfiles Template
 =================
 
-This is a template repository for bootstraping your dotfiles with [Dotbot][dotbot].
+This is my repository for bootstraping dotfiles with [Dotbot][dotbot].
 
-To get started, you can [fork][fork] this repository (and probably delete this
-README and rename your version to something like just `dotfiles`).
+Prerequisites
+-------------
+* [dex](https://github.com/jceb/dex)
+* [i3blocks](https://github.com/vivien/i3blocks)
+* i3
 
-In general, you should be using symbolic links for everything, and using git
-submodules whenever possible.
+Usage
+-----
 
-To keep submodules at their proper versions, you could include something like
-`git submodule update --init --recursive` in your `install.conf.yaml`.
+This is built so it can be run any number of times and will result in the same
+actions every time, so this can be added to a startup script, if desired.
 
-To upgrade your submodules to their latest versions, you could periodically run
-`git submodule update --init --remote`.
+To setup the dotfiles, clone this repository and run install:
+
+    $ mkdir ~/src
+    $ cd ~/src
+    $ git clone git@github.com:matthew-parlette/dotfiles.git
+    $ ~/src/dotfiles/install
+
+Actions
+-------
+
+### Bash
+
+1. Use included bashrc (may require you to rename the original ~/.bashrc
+1. Set the prompt colors (part of bashrc)
+1. Pull [liquidprompt][liquidprompt] repository and use it for the bash prompt (part of bashrc)
+
+### i3
+
+1. Generate a config for i3 based on common and host specific configurations
 
 Inspiration
 -----------
@@ -43,7 +63,7 @@ That being said, I would appreciate it if you could maintain a link back to
 Dotbot (or this repository) to help other people discover Dotbot.
 
 [dotbot]: https://github.com/anishathalye/dotbot
-[fork]: https://github.com/anishathalye/dotfiles_template/fork
+[liquidprompt]: https://github.com/nojhan/liquidprompt
 [anishathalye_dotfiles]: https://github.com/anishathalye/dotfiles
 [csivanich_dotfiles]: https://github.com/csivanich/dotfiles
 [m45t3r_dotfiles]: https://github.com/m45t3r/dotfiles

@@ -1,0 +1,5 @@
+/connect freenode
+/join #salt
+/join #zenoss
+/ignore -channels #salt * JOINS PARTS QUITS NICKS
+/ignore -channels #zenoss * JOINS PARTS QUITS NICKS
