@@ -22,3 +22,5 @@ export CHEATPATH='~/.cheat'
 
 export PATH=$HOME/.dotfiles/bin:${PATH}
 export PATH=$HOME/.dotfiles/bin/encryption:$PATH
+
+export WWW_HOME='www.duckduckgo.com'
