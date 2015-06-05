@@ -41,6 +41,6 @@
     ~/.ssh/id_rsa.pub: "ssh/id_rsa.pub"
     ~/.ssh/id_rsa.pub.pem: "ssh/id_rsa.pub.pem"
     ~/.lynx.cfg: "lynx.cfg"
-
+    ~/.irssi: "irssi"
 - shell:
     - [rm -Rf ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/ ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/gtg_tasks-*.xml ~/.local/share/gtg/gtg_tasks.xml, link Getting Things Done from DROPBOX]

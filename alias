@@ -11,9 +11,11 @@ alias ll='ls -lh'
 alias ls='ls --color=auto'
 alias vi='vim'
 alias wd='cd /media/lbesnard/Laurent_emII'
-alias workspace_talend_opt='cd /opt/TOS_DI-r96646-V5.1.3/workspace_sdi/harvesters/workspace/'
+alias talend_dir='cd /opt/TOS_DI-r96646-V5.1.3/workspace_sdi/harvesters/workspace/'
 alias killall='killall -SIGUSR1'
 alias lynx='lynx -cfg=~/.lynx.cfg '
+
+alias music_player='mp3blaster'
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 
@@ -25,3 +27,6 @@ alias chef="cd $CHEF_DIR"
 alias chef_imos="chef && rm -f private; ln -s ../chef-private private"
 alias chef_sample="chef && rm -f private; ln -s ../chef-private-sample private"
 
+alias chef_14_build='jenkins_chef_cook_node 14-nsp-mel'
+
+alias rsrc='source ~/.bashrc'

@@ -35,8 +35,11 @@
 	alias = !tac ~/.gitconfig | sed -e '/alias/q' |tac | tail -n+2
 	# alias = !git config --get-regexp ^alias\. | sed -e s/^alias\.// -e s/\ /\ =\ /
 	s = status
+	a = add
 	p = pull
 	b = branch
+	d = diff
+	l = log
         co = checkout
         ec = config --global -e
         up = !git pull --rebase --prune $@ && git submodule update --init --recursive
