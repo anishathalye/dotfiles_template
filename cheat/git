@@ -103,3 +103,8 @@ git reset --hard origin/'branch'
 # GIT: ignoring changes in tracked files
 git update-index --assume-unchanged <file> # run the following command on the file or path you want to ignore the changes of:
 git update-index --no-assume-unchanged <file> # If you wanna start tracking changes again run the following command
+
+# git geoserver master to prod
+git co master; git pull; git co production;git pull;
+git merge master;
+git push origin production;

@@ -29,6 +29,15 @@ alias chef="cd $CHEF_DIR"
 alias chef_imos="chef && rm -f private; ln -s ../chef-private private"
 alias chef_sample="chef && rm -f private; ln -s ../chef-private-sample private"
 
+alias chef_po_box="chef_sample &&  ./private/bin/po-box.sh"
+
 alias chef_14_build='jenkins_chef_cook_node 14-nsp-mel'
+alias chef_10_build='jenkins_chef_cook_node 10-nsp-mel'
+alias chef_9_build='jenkins_chef_cook_node 9-nsp-mel'
+
 
 alias rsrc='source ~/.bashrc'
+
+GITHUB_DIR="$HOME/github_repo"
+alias github_repo="cd $GITHUB_DIR"
+alias data_services="cd $GITHUB_DIR/data-services"
