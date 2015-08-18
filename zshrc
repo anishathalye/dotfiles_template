@@ -86,5 +86,9 @@ alias gitl='git log --pretty=oneline --abbrev-commit --all --graph --color'
 # https://github.com/rupa/z via homebrew
 . `brew --prefix`/etc/profile.d/z.sh
 
+# Polipo.
+export http_proxy="http://localhost:8123"
+
 # Private configuration.
 source ~/.zshrc.private
+
