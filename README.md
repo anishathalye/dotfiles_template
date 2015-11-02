@@ -29,6 +29,7 @@ Dotbot.
 * [azd325's dotfiles][azd325_dotfiles]
 * [bluekeys' dotfiles][bluekeys_dotfiles]
 * [wazery's dotfiles][wazery_dotfiles]
+* [thirtythreeforty's dotfiles][thirtythreeforty_dotfiles]
 
 If you're using Dotbot and you'd like to include a link to your dotfiles here
 as an inspiration to others, please submit a pull request.
@@ -51,3 +52,4 @@ Dotbot (or this repository) to help other people discover Dotbot.
 [azd325_dotfiles]: https://github.com/Azd325/dotfiles
 [bluekeys_dotfiles]: https://github.com/bluekeys/.dotfiles
 [wazery_dotfiles]: https://github.com/wazery/dotfiles
+[thirtythreeforty_dotfiles]: https://github.com/thirtythreeforty/dotfiles
