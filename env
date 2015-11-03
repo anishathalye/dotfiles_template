@@ -3,13 +3,13 @@
 export JRE_HOME='/usr/lib/jvm/java-1.6.0-openjdk'
 export JAVA_HOME='/usr/lib/jvm/java-1.6.0-openjdk-amd64'
 export JAVA_OPTS="-Xms512M -Xmx512M -Djava.awt.headless=true"
-export  CATALINA_HOME="/usr/share/tomcat7"
-export  CATALINA_BASE="/var/lib/tomcat7"
+export CATALINA_HOME="/usr/share/tomcat7"
+export CATALINA_BASE="/var/lib/tomcat7"
 
 # MATLAB
 export LD_LIBRARY_PATH=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/os/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64/native_threads:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64/server:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64
 
-#MCR matlab library path 
+#MCR matlab library path
 export XAPPLRESDIR=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/X11/app-defaults
 
 # used ?
@@ -18,9 +18,11 @@ export GEOSERVER_DATA_DIR='/opt/geoserver/data_dir'
 # cheat sheet - see github repo https://github.com/chrisallenlane/cheat
 export EDITOR='/usr/bin/vi'
 export CHEATCOLORS=true
-export CHEATPATH='~/.cheat'
+export CHEATPATH='$HOME/.cheat'
 
 export PATH=$HOME/.dotfiles/bin:${PATH}
 export PATH=$HOME/.dotfiles/bin/encryption:$PATH
 
+export GITHUB_DIR=$HOME/github_repo
 export WWW_HOME='www.duckduckgo.com'
+export CHEF_DIR="$GITHUB_DIR/chef"

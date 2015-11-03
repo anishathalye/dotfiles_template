@@ -1,0 +1,2 @@
+# download all links in webpage
+elinks --dump https://tommyemmanuel.wordpress.com/gitar-tabok/  | awk '/http/{print $2}' | grep pdf  | xargs wget

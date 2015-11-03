@@ -16,39 +16,43 @@
 	status = auto
 
 [color "branch"]
-        current = yellow reverse
-        local = yellow
-        remote = green
+    current = yellow reverse
+    local = yellow
+    remote = green
 [color "diff"]
-        meta = yellow bold
-        frag = magenta bold
-        old = red bold
-        new = green bold
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
 [color "status"]
-        added = yellow
-        changed = green
-        untracked = cyan
-
+    added = yellow
+    changed = green
+    untracked = cyan
 
 # http://haacked.com/archive/2014/07/28/github-flow-aliases/
 [alias]
 	alias = !tac ~/.gitconfig | sed -e '/alias/q' |tac | tail -n+2
-	# alias = !git config --get-regexp ^alias\. | sed -e s/^alias\.// -e s/\ /\ =\ /
 	s = status
 	a = add
 	p = pull
 	b = branch
 	d = diff
 	l = log
-        co = checkout
-        ec = config --global -e
-        up = !git pull --rebase --prune $@ && git submodule update --init --recursive
-        cob = checkout -b
-        cm = !git add -A && git commit -m
-        save = !git add -A && git commit -m 'SAVEPOINT'
-        wip = !git add -u && git commit -m "WIP" 
-        undo = reset HEAD~1 --mixed
-        amend = commit -a --amend
-        wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
-        bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
-        bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
+    co-wip = !git commit -m 'wip'
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    co = checkout
+    co-wip-and-squash-last = !git co-wip && git squash-auto
+    squash-auto = !"f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
+    push-force-branch = !"f() { git branch  | grep '*' | sed 's/* //g'  | xargs git push -f origin; }; f"
+    squash-last = !"f() { NL=$1; GIT_EDITOR=\"sed -i '2,$NL s/pick/squash/;/# This is the 2nd commit message:/,$ {d}'\"; git rebase -i HEAD~$NL; }; f"
+    ec = config --global -e
+    up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+    cob = checkout -b
+    cm = !git add -A && git commit -m
+    save = !git add -A && git commit -m 'SAVEPOINT'
+    wip = !git add -u && git commit -m "WIP"
+    undo = reset HEAD~1 --mixed
+    amend = commit -a --amend
+    wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+    bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
+    bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"

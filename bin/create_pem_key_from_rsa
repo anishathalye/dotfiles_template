@@ -1,7 +1,8 @@
+#!/bin/bash
 if [ ! -f ~/.ssh/id_rsa.pem ] 
 then
-	echo 'creation of pem private key'
-	openssl rsa -in ~/.ssh/id_rsa -outform pem > ~/.ssh/id_rsa.pem
+    echo 'creation of pem private key'
+    openssl rsa -in ~/.ssh/id_rsa -outform pem > ~/.ssh/id_rsa.pem
 exit 1
 fi
 

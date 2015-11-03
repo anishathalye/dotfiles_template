@@ -9,28 +9,28 @@ alias l='ls -CF'
 alias la='ls -a'
 alias ll='ls -lh'
 alias ls='ls --color=auto'
+alias ls_time='ls -lrt'
+alias clear_tmp="find /tmp -mtime +1 -and -not -exec fuser -s {} ';' -and -exec rm -Rf {} ';'"
 alias vi='vim'
 alias wd='cd /media/lbesnard/Laurent_emII'
 alias talend_dir='cd /opt/TOS_DI-r96646-V5.1.3/workspace_sdi/harvesters/workspace/'
 alias killall='killall -SIGUSR1'
 alias lynx='lynx -cfg=~/.lynx.cfg '
 alias elinks='elinks www.google.com.au'
-
+alias irssi='screen irssi'
 alias music_player='mp3blaster'
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-
+alias lock_screen='gnome-screensaver-command --lock || xscreensaver-command -lock'
 alias latest_installed_pckg='cat /var/log/apt/history.log | grep "\ install\ "'
 
-# chef imos repository
-CHEF_DIR="$HOME/github_repo/chef"
-
+# CHEF IMOS REPOSITORY
 alias chef="cd $CHEF_DIR"
 alias chef_imos="chef && rm -f private; ln -s ../chef-private private"
-alias chef_sample="chef && rm -f private; ln -s ../chef-private-sample private"
+alias chef_sample="chef && rm -f private; ln -s private-sample private"
 
-alias chef_po_box="chef_sample &&  ./private/bin/po-box.sh"
-
+alias chef_po_box="chef_sample &&  ./bin/po-box.sh && vagrant ssh po"
+alias ssh_po="chef_sample && vagrant ssh po"
 alias chef_14_build='jenkins_chef_cook_node 14-nsp-mel'
 alias chef_10_build='jenkins_chef_cook_node 10-nsp-mel'
 alias chef_9_build='jenkins_chef_cook_node 9-nsp-mel'
@@ -38,6 +38,32 @@ alias chef_9_build='jenkins_chef_cook_node 9-nsp-mel'
 
 alias rsrc='source ~/.bashrc'
 
-GITHUB_DIR="$HOME/github_repo"
 alias github_repo="cd $GITHUB_DIR"
-alias data_services="cd $GITHUB_DIR/data-services"
+alias data_services_dir="cd $CHEF_DIR/src/data-services"
+alias geoserver_dir="cd $CHEF_DIR/src/geoserver"
+
+alias project_officer_user='sudo -u projectofficer -s'
+
+# POSTGRES
+DBHOST='14-nsp-mel.emii.org.au'
+alias psql-dbrc="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
+
+DBHOST='dbprod.emii.org.au'
+alias psql-dbprod="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
+
+###########################
+# music database + player #
+###########################
+alias update-music-db='updatedb -l 0 -o ~/.externalHD_music.db -U /media/lbesnard/music/Music/'
+alias locate-external='locate -i -d ~/.externalHD_music.db'
+
+# $1 - string to search for
+function listen-to() {
+    listen_to="$1"; shift
+    local playlist=`mktemp`
+    locate-external "$listen_to" > $playlist
+    sed -i -r '/.mp3$|.wav$|.ogg$/!d' $playlist
+    mp3blaster --list $playlist
+    rm $playlist
+}
+export -f listen-to

@@ -1,0 +1,10 @@
+directory: "/media/lbesnard/music/zik non trié"
+library: ~/musiclibrary.blb
+import:
+    copy: no
+    write: no
+plugins: inline convert web fetchart lyrics lastgenre play chroma fromfilename duplicates
+play:
+    command: mp3blaster --list
+chroma:
+    auto: no

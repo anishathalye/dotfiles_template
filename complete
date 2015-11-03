@@ -1,0 +1,17 @@
+# complete to have list of vagrant nodes
+_parser_option_vagrant_ssh_chef_aodn() {
+    local curr_arg
+    local option_list
+
+    curr_arg=${COMP_WORDS[COMP_CWORD]};
+    option_list=`ls $GITHUB_DIR/chef/nodes | sed "s/.json//g"`
+    COMPREPLY=( $(compgen -W '`echo $option_list`' -- $curr_arg ) );
+}
+
+alias vagrant_ssh_chef='cd $GITHUB_DIR/chef && vagrant ssh'
+complete -F _parser_option_vagrant_ssh_chef_aodn vagrant_ssh_chef
+
+# load beets music tagging completions
+eval "$(beet completion)"
+
+source $GITHUB_DIR/dotfiles/libs/cheat/cheat/autocompletion/cheat.bash

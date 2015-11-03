@@ -6,7 +6,7 @@ export JENKINS_PASSWORD=ddd
 # "$@" - parameters
 trigger_jenkins_job() {
     local job=$1; shift
-    local url="https://jenkins.aodn.org.au/job/$job/buildWithParameters"
+    local url="https://kenkins.aodn.org.au/job/$job/buildWithParameters"
     local curl_cmd_line="curl '$url'"
     if [ x"$@" != x ]; then
         curl_cmd_line="$curl_cmd_line -d '$@'"
@@ -17,6 +17,6 @@ trigger_jenkins_job() {
 
 jenkins_chef_cook_node() {
     local node=$1; shift
-    trigger_jenkins_job Chef_cook_node "NODE_NAME=$node&GIT_BRANCH=production"
+    trigger_jenkins_job chef_cook_node "NODE_NAME=$node&GIT_BRANCH=production"
 }
 

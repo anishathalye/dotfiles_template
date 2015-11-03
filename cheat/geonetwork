@@ -1,0 +1,8 @@
+### Export to local machine
+./gn-tool.sh -o export -l /tmp/gn-rc-backup -g https://catalogue-rc.aodn.org.au/geonetwork;
+./gn-tool.sh -o export -l /tmp/gn-dump -g https://catalogue-rc.aodn.org.au/geonetwork;
+
+### Import
+./gn-tool.sh -o import -l /tmp/gn-dump -g http://172.28.128.5:8080/geonetwork -u admin -p admin
+
+

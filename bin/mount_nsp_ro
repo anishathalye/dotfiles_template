@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # nsf mount for nsp1-
 sshfs_mount() {
     local src=$1; shift

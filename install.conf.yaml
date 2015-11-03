@@ -1,9 +1,8 @@
 - shell:
     - [mkdir -p ~/Downloads, Creating downloads directory]
-    - [mkdir -p ~/.ssh, Creating ssh directory]
     - [git submodule update --init --recursive "libs", Installing submodules]
-    - ["sudo pip install docopt pygments;cd libs/cheat; sudo python setup.py install", install cheat]
-    - [sudo ln -s /usr/share/applications/guake.desktop /etc/xdg/autostart/", autostart guake]
+    - [gconftool-2 --set /apps/guake/general/use_vte_titles --type boolean false, fix guake tab resize]
+
 - clean:
    - "~"
 
@@ -11,6 +10,7 @@
     ~/.dotfiles: .
     ~/.env: env
     ~/.alias: alias
+    ~/.complete: complete
     ~/.bashrc:
        force: true
        path: bashrc
@@ -19,28 +19,24 @@
         path: config/sublime-text-2/
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
-    ~/.wallpaper:
-        create: true
-        path: wallpaper/
     ~/.snes9x:
         create: true
         path: snes9x/
     ~/bin: bin
     ~/.cheat:
         create: true
-        path: cheat
-    ~/.vim:
-        create: true
-        path: vim/vim
-    ~/.vimrc" : vim/vimrc
+        path: cheat/
     ~/.gconf/apps/guake:
         create: true
         force: true
         path: gconf/apps/guake/
-    ~/.ssh/config: "ssh/config"
-    ~/.ssh/id_rsa.pub: "ssh/id_rsa.pub"
-    ~/.ssh/id_rsa.pub.pem: "ssh/id_rsa.pub.pem"
-    ~/.lynx.cfg: "lynx.cfg"
-    ~/.irssi: "irssi"
+    ~/.ssh/config: ssh/config
+    ~/.ssh/id_rsa.pub: ssh/id_rsa.pub
+    ~/.ssh/id_rsa.pub.pem: ssh/id_rsa.pub.pem
+    ~/.lynx.cfg: lynx.cfg
+    ~/.irssi:
+        create: true
+        path: irssi
+    ~/.config/beets/config.yaml: beets.yaml
 - shell:
     - [rm -Rf ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/ ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/gtg_tasks-*.xml ~/.local/share/gtg/gtg_tasks.xml, link Getting Things Done from DROPBOX]

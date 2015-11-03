@@ -7,7 +7,7 @@ VisualHostKey=yes
 Host github.com
     IdentityFile ~/.ssh/id_rsa
     Hostname ssh.github.com
-    
+
 # UTAS GATEWAY
 Host its6
     Hostname 6-its-hob.emii.org.au
@@ -47,6 +47,12 @@ Host nec10
     Port 22
     ForwardAgent yes
 
+Host nec2
+    Hostname 2-nec-hob.emii.org.au
+    User lbesnard
+    Port 22
+    ForwardAgent yes
+
 # katabatic ACECRC
 Host katabatic
      hostname acecompute.antcrc.utas.edu.au
@@ -69,17 +75,17 @@ Host gcw0_usb0
 # tunnel through its6
 Host nsp10_tunnel
     Hostname  10-nsp-mel.emii.org.au
-    Proxycommand ssh -q its6 nc -q0 %h  22 
+    Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 
 Host nec10_tunnel
     Hostname  10-nec-hob.emii.org.au
-    Proxycommand ssh -q its6 nc -q0 %h  22 
+    Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 
 Host nsp14_tunnel
     Hostname 14-nsp-mel.emii.org.au
-    Proxycommand ssh -q its6 nc -q0 %h  22 
+    Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 
 

@@ -108,3 +108,7 @@ git update-index --no-assume-unchanged <file> # If you wanna start tracking chan
 git co master; git pull; git co production;git pull;
 git merge master;
 git push origin production;
+
+# get just one file from another branch
+git checkout master               # first get back to master
+git checkout experiment -- app.js # then copy the version of app.js from branch "experiment"

@@ -69,7 +69,6 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
@@ -101,16 +100,14 @@ trap 'echo -ne "\e[0m"' DEBUG
 function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
 
 
-source ~/.alias  # load aliases
 source ~/.env    # load env variables
-
-source bin/jenkins-trigger
-
+source ~/.alias  # load aliases
+source ~/.complete # completion features
 
 export HISTFILESIZE=5000
 
 #The Groovy enVironment Manager
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
-[[ -s "/home/lbesnard/.gvm/bin/gvm-init.sh" ]] && source "/home/lbesnard/.gvm/bin/gvm-init.sh"
+[[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
 
 
