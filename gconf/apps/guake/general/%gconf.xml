@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <gconf>
-	<entry name="use_vte_titles" mtime="1445390815" type="bool" value="false"/>
+	<entry name="use_vte_titles" mtime="1446606076" type="bool" value="false"/>
 	<entry name="start_fullscreen" mtime="1393458277" type="bool" value="false"/>
 	<entry name="window_height" mtime="1444620979" type="int" value="55"/>
 	<entry name="compat_delete" mtime="1441682473" type="string">
