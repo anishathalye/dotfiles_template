@@ -18,11 +18,15 @@ if mount | grep /mnt/opendap/1 > /dev/null; then
    sudo umount /mnt/opendap/1;
 fi
 
+if mount | grep /mnt/opendap/2 > /dev/null; then
+   sudo umount /mnt/opendap/2;
+fi
 
 if mount | grep /mnt/imos-t4 > /dev/null; then
    sudo umount /mnt/imos-t4;
 fi
 
 sshfs_mount 10-nsp-mel.emii.org.au:/mnt/opendap/1 /mnt/opendap/1/;
+sshfs_mount 10-nsp-mel.emii.org.au:/mnt/opendap/2 /mnt/opendap/2/;
 sshfs_mount 10-nsp-mel.emii.org.au:/mnt/imos-t4 /mnt/imos-t4/;
 

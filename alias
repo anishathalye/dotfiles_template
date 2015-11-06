@@ -23,7 +23,7 @@ alias music_player='mp3blaster'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias lock_screen='gnome-screensaver-command --lock || xscreensaver-command -lock'
 alias latest_installed_pckg='cat /var/log/apt/history.log | grep "\ install\ "'
-
+alias ssh-add='ssh-add -t 3h'
 # CHEF IMOS REPOSITORY
 alias chef="cd $CHEF_DIR"
 alias chef_imos="chef && rm -f private; ln -s ../chef-private private"
@@ -67,3 +67,8 @@ function listen-to() {
     rm $playlist
 }
 export -f listen-to
+
+
+# source NETCDF tools
+source $CHEF_DIR/src/data-services/lib/common/netcdf-utils.sh
+source $CHEF_DIR/src/data-services/lib/netcdf/netcdf-cf-imos-compliance.sh

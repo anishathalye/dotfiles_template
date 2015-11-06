@@ -129,3 +129,8 @@ visual mode + u or shift u
 
 # indent line/block
 :>  >> >>>
+
+
+# paste from clipboard without false indentation
+:set paste
+:set nopaste

@@ -15,25 +15,24 @@ get_repo_url() {
     fi
     echo $HTTPS_URL
 }
-
+export get_repo_url
 
 convert_repo_https_to_ssh() {
-    local HTTPS_URL=get_repo_url
-    local REPO_NAME=`echo $HTTPS_URL | sed -Ene's#$GIT_SERVER/([^/]*)/(.*)#\2#p'`
+    local HTTPS_URL=`get_repo_url`
+    local ORGANISATION_NAME=`echo $HTTPS_URL | sed -e  "s#${GIT_SERVER}/##g" | cut -d'/' -f1`
+    local REPO_NAME=`echo $HTTPS_URL | sed -e  "s#${GIT_SERVER}/##g" | cut -d'/' -f2 | sed -e "s#.git##g" `
 
     if [ -n "$REPO_NAME" ]; then
-        _convert_repo_https_to_ssh $REPO_NAME
-    else
-       REPO_NAME=`pwd | sed  -e "s/.*\///g"`
-        _convert_repo_https_to_ssh $REPO_NAME
+        _convert_repo_https_to_ssh $ORGANISATION_NAME $REPO_NAME
     fi
 }
 
 _convert_repo_https_to_ssh () {
+    local ORGANISATION_NAME=$1; shift
     local REPO_NAME=$1; shift
     local SSH_URL
 
-    SSH_URL="git@github.com:$USER/$REPO_NAME.git"
+    SSH_URL="git@github.com:$ORGANISATION_NAME/$REPO_NAME.git"
     git remote set-url origin $SSH_URL
     echo "Changing repo url from HTTPS to " $SSH_URL
 }

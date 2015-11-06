@@ -44,6 +44,7 @@
     co-wip-and-squash-last = !git co-wip && git squash-auto
     squash-auto = !"f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
     push-force-branch = !"f() { git branch  | grep '*' | sed 's/* //g'  | xargs git push -f origin; }; f"
+    push-branch = !"f() { git branch  | grep '*' | sed 's/* //g'  | xargs git push origin; }; f"
     squash-last = !"f() { NL=$1; GIT_EDITOR=\"sed -i '2,$NL s/pick/squash/;/# This is the 2nd commit message:/,$ {d}'\"; git rebase -i HEAD~$NL; }; f"
     ec = config --global -e
     up = !git pull --rebase --prune $@ && git submodule update --init --recursive
