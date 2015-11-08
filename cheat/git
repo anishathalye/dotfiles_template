@@ -112,3 +112,11 @@ git push origin production;
 # get just one file from another branch
 git checkout master               # first get back to master
 git checkout experiment -- app.js # then copy the version of app.js from branch "experiment"
+
+
+# Change the current branch to master in git
+# How to replace master branch in git, entirely, from another branch?
+git checkout better_branch
+git merge --strategy=ours master    # keep the content of this branch, but record a merge
+git checkout master
+git merge better_branch             # fast-forward master up to the merge

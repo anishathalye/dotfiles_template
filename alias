@@ -72,3 +72,7 @@ export -f listen-to
 # source NETCDF tools
 source $CHEF_DIR/src/data-services/lib/common/netcdf-utils.sh
 source $CHEF_DIR/src/data-services/lib/netcdf/netcdf-cf-imos-compliance.sh
+
+# paragliding
+alias flightrecorder='flightrecorder && /
+    sed -i "s/HFPLTPILOT:.*/HFPLTPILOT:Laurent Besnard/g" *.IGC && sed -i "s/HFGTYGLIDERTYPE:.*/HFGTYGLIDERTYPE:Sky Anakis/g" *.IGC'
