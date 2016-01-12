@@ -2,6 +2,7 @@
 - link:
     ~/.gvimrc: gvimrc
     ~/.vimrc: vimrc
+    ~/.zshenv: zshenv
     ~/.zshrc: zshrc
     ~/.zshrc.private: zshrc.private
 - shell: []
