@@ -31,13 +31,13 @@
 
 # http://haacked.com/archive/2014/07/28/github-flow-aliases/
 [alias]
-	alias = !tac ~/.gitconfig | sed -e '/alias/q' |tac | tail -n+2
-	s = status
-	a = add
-	p = pull
-	b = branch
-	d = diff
-	l = log
+    alias = !tac ~/.gitconfig | sed -e '/alias/q' |tac | tail -n+2
+    s = status
+    a = add
+    p = pull
+    b = branch
+    d = diff
+    l = log
     co-wip = !git commit -m 'wip'
     hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
     co = checkout
@@ -57,3 +57,4 @@
     wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
     bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
     bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
+    reset-branch-like-remote = "!f() { branch=`git branch  | grep '*' | sed 's/* //g'`; git fetch --all; git reset --hard origin/$branch; }; f"

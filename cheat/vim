@@ -134,3 +134,12 @@ visual mode + u or shift u
 # paste from clipboard without false indentation
 :set paste
 :set nopaste
+
+
+# indent block on any sign, = : .. requires vim-easy-align plugin
+vipga=
+ga=
+
+# comment uncomment bloc
+visual + \cc  # comment
+visual + \cu  # uncomment

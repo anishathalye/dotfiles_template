@@ -19,3 +19,8 @@ select url from indexed_file where id = ANY(select distinct file_id from measure
 
 # list databases
 psql -h localhost -U postgres -t -c "select datname from pg_database"
+
+
+# output to file, has to be connected
+postgres=# \o ~/sql.out
+postgres=# select * from foo;

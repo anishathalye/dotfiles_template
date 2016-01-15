@@ -39,5 +39,6 @@
         create: true
         path: irssi
     ~/.config/beets/config.yaml: beets.yaml
+    ~/.vimrc.after: vim/vimrc.after
 - shell:
     - [rm -Rf ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/ ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/gtg_tasks-*.xml ~/.local/share/gtg/gtg_tasks.xml, link Getting Things Done from DROPBOX]

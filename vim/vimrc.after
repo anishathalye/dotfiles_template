@@ -1,0 +1,19 @@
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" remove trailing space for python file"
+autocmd FileType python autocmd BufWritePre <buffer> :%s/\s\+$//e
+
+" remove trailing space for bash file"
+autocmd BufWritePre *.sh :%s/\s\+$//e
+autocmd BufWritePre *.json :%s/\s\+$//e
+autocmd BufWritePre *.yaml :%s/\s\+$//e
+
+highlight RedundantWhitespace ctermbg=red guibg=red
+match RedundantWhitespace /\s\+$\|\t/
+
+highlight SquishedCommas ctermbg=red guibg=red
+match SquishedCommas /, \@!/
