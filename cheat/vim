@@ -143,3 +143,13 @@ ga=
 # comment uncomment bloc
 visual + \cc  # comment
 visual + \cu  # uncomment
+
+# Converting variables to or from camel case
+# http://vim.wikia.com/wiki/Converting_variables_to_or_from_camel_case
+#  from underscore to camelCase
+:1,$s/_\([a-z]\)/\u\1/gc
+# from camelCase to under_score
+:%s#\(\<\u\l\+\|\l\+\)\(\u\)#\l\1_\l\2#gc
+# look for comma and word without space
+/,\w
+
