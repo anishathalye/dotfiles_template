@@ -15,3 +15,13 @@ complete -F _parser_option_vagrant_ssh_chef_aodn vagrant_ssh_chef
 eval "$(beet completion)"
 
 source $GITHUB_DIR/dotfiles/libs/cheat/cheat/autocompletion/cheat.bash
+
+_list_igc_files() {
+    local curr_arg
+    local option_list
+
+    curr_arg=${COMP_WORDS[COMP_CWORD]};
+    option_list=`ls $HOME/Dropbox/paragliding_igc/*.IGC`
+    COMPREPLY=( $(compgen -W '`echo $option_list`' -- $curr_arg ) );
+}
+complete -F _list_igc_files igc_viewer
