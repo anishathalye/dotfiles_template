@@ -17,3 +17,5 @@ match RedundantWhitespace /\s\+$\|\t/
 
 highlight SquishedCommas ctermbg=red guibg=red
 match SquishedCommas /, \@!/
+
+set dictionary-=/usr/share/dict/words dictionary+=/usr/share/dict/words

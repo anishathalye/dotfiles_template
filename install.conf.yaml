@@ -40,6 +40,7 @@
         path: irssi
     ~/.config/beets/config.yaml: beets.yaml
     ~/.vimrc.after: vim/vimrc.after
+    ~/.ogierc: ogierc
     ~/.gpligrc:
        force: true
        path: gpligrc

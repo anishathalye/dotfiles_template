@@ -1,0 +1,18 @@
+OPEN_AIR_FILE /home/lbesnard/Dropbox/paragliding_igc/airspaces_maps/aus_airspace_no-class_e_v1.txt
+AIRSPACE true
+CURTAIN true
+LANDSCAPE 1
+MAP 1
+
+DEM_FILE /home/lbesnard/Dropbox/paragliding_igc/airspaces_maps/gt30e140s10.dem
+DEM_ROWS 6000
+DEM_COLUMNS 4800
+DEM_LAT_MIN -60
+DEM_LAT_MAX -10
+DEM_LON_MIN 140
+DEM_LON_MAX 180
+DEM_GRID_LAT 0.008333333333
+DEM_GRID_LON 0.008333333333
+
+
+

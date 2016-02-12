@@ -25,3 +25,7 @@ _list_igc_files() {
     COMPREPLY=( $(compgen -W '`echo $option_list`' -- $curr_arg ) );
 }
 complete -F _list_igc_files igc_viewer
+
+
+alias paragliding_create_osm_map='$GITHUB_DIR/OSM_Tile_Download/osm_ogie3d.py'
+complete -F _list_igc_files paragliding_create_osm_map
