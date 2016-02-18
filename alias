@@ -24,6 +24,8 @@ alias irssi='screen irssi'
 alias music_player='mp3blaster'
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias iftop_wlan='iftop -i wlan0'
+alias temperature='sensors;sudo hddtemp /dev/sda'
 alias lock_screen='gnome-screensaver-command --lock || xscreensaver-command -lock'
 alias latest_installed_pckg='cat /var/log/apt/history.log | grep "\ install\ "'
 alias ssh-add='ssh-add -t 10h'
