@@ -39,7 +39,7 @@
         create: true
         path: irssi
     ~/.config/beets/config.yaml: beets.yaml
-    ~/.vimrc.after: vim/vimrc.after
+    ~/.vimrc: vim/vimrc
     ~/.ogierc: ogierc
     ~/.gpligrc:
        force: true
