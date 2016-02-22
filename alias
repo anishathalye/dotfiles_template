@@ -43,6 +43,7 @@ alias chef_9_build='jenkins_chef_cook_node 9-nsp-mel'
 
 
 alias rsrc='source ~/.bashrc'
+alias vim_plugin_install='vim +PluginInstall +qall'
 
 alias github_repo="cd $GITHUB_DIR"
 alias data_services_dir="cd $CHEF_DIR/src/data-services"
