@@ -1,48 +1,56 @@
 " http://unlogic.co.uk/2013/02/08/vim-as-a-python-ide/
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/#vim-extensions
-"
-"
+" https://github.com/fisadev/fisa-vim-config
 
-
-
-set shell=/bin/bash
+"set shell=/bin/bash
 if $TERM == "xterm"
     set t_Co=256               " 256 colors
 endif
 
+"--------------------------------------------------
+" Vundle initialization
 set nocompatible              " required
-filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+    echo "Installing Vundle..."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
 
-" alternatively, pass a path where Vundle should install plugins
-"Call vundle#begin('~/.vundle_plugins/')
+filetype off
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+"--------------------------------------------------
 " Add all your plugins here (note older versions of Vundle used Bundle
 " instead of Plugin)
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'christoomey/vim-sort-motion'
+Plugin 'majutsushi/tagbar'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'junegunn/vim-easy-align'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'airblade/vim-gitgutter'
 Bundle 'klen/python-mode'
-Plugin 'hynek/vim-python-pep8-indent'
-"Plugin 'kevinw/pyflakes-vim'
 Plugin 'yann2192/vim-colorschemes'
 Plugin 'yann2192/vim-vitamins'
 Plugin 'davidhalter/jedi-vim'
@@ -51,20 +59,36 @@ Plugin 'jnwhiteh/vim-golang'
 Plugin 'ervandew/supertab'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'scrooloose/nerdcommenter'
 Plugin 'matze/vim-move'
-Plugin 'vim-scripts/TaskLis'
+Plugin 'mattn/gist-vim'
+Plugin 'mattn/webapi-vim' " used by gist
+Plugin 'mattn/emmet-vim'
 
 " Snipmate
-Plugin 'tomtom/tlib_vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'garbas/vim-snipmate'
+Plugin 'tomtom/tlib_vim'
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+Plugin 'garbas/vim-snipmate' 
 
-filetype plugin indent on     " required!
+" Automatically sort python imports
+Bundle 'fisadev/vim-isort'
 
+" XML/HTML tags navigation
+Bundle 'matchit.zip'
+
+" ============================================================================
+" Install plugins the first time vim runs
+
+if iCanHazVundle == 0
+    echo "Installing Bundles, please ignore key map error messages"
+    echo ""
+    :BundleInstall
+endif
+
+" ============================================================================
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Python-mode
@@ -307,9 +331,7 @@ let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
 
 " Go config
-au FileType go setlocal tabstop=4 shiftwidth=8 softtabstop=8 noexpandtab
-
-
+au FileType go setlocal tabstop=4 shiftwidth=4 softtabstop=4 noexpandtab
 
 
 """""""""""""""""
@@ -320,8 +342,6 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" remove trailing space for python file"
-autocmd FileType python autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " remove trailing space for bash file"
 autocmd BufWritePre *.sh :%s/\s\+$//e
@@ -388,3 +408,48 @@ nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 " vim-move
 let g:move_key_modifier = 'C'
 
+
+" snippets
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<shift>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+"" check YMC is compiled
+"let ymc_compiled=expand('~/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_client_support.so')
+"if !filereadable(ymc_compiled)
+    "echo "Compiling YMC..."
+    "silent !python ~/.vim/bundle/YouCompleteMe/install.py
+"endif
+
+function! DoPrettyXML()
+  " save the filetype so we can restore it later
+  let l:origft = &ft
+  set ft=
+  " delete the xml header if it exists. This will
+  " permit us to surround the document with fake tags
+  " without creating invalid xml.
+  1s/<?xml .*?>//e
+  " insert fake tags around the entire document.
+  " This will permit us to pretty-format excerpts of
+  " XML that may contain multiple top-level elements.
+  0put ='<PrettyXML>'
+  $put ='</PrettyXML>'
+  silent %!xmllint --format -
+  " xmllint will insert an <?xml?> header. it's easy enough to delete
+  " if you don't want it.
+  " delete the fake tags
+  2d
+  $d
+  " restore the 'normal' indentation, which is one extra level
+  " too deep due to the extra tags we wrapped around the document.
+  silent %<
+  " back to home
+  1
+  " restore the filetype
+  exe "set ft=" . l:origft
+endfunction
+command! PrettyXML call DoPrettyXML()

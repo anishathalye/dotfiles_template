@@ -13,8 +13,8 @@
     ~/.complete: complete
     ~/.xsessionrc: xsessionrc
     ~/.bashrc:
-       force: true
-       path: bashrc
+        force: true
+        path: bashrc
     ~/.config/sublime-text-2:
         create: true
         path: config/sublime-text-2/
@@ -39,10 +39,13 @@
         create: true
         path: irssi
     ~/.config/beets/config.yaml: beets.yaml
-    ~/.vimrc: vim/vimrc
+    ~/.vimrc:
+        create: true
+        path: vim/vimrc
+        force: true
     ~/.ogierc: ogierc
     ~/.gpligrc:
-       force: true
-       path: gpligrc
+        force: true
+        path: gpligrc
 - shell:
     - [rm -Rf ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/ ~/.local/share/gtg; ln -sf ~/Dropbox/work/gtg/gtg_tasks-*.xml ~/.local/share/gtg/gtg_tasks.xml, link Getting Things Done from DROPBOX]

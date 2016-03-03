@@ -26,3 +26,4 @@ export PATH=$HOME/.dotfiles/bin/encryption:$PATH
 export GITHUB_DIR=$HOME/github_repo
 export WWW_HOME='www.duckduckgo.com'
 export CHEF_DIR="$GITHUB_DIR/chef"
+export DATA_SERVICES_DIR="$GITHUB_DIR/chef/src/data-services"
