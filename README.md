@@ -31,6 +31,8 @@ Dotbot.
 * [wazery's dotfiles][wazery_dotfiles]
 * [thirtythreeforty's dotfiles][thirtythreeforty_dotfiles]
 
+And there are about [700 more here][dotbot-users].
+
 If you're using Dotbot and you'd like to include a link to your dotfiles here
 as an inspiration to others, please submit a pull request.
 
@@ -53,3 +55,4 @@ Dotbot (or this repository) to help other people discover Dotbot.
 [bluekeys_dotfiles]: https://github.com/bluekeys/.dotfiles
 [wazery_dotfiles]: https://github.com/wazery/dotfiles
 [thirtythreeforty_dotfiles]: https://github.com/thirtythreeforty/dotfiles
+[dotbot-users]: https://github.com/anishathalye/dotbot/wiki/List-of-Dotbot-User
