@@ -16,24 +16,6 @@ Host its6
     ForwardAgent yes
 
 # NSP machines Melbourne
-Host nsp5
-    Hostname 5-nsp-mel.emii.org.au
-    User lbesnard
-    Port 22
-    ForwardAgent yes
-
-Host nsp9
-    Hostname 9-nsp-mel.emii.org.au
-    User lbesnard
-    Port 22
-    ForwardAgent yes
-
-Host nsp10
-    Hostname 10-nsp-mel.emii.org.au
-    User lbesnard
-    Port 22
-    ForwardAgent  yes
-
 Host nsp14
     Hostname 14-nsp-mel.emii.org.au
     User lbesnard
@@ -94,11 +76,6 @@ Host gcw0_usb0
     IdentityFile ~/.ssh/id_rsa.pub
 
 # tunnel through its6
-Host nsp10_tunnel
-    Hostname  10-nsp-mel.emii.org.au
-    Proxycommand ssh -q its6 nc -q0 %h  22
-    ForwardAgent yes
-
 Host nec10_tunnel
     Hostname  10-nec-hob.emii.org.au
     Proxycommand ssh -q its6 nc -q0 %h  22
@@ -109,10 +86,7 @@ Host nsp14_tunnel
     Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 
-
 # port forwarding
 #Host testdbprod
 #    Hostname
 #    LocalForward 5555 dbprod.emii.org.au:5432
-
-

@@ -1,10 +1,11 @@
 *.pyc
-.DS_Store
+*DS_Store
 *.pyc
 .svn
 *.swp
-
+*.cache
 */ftp_elcamino_riverTas_upload.sh
 */sheryl.sh
-
+*DS_Store
 */jenkins-trigger
+"config/sublime-text-2/Settings/Auto Save Session.sublime_session"
