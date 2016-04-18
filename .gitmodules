@@ -1,9 +1,9 @@
 [submodule "dotbot"]
-	path = dotbot
-	url = https://github.com/anishathalye/dotbot
+    path = dotbot
+    url  = https://github.com/anishathalye/dotbot
 [submodule "libs/cheat"]
-	path = libs/cheat
-	url = https://github.com/chrisallenlane/cheat
+    path = libs/cheat
+    url  = https://github.com/chrisallenlane/cheat
 [submodule "bin/encryption"]
-	path = bin/encryption
-	url = https://github.com/lbesnard/encryption
+    path = bin/encryption
+    url  = https://github.com/lbesnard/encryption
