@@ -1,6 +1,8 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/claudine/.oh-my-zsh
 
+source $ZSH/oh-my-zsh.sh
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -52,7 +54,14 @@ plugins=(git)
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/Applications/MAMP/Library/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
-source $ZSH/oh-my-zsh.sh
+### Liquid Prompt
+
+if [ -f /usr/local/share/liquidprompt ]; then
+    . /usr/local/share/liquidprompt
+      fi
+
+
+### Other
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
