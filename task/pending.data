@@ -1,0 +1,5 @@
+[description:"Read the Taskwarrior docs" entry:"1465126325" modified:"1465126325" status:"pending" uuid:"37165450-5c0b-4904-8265-2af4d7ead044"]
+[description:"Summarise blocking issues" due:"1465135200" entry:"1465127036" modified:"1465127036" project:"Internship" status:"pending" uuid:"9dee2577-cd94-45e6-8348-a95496331125"]
+[description:"Complete polling day roster" due:"1465567200" entry:"1465127136" modified:"1465127136" project:"AB2016" status:"pending" uuid:"e3cedd16-9112-44bf-a7e3-2eef9db6433e"]
+[description:"Rent" due:"1466172000" entry:"1465127290" mask:"-" modified:"1465127292" recur:"monthly" status:"recurring" uuid:"bf3bd6e6-f197-47a7-8e0b-1b717be53c97"]
+[description:"Rent" due:"1466172000" entry:"1465127292" imask:"0" modified:"1465127290" parent:"bf3bd6e6-f197-47a7-8e0b-1b717be53c97" recur:"monthly" status:"pending" uuid:"05a97618-fc25-421f-a2b1-1e203cafc041"]
