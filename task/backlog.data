@@ -1,8 +1,0 @@
-{"description":"Read the Taskwarrior docs","entry":"20160605T113205Z","modified":"20160605T113205Z","status":"pending","uuid":"37165450-5c0b-4904-8265-2af4d7ead044"}
-{"description":"Add taskwarrior to dotfiles","entry":"20160605T113634Z","modified":"20160605T113634Z","status":"pending","uuid":"b647b49c-674c-49ad-bae0-a784c0c96952"}
-{"description":"Add taskwarrior to dotfiles","end":"20160605T114005Z","entry":"20160605T113634Z","modified":"20160605T114005Z","status":"completed","uuid":"b647b49c-674c-49ad-bae0-a784c0c96952"}
-{"description":"Summarise blocking issues","due":"20160605T140000Z","entry":"20160605T114356Z","modified":"20160605T114356Z","project":"Internship","status":"pending","uuid":"9dee2577-cd94-45e6-8348-a95496331125"}
-{"description":"Complete polling day roster","due":"20160610T140000Z","entry":"20160605T114536Z","modified":"20160605T114536Z","project":"AB2016","status":"pending","uuid":"e3cedd16-9112-44bf-a7e3-2eef9db6433e"}
-{"description":"Rent","due":"20160617T140000Z","entry":"20160605T114810Z","modified":"20160605T114810Z","recur":"monthly","status":"recurring","uuid":"bf3bd6e6-f197-47a7-8e0b-1b717be53c97"}
-{"description":"Rent","due":"20160617T140000Z","entry":"20160605T114812Z","imask":0,"modified":"20160605T114810Z","parent":"bf3bd6e6-f197-47a7-8e0b-1b717be53c97","recur":"monthly","status":"pending","uuid":"05a97618-fc25-421f-a2b1-1e203cafc041"}
-{"description":"Rent","due":"20160617T140000Z","entry":"20160605T114810Z","mask":"-","modified":"20160605T114812Z","recur":"monthly","status":"recurring","uuid":"bf3bd6e6-f197-47a7-8e0b-1b717be53c97"}
