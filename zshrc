@@ -1,7 +1,7 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/claudine/.oh-my-zsh
+# export ZSH=/Users/claudine/.oh-my-zsh
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -51,7 +51,7 @@ plugins=(git)
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/Applications/MAMP/Library/bin:$PATH
+export PATH=$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/Applications/MAMP/Library/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 ### Liquid Prompt
