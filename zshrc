@@ -52,7 +52,7 @@ plugins=(git)
 # User configuration
 
 export PATH=$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/Applications/MAMP/Library/bin:$PATH
-# export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH=/usr/local/man:/Applications/MAMP/Library/share/man/:$MANPATH
 
 ### Liquid Prompt
 
@@ -97,3 +97,5 @@ alias gitl='git log --pretty=oneline --abbrev-commit --all --graph --color'
 
 # Private configuration.
 source ~/.zshrc.private
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
