@@ -1,19 +1,19 @@
 [core]
-	editor = vim
-
+    editor   = vim
+    #autocrlf = true
 [user]
-	name = lbesnard
-	email = laurent.besnard@utas.edu.au
+    name  = lbesnard
+    email = laurent.besnard@utas.edu.au
 
 [credential]
-	helper = cache --timeout=36000
+    helper = cache --timeout=36000
 
 [color]
-	ui = auto
-	branch = auto
-	diff = auto
-	interactive = auto
-	status = auto
+    ui          = auto
+    branch      = auto
+    diff        = auto
+    interactive = auto
+    status      = auto
 
 [color "branch"]
     current = yellow reverse
@@ -28,7 +28,7 @@
     added = yellow
     changed = green
     untracked = cyan
-
+#
 # http://haacked.com/archive/2014/07/28/github-flow-aliases/
 [alias]
     alias = !tac ~/.gitconfig | sed -e '/alias/q' |tac | tail -n+2
@@ -39,6 +39,7 @@
     d = diff
     l = log
     co-wip = !git commit -m 'wip'
+    hash = !git log -1 --format=format:'%H'
     hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
     co = checkout
     co-wip-and-squash-last = !git co-wip && git squash-auto

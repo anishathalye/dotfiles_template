@@ -1,8 +1,10 @@
-# ssh_config
-
 # MAIN OPTIONS
-VisualHostKey=yes
+VisualHostKey=no
 
+
+Host nec* nsp* aws*
+    PermitLocalCommand yes
+    LocalCommand tar ch -C${HOME} .gitconfig .screenrc .vimrc | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
 
 Host github.com
     IdentityFile ~/.ssh/id_rsa

@@ -1,6 +1,7 @@
 alias cc='ls -f | wc -l' # ls -f does not stat() and makes it faster
 alias ccat='source-highlight --out-format=esc -o STDOUT -i'
 alias chef="cd $CHEF_DIR"
+alias chef-private="cd $CHEF_DIR/../chef-private"
 alias chef_10_build='jenkins_chef_cook_node 10-nsp-mel'
 alias chef_14_build='jenkins_chef_cook_node 14-nsp-mel'
 alias chef_9_build='jenkins_chef_cook_node 9-nsp-mel'
@@ -51,6 +52,21 @@ DBHOST='14-nsp-mel.emii.org.au'
 DBHOST='dbprod.emii.org.au'
 [ -f $HOME/.pgpass ] && alias psql-dbprod="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
 
+
+ncdumph() {
+    command ncdump -h "$@" | less;
+}
+export -f ncdumph
+
+nc_checker_cf() {
+    command netcdf-checker -t=cf "$@" | less;
+}
+export -f nc_checker_cf
+
+nc_checker_imos() {
+    command netcdf-checker -t=imoscf "$@" | less;
+}
+export -f nc_checker_imos
 ###########################
 # music database + player #
 ###########################
