@@ -4,7 +4,7 @@ VisualHostKey=no
 
 Host nec* nsp* aws*
     PermitLocalCommand yes
-    LocalCommand tar ch -C${HOME} .gitconfig .screenrc .vimrc | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
+    LocalCommand tar ch -C${HOME} .gitconfig .screenrc .vimrc .tmux.conf | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
 
 Host github.com
     IdentityFile ~/.ssh/id_rsa

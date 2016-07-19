@@ -12,6 +12,7 @@
     ~/.alias: alias
     ~/.complete: complete
     ~/.screenrc: screenrc
+    ~/.tmux.conf: tmux.conf
     ~/.xsessionrc: xsessionrc
     ~/.bashrc:
         force: true

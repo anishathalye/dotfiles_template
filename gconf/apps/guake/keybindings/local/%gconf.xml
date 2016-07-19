@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="rename_current_tab" mtime="1468549378" type="string">
+		<stringvalue>F10</stringvalue>
+	</entry>
+</gconf>
