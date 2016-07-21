@@ -64,6 +64,8 @@ Plugin 'mattn/gist-vim'
 Plugin 'mattn/webapi-vim' " used by gist
 Plugin 'mattn/emmet-vim'
 
+Plugin 'christoomey/vim-tmux-navigator'
+
 " Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -77,6 +79,9 @@ Bundle 'fisadev/vim-isort'
 " XML/HTML tags navigation
 Bundle 'matchit.zip'
 
+
+Bundle 'godlygeek/tabular'
+Bundle 'plasticboy/vim-markdown'
 " ============================================================================
 " Install plugins the first time vim runs
 
@@ -453,3 +458,9 @@ function! DoPrettyXML()
   exe "set ft=" . l:origft
 endfunction
 command! PrettyXML call DoPrettyXML()
+
+
+" markdown
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_folding_level = 6
+set conceallevel=2

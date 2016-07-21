@@ -16,7 +16,7 @@ export XAPPLRESDIR=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/X11/app-defaul
 export GEOSERVER_DATA_DIR='/opt/geoserver/data_dir'
 
 # cheat sheet - see github repo https://github.com/chrisallenlane/cheat
-export EDITOR='/usr/bin/vi'
+export EDITOR='vim'
 export CHEATCOLORS=true
 export CHEATPATH='$HOME/.cheat'
 
