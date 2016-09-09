@@ -10,6 +10,7 @@ find -name *.pdf | xargs -I{} rm -rf '{}'
 # -n1 => One file by one file. ( -n2 => 2 files by 2 files )
 
 find -name *.pdf | xargs -I{} -n1 echo '&{}='
+find -type f | xargs -I{} cp '{}'  /tmp/
 
 # run script using 6 cores
 cat /tmp/filelist | xargs -L1 -P6 ./YOUR_SCRIPT

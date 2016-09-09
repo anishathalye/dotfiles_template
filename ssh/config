@@ -18,8 +18,8 @@ Host its6
     ForwardAgent yes
 
 # NSP machines Melbourne
-Host nsp14
-    Hostname 14-nsp-mel.emii.org.au
+Host nec14
+    Hostname 14-nec-hob.emii.org.au
     User lbesnard
     Port 22
     ForwardAgent yes
@@ -83,8 +83,8 @@ Host nec10_tunnel
     Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 
-Host nsp14_tunnel
-    Hostname 14-nsp-mel.emii.org.au
+Host nec14_tunnel
+    Hostname 14-nec-hob.emii.org.au
     Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 

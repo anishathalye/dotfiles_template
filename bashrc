@@ -99,13 +99,19 @@ trap 'echo -ne "\e[0m"' DEBUG
 
 function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
 
-if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2
-fi
+
+#alias tmux='tmux attach'
+#if command -v tmux>/dev/null; then
+  #[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2
+#fi
 
 source ~/.env    # load env variables
 source ~/.alias  # load aliases
 source ~/.complete # completion features
+
+if command -v tmux>/dev/null; then
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach
+fi
 
 export HISTFILESIZE=5000
 

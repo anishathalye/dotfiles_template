@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <gconf>
-	<entry name="palette_name" mtime="1469089445" type="string">
+	<entry name="palette_name" mtime="1473124003" type="string">
 		<stringvalue>Solarized Dark Higher Contrast</stringvalue>
 	</entry>
-	<entry name="palette" mtime="1469089445" type="string">
+	<entry name="palette" mtime="1473124003" type="string">
 		<stringvalue>#000027273131:#D0D01B1B2424:#6B6BBEBE6C6C:#A5A577770505:#20207575C7C7:#C6C61B1B6E6E:#252591918585:#E9E9E2E2CBCB:#000063638888:#F4F415153B3B:#5050EEEE8484:#B1B17E7E2828:#17178D8DC7C7:#E1E14D4D8E8E:#0000B2B29E9E:#FCFCF4F4DCDC:#9B9BC1C1C2C2:#00001E1E2626</stringvalue>
 	</entry>
 </gconf>
