@@ -105,13 +105,14 @@ function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
   #[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2
 #fi
 
-source ~/.env    # load env variables
-source ~/.alias  # load aliases
-source ~/.complete # completion features
 
+source ~/.env    # load env variables
 if command -v tmux>/dev/null; then
   [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach
 fi
+
+source ~/.alias  # load aliases
+source ~/.complete # completion features
 
 export HISTFILESIZE=5000
 

@@ -6,6 +6,7 @@
 if $TERM == "xterm"
     set t_Co=256               " 256 colors
 endif
+set term=screen-256color
 
 "--------------------------------------------------
 " Vundle initialization
@@ -143,6 +144,7 @@ let g:pymode_indent = 0
 " Basic Settings
 " ==========================================================
 syntax on                     " syntax highlighing
+syntax enable                     " syntax highlighing
 filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
 set number                    " Display line numbers

@@ -1,7 +1,7 @@
 # JAVA
 #export JAVA_HOME='/usr/lib/jvm/java-6-sun'
-export JRE_HOME='/usr/lib/jvm/java-1.6.0-openjdk'
-export JAVA_HOME='/usr/lib/jvm/java-1.6.0-openjdk-amd64'
+export JRE_HOME='/usr/lib/jvm/java-1.8.0-openjdk'
+export JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-amd64'
 export JAVA_OPTS="-Xms512M -Xmx512M -Djava.awt.headless=true"
 export CATALINA_HOME="/usr/share/tomcat7"
 export CATALINA_BASE="/var/lib/tomcat7"
