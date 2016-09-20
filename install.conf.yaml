@@ -13,6 +13,7 @@
     ~/.complete: complete
     ~/.screenrc: screenrc
     ~/.tmux.conf: tmux.conf
+    ~/.zshrc: zshrc
     ~/.xsessionrc: xsessionrc
     ~/.bashrc:
         force: true

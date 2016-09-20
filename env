@@ -1,8 +1,7 @@
 # JAVA
-#export JAVA_HOME='/usr/lib/jvm/java-6-sun'
-export JRE_HOME='/usr/lib/jvm/java-1.8.0-openjdk'
-export JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-amd64'
-export JAVA_OPTS="-Xms512M -Xmx512M -Djava.awt.headless=true"
+export JRE_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/bin/java
+#export JAVA_OPTS="-Xms512M -Xmx512M -Djava.awt.headless=true"
 export CATALINA_HOME="/usr/share/tomcat7"
 export CATALINA_BASE="/var/lib/tomcat7"
 
@@ -12,8 +11,6 @@ export LD_LIBRARY_PATH=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/runtime/gl
 #MCR matlab library path
 export XAPPLRESDIR=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/X11/app-defaults
 
-# used ?
-export GEOSERVER_DATA_DIR='/opt/geoserver/data_dir'
 
 # cheat sheet - see github repo https://github.com/chrisallenlane/cheat
 export EDITOR='vim'
@@ -28,3 +25,7 @@ export DOTFILES=$HOME/github_repo/dotfiles
 export WWW_HOME='www.duckduckgo.com'
 export CHEF_DIR="$GITHUB_DIR/chef"
 export DATA_SERVICES_DIR="$GITHUB_DIR/chef/src/data-services"
+
+export SHELL=/usr/bin/zsh
+
+#export ANTIGEN_DIR=$GITHUB_DIR/antigen

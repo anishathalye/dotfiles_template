@@ -1,25 +1,25 @@
 alias cc='ls -f | wc -l' # ls -f does not stat() and makes it faster
 alias ccat='source-highlight --out-format=esc -o STDOUT -i'
-alias chef="cd $CHEF_DIR"
-alias chef-private="cd $CHEF_DIR/../chef-private"
+alias chef_cd="cd $CHEF_DIR"
+alias chef_private_cd="cd $CHEF_DIR/../chef-private"
 alias chef_10_build='jenkins_chef_cook_node 10-nsp-mel'
 alias chef_14_build='jenkins_chef_cook_node 14-nsp-mel'
 alias chef_9_build='jenkins_chef_cook_node 9-nsp-mel'
-alias chef_imos="chef && rm -f private; ln -s ../chef-private private"
-alias chef_po_box="chef_sample &&  ./bin/po-box.sh && vagrant ssh po"
+alias chef_imos="chef_cd && rm -f private; ln -s ../chef-private private"
+alias chef_po_box_start="chef_sample &&  ./bin/po-box.sh && vagrant ssh po"
 alias chef_provision_laptop_from_remote='cd $DOTFILES; git reset-branch-like-remote; cd $GITHUB_DIR/chef_laptop; git reset-branch-like-remote; sudo -HE $GITHUB_DIR/chef_laptop/install.sh;'
 alias chef_provision_laptop_from_local='cd $GITHUB_DIR/chef_laptop; sudo -HE $GITHUB_DIR/chef_laptop/install.sh'
-alias chef_provision_po="chef && vagrant provision po"
-alias chef_sample="chef && rm -f private; ln -s private-sample private"
+alias chef_provision_po="chef_cd && vagrant provision po"
+alias chef_sample="chef_cd && rm -f private; ln -s private-sample private"
 alias clear_tmp="find /tmp -mtime +1 -and -not -exec fuser -s {} ';' -and -exec rm -Rf {} ';'"
-alias data_services_dir="cd $CHEF_DIR/src/data-services"
+alias data_services_cd="cd $CHEF_DIR/src/data-services"
 alias dotfiles="cd $GITHUB_DIR/dotfiles"
 alias egrep='egrep --color=auto'
 alias elinks='elinks www.google.com.au'
 alias fgrep='fgrep --color=auto'
 alias g='git'
-alias geoserver_dir="cd $CHEF_DIR/src/geoserver"
-alias github_repo="cd $GITHUB_DIR"
+alias geoserver_cd="cd $CHEF_DIR/src/geoserver"
+alias github_cd="cd $GITHUB_DIR"
 alias grep='grep --color=auto'
 alias iftop_wlan='iftop -i wlan0'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -41,7 +41,7 @@ alias shutdown_now='sudo shutdown -h now'
 alias ssh-add='ssh-add -t 10h'
 alias ssh_po="chef_sample && vagrant ssh po"
 alias talend='/opt/TOS_DI-r96646-V5.1.3/TOS_DI-linux-gtk-x86_64'
-alias talend_dir='cd /opt/TOS_DI-r96646-V5.1.3/workspace_sdi/harvesters/workspace/'
+alias talend_wp_cd='cd /opt/TOS_DI-r96646-V5.1.3/harvesters_wp/harvesters/workspace'
 alias temperature='sensors;sudo hddtemp /dev/sda'
 alias tmux='tmux -2'
 alias top='htop'
@@ -60,17 +60,17 @@ DBHOST='dbprod.emii.org.au'
 ncdumph() {
     command ncdump -h "$@" | less;
 }
-export -f ncdumph
+#export -f ncdumph
 
 nc_checker_cf() {
     command netcdf-checker -t=cf "$@" | less;
 }
-export -f nc_checker_cf
+#export -f nc_checker_cf
 
 nc_checker_imos() {
     command netcdf-checker -t=imoscf "$@" | less;
 }
-export -f nc_checker_imos
+#export -f nc_checker_imos
 ###########################
 # music database + player #
 ###########################
@@ -86,11 +86,11 @@ function listen-to() {
     mp3blaster --list $playlist
     rm $playlist
 }
-export -f listen-to
+#export -f listen-to
 
 # source NETCDF tools
-[ -f $CHEF_DIR/src/data-services/lib/common/netcdf-utils.sh ] && source $CHEF_DIR/src/data-services/lib/common/netcdf-utils.sh
-[ -f $CHEF_DIR/src/data-services/lib/netcdf/netcdf-cf-imos-compliance.sh ] && source $CHEF_DIR/src/data-services/lib/netcdf/netcdf-cf-imos-compliance.sh
+#[ -f $CHEF_DIR/src/data-services/lib/common/netcdf-utils.sh ] && source $CHEF_DIR/src/data-services/lib/common/netcdf-utils.sh
+#[ -f $CHEF_DIR/src/data-services/lib/netcdf/netcdf-cf-imos-compliance.sh ] && source $CHEF_DIR/src/data-services/lib/netcdf/netcdf-cf-imos-compliance.sh
 
 # paragliding
 alias flightrecorder='cd $HOME/paragliding ; sudo flightrecorder && sed -i "s/HFPLTPILOT:.*/HFPLTPILOT:Laurent Besnard/g" *.IGC && sed -i "s/HFGTYGLIDERTYPE:.*/HFGTYGLIDERTYPE:Sky Anakis/g" *.IGC && chown $USER:$USER *.IGC; rsync -avc $HOME/paragliding/ $HOME/Dropbox/paragliding_igc'

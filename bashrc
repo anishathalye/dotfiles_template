@@ -107,9 +107,9 @@ function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
 
 
 source ~/.env    # load env variables
-if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach
-fi
+#if command -v tmux>/dev/null; then
+  #[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach
+#fi
 
 source ~/.alias  # load aliases
 source ~/.complete # completion features
@@ -118,7 +118,7 @@ export HISTFILESIZE=5000
 
 #The Groovy enVironment Manager
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
-[[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
+#[[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
 
 
 

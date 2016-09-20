@@ -14,7 +14,7 @@ complete -F _parser_option_vagrant_ssh_chef_aodn vagrant_ssh_chef
 # load beets music tagging completions
 eval "$(beet completion)"
 
-source $GITHUB_DIR/dotfiles/libs/cheat/cheat/autocompletion/cheat.bash
+source $GITHUB_DIR/dotfiles/libs/cheat/cheat/autocompletion/cheat.zsh
 
 _list_igc_files() {
     local curr_arg

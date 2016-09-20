@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <gconf>
-	<entry name="palette_name" mtime="1473124003" type="string">
-		<stringvalue>Solarized Dark Higher Contrast</stringvalue>
+	<entry name="allow_bold" mtime="1474355602" type="bool" value="true"/>
+	<entry name="palette_name" mtime="1474355630" type="string">
+		<stringvalue>Space Gray Eighties</stringvalue>
 	</entry>
-	<entry name="palette" mtime="1473124003" type="string">
-		<stringvalue>#000027273131:#D0D01B1B2424:#6B6BBEBE6C6C:#A5A577770505:#20207575C7C7:#C6C61B1B6E6E:#252591918585:#E9E9E2E2CBCB:#000063638888:#F4F415153B3B:#5050EEEE8484:#B1B17E7E2828:#17178D8DC7C7:#E1E14D4D8E8E:#0000B2B29E9E:#FCFCF4F4DCDC:#9B9BC1C1C2C2:#00001E1E2626</stringvalue>
+	<entry name="palette" mtime="1474355630" type="string">
+		<stringvalue>#151517171C1C:#ECEC5F5F6767:#8080A7A76363:#FDFDC2C25353:#54548585C0C0:#BFBF8383C0C0:#5757C2C2C0C0:#EEEEECECE7E7:#555555555555:#FFFF69697373:#9393D3D39393:#FFFFD1D15656:#4D4D8383D0D0:#FFFF5555FFFF:#8383E8E8E4E4:#FFFFFFFFFFFF:#BDBDB9B9AEAE:#212121212121</stringvalue>
 	</entry>
 </gconf>
