@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <gconf>
-	<entry name="allow_bold" mtime="1474355602" type="bool" value="true"/>
-	<entry name="palette_name" mtime="1474355630" type="string">
-		<stringvalue>Space Gray Eighties</stringvalue>
+	<entry name="allow_bold" mtime="1474433435" type="bool" value="true"/>
+	<entry name="palette_name" mtime="1474433477" type="string">
+		<stringvalue>Xterm</stringvalue>
 	</entry>
-	<entry name="palette" mtime="1474355630" type="string">
-		<stringvalue>#151517171C1C:#ECEC5F5F6767:#8080A7A76363:#FDFDC2C25353:#54548585C0C0:#BFBF8383C0C0:#5757C2C2C0C0:#EEEEECECE7E7:#555555555555:#FFFF69697373:#9393D3D39393:#FFFFD1D15656:#4D4D8383D0D0:#FFFF5555FFFF:#8383E8E8E4E4:#FFFFFFFFFFFF:#BDBDB9B9AEAE:#212121212121</stringvalue>
+	<entry name="palette" mtime="1474433477" type="string">
+		<stringvalue>#000000000000:#cdcb00000000:#0000cdcb0000:#cdcbcdcb0000:#1e1a908fffff:#cdcb0000cdcb:#0000cdcbcdcb:#e5e2e5e2e5e2:#4ccc4ccc4ccc:#ffff00000000:#0000ffff0000:#ffffffff0000:#46458281b4ae:#ffff0000ffff:#0000ffffffff:#ffffffffffff:#ffffffffffff:#000000000000</stringvalue>
 	</entry>
 </gconf>

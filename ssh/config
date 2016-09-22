@@ -4,7 +4,7 @@ VisualHostKey=no
 
 Host nec* nsp* aws*
     PermitLocalCommand yes
-    LocalCommand tar ch -C${HOME} .gitconfig .screenrc .vimrc .tmux.conf .zshrc | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
+    LocalCommand tar ch -C${HOME} .gitconfig .screenrc .vimrc .tmux.conf .zshrc_po | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
 
 Host github.com
     IdentityFile ~/.ssh/id_rsa
@@ -33,17 +33,16 @@ Host aws10
 
 # po
 Host po
-    Hostname 10.11.12.13
-    User vagrant
-    UserKnownHostsFile /dev/null
-    StrictHostKeyChecking no
-    PasswordAuthentication no
-    IdentityFile /home/lbesnard/.vagrant.d/insecure_private_key
-    IdentitiesOnly yes
-    LogLevel FATAL
-    Port 22
-    ForwardAgent yes
-
+  HostName 127.0.0.1
+  User vagrant
+  Port 2222
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /home/lbesnard/github_repo/chef/.vagrant/machines/po/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+  ForwardAgent yes
 
 # Nectar
 Host nec10

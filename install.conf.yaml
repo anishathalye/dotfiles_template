@@ -14,6 +14,8 @@
     ~/.screenrc: screenrc
     ~/.tmux.conf: tmux.conf
     ~/.zshrc: zshrc
+    ~/.zshrc.antigen: zshrc.antigen
+    ~/.zshrc.zgen: zshrc.zgen
     ~/.xsessionrc: xsessionrc
     ~/.bashrc:
         force: true

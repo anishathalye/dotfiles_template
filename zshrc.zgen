@@ -1,0 +1,64 @@
+# Set up the prompt
+[ -f $HOME/.env ] && source $HOME/.env
+[ -f $HOME/.alias ] && source $HOME/.alias
+source  /etc/profile.d/* # especially useful for remote connection
+
+zgen_zsh=$HOME/.zgen/zgen.zsh
+if [ ! -f $zgen_zsh ]; then
+    echo "Installing zgen..."
+    echo ""
+    mkdir -p ~/.zgen;
+    curl https://raw.githubusercontent.com/tarjoilija/zgen/master/zgen.zsh > $HOME/.zgen/zgen.zsh;
+fi
+source $zgen_zsh
+
+if ! zgen saved; then
+    echo "Creating a zgen save"
+    zgen oh-my-zsh
+
+    zgen oh-my-zsh plugins/command-not-found
+    zgen oh-my-zsh plugins/gitfast
+    zgen oh-my-zsh plugins/sudo
+    zgen oh-my-zsh plugins/common-aliases
+    zgen oh-my-zsh plugins/autojump
+    zgen oh-my-zsh plugins/sublime
+
+    # Background Agents
+    command -v ssh-agent >/dev/null 2>&1 && zgen oh-my-zsh plugins/ssh-agent
+    command -v gpg-agent >/dev/null 2>&1 && zgen oh-my-zsh plugins/gpg-agent
+    zgen load zsh-users/zsh-completions
+
+    ## Syntax highlighting bundle.
+    zgen load zsh-users/zsh-syntax-highlighting
+
+    zgen loadall <<EOPLUGINS  zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+EOPLUGINS
+
+    zgen oh-my-zsh plugins/web-search
+    zgen oh-my-zsh plugins/vagrant
+    zgen load zsh-users/zsh-autosuggestions
+    #zgen load chrissicool/zsh-bash
+
+    # completion
+    _cmpl_cheat() {
+    reply=($(cheat -l | cut -d' ' -f1))
+    }
+    compctl -K _cmpl_cheat cheat
+
+    # Load the theme.
+    zgen oh-my-zsh themes/agnoster
+    #zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+
+    . $DATA_SERVICES_DIR/profile.d/* &>/dev/null
+    compinit $DATA_SERVICES_DIR/profile.d/*
+
+    # Configure ssh-agent plugin
+    zstyle :omz:plugins:ssh-agent agent-forwarding on # Enabled agent forwarding
+    zstyle :omz:plugins:ssh-agent identities id_rsa # Only auto load rsa keys
+
+    zgen save
+fi
+
+if command -v tmux>/dev/null; then
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach
+fi

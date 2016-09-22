@@ -1,36 +1,36 @@
 <?xml version="1.0"?>
 <gconf>
 	<entry name="quick_open_enable" mtime="1473923144" type="bool" value="false"/>
-	<entry name="window_ontop" mtime="1474355602" type="bool" value="false"/>
-	<entry name="window_height_f" mtime="1474355602" type="float" value="75.916666666666671"/>
-	<entry name="window_height" mtime="1474355602" type="int" value="75"/>
-	<entry name="use_vte_titles" mtime="1474356258" type="bool" value="false"/>
-	<entry name="default_shell" mtime="1474355602" type="string">
+	<entry name="window_ontop" mtime="1474433435" type="bool" value="false"/>
+	<entry name="window_height_f" mtime="1474433435" type="float" value="75.916666666666671"/>
+	<entry name="window_height" mtime="1474526356" type="int" value="73"/>
+	<entry name="use_vte_titles" mtime="1474527323" type="bool" value="false"/>
+	<entry name="default_shell" mtime="1474433435" type="string">
 		<stringvalue>/usr/bin/zsh</stringvalue>
 	</entry>
-	<entry name="compat_delete" mtime="1474355602" type="string">
+	<entry name="compat_delete" mtime="1474433435" type="string">
 		<stringvalue>delete-sequence</stringvalue>
 	</entry>
-	<entry name="compat_backspace" mtime="1474355602" type="string">
+	<entry name="compat_backspace" mtime="1474433435" type="string">
 		<stringvalue>ascii-delete</stringvalue>
 	</entry>
-	<entry name="use_palette_font_and_background_color" mtime="1474355602" type="bool" value="true"/>
-	<entry name="use_default_font" mtime="1474355602" type="bool" value="true"/>
-	<entry name="scroll_keystroke" mtime="1474355602" type="bool" value="true"/>
-	<entry name="history_size" mtime="1474355602" type="int" value="1024"/>
-	<entry name="use_scrollbar" mtime="1474355602" type="bool" value="true"/>
-	<entry name="mouse_display" mtime="1474355602" type="bool" value="true"/>
-	<entry name="display_n" mtime="1474355602" type="int" value="0"/>
-	<entry name="quick_open_command_line" mtime="1474355602" type="string">
+	<entry name="use_palette_font_and_background_color" mtime="1474433435" type="bool" value="true"/>
+	<entry name="use_default_font" mtime="1474433435" type="bool" value="true"/>
+	<entry name="scroll_keystroke" mtime="1474433435" type="bool" value="true"/>
+	<entry name="history_size" mtime="1474433435" type="int" value="1024"/>
+	<entry name="use_scrollbar" mtime="1474433435" type="bool" value="true"/>
+	<entry name="mouse_display" mtime="1474433435" type="bool" value="true"/>
+	<entry name="display_n" mtime="1474433435" type="int" value="0"/>
+	<entry name="quick_open_command_line" mtime="1474433435" type="string">
 		<stringvalue>gedit %(file_path)s</stringvalue>
 	</entry>
-	<entry name="window_tabbar" mtime="1474355602" type="bool" value="true"/>
-	<entry name="window_halignment" mtime="1474355602" type="int" value="0"/>
-	<entry name="window_width_f" mtime="1474355602" type="float" value="100"/>
-	<entry name="window_width" mtime="1474355602" type="int" value="100"/>
-	<entry name="window_losefocus" mtime="1474355602" type="bool" value="false"/>
-	<entry name="prompt_on_close_tab" mtime="1474355602" type="int" value="0"/>
-	<entry name="prompt_on_quit" mtime="1474355602" type="bool" value="true"/>
-	<entry name="use_popup" mtime="1474355602" type="bool" value="true"/>
-	<entry name="use_trayicon" mtime="1474355602" type="bool" value="true"/>
+	<entry name="window_tabbar" mtime="1474433435" type="bool" value="true"/>
+	<entry name="window_halignment" mtime="1474433435" type="int" value="0"/>
+	<entry name="window_width_f" mtime="1474433435" type="float" value="100"/>
+	<entry name="window_width" mtime="1474433435" type="int" value="100"/>
+	<entry name="window_losefocus" mtime="1474433435" type="bool" value="false"/>
+	<entry name="prompt_on_close_tab" mtime="1474433435" type="int" value="0"/>
+	<entry name="prompt_on_quit" mtime="1474433435" type="bool" value="true"/>
+	<entry name="use_popup" mtime="1474433435" type="bool" value="true"/>
+	<entry name="use_trayicon" mtime="1474433435" type="bool" value="true"/>
 </gconf>
