@@ -1,7 +1,6 @@
 # Set up the prompt
 export TERM="xterm-256color"
-#export PATH="$HOME/usr/bin:$PATH"
-#export PATH="$HOME/.linuxbrew/bin:$PATH"
+export PATH="$HOME/.linuxbrew/bin:$PATH"
 export MANPATH="/home/lbesnard/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/lbesnard/.linuxbrew/share/info:$INFOPATH"
 export SHELL=$HOME/.linuxbrew/bin/zsh
@@ -19,72 +18,26 @@ if [ ! -f $zgen_zsh ]; then
 fi
 source $zgen_zsh
 
-# Background Agents
-command -v ssh-agent >/dev/null 2>&1 && zgen oh-my-zsh plugins/ssh-agent
-command -v gpg-agent >/dev/null 2>&1 && zgen oh-my-zsh plugins/gpg-agent
-
-# completion
-_cmpl_cheat() {
-reply=($(cheat -l | cut -d' ' -f1))
-}
-compctl -K _cmpl_cheat cheat
-
-# Configure ssh-agent plugin
-zstyle :omz:plugins:ssh-agent agent-forwarding on # Enabled agent forwarding
-zstyle :omz:plugins:ssh-agent identities id_rsa # Only auto load rsa keys
-
-# if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
-
 # change the size of history files
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
 
-SSH_ENV="$HOME/.ssh/environment"
-
-function start_agent {
-    echo "Initialising new SSH agent..."
-    (umask 066; /usr/bin/ssh-agent > "${SSH_ENV}")
-    . "${SSH_ENV}" > /dev/null
-    /usr/bin/ssh-add;
+_cmpl_inputlog() {
+    reply=($(ls -d $ERROR_DIR/* | sed 's@.*/@@')) 
+    reply=($(echo $reply | tr -s " " "\012"))
 }
-
-# Source SSH settings, if applicable
-if [ -f "${SSH_ENV}" ]; then
-    . "${SSH_ENV}" > /dev/null
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        start_agent;
-    }
-else
-    start_agent;
-fi
-
-# tmux plugin settings
-# this always starts tmux
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOSTART_ONCE=true
-ZSH_TMUX_FIXTERM=true
-ZSH_TMUX_AUTOQUIT=false
-
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status )
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-
+compctl -K _cmpl_inputlog input_logf
+compctl -K _cmpl_inputlog input_log
 
 if ! zgen saved; then
     echo "Creating a zgen save"
     zgen oh-my-zsh
-
     zgen oh-my-zsh plugins/command-not-found
     zgen oh-my-zsh plugins/gitfast
     zgen oh-my-zsh plugins/sudo
     zgen oh-my-zsh plugins/common-aliases
     zgen oh-my-zsh plugins/autojump
-    #zgen oh-my-zsh plugins/tmux
     zgen oh-my-zsh plugins/sublime
-    #zgen oh-my-zsh plugins/vundle
-
     zgen load zsh-users/zsh-completions
 
     ## Syntax highlighting bundle.
@@ -96,16 +49,11 @@ EOPLUGINS
     zgen oh-my-zsh plugins/web-search
     zgen oh-my-zsh plugins/vagrant
     zgen load zsh-users/zsh-autosuggestions
-    #zgen load chrissicool/zsh-bash
 
     # Load the theme.
-    #zgen load bhilburn/powerlevel9k powerlevel9k
-    zgen oh-my-zsh themes/agnoster
-    #zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
-
+    zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
     zgen save
 fi
-#vundle-init
 
 bindkey "\033[1~" beginning-of-line
 bindkey "\033[4~" end-of-line
@@ -116,6 +64,6 @@ if [ ! -z ${SSH_TTY} ]; then
     compinit $DATA_SERVICES_DIR/profile.d/*;
 fi
 
-if command -v tmux>/dev/null; then
+if command -v tmux > /dev/null; then
     [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach;
 fi
