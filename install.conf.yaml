@@ -1,3 +1,9 @@
-- clean: []
-- link: {}
+- defaults:
+    link:
+      relink: true
+      create: true
+- clean: ['~']
+- link:
+    ~/.vimrc: vim/vimrc
+    ~/.vim: vim/vim
 - shell: []
