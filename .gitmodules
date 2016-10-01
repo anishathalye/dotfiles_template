@@ -10,3 +10,6 @@
 [submodule "vim/plugins/vim-airline"]
 	path = vim/plugins/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
+[submodule "vim/plugins/syntastic"]
+	path = vim/plugins/syntastic
+	url = https://github.com/scrooloose/syntastic/
