@@ -1,0 +1,9 @@
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc
+fi
+
+# Set up path for our dotfiles repo
+THIS_FILE=${BASH_SOURCE[0]}
+THIS_REAL=$(realpath -P $THIS_FILE)
+DOTFILES=$(realpath "$(dirname $THIS_REAL)/../")
