@@ -7,3 +7,6 @@
 [submodule "vim/plugins/vim-fugitive"]
 	path = vim/plugins/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
+[submodule "vim/plugins/vim-airline"]
+	path = vim/plugins/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git

@@ -2,3 +2,4 @@ runtime plugins/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect('plugins/{}')
 
 runtime config/general.vim
+runtime config/airline.vim
