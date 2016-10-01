@@ -13,3 +13,6 @@
 [submodule "vim/plugins/syntastic"]
 	path = vim/plugins/syntastic
 	url = https://github.com/scrooloose/syntastic/
+[submodule "vim/plugins/vim-scala"]
+	path = vim/plugins/vim-scala
+	url = https://github.com/derekwyatt/vim-scala.git
