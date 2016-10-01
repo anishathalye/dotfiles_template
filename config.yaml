@@ -7,4 +7,5 @@
     ~/.vimrc: vim/vimrc
     ~/.vim: vim/vim
     ~/.gitconfig: git/gitconfig
-- shell: []
+- shell:
+  - [git submodule update --init --recursive vim/plugins]
