@@ -16,3 +16,6 @@
 [submodule "vim/plugins/vim-scala"]
 	path = vim/plugins/vim-scala
 	url = https://github.com/derekwyatt/vim-scala.git
+[submodule "vim/plugins/vim-gitgutter"]
+	path = vim/plugins/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
