@@ -5,9 +5,11 @@ My WIP dotfiles repo.
 
 Font: 
 
-
 [Cousine for Powerline](https://github.com/powerline/fonts/tree/master/Cousine)
 
+Colorscheme:
+
+[Base16 Atelier Forest Dark for Gnome-Terminal](https://github.com/chriskempson/base16-gnome-terminal/blob/master/base16-atelierforest.dark.sh)
 
 License
 -------
