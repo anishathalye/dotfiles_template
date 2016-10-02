@@ -9,4 +9,6 @@ THIS_REAL=$(realpath -P $THIS_FILE)
 DOTBASH=$(dirname $THIS_REAL)
 DOTFILES=$(realpath "$DOTBASH/../")
 
+source "$DOTBASH/general.sh"
+source "$DOTBASH/alias.sh"
 source "$DOTBASH/tmuxifier"
