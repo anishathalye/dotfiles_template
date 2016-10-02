@@ -34,3 +34,6 @@
 [submodule "vim/plugins/vim-airline-themes"]
 	path = vim/plugins/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
+[submodule "vim/plugins/nerdtree"]
+	path = vim/plugins/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
