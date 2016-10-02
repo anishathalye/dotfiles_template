@@ -22,3 +22,6 @@
 [submodule "vim/plugins/ctrlp.vim"]
 	path = vim/plugins/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim
+[submodule "tmuxifier/git"]
+	path = tmuxifier/git
+	url = https://github.com/jimeh/tmuxifier.git

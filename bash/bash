@@ -6,4 +6,7 @@ fi
 # Set up path for our dotfiles repo
 THIS_FILE=${BASH_SOURCE[0]}
 THIS_REAL=$(realpath -P $THIS_FILE)
-DOTFILES=$(realpath "$(dirname $THIS_REAL)/../")
+DOTBASH=$(dirname $THIS_REAL)
+DOTFILES=$(realpath "$DOTBASH/../")
+
+source "$DOTBASH/tmuxifier"
