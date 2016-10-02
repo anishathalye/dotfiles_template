@@ -10,4 +10,4 @@
     ~/.bashrc: bash/bash.sh
     ~/.tmux.conf: tmux/tmux.conf
 - shell:
-  - [git submodule update --init --recursive vim/plugins]
+  - [git submodule update --init --recursive ./]
