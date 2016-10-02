@@ -2,6 +2,13 @@
 syntax enable
 filetype plugin indent on
 
+" Colors
+colorscheme base16-atelier-forest
+if filereadable(expand("~/.vimrc_background"))
+let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
 " Automatically read a file if it hasn't changed in vim but it changed outside vim
 set autoread
 
