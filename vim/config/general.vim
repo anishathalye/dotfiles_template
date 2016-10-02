@@ -32,8 +32,11 @@ set backspace=indent,eol,start
 set ttimeout
 set ttimeoutlen=100
 
-" Incrementally search for things with /
-set incsearch
+set incsearch " Incrementally search for things with /
+set ignorecase " Ignore case when searching
+set smartcase " Override and pay attention to case if search string isn't all-lowercase
+set hlsearch " Highlight searches
+nnoremap <C-k> :noh<CR> " Ctrl-k clear search highlighting
 
 " Show Line Numbers and relativenumbers
 set number
@@ -56,3 +59,6 @@ set nowrap
 " Third tab, Finally enter the tab mode if absolutely necessary
 set wildmenu
 set wildmode=longest:list,list,full
+
+" Switch to paste mode
+set pastetoggle=<F2>
