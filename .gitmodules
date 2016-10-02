@@ -37,3 +37,6 @@
 [submodule "vim/plugins/nerdtree"]
 	path = vim/plugins/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
+[submodule "vim/plugins/tmuxline.vim"]
+	path = vim/plugins/tmuxline.vim
+	url = https://github.com/edkolev/tmuxline.vim.git
