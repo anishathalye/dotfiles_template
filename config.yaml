@@ -8,5 +8,6 @@
     ~/.vim: vim/vim
     ~/.gitconfig: git/gitconfig
     ~/.bashrc: bash/bash.sh
+    ~/.tmux.conf: tmux/tmux.conf
 - shell:
   - [git submodule update --init --recursive vim/plugins]
