@@ -11,4 +11,4 @@ DOTFILES=$(realpath "$DOTBASH/../")
 
 source "$DOTBASH/general.sh"
 source "$DOTBASH/alias.sh"
-source "$DOTBASH/tmuxifier"
+source "$DOTBASH/tmuxifier.sh"
