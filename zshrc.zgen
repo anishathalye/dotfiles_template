@@ -5,6 +5,8 @@ export TERM="xterm-256color"
 export MANPATH="/home/lbesnard/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/lbesnard/.linuxbrew/share/info:$INFOPATH"
 export SHELL=$HOME/.linuxbrew/bin/zsh
+#export HOST=ᐉ
+setopt nosharehistory
 
 [ -f $HOME/.env ] && source $HOME/.env
 [ -f $HOME/.alias ] && source $HOME/.alias
@@ -71,6 +73,10 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status )
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 
+# pip venv
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+source /usr/local/bin/virtualenvwrapper.sh
 
 if ! zgen saved; then
     echo "Creating a zgen save"

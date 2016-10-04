@@ -63,3 +63,8 @@ https://awhan.wordpress.com/2010/06/20/copy-paste-in-tmux/
 
 also can be done with mouse , ctr a + m (mouse on), then select with mouse, ctr p , ou ctr P 
 see https://github.com/gpakosz/.tmux
+
+
+# 
+ctrl b  # for remote
+ctrl a  # for local 

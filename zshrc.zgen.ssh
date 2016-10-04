@@ -4,6 +4,7 @@ export PATH="$HOME/.linuxbrew/bin:$PATH"
 export MANPATH="/home/lbesnard/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/lbesnard/.linuxbrew/share/info:$INFOPATH"
 export SHELL=$HOME/.linuxbrew/bin/zsh
+setopt nosharehistory
 
 [ -f $HOME/.env ] && source $HOME/.env
 [ -f $HOME/.alias ] && source $HOME/.alias

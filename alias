@@ -58,6 +58,9 @@ DBHOST='14-nsp-mel.emii.org.au'
 DBHOST='dbprod.emii.org.au'
 [ -f $HOME/.pgpass ] && alias psql-dbprod="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
 
+DBHOST='10.11.12.13'
+[ -f $HOME/.pgpass ] && alias psql-po="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
+
 
 ncdumph() {
     command ncdump -h "$@" | less;
@@ -98,3 +101,33 @@ function listen-to() {
 alias flightrecorder='cd $HOME/paragliding ; sudo flightrecorder && sed -i "s/HFPLTPILOT:.*/HFPLTPILOT:Laurent Besnard/g" *.IGC && sed -i "s/HFGTYGLIDERTYPE:.*/HFGTYGLIDERTYPE:Sky Anakis/g" *.IGC && chown $USER:$USER *.IGC; rsync -avc $HOME/paragliding/ $HOME/Dropbox/paragliding_igc'
 alias igc_viewer='gpligc'
 alias riverHeight='python $GITHUB_DIR/River_Height_Tasmania/riverHeight.py && /usr/bin/elinks ~/Dropbox/Public/RiverStatusTasmania.html'
+
+x(){
+    if [ -f $1 ] ; then
+            case $1 in
+                    *.tar.bz2)   tar xvjf $1    ;;
+                    *.tar.gz)    tar xvzf $1    ;;
+                    *.bz2)       bunzip2 $1     ;;
+                    *.rar)       unrar x $1     ;;
+                    *.gz)        gunzip $1      ;;
+                    *.tar)       tar xvf $1     ;;
+                    *.tbz2)      tar xvjf $1    ;;
+                    *.tgz)       tar xvzf $1    ;;
+                    *.zip)       unzip $1       ;;
+                    *.Z)         uncompress $1  ;;
+                    *.7z)        7z x $1        ;;
+                    *)           echo "Unable to extract '$1'" ;;
+            esac
+    else
+            echo "'$1' is not a valid file"
+    fi
+}
+
+python_venv_init () {
+    local venv_name=$1; shift
+    mkdir venv_name && cd venv_name;
+    sourve venv/vin/activate
+    xargs -a requirements.txt -n 1 pip install
+}
+alias pip_install_requirements='xargs -a requirements.txt -n 1 pip install'
+

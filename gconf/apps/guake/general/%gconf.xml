@@ -7,7 +7,7 @@
 	<entry name="quick_open_enable" mtime="1473923144" type="bool" value="false"/>
 	<entry name="window_ontop" mtime="1475119143" type="bool" value="false"/>
 	<entry name="window_height_f" mtime="1475119143" type="float" value="75.916666666666671"/>
-	<entry name="window_height" mtime="1475125837" type="int" value="73"/>
+	<entry name="window_height" mtime="1475139656" type="int" value="71"/>
 	<entry name="use_vte_titles" mtime="1475122712" type="bool" value="false"/>
 	<entry name="compat_delete" mtime="1475119143" type="string">
 		<stringvalue>delete-sequence</stringvalue>
