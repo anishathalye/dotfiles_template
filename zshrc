@@ -1,1 +1,1 @@
-source /home/lbesnard/.zshrc.zgen
+source /home/lbesnard/.zshrc.zplug

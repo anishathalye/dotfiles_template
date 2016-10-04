@@ -22,7 +22,7 @@ export HOMEBREW_ARCH=core2
 
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
-curl -fsSL -o .zshrc https://raw.githubusercontent.com/lbesnard/dotfiles/master/zshrc.zgen.ssh
+curl -fsSL -o .zshrc https://raw.githubusercontent.com/lbesnard/dotfiles/master/zshrc.zplug.ssh
 curl -fsSL -o .tmux.conf https://raw.githubusercontent.com/lbesnard/dotfiles/master/tmux.conf.ssh
 curl -fsSL -o .vimrc https://raw.githubusercontent.com/lbesnard/dotfiles/master/vim/vimrc
 curl -fsSL -o .gitconfig https://raw.githubusercontent.com/lbesnard/dotfiles/master/gitconfig

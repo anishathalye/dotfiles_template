@@ -1,0 +1,154 @@
+# Set up the prompt
+export TERM="xterm-256color"
+#export PATH="$HOME/usr/bin:$PATH"
+#export PATH="$HOME/.linuxbrew/bin:$PATH"
+export MANPATH="/home/lbesnard/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/lbesnard/.linuxbrew/share/info:$INFOPATH"
+export SHELL=$HOME/.linuxbrew/bin/zsh
+#export HOST=ᐉ
+setopt nosharehistory
+
+[ -f $HOME/.env ] && source $HOME/.env
+[ -f $HOME/.alias ] && source $HOME/.alias
+source  /etc/profile.d/* # especially useful for remote connection
+
+# check if zplug is installed
+if [[ ! -d ~/.zplug ]]; then
+  git clone https://github.com/zplug/zplug ~/.zplug
+  source ~/.zplug/init.zsh && zplug update --self
+fi
+
+# Essential
+source ~/.zplug/init.zsh
+
+# Background Agents
+command -v ssh-agent >/dev/null 2>&1 && zplug "plugins/ssh-agent", from:oh-my-zsh
+command -v gpg-agent >/dev/null 2>&1 && zplug "plugins/gpg-agent", from:oh-my-zsh
+
+# completion
+_cmpl_cheat() {
+reply=($(cheat -l | cut -d' ' -f1))
+}
+compctl -K _cmpl_cheat cheat
+
+# Configure ssh-agent plugin
+zstyle :omz:plugins:ssh-agent agent-forwarding on # Enabled agent forwarding
+zstyle :omz:plugins:ssh-agent identities id_rsa # Only auto load rsa keys
+
+# if you want red dots to be displayed while waiting for completion
+COMPLETION_WAITING_DOTS="true"
+
+# change the size of history files
+export HISTSIZE=32768;
+export HISTFILESIZE=$HISTSIZE;
+
+SSH_ENV="$HOME/.ssh/environment"
+
+function start_agent {
+    echo "Initialising new SSH agent..."
+    (umask 066; /usr/bin/ssh-agent > "${SSH_ENV}")
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add;
+}
+
+# Source SSH settings, if applicable
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi
+
+# tmux plugin settings
+# this always starts tmux
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART_ONCE=true
+ZSH_TMUX_FIXTERM=true
+ZSH_TMUX_AUTOQUIT=false
+
+#POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
+
+
+# pip venv
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+source /usr/local/bin/virtualenvwrapper.sh
+
+
+zplug "plugins/command-not-found",  from:oh-my-zsh
+zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
+zplug "plugins/virtualenv",  from:oh-my-zsh
+zplug "plugins/gitfast",  from:oh-my-zsh
+zplug "plugins/sudo",  from:oh-my-zsh
+#zplug "plugins/common-aliases",  from:oh-my-zsh
+zplug "plugins/autojump",  from:oh-my-zsh
+zplug "plugins/sublime",  from:oh-my-zsh
+zplug "zsh-users/zsh-completions"
+## Syntax highlighting bundle.
+zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "plugins/web-search",  from:oh-my-zsh
+zplug "plugins/vagrant",  from:oh-my-zsh
+zplug "zsh-users/zsh-autosuggestions"
+#zplug load chrissicool/zsh-bash
+
+zplug "zsh-users/zsh-history-substring-search", nice:19
+
+# Load the theme.
+setopt prompt_subst # Make sure propt is able to be generated properly.
+zplug "themes/agnoster", from:oh-my-zsh, use:agnoster.zsh-theme
+
+#zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+#zplug "adambiggs/zsh-theme", use:adambiggs.zsh-theme
+#zplug "caiogondim/bullet-train-oh-my-zsh-theme", use:bullet-train.zsh-theme
+
+
+if ! zplug check --verbose; then
+    zplug install
+fi
+
+# source plugins and add commands to the PATH
+zplug load
+
+. ~/.zplug/repos/robbyrussell/oh-my-zsh/plugins/common-aliases/common-aliases.plugin.zsh
+
+#ZSH history
+setopt append_history
+setopt hist_expire_dups_first
+setopt hist_fcntl_lock
+setopt hist_ignore_all_dups
+setopt hist_lex_words
+setopt hist_reduce_blanks
+setopt hist_save_no_dups
+#setopt share_history
+
+export CLICOLOR=1
+export BLOCK_SIZE=human-readable # https://www.gnu.org/software/coreutils/manual/html_node/Block-size.html
+export HISTSIZE=11000
+export SAVEHIST=10000
+export HISTFILE=~/.zsh_history
+
+# binkey for HOME END
+bindkey "\033[1~" beginning-of-line
+bindkey "\033[4~" end-of-line
+
+if [ ! -z ${SSH_TTY} ]; then
+    source $DATA_SERVICES_DIR/profile.d/util.sh &>/dev/null;
+    source $DATA_SERVICES_DIR/profile.d/input.sh &>/dev/null;
+    compinit $DATA_SERVICES_DIR/profile.d/*;
+fi
+
+
+if zplug check zsh-users/zsh-history-substring-search; then
+      zmodload zsh/terminfo
+      bindkey "$terminfo[kcuu1]" history-substring-search-up
+      bindkey "$terminfo[kcud1]" history-substring-search-down
+fi
+
+if command -v tmux>/dev/null; then
+    [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach;
+fi

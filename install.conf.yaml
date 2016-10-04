@@ -16,6 +16,7 @@
     ~/.zshrc: zshrc
     ~/.zshrc.antigen: zshrc.antigen
     ~/.zshrc.zgen: zshrc.zgen
+    ~/.zshrc.zplug: zshrc.zplug
     ~/.initsys.sh: initsys.sh
     ~/.xsessionrc: xsessionrc
     ~/.bashrc:

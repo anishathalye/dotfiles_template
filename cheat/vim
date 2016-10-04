@@ -161,6 +161,7 @@ visual + \cu  # uncomment
 
 # nerdtree
  ctrl t
+
 # File management
 
 :e              reload file
@@ -264,7 +265,7 @@ history
 :e file
 
 # vim janus
-\n # open tree
+\n  or ctrl t# open tree
 [b # to go to the previous buffer
 ]b # to go to the next buffer
 :Gstatus
