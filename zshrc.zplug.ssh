@@ -33,6 +33,12 @@ COMPLETION_WAITING_DOTS="true"
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
 
+# highlight options 
+export LSCOLORS=ExfxcxdxbxGxDxabagacad
+zstyle ':completion:*' list-colors ${LSCOLORS}
+zstyle ':completion:*:default' menu select=2
+
+
 zplug "plugins/command-not-found",  from:oh-my-zsh
 zplug "plugins/gitfast",  from:oh-my-zsh
 zplug "plugins/sudo",  from:oh-my-zsh
@@ -44,6 +50,7 @@ zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-history-substring-search"
+#zplug "chrissicool/zsh-bash"
 
 # Load the theme.
 setopt prompt_subst # Make sure propt is able to be generated properly.
@@ -81,8 +88,10 @@ bindkey "\033[1~" beginning-of-line
 bindkey "\033[4~" end-of-line
 
 if [ ! -z ${SSH_TTY} ]; then
-    source $DATA_SERVICES_DIR/profile.d/util.sh &>/dev/null;
-    source $DATA_SERVICES_DIR/profile.d/input.sh &>/dev/null;
+    #source $DATA_SERVICES_DIR/profile.d/util.sh &>/dev/null;
+    #source $DATA_SERVICES_DIR/profile.d/input.sh &>/dev/null;
+    source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
+    source $DATA_SERVICES_DIR/lib/common/* &>/dev/null;
     compinit $DATA_SERVICES_DIR/profile.d/*;
 fi
 

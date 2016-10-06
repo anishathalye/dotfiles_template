@@ -59,6 +59,12 @@ fi
 bindkey "\033[1~" beginning-of-line
 bindkey "\033[4~" end-of-line
 
+# highlight options 
+export LSCOLORS=ExfxcxdxbxGxDxabagacad
+zstyle ':completion:*' list-colors ${LSCOLORS}
+zstyle ':completion:*:default' menu select=2
+
+
 if [ ! -z ${SSH_TTY} ]; then
     source $DATA_SERVICES_DIR/profile.d/util.sh &>/dev/null;
     source $DATA_SERVICES_DIR/profile.d/input.sh &>/dev/null;

@@ -64,6 +64,8 @@ Plugin 'matze/vim-move'
 Plugin 'mattn/gist-vim'
 Plugin 'mattn/webapi-vim' " used by gist
 Plugin 'mattn/emmet-vim'
+Plugin 'lukaszkorecki/workflowish' " todo lit
+Plugin 'itchyny/calendar.vim'
 
 Plugin 'christoomey/vim-tmux-navigator'
 
@@ -466,3 +468,7 @@ command! PrettyXML call DoPrettyXML()
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_folding_level = 6
 set conceallevel=2
+
+" Calendar
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1

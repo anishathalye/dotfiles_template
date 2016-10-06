@@ -80,6 +80,7 @@ export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh
 
 
+zplug "zsh-users/zsh-autosuggestions"
 zplug "plugins/command-not-found",  from:oh-my-zsh
 zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
 zplug "plugins/virtualenv",  from:oh-my-zsh
@@ -87,16 +88,17 @@ zplug "plugins/gitfast",  from:oh-my-zsh
 zplug "plugins/sudo",  from:oh-my-zsh
 #zplug "plugins/common-aliases",  from:oh-my-zsh
 zplug "plugins/autojump",  from:oh-my-zsh
+zplug "plugins/heroku",  from:oh-my-zsh
 zplug "plugins/sublime",  from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
 ## Syntax highlighting bundle.
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-syntax-highlighting", nice:19
 zplug "plugins/web-search",  from:oh-my-zsh
 zplug "plugins/vagrant",  from:oh-my-zsh
-zplug "zsh-users/zsh-autosuggestions"
-#zplug load chrissicool/zsh-bash
+zplug "horosgrisa/zsh-dropbox"
+#zplug "chrissicool/zsh-bash"
 
-zplug "zsh-users/zsh-history-substring-search", nice:19
+zplug "zsh-users/zsh-history-substring-search", nice:18
 
 # Load the theme.
 setopt prompt_subst # Make sure propt is able to be generated properly.
@@ -115,6 +117,11 @@ fi
 zplug load
 
 . ~/.zplug/repos/robbyrussell/oh-my-zsh/plugins/common-aliases/common-aliases.plugin.zsh
+
+# highlight options 
+export LSCOLORS=ExfxcxdxbxGxDxabagacad
+zstyle ':completion:*' list-colors ${LSCOLORS}
+zstyle ':completion:*:default' menu select=2
 
 #ZSH history
 setopt append_history
@@ -137,8 +144,10 @@ bindkey "\033[1~" beginning-of-line
 bindkey "\033[4~" end-of-line
 
 if [ ! -z ${SSH_TTY} ]; then
-    source $DATA_SERVICES_DIR/profile.d/util.sh &>/dev/null;
-    source $DATA_SERVICES_DIR/profile.d/input.sh &>/dev/null;
+    #source $DATA_SERVICES_DIR/profile.d/util.sh &>/dev/null;
+    #source $DATA_SERVICES_DIR/profile.d/input.sh &>/dev/null;
+    source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
+    source $DATA_SERVICES_DIR/lib/common/* &>/dev/null;
     compinit $DATA_SERVICES_DIR/profile.d/*;
 fi
 
