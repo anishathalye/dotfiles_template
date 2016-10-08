@@ -8,6 +8,6 @@ new_window "Code"
 
 # Split window into panes.
 split_h 50
-select_pane 1
+select_pane 2
 split_v 50
-select_pane 0
+select_pane 1

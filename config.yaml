@@ -9,5 +9,6 @@
     ~/.gitconfig: git/gitconfig
     ~/.bashrc: bash/bash.sh
     ~/.tmux.conf: tmux/tmux.conf
+    ~/.tmux.reset.conf: tmux/tmux.reset.conf
 - shell:
   - [git submodule update --init --recursive ./]
