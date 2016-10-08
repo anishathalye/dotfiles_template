@@ -5,3 +5,4 @@ runtime config/general.vim
 runtime config/airline.vim
 runtime config/ctrlp.vim
 runtime config/nerdtree.vim
+runtime config/fugitive.vim
