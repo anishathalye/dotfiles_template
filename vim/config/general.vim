@@ -62,3 +62,10 @@ set wildmode=longest:list,list,full
 
 " Switch to paste mode
 set pastetoggle=<F2>
+
+" Group that matches trailing whitespace except when typing at the end of a line.
+highlight ExtraWhitespace ctermbg=red guibg=red
+" Match on load, then let the autocommands take over
+match ExtraWhitespace /\s\+$/
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
