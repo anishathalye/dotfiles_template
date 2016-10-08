@@ -3,6 +3,16 @@ Dotfiles
 
 My WIP dotfiles repo.
 
+Installation
+------------
+
+`git clone https://github.com/kraigmckernan/dotfiles.git`
+`cd dotfiles && ./install`
+
+
+Details
+-------
+
 Font: 
 
 [Cousine for Powerline](https://github.com/powerline/fonts/tree/master/Cousine)
