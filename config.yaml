@@ -2,6 +2,9 @@
     link:
       relink: true
       create: true
+    shell:
+      stdout: true
+      stderr: true
 - clean: ['~']
 - link:
     ~/.vimrc: vim/vimrc
@@ -11,4 +14,6 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.reset.conf: tmux/tmux.reset.conf
 - shell:
-  - [git submodule update --init --recursive ./]
+  -
+    description: Updating git submodules..
+    command: git submodule update --init --recursive ./
