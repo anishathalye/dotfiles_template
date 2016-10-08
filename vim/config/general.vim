@@ -73,3 +73,6 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 " Alt-o to close all but this buffer
 " This may not work on all systems
 noremap <Esc>o :only<CR>
+
+" Redraw screen mapping
+nnoremap <leader>r :redraw!<CR>
