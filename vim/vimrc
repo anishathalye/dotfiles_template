@@ -1,6 +1,8 @@
 runtime plugins/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect('plugins/{}')
 
+nnoremap <leader>r :source ~/.vimrc<CR>
+
 runtime config/general.vim
 runtime config/airline.vim
 runtime config/ctrlp.vim
