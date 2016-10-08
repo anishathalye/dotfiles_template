@@ -40,3 +40,6 @@
 [submodule "vim/plugins/tmuxline.vim"]
 	path = vim/plugins/tmuxline.vim
 	url = https://github.com/edkolev/tmuxline.vim.git
+[submodule "vim/plugins/neocomplete.vim"]
+	path = vim/plugins/neocomplete.vim
+	url = https://github.com/Shougo/neocomplete.vim.git
