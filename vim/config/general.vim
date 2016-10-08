@@ -69,3 +69,7 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Alt-o to close all but this buffer
+" This may not work on all systems
+noremap <Esc>o :only<CR>
