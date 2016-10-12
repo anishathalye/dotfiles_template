@@ -6,6 +6,7 @@ export INFOPATH="/home/lbesnard/.linuxbrew/share/info:$INFOPATH"
 export SHELL=$HOME/.linuxbrew/bin/zsh
 #export HOST=ᐉ
 setopt nosharehistory
+setopt interactivecomments
 
 [ -f $HOME/.env ] && source $HOME/.env
 [ -f $HOME/.alias ] && source $HOME/.alias
@@ -16,6 +17,9 @@ if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
   source ~/.zplug/init.zsh && zplug update --self
 fi
+
+# python venv
+[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
 # Essential
 source ~/.zplug/init.zsh
@@ -37,7 +41,9 @@ export HISTFILESIZE=$HISTSIZE;
 export LSCOLORS=ExfxcxdxbxGxDxabagacad
 zstyle ':completion:*' list-colors ${LSCOLORS}
 zstyle ':completion:*:default' menu select=2
-
+BULLETTRAIN_VIRTUALENV_PREFIX=""
+BULLETTRAIN_VIRTUALENV_BG=30
+BULLETTRAIN_RUBY_SHOW=false
 
 zplug "plugins/command-not-found",  from:oh-my-zsh
 zplug "plugins/gitfast",  from:oh-my-zsh
@@ -86,6 +92,7 @@ export HISTFILE=~/.zsh_history
 # binkey for HOME END
 bindkey "\033[1~" beginning-of-line
 bindkey "\033[4~" end-of-line
+bindkey "^[[3~" delete-char
 
 if [ ! -z ${SSH_TTY} ]; then
     #source $DATA_SERVICES_DIR/profile.d/util.sh &>/dev/null;

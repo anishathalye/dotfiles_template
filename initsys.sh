@@ -10,6 +10,9 @@ export PATH="$HOME/.linuxbrew/bin:$PATH"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
+# install powerline fonts
+[ ! -d $HOME/fonts/ ] && git clone git@github.com:powerline/fonts.git && source $HOME/fonts/install.sh
+
 # see https://github.com/Linuxbrew/homebrew-core/issues/955#issuecomment-250151297
 export HOMEBREW_ARCH=core2
 [ ! -f .linuxbrew/bin/gcc ] && brew install gcc

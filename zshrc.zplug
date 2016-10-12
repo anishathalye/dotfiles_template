@@ -5,8 +5,10 @@ export TERM="xterm-256color"
 export MANPATH="/home/lbesnard/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/lbesnard/.linuxbrew/share/info:$INFOPATH"
 export SHELL=$HOME/.linuxbrew/bin/zsh
+export DEFAULT_USER=loz
 #export HOST=ᐉ
 setopt nosharehistory
+setopt interactivecomments
 
 [ -f $HOME/.env ] && source $HOME/.env
 [ -f $HOME/.alias ] && source $HOME/.alias
@@ -72,7 +74,9 @@ ZSH_TMUX_AUTOQUIT=false
 #POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-
+BULLETTRAIN_VIRTUALENV_PREFIX=""
+BULLETTRAIN_VIRTUALENV_BG=30
+BULLETTRAIN_RUBY_SHOW=false
 
 # pip venv
 export WORKON_HOME=$HOME/.virtualenvs
@@ -95,7 +99,8 @@ zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", nice:19
 zplug "plugins/web-search",  from:oh-my-zsh
 zplug "plugins/vagrant",  from:oh-my-zsh
-zplug "horosgrisa/zsh-dropbox"
+#zplug "horosgrisa/zsh-dropbox"
+#zplug "joepvd/grep2awk"
 #zplug "chrissicool/zsh-bash"
 
 zplug "zsh-users/zsh-history-substring-search", nice:18
@@ -139,9 +144,12 @@ export HISTSIZE=11000
 export SAVEHIST=10000
 export HISTFILE=~/.zsh_history
 
+#source repos/robbyrussell/oh-my-zsh/lib/spectrum.zsh 
+
 # binkey for HOME END
 bindkey "\033[1~" beginning-of-line
 bindkey "\033[4~" end-of-line
+bindkey "^[[3~" delete-char
 
 if [ ! -z ${SSH_TTY} ]; then
     #source $DATA_SERVICES_DIR/profile.d/util.sh &>/dev/null;
@@ -153,9 +161,9 @@ fi
 
 
 if zplug check zsh-users/zsh-history-substring-search; then
-      zmodload zsh/terminfo
-      bindkey "$terminfo[kcuu1]" history-substring-search-up
-      bindkey "$terminfo[kcud1]" history-substring-search-down
+    zmodload zsh/terminfo
+    bindkey "$terminfo[kcuu1]" history-substring-search-up
+    bindkey "$terminfo[kcud1]" history-substring-search-down
 fi
 
 if command -v tmux>/dev/null; then
