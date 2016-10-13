@@ -78,6 +78,10 @@ BULLETTRAIN_VIRTUALENV_PREFIX=""
 BULLETTRAIN_VIRTUALENV_BG=30
 BULLETTRAIN_RUBY_SHOW=false
 
+#BULLETTRAIN_PROMPT_ORDER=(  git    context      dir        time)
+#BULLETTRAIN_CONTEXT_SHOW=true
+#BULLETTRAIN_IS_SSH_CLIENT=true
+
 # pip venv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
@@ -107,11 +111,11 @@ zplug "zsh-users/zsh-history-substring-search", nice:18
 
 # Load the theme.
 setopt prompt_subst # Make sure propt is able to be generated properly.
-zplug "themes/agnoster", from:oh-my-zsh, use:agnoster.zsh-theme
+#zplug "themes/agnoster", from:oh-my-zsh, use:agnoster.zsh-theme
 
 #zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 #zplug "adambiggs/zsh-theme", use:adambiggs.zsh-theme
-#zplug "caiogondim/bullet-train-oh-my-zsh-theme", use:bullet-train.zsh-theme
+zplug "caiogondim/bullet-train-oh-my-zsh-theme", use:bullet-train.zsh-theme
 
 
 if ! zplug check --verbose; then

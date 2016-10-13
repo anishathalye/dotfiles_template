@@ -100,7 +100,16 @@ if [ ! -z ${SSH_TTY} ]; then
     source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
     source $DATA_SERVICES_DIR/lib/common/* &>/dev/null;
     compinit $DATA_SERVICES_DIR/profile.d/*;
+    alias sudo_project_officer='sudo -u projectofficer -i'
 fi
+
+_cmpl_inputlog() {
+    reply=($(ls -d $ERROR_DIR/* | sed 's@.*/@@')) 
+    reply=($(echo $reply | tr -s " " "\012"))
+}
+compctl -K _cmpl_inputlog input_logf
+compctl -K _cmpl_inputlog input_log
+
 
 if zplug check zsh-users/zsh-history-substring-search; then
       zmodload zsh/terminfo
