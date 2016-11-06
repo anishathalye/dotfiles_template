@@ -99,3 +99,7 @@ alias gitl='git log --pretty=oneline --abbrev-commit --all --graph --color'
 source ~/.zshrc.private
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# List tasks
+task
+
