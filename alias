@@ -3,8 +3,6 @@ alias ccat='source-highlight --out-format=esc -o STDOUT -i'
 alias chef_cd="cd $CHEF_DIR"
 alias chef_private_cd="cd $CHEF_DIR/../chef-private"
 alias chef_10_build='jenkins_chef_cook_node 10-nsp-mel'
-alias chef_14_build='jenkins_chef_cook_node 14-nsp-mel'
-alias chef_9_build='jenkins_chef_cook_node 9-nsp-mel'
 alias chef_imos="chef_cd && rm -f private; ln -s ../chef-private private"
 alias chef_po_box_start="chef_sample &&  ./bin/po-box.sh && vagrant ssh po"
 alias chef_provision_laptop_from_remote='cd $DOTFILES; git reset-branch-like-remote; cd $GITHUB_DIR/chef_laptop; git reset-branch-like-remote; sudo -HE $GITHUB_DIR/chef_laptop/install.sh;'
@@ -29,6 +27,7 @@ alias l='ls -CF'
 alias la='ls -a'
 alias latest_installed_pckg='cat /var/log/apt/history.log | grep "\ install\ "'
 alias ll='ls -lh'
+alias lll="ll | awk '{print $9}'"
 alias lock_screen='gnome-screensaver-command --lock || xscreensaver-command -lock'
 alias ls='ls --color=auto'
 alias ls_time='ls -lrt'
@@ -53,7 +52,7 @@ alias vim_plugin_install='vim +VundleClean +PluginInstall +qall'
 alias wd='cd /media/lbesnard/Laurent_emII'
 
 # POSTGRES
-DBHOST='14-nsp-mel.emii.org.au'
+DBHOST='2-nec-hob.emii.org.au'
 [ -f $HOME/.pgpass ] && alias psql-dbrc="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
 
 DBHOST='dbprod.emii.org.au'
@@ -62,6 +61,15 @@ DBHOST='dbprod.emii.org.au'
 DBHOST='10.11.12.13'
 [ -f $HOME/.pgpass ] && alias psql-po="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
 
+
+remove_space_from_filename_recur() {
+    find . -depth -name "* *" -execdir rename 's/ /_/g' "{}" \;
+}
+
+remove_file_extension() {
+    local file="$1"; shift
+    mv $file ${file%\.[^.]*}
+}
 
 ncdumph() {
     command ncdump -h "$@" | less;
@@ -131,4 +139,3 @@ python_venv_init () {
     xargs -a requirements.txt -n 1 pip install
 }
 alias pip_install_requirements='xargs -a requirements.txt -n 1 pip install'
-

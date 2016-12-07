@@ -22,6 +22,7 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/git ] && brew install git
 [ ! -e .linuxbrew/bin/curl ] && brew install curl
 [ ! -e .linuxbrew/bin/vim ] && brew install vim
+[ ! -e .linuxbrew/bin/hub ] && brew install hub
 
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 

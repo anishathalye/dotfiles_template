@@ -1,7 +1,8 @@
 # Set up the prompt
 export TERM="xterm-256color"
 #export PATH="$HOME/usr/bin:$PATH"
-#export PATH="$HOME/.linuxbrew/bin:$PATH"
+export PATH="$HOME/.linuxbrew/bin:$PATH"
+export PATH="/opt/MATLAB/R2014b/bin:$PATH"
 export MANPATH="/home/lbesnard/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/lbesnard/.linuxbrew/share/info:$INFOPATH"
 export SHELL=$HOME/.linuxbrew/bin/zsh

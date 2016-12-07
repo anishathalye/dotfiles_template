@@ -263,6 +263,9 @@ tmux_conf_new_session_prompt=false
 #set -g history-limit 10000
 
 set-window-option -g mode-keys vi
+#set inactive/active window styles
+set -g window-style 'fg=colour247,bg=colour236'
+set -g window-active-style 'fg=colour250,bg=black'
 
 # Splitting panes.
 bind u split-window -h

@@ -74,7 +74,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
-Plugin 'garbas/vim-snipmate' 
+Plugin 'garbas/vim-snipmate'
 
 " Automatically sort python imports
 Bundle 'fisadev/vim-isort'
@@ -119,7 +119,7 @@ let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
 
 "Linting
-let g:pymode_lint = 1
+let g:pymode_lint = 0  " disable py mode checker
 let g:pymode_lint_checker = "pyflakes,pep8"
 " Auto check on save
 let g:pymode_lint_write = 0
@@ -464,6 +464,10 @@ endfunction
 command! PrettyXML call DoPrettyXML()
 
 
+" python flake8 F7
+let g:flake8_show_in_gutter=1  " show
+autocmd BufWritePost *.py call Flake8()
+
 " markdown
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_folding_level = 6
@@ -472,3 +476,35 @@ set conceallevel=2
 " Calendar
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
+
+"make home key go to first non-whitespace
+map <Home> ^
+imap <Home> <Esc>^i
+
+" python debug
+"nnoremap <leader>p oimport ipdb;ipdb.set_trace()
+"nnoremap <leader>b oimport updb;updb.set_trace()
+au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>p oimport pudb; pudb.set_trace()<esc>
+au FileType python map <silent> <leader>P Oimport pudb; pudb.set_trace()<esc>
+
+" python import sorts
+let g:vim_isort_map = '<C-i>'
+
+" fugitive git bindings
+noremap <space>ga :Git add %:p<CR><CR>
+noremap <space>gs :Gstatus<CR>
+noremap <space>gc :Gcommit -v -q<CR>
+noremap <space>gt :Gcommit -v -q %:p<CR>
+noremap <space>gd :Gdiff<CR>
+noremap <space>ge :Gedit<CR>
+noremap <space>gr :Gread<CR>
+noremap <space>gw :Gwrite<CR><CR>
+noremap <space>gl :silent! Glog<CR>:bot copen<CR>
+noremap <space>gp :Ggrep<Space>
+noremap <space>gm :Gmove<Space>
+noremap <space>gb :Git branch<Space>
+noremap <space>go :Git checkout<Space>
+noremap <space>gps :Dispatch! git push<CR>
+nnoremap <space>gpl :Dispatch! git pull<CR>" 

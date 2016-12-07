@@ -11,6 +11,7 @@
     ~/.env: env
     ~/.alias: alias
     ~/.complete: complete
+    ~/.flake8: flake8
     ~/.screenrc: screenrc
     ~/.tmux.conf: tmux.conf
     ~/.zshrc: zshrc

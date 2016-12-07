@@ -25,6 +25,7 @@ export DOTFILES=$HOME/github_repo/dotfiles
 export WWW_HOME='www.duckduckgo.com'
 export CHEF_DIR="$GITHUB_DIR/chef"
 export DATA_SERVICES_DIR="$GITHUB_DIR/chef/src/data-services"
+export PYTHONPATH=$DATA_SERVICES_DIR/lib/python
 
 export SHELL=/usr/bin/zsh
 
