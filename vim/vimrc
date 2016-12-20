@@ -66,6 +66,7 @@ Plugin 'mattn/webapi-vim' " used by gist
 Plugin 'mattn/emmet-vim'
 Plugin 'lukaszkorecki/workflowish' " todo lit
 Plugin 'itchyny/calendar.vim'
+Plugin 'tell-k/vim-autopep8'
 
 Plugin 'christoomey/vim-tmux-navigator'
 
@@ -481,6 +482,9 @@ let g:calendar_google_task = 1
 map <Home> ^
 imap <Home> <Esc>^i
 
+" fold close all 
+" zM and zR
+
 " python debug
 "nnoremap <leader>p oimport ipdb;ipdb.set_trace()
 "nnoremap <leader>b oimport updb;updb.set_trace()
@@ -508,3 +512,7 @@ noremap <space>gb :Git branch<Space>
 noremap <space>go :Git checkout<Space>
 noremap <space>gps :Dispatch! git push<CR>
 nnoremap <space>gpl :Dispatch! git pull<CR>" 
+
+
+" pep8 fix only these
+let g:autopep8_select="W293,E261,E302,F405,E225,E203,E231,E305,E502,E124,E303,E266"

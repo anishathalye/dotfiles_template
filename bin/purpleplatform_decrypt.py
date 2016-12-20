@@ -8,22 +8,27 @@
 # copied to .media/decrypted
 
 
-import numpy as np
-import os, time
+import os
 import pickle
+import time
 from shutil import copyfile
-import sys
+
+import numpy as np
+
 
 def dict_mod(dicta, dictb):
     return [key for key in dicta.keys() if any(dicta[key] != dictb[key])]
 
-def save_obj(obj, name ):
+
+def save_obj(obj, name):
     with open(name + '.pkl', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
-def load_obj(name ):
+
+def load_obj(name):
     with open(name + '.pkl', 'rb') as f:
         return pickle.load(f)
+
 
 def ls_mov(mov_path):
     files_to_decrypt = []
@@ -32,6 +37,7 @@ def ls_mov(mov_path):
             files_to_decrypt.append(file)
     return files_to_decrypt
 
+
 def get_crypted_bytes_file(mov_crypted_filepath):
     crypt = np.fromfile(mov_crypted_filepath, dtype=np.byte)
 
@@ -39,6 +45,7 @@ def get_crypted_bytes_file(mov_crypted_filepath):
     # bytes
     first_32_bytes = crypt[0:32]
     return first_32_bytes
+
 
 def db_bytes_encrypted(mov_path):
     files_to_decrypt = ls_mov(mov_path)
@@ -51,6 +58,7 @@ def db_bytes_encrypted(mov_path):
 
     return dict
 
+
 def copy_decrypted_file(mov_path):
     dcr_path = os.path.join(mov_path, 'decrypted')
     if not os.path.exists(dcr_path):
@@ -60,7 +68,7 @@ def copy_decrypted_file(mov_path):
 
     dict_encrypted_bytes = db_bytes_encrypted(mov_path)
 
-    if len(files_decrytped) < files_to_decrypt :
+    if len(files_decrytped) < files_to_decrypt:
         while 1:
             dict_whileplayerrunning_bytes = db_bytes_encrypted(mov_path)
             diff = dict_mod(dict_encrypted_bytes, dict_whileplayerrunning_bytes)
@@ -73,6 +81,7 @@ def copy_decrypted_file(mov_path):
             if len(files_decrytped) == files_to_decrypt:
                 exit(0)
             time.sleep(1)
+
 
 if __name__ == "__main__":
     copy_decrypted_file('.')
