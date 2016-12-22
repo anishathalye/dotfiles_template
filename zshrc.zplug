@@ -101,14 +101,14 @@ zplug "plugins/heroku",  from:oh-my-zsh
 zplug "plugins/sublime",  from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
 ## Syntax highlighting bundle.
-zplug "zsh-users/zsh-syntax-highlighting", nice:19
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "plugins/web-search",  from:oh-my-zsh
 zplug "plugins/vagrant",  from:oh-my-zsh
 #zplug "horosgrisa/zsh-dropbox"
 #zplug "joepvd/grep2awk"
 #zplug "chrissicool/zsh-bash"
 
-zplug "zsh-users/zsh-history-substring-search", nice:18
+zplug "zsh-users/zsh-history-substring-search", defer:2
 
 # Load the theme.
 setopt prompt_subst # Make sure propt is able to be generated properly.

@@ -53,7 +53,7 @@ zplug "plugins/autojump",  from:oh-my-zsh
 zplug "plugins/sublime",  from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
 ## Syntax highlighting bundle.
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-history-substring-search"
 #zplug "chrissicool/zsh-bash"

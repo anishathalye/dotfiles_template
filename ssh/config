@@ -17,7 +17,13 @@ Host its6
     Port 22
     ForwardAgent yes
 
-# NSP machines Melbourne
+# Nectar machines hobart
+Host nec4
+    Hostname 4-nec-hob.emii.org.au
+    User lbesnard
+    Port 22
+    ForwardAgent yes
+
 Host nec14
     Hostname 14-nec-hob.emii.org.au
     User lbesnard
