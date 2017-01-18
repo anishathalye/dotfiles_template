@@ -3,6 +3,7 @@
     ~/.gvimrc: gvimrc
     ~/.task: task.private/
     ~/.taskrc: taskrc
+    ~/.timewarrior/timewarrior.cfg: timewarrior.cfg
     ~/.vimrc: vimrc
     ~/.zshenv: zshenv
     ~/.zshrc: zshrc
