@@ -1,8 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/claudine/.oh-my-zsh
 
-source $ZSH/oh-my-zsh.sh
-
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -48,6 +46,8 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(brew git git-flow history osx taskwarrior tig vi-mode web-search)
+
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
