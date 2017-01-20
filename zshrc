@@ -98,11 +98,14 @@ alias gitl='git log --pretty=oneline --abbrev-commit --all --graph --color'
 # Private configuration.
 source ~/.zshrc.private
 
-# iterm2
+# iterm2 integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # rbenv
 eval "$(rbenv init -)"
 
-# List tasks
+# Start ssh-agent.
+ssh-agent
+
+# List Taskwarrior tasks.
 task
