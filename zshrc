@@ -104,8 +104,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # rbenv
 eval "$(rbenv init -)"
 
-# Start ssh-agent.
-ssh-agent
-
 # List Taskwarrior tasks.
 task
+
+# Start ssh-agent.
+ssh-agent
+ssh-add "${HOME}/.ssh/id_rsa"
