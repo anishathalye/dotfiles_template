@@ -1,0 +1,27 @@
+library: ~/musiclibrary.blb
+import:
+    copy: no
+    write: no
+    languages: en
+plugins: inline convert web fetchart lastgenre play chroma fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist
+play:
+    command: mp3blaster --list
+chroma:
+    auto: yes
+acousticbrainz:
+    auto: yes
+fetchart:
+    auto: yes
+    cover_names: cover front art album folder back
+    sources: filesystem coverart itunes amazon albumart
+pluginpath:
+    ~/github_repo/dotfiles/beets
+lastgenre:
+    auto: yes
+smartplaylist:
+    playlist_dir: ~/playlists
+    playlists:
+        - name: all.m3u
+          query: ''
+        - name:  vivaldi.m3u
+          query: 'kennedy'

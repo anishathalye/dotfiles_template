@@ -8,7 +8,7 @@
 	<entry name="window_ontop" mtime="1485303112" type="bool" value="false"/>
 	<entry name="window_height_f" mtime="1485303112" type="float" value="75.916666666666671"/>
 	<entry name="window_height" mtime="1485303112" type="int" value="75"/>
-	<entry name="use_vte_titles" mtime="1485303112" type="bool" value="false"/>
+	<entry name="use_vte_titles" mtime="1486445973" type="bool" value="false"/>
 	<entry name="compat_delete" mtime="1485303112" type="string">
 		<stringvalue>delete-sequence</stringvalue>
 	</entry>

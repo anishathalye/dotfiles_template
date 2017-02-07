@@ -173,3 +173,11 @@ fi
 if command -v tmux>/dev/null; then
     [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach;
 fi
+
+# beets
+autoload bashcompinit
+bashcompinit
+_get_comp_words_by_ref() { :; }
+compopt() { :; }
+_filedir() { :; }
+eval "$(beet completion)"

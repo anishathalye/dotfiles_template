@@ -46,7 +46,14 @@
     ~/.irssi:
         create: true
         path: irssi
-    ~/.config/beets/config.yaml: beets.yaml
+    ~/.config/beets/config.yaml: beets/beets.yaml
+    ~/.cmus/cmus_add_similar.py:
+        create: true
+        path: cmus/cmus_add_similar.py
+    ~/.cmus/cmus-tmux-statusbar.sh: cmus/cmus-tmux-statusbar.sh
+    ~/.config/cmus/autosave:
+        create: true
+        path: cmus/autosave
     ~/.vimrc:
         create: true
         path: vim/vimrc
