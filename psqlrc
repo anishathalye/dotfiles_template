@@ -1,0 +1,121 @@
+--- dotfile from https://github.com/aziz/dotfiles/blob/master/psqlrc
+
+------------------------------------------------------------
+-- psqlrc file to set psql preferences
+------------------------------------------------------------
+-- Prompts
+-- Prompt1 / Prompt2 / Prompt3
+-- %M : server
+-- %m : host name
+-- %> : port
+-- %n : user
+-- %/ : current database
+-- %~ : like %/ but ~ for default database
+-- %# : '#' if superuser, '>' otherwise
+-- %R : In prompt1:
+--         = normally
+--         ^ if in single-line mode
+--         ! if the session is disconnected from the database
+--      In prompt2:
+--         the sequence is replaced by -, *, a single quote, a double quote,
+--         or a dollar sign, depending on whether psql expects more input
+--         because the command wasn't terminated yet
+-- %x : Transaction status:
+--           an empty string when not in a transaction block,
+--         * when in a transaction block
+--         ! when in a failed transaction block,
+--         ? when the transaction state is indeterminate (for example, because there is no connection).
+-- %[...%] : terminal control characters
+------------------------------------------------------------
+
+\set QUIET ON
+
+-- \set PROMPT1 '%[%033[1;32m%]%M:%> %n@%/%[%033[0m%]%x%# '
+\set PROMPT1 '%[%033[1;31m%]%[%033[32m%]psql:%[%033[36m%]//%n%[%033[34m%]@%[%033[36m%]%M:%>%[%033[33m%]/%/ %[%033[K%]%[%033[0m%]\n%[%033[1;33m%]%#%[%033[0m%] '
+\set PROMPT2 ''
+
+\set PAGER OFF
+\set HISTFILE ~/.psql_history- :HOST - :DBNAME
+\set HISTSIZE 5000
+\set HISTCONTROL ignoredups
+\set ECHO_HIDDEN ON
+\set COMP_KEYWORD_CASE upper
+\set VERBOSITY verbose
+
+\timing
+\encoding unicode
+\x auto
+\pset null ∅
+\pset border 2
+\pset linestyle unicode
+
+\set QUIET OFF
+
+\echo '\nCurrent Host Server Date Time : '`date` '\n'
+\echo 'Administrative queries:\n'
+\echo '\t:settings\t-- Server Settings'
+\echo '\t:conninfo\t-- Server connections'
+\echo '\t:activity\t-- Server activity'
+\echo '\t:locks\t\t-- Lock info'
+\echo '\t:waits\t\t-- Waiting queires'
+\echo '\t:dbsize\t\t-- Database Size'
+\echo '\t:tablesize\t-- Tables Size'
+\echo '\t:uselesscol\t-- Useless columns'
+\echo '\t:uptime\t\t-- Server uptime'
+\echo '\t:queries\t-- Running queries'
+\echo '\t:kill_old_trans\t-- Kill transactions that have been "idle in transaction" for 10+ min\n'
+\echo 'Development queries:\n'
+\echo '\t:sp\t\t-- Current Search Path'
+\echo '\t:clear\t\t-- Clear screen'
+\echo '\t:ll\t\t-- List'
+\echo '\t:menu\t\t-- Help Menu'
+\echo '\t\\h\t\t-- Help with SQL commands'
+\echo '\t\\?\t\t-- Help with psql commands\n'
+
+-- Administration queries
+
+\set menu '\\i ~/.psqlrc'
+
+\set settings 'select name, setting,unit,context from pg_settings;'
+
+\set locks  'SELECT bl.pid AS blocked_pid, a.usename AS blocked_user, kl.pid AS blocking_pid, ka.usename AS blocking_user, a.query AS blocked_statement FROM pg_catalog.pg_locks bl JOIN pg_catalog.pg_stat_activity a ON bl.pid = a.pid JOIN pg_catalog.pg_locks kl JOIN pg_catalog.pg_stat_activity ka ON kl.pid = ka.pid ON bl.transactionid = kl.transactionid AND bl.pid != kl.pid WHERE NOT bl.granted;'
+
+\set conninfo 'select usename, count(*) from pg_stat_activity group by usename;'
+
+\set activity 'select datname, pid, usename, application_name,client_addr, client_hostname, client_port, query, state from pg_stat_activity;'
+
+\set waits 'SELECT pg_stat_activity.pid, pg_stat_activity.query, pg_stat_activity.waiting, now() - pg_stat_activity.query_start AS \"totaltime\", pg_stat_activity.backend_start FROM pg_stat_activity WHERE pg_stat_activity.query !~ \'%IDLE%\'::text AND pg_stat_activity.waiting = true;'
+
+\set dbsize 'SELECT datname, pg_size_pretty(pg_database_size(datname)) db_size FROM pg_database ORDER BY db_size;'
+
+\set tablesize 'SELECT nspname || \'.\' || relname AS \"relation\", pg_size_pretty(pg_relation_size(C.oid)) AS "size" FROM pg_class C LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace) WHERE nspname NOT IN (\'pg_catalog\', \'information_schema\') ORDER BY pg_relation_size(C.oid) DESC LIMIT 40;'
+
+\set uselesscol 'SELECT nspname, relname, attname, typname, (stanullfrac*100)::int AS null_percent, case when stadistinct >= 0 then stadistinct else abs(stadistinct)*reltuples end AS \"distinct\", case 1 when stakind1 then stavalues1 when stakind2 then stavalues2 end AS \"values\" FROM pg_class c JOIN pg_namespace ns ON (ns.oid=relnamespace) JOIN pg_attribute ON (c.oid=attrelid) JOIN pg_type t ON (t.oid=atttypid) JOIN pg_statistic ON (c.oid=starelid AND staattnum=attnum) WHERE nspname NOT LIKE E\'pg\\\\_%\' AND nspname != \'information_schema\' AND relkind=\'r\' AND NOT attisdropped AND attstattarget != 0 AND reltuples >= 100 AND stadistinct BETWEEN 0 AND 1 ORDER BY nspname, relname, attname;'
+
+\set uptime 'select now() - pg_postmaster_start_time() AS uptime;'
+
+-- running queries (9.3)
+\set queries 'select current_timestamp - query_start as runtime,pid,datname,usename,query from pg_stat_activity where query != \'<IDLE>\' order by 1 desc; '
+
+-- kill transactions that have been "idle in transaction" for more than 10 minutes (9.3)
+\set kill_old_trans 'select count(pg_terminate_backend(pid)) as nb_killed_proc from pg_stat_activity where query = \'<IDLE> in transaction\' and current_timestamp - query_start > \'5 min\'';
+
+-- Development queries:
+
+\set sp 'SHOW search_path;'
+\set clear '\\! clear;'
+\set ll '\\! ls -lrt;'
+
+
+-- Personal queries:
+
+\set ls_tables '\\dt *.*;'
+\set ls_schemas '\\dn;'
+\set ls_col '\\d+;'
+\set argo_aus_chck 'SELECT * FROM (WITH tab_indexed as (SELECT id, url FROM argo.indexed_file WHERE url LIKE \'%/%profiles%.nc\' AND NOT EXISTS ( SELECT file_id FROM argo.profile_metadata WHERE profile_metadata.file_id = indexed_file.id)) SELECT id, url, SUBSTRING(url, \'dac/.*/([0-9].*)/profiles\') AS plat_num FROM tab_indexed GROUP BY id, url) tab WHERE plat_num IN (SELECT australian_floats.platform_number FROM argo.australian_floats) AND id IN (SELECT id FROM argo.indexed_file WHERE NOT deleted);'
+
+\echo 'Personal queries:\n'
+\echo '\t:ls_tables\t-- list tables'
+\echo '\t:ls_schemas\t-- list schemas'
+\echo '\t:ls_col\t\t-- list columns of given table'
+\echo '\t:argo_aus_chck\t-- Check australian argo floats are ALL indexed and harvested'

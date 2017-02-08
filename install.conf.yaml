@@ -43,6 +43,7 @@
     ~/.ssh/id_rsa.pub: ssh/id_rsa.pub
     ~/.ssh/id_rsa.pub.pem: ssh/id_rsa.pub.pem
     ~/.lynx.cfg: lynx.cfg
+    ~/.psqlrc: psqlrc
     ~/.irssi:
         create: true
         path: irssi
