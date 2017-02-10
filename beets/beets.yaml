@@ -1,27 +1,48 @@
 library: ~/musiclibrary.blb
+per_disc_numbering: true
+threaded: yes
+
 import:
     copy: no
     write: no
     languages: en
-plugins: inline convert web fetchart lastgenre play chroma fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist
+
+plugins: inline convert web lastgenre play chroma fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist artistcountry the
+
+pluginpath:
+    ~/github_repo/dotfiles/beets
+
 play:
     command: mp3blaster --list
+
 chroma:
     auto: yes
+
 acousticbrainz:
     auto: yes
+
 fetchart:
     auto: yes
     cover_names: cover front art album folder back
     sources: filesystem coverart itunes amazon albumart
-pluginpath:
-    ~/github_repo/dotfiles/beets
+
 lastgenre:
     auto: yes
+
 smartplaylist:
     playlist_dir: ~/playlists
-    playlists:
-        - name: all.m3u
-          query: ''
-        - name:  vivaldi.m3u
-          query: 'kennedy'
+    playlists: [{name: all.m3u, query: ''}, {name:  vivaldi.m3u, query: 'kennedy'}]
+
+the:
+    the: yes
+    a: yes
+    format: '{0}, {1}'
+    strip: no
+    patterns: []
+
+paths:
+    default: '%the{$albumartist}/$year $album/$track $title'
+    comp: 3Compilations/$album/$track $title
+    albumtype:soundtrack: 2Soundtracks/$album/$track $title
+    singleton: '%the{$albumartist}/$year $album/$track $title'
+    mis:1: '%the{$albumartist}/$year $album/$track $title'

@@ -51,6 +51,7 @@
     ~/.cmus/cmus_add_similar.py:
         create: true
         path: cmus/cmus_add_similar.py
+    ~/.beets_genre : beets/beets_genre
     ~/.cmus/cmus-tmux-statusbar.sh: cmus/cmus-tmux-statusbar.sh
     ~/.config/cmus/autosave:
         create: true

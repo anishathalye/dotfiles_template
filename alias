@@ -64,6 +64,9 @@ alias tz_paris='TZ="Europe/Paris" date'
 alias tz_hobart='TZ="Australia/Hobart" date'
 alias tz_utc='TZ="UTC" date'
 
+# beet
+alias beet_genre_uniq_update="beet ls -f '\$genre' | sort -u > ~/.beets_genre"
+
 
 if command -v dig > /dev/null; then
     alias myip="dig +short myip.opendns.com @resolver1.opendns.com"

@@ -112,10 +112,12 @@
 \set ls_tables '\\dt *.*;'
 \set ls_schemas '\\dn;'
 \set ls_col '\\d+;'
+\set ls_func '\\df'
 \set argo_aus_chck 'SELECT * FROM (WITH tab_indexed as (SELECT id, url FROM argo.indexed_file WHERE url LIKE \'%/%profiles%.nc\' AND NOT EXISTS ( SELECT file_id FROM argo.profile_metadata WHERE profile_metadata.file_id = indexed_file.id)) SELECT id, url, SUBSTRING(url, \'dac/.*/([0-9].*)/profiles\') AS plat_num FROM tab_indexed GROUP BY id, url) tab WHERE plat_num IN (SELECT australian_floats.platform_number FROM argo.australian_floats) AND id IN (SELECT id FROM argo.indexed_file WHERE NOT deleted);'
 
 \echo 'Personal queries:\n'
 \echo '\t:ls_tables\t-- list tables'
 \echo '\t:ls_schemas\t-- list schemas'
 \echo '\t:ls_col\t\t-- list columns of given table'
+\echo '\t:ls_func\t\t-- list functions'
 \echo '\t:argo_aus_chck\t-- Check australian argo floats are ALL indexed and harvested'
