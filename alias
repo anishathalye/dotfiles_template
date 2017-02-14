@@ -57,6 +57,8 @@ alias use_zgen='echo source ~/.zshrc.zgen > ~/.zshrc; exit'
 alias use_zplug='echo source ~/.zshrc.zplug > ~/.zshrc; exit'
 alias vi='vim'
 [ -f ~/.utas_vpnc.conf ] && alias vpn_utas_connect='sudo vpnc ~/.utas_vpnc.conf --local-port 0' && alias vpn_utas_disconnect='sudo vpnc-disconnect'
+alias ssh_work='ssh `cat ~/Dropbox/work/ip_work`'
+alias ssh_home='ssh `cat ~/Dropbox/work/ip_home`'
 alias vim_plugin_install='vim +VundleClean +PluginInstall +qall'
 alias wd='cd /media/lbesnard/Laurent_emII'
 
