@@ -4,6 +4,7 @@
     ~/.task: task.private/
     ~/.taskrc: taskrc
     ~/.timewarrior/timewarrior.cfg: timewarrior.cfg
+    ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.zshenv: zshenv
     ~/.zshrc: zshrc
