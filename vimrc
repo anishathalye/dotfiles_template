@@ -39,14 +39,3 @@ set smartcase       " don't ignore case, when search string contains uppercase l
 set tabstop=2
 set textwidth=72
 
-" Vundle
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/vundle'
-
-" Bundles
-Bundle 'edthedev/minion'
-
