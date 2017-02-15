@@ -39,3 +39,5 @@ set smartcase       " don't ignore case, when search string contains uppercase l
 set tabstop=2
 set textwidth=72
 
+colorscheme slate
+
