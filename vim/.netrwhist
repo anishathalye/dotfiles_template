@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/Users/claudine/.vim'
+let g:netrw_dirhist_2='/users/claudine/Web/Projects/claudine.github.com/_includes'
+let g:netrw_dirhist_3='/Users/claudine/.vim'
+let g:netrw_dirhist_4='/Users/claudine/minion/wiki/archive'
