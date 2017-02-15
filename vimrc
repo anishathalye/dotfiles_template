@@ -1,8 +1,8 @@
 " pathogen
-" runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-
-" filetype plugin on
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+syntax on
+filetype plugin on
 
 " set autoindent
 set autoread
