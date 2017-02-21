@@ -109,4 +109,4 @@ task
 
 # Start ssh-agent.
 ssh-agent
-ssh-add "${HOME}/.ssh/id_rsa"
+ssh-add -A
