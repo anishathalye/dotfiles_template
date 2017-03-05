@@ -133,7 +133,7 @@ function listen-to() {
 #[ -f $CHEF_DIR/src/data-services/lib/netcdf/netcdf-cf-imos-compliance.sh ] && source $CHEF_DIR/src/data-services/lib/netcdf/netcdf-cf-imos-compliance.sh
 
 # paragliding
-alias flightrecorder='cd $HOME/paragliding ; sudo flightrecorder && sed -i "s/HFPLTPILOT:.*/HFPLTPILOT:Laurent Besnard/g" *.IGC && sed -i "s/HFGTYGLIDERTYPE:.*/HFGTYGLIDERTYPE:Sky Anakis/g" *.IGC && chown $USER:$USER *.IGC; rsync -avc $HOME/paragliding/ $HOME/Dropbox/paragliding_igc'
+alias flightrecorder='cd $HOME/paragliding ; sudo flightrecorder && chown $USER:$USER *.IGC; rsync -avc $HOME/paragliding/ $HOME/Dropbox/paragliding_igc'
 alias igc_viewer='gpligc'
 alias riverHeight='python $GITHUB_DIR/River_Height_Tasmania/riverHeight.py && /usr/bin/elinks ~/Dropbox/Public/RiverStatusTasmania.html'
 
