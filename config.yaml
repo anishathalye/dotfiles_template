@@ -17,3 +17,7 @@
   -
     description: Updating git submodules..
     command: git submodule update --init --recursive ./
+
+  -
+    description: Fixing OSX's great bash config behavior
+    command: if [[ $(uname -s) == "Darwin" ]]; then  echo "if [ -s ~/.bashrc ]; then source ~/.bashrc; fi" > ~/.bash_profile ; fi
