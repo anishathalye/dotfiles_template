@@ -9,11 +9,21 @@ Installation
 `git clone https://github.com/kraigmckernan/dotfiles.git`
 `cd dotfiles && ./install`
 
+Installation(OSX)
+-----------------
+
+Install [iTerm2](https://raw.githubusercontent.com/chriskempson/base16-iterm2/master/base16-atelierforest.dark.256.itermcolors)
+Install [Homebrew](brew.sh)
+`brew install coreutils`
+`brew install vim --with-lua --with-luajit`
+`brew install tmux`
+Download [base16 iterm theme](https://raw.githubusercontent.com/chriskempson/base16-iterm2/master/base16-atelierforest.dark.256.itermcolors)
+Install Cousine and set terminal font
 
 Details
 -------
 
-Font: 
+Font:
 
 [Cousine for Powerline](https://github.com/powerline/fonts/tree/master/Cousine)
 
