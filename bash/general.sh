@@ -8,3 +8,9 @@ base16_atelier-forest
 
 # Check the win size since tmux will change the size often
 shopt -s checkwinsize
+
+# Use coreutils utils for OSX
+if [[ $(uname -s) == "Darwin" ]]; then
+  PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+  [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+fi
