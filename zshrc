@@ -107,6 +107,6 @@ eval "$(rbenv init -)"
 # List Taskwarrior tasks.
 task
 
-# Start ssh-agent.
-ssh-agent
+# ssh-agent.
+# ssh-agent
 ssh-add -A

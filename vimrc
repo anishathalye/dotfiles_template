@@ -42,5 +42,5 @@ set textwidth=72
 colorscheme desert
 
 " Vimwiki
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_export': 1}]
+let g:vimwiki_list = [{'path': '~/Documents/vimwiki/', 'auto_export': 1}]
 
