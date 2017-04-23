@@ -1,2 +1,2 @@
-set guifont=Inconsolata:h18
+set guifont=Noto_Mono:h16
 
