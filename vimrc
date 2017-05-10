@@ -39,7 +39,7 @@ set smartcase       " don't ignore case, when search string contains uppercase l
 set tabstop=2
 set textwidth=72
 
-colorscheme desert
+colorscheme torte
 
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/Documents/vimwiki/', 'auto_export': 1}]
