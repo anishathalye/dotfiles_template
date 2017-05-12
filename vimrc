@@ -30,7 +30,7 @@ set number          " line numbers
 
 set ruler           " show the cursor position all the time
 
-set scrolloff=5     " 5 lines bevore and after the current line when scrolling
+set scrolloff=5     " 5 lines before and after the current line when scrolling
 set shiftwidth=2    " 2 characters for indenting
 set showcmd         " display incomplete commands
 set showmatch       " showmatch: Show the matching bracket for the last ')'?
