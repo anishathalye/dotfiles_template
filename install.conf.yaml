@@ -1,6 +1,7 @@
 - clean: ['~']
 - link:
     ~/.gvimrc: gvimrc
+    ~/.lftprc: lftprc
     ~/.task: task.private/
     ~/.taskrc: taskrc
     ~/.timewarrior/timewarrior.cfg: timewarrior.cfg

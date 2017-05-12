@@ -1,0 +1,4 @@
+set ssl:verify-certificate
+set torrent:seed-max-time 2h
+set torrent:stop-on-ratio 2
+
