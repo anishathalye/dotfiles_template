@@ -3,6 +3,7 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 syntax on
 filetype plugin on
+set omnifunc=syntaxcomplete#Complete
 
 " set autoindent
 set autoread
