@@ -39,6 +39,7 @@ alias ls='ls --color=auto'
 alias ls_recur="find . -type f -exec ls -l {} \; 2> /dev/null | sort -t' ' -k +6,6 -k +7,7"
 alias ls_time='ls -lrt'
 alias lynx='lynx -cfg=~/.lynx.cfg '
+alias mac_wlan_random='sudo ifconfig wlp1s0 down && sudo macchanger -r wlp1s0 && sudo ifconfig wlp1s0 up'
 alias music_player='mp3blaster'
 alias nch='ncdump -h'
 alias ports='netstat -tulanp' # open ports

@@ -7,3 +7,6 @@
 [submodule "bin/encryption"]
     path = bin/encryption
     url  = https://github.com/lbesnard/encryption
+[submodule "beets/bandcamp"]
+	path = beets/bandcamp
+	url = git@github.com:unrblt/beets-bandcamp.git

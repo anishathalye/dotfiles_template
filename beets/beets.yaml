@@ -4,6 +4,8 @@ acousticbrainz:
 chroma:
     auto: yes
 
+directory: /media/lbesnard/music/music_library
+
 fetchart:
     auto: yes
     maxwidth: 1000
@@ -51,10 +53,11 @@ paths:
 
 per_disc_numbering: true
 
-plugins: inline convert web lastgenre play chroma fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist artistcountry the fuzzy random web fetchart
+plugins: inline convert web lastgenre play chroma fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist artistcountry the fuzzy random web bandcamp
 
 pluginpath:
-    ~/github_repo/dotfiles/beets
+    - ~/github_repo/dotfiles/beets
+    - ~/github_repo/dotfiles/beets/bandcamp/beetsplug
 
 play:
     command: mp3blaster --list

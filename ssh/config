@@ -30,6 +30,18 @@ Host nec14
     Port 22
     ForwardAgent yes
 
+Host temp_auv
+    Hostname 144.6.235.66
+    user lbesnard
+    port 22
+    ForwardAgent yes
+
+Host nec_loz
+    Hostname 144.6.236.188
+    user ubuntu
+    port 22
+    ForwardAgent yes
+
 # sydney
 Host aws10
     Hostname 10-aws-syd.emii.org.au
@@ -90,6 +102,16 @@ Host nec10_tunnel
 
 Host nec14_tunnel
     Hostname 14-nec-hob.emii.org.au
+    Proxycommand ssh -q its6 nc -q0 %h  22
+    ForwardAgent yes
+
+Host nec4_tunnel
+    Hostname 4-nec-hob.emii.org.au
+    Proxycommand ssh -q its6 nc -q0 %h  22
+    ForwardAgent yes
+
+Host aws10_tunnel
+    Hostname 10-aws-syd.emii.org.au
     Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 
