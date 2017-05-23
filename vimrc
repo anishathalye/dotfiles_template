@@ -3,13 +3,11 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 syntax on
 filetype plugin on
-set omnifunc=syntaxcomplete#Complete
 
-" set autoindent
-set autoread
+set autoread        " set autoindent
 
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+set backspace=indent,eol,start  " allow backspacing over everything in insert mode
+set backup
 
 set cindent
 set completeopt=menu,longest,preview
@@ -25,9 +23,10 @@ set incsearch       " do incremental searching
 
 " set mouse=a       " use mouse in xterm to scroll
 
-set nobackup        " DON'T keep a backup file
 set nocompatible
 set number          " line numbers
+
+set omnifunc=syntaxcomplete#Complete  " omni completion
 
 set ruler           " show the cursor position all the time
 
@@ -39,6 +38,8 @@ set smartcase       " don't ignore case, when search string contains uppercase l
 
 set tabstop=2
 set textwidth=72
+
+set writebackup
 
 colorscheme torte
 
