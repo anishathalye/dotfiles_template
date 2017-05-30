@@ -7,7 +7,7 @@ filetype plugin on
 set autoread        " set autoindent
 
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
-set backup
+" set backup
 
 set cindent
 set completeopt=menu,longest,preview
@@ -36,7 +36,7 @@ set showcmd         " display incomplete commands
 set showmatch       " showmatch: Show the matching bracket for the last ')'?
 set smartcase       " don't ignore case, when search string contains uppercase letters
 
-set tabstop=2
+set tabstop=4
 set textwidth=72
 
 set writebackup
