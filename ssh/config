@@ -37,10 +37,11 @@ Host temp_auv
     ForwardAgent yes
 
 Host nec_loz
-    Hostname 144.6.236.188
+    Hostname 144.6.229.180
     user ubuntu
     port 22
     ForwardAgent yes
+
 
 # sydney
 Host aws10
