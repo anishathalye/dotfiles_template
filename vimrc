@@ -44,5 +44,5 @@ set writebackup
 colorscheme torte
 
 " Vimwiki
-let g:vimwiki_list = [{'path': '~/Documents/vimwiki/', 'auto_export': 1}]
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'auto_export': 1}]
 
