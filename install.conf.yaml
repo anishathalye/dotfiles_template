@@ -2,6 +2,8 @@
 - link:
     ~/.gvimrc: gvimrc
     ~/.lftprc: lftprc
+    ~/.muttrc: muttrc
+    ~/.muttrc.private: muttrc.private
     ~/.task: task.private/
     ~/.taskrc: taskrc
     ~/.timewarrior/timewarrior.cfg: timewarrior.cfg
