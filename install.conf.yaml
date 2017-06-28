@@ -4,7 +4,8 @@
     ~/.lftprc: lftprc
     ~/.muttrc: muttrc
     ~/.muttrc.private: muttrc.private
-    ~/.offlineimaprc: offlineimap.private
+    ~/.offlineimap: offlineimap.private/
+    ~/.offlineimaprc: offlineimaprc.private
     ~/.task: task.private/
     ~/.taskrc: taskrc
     ~/.timewarrior/timewarrior.cfg: timewarrior.cfg
