@@ -1,0 +1,15 @@
+# Public Mutt configuration.
+
+set pager_index_lines=5
+set sort="threads"
+
+# Archive mail in a folder named for the mailing list or original
+# folder.
+save-hook . ~/Mail/Archive/%B
+
+# Colour scheme.
+source ~/proj/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
+
+# Source private config.
+source ~/.muttrc.private
+
