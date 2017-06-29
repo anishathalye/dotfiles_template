@@ -1,7 +1,15 @@
 # Public Mutt configuration.
 
+set edit_headers=yes
+set pager_context=1
 set pager_index_lines=5
+set sendmail="/usr/local/bin/msmtp"
+set sendmail_wait=5
 set sort="threads"
+set visual="mvim"   # MacVim
+
+# Header display.
+unignore reply-to
 
 # Archive mail in a folder named for the mailing list or original
 # folder.
