@@ -5,6 +5,7 @@
     ~/.msmtprc: msmtprc.private
     ~/.muttrc: muttrc
     ~/.muttrc.private: muttrc.private
+    ~/.notmuch-config: notmuch-config
     ~/.offlineimap: offlineimap.private/
     ~/.offlineimaprc: offlineimaprc.private
     ~/.signature: signature
