@@ -9,6 +9,7 @@
     ~/.offlineimap: offlineimap.private/
     ~/.offlineimaprc: offlineimaprc.private
     ~/.signature: signature
+    ~/.signature.ascm: signature.ascm
     ~/.task: task.private/
     ~/.taskrc: taskrc
     ~/.timewarrior/timewarrior.cfg: timewarrior.cfg
