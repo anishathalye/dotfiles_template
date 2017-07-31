@@ -1,19 +1,36 @@
 # Public Mutt configuration.
 
 set edit_headers=yes
+set imap_headers="X-SPAM-SCORE"
+set mbox_type=Maildir
 set pager_context=1
 set pager_index_lines=5
+set postponed="~/Mail/postponed"
 set sendmail="/usr/local/bin/msmtp"
 set sendmail_wait=5
 set sort="threads"
+set sort_aux="last-date-received"
 set visual="mvim"   # MacVim
 
 # Header display.
 unignore reply-to
 
+# Spam detection.
+spam "X-Spam-Score"   "5+"
+
 # Archive mail in a folder named for the mailing list or original
 # folder.
 save-hook . ~/Mail/Archive/%B
+
+# Call urlview.
+macro index \cb |urlview\n
+macro pager \cb |urlview\n
+
+# Notmuch.
+source ~/.dotfiles/muttrc.notmuch
+
+# Muttils.
+# source ~/.dotfiles/muttrc.muttils
 
 # Colour scheme.
 source ~/proj/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
