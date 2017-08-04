@@ -4,6 +4,7 @@
     ~/.lftprc: lftprc
     ~/.msmtprc: msmtprc.private
     ~/.muttrc: muttrc
+    ~/.muttrc.aliases: muttrc.aliases
     ~/.muttrc.private: muttrc.private
     ~/.notmuch-config: notmuch-config
     ~/.offlineimap: offlineimap.private/

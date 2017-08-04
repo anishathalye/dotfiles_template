@@ -1,5 +1,6 @@
 # Public Mutt configuration.
 
+set alias_file="~/.muttrc.aliases"
 set edit_headers=yes
 set imap_headers="X-SPAM-SCORE"
 set mbox_type=Maildir
@@ -11,6 +12,8 @@ set sendmail_wait=5
 set sort="threads"
 set sort_aux="last-date-received"
 set visual="mvim"   # MacVim
+
+source ~/.muttrc.aliases
 
 # Header display.
 unignore reply-to
