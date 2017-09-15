@@ -2,6 +2,7 @@
 - link:
     ~/.gvimrc: gvimrc
     ~/.lftprc: lftprc
+    ~/.mailcap: mailcap
     ~/.msmtprc: msmtprc.private
     ~/.muttrc: muttrc
     ~/.muttrc.aliases: muttrc.aliases
