@@ -1,9 +1,11 @@
 - clean: ['~']
 - link:
     ~/.gvimrc: gvimrc
+    ~/.lbdbrc: lbdbrc
     ~/.lftprc: lftprc
     ~/.mailcap: mailcap
     ~/.msmtprc: msmtprc.private
+    ~/.mutt: mutt/
     ~/.muttrc: muttrc
     ~/.muttrc.aliases: muttrc.aliases
     ~/.muttrc.private: muttrc.private

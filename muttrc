@@ -14,6 +14,12 @@ set sort_aux="last-date-received"
 set visual="mvim"   # MacVim
 
 source ~/.muttrc.aliases
+set query_command="lbdbq '%s'"
+
+# Abook setup from https://dev.mutt.org/trac/wiki/MuttGuide/Aliases
+# set query_command="abook --mutt-query '%s'"
+# macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
+# macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 
 # Header display.
 unignore reply-to
