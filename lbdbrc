@@ -1,4 +1,4 @@
-METHODS="m_osx_addressbook m_muttalias"
+METHODS="m_osx_addressbook m_abook m_muttalias"
 MUTT_DIRECTORY="$HOME/.mutt"
 MUTTALIAS_FILES=".muttrc.aliases"
 
