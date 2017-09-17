@@ -1,5 +1,7 @@
 - clean: ['~']
 - link:
+    ~/.config/alot: alot/
+    ~/.config/alot/config: alot/config.private
     ~/.gvimrc: gvimrc
     ~/.lbdbrc: lbdbrc
     ~/.lftprc: lftprc
