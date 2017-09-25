@@ -51,8 +51,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/Applications/MAMP/Library/bin:$PATH
-export MANPATH=/usr/local/man:/Applications/MAMP/Library/share/man/:$MANPATH
+export PATH=$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export MANPATH=/usr/local/man:$MANPATH
 
 ### Liquid Prompt
 
