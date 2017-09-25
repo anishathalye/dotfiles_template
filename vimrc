@@ -41,7 +41,7 @@ set textwidth=72
 
 set writebackup
 
-colorscheme torte
+colorscheme desert
 
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'auto_export': 1}]
