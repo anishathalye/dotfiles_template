@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/Applications/mampstack-7.0.23-0/php/bin:$PATH
 export MANPATH=/usr/local/man:$MANPATH
 
 ### Liquid Prompt
@@ -70,7 +70,7 @@ if [ -f /usr/local/share/liquidprompt ]; then
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='mvim'
+  export EDITOR='mvim --nofork'
 fi
 
 # Compilation flags
