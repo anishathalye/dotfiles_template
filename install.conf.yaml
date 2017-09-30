@@ -18,6 +18,7 @@
     ~/.signature.ascm: signature.ascm
     ~/.task: task.private/
     ~/.taskrc: taskrc
+    ~/.tigrc: tigrc
     ~/.timewarrior/timewarrior.cfg: timewarrior.cfg
     ~/.vim: vim
     ~/.vimrc: vimrc
