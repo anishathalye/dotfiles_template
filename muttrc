@@ -3,6 +3,7 @@
 set alias_file="~/.muttrc.aliases"
 set edit_headers=yes
 set editor="/usr/bin/vi"
+set forward_format="[%n] %s"
 set imap_headers="X-SPAM-SCORE"
 set mbox_type=Maildir
 set pager_context=1
