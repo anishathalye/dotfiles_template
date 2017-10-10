@@ -4,6 +4,7 @@
     ~/.config/alot/config: alot/config.private
     ~/.gvimrc: gvimrc
     ~/.lbdbrc: lbdbrc
+    ~/.ledgerrc: ledgerrc.private
     ~/.lftprc: lftprc
     ~/.mailcap: mailcap
     ~/.msmtprc: msmtprc.private
