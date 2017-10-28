@@ -31,7 +31,7 @@ spam "X-Spam-Score"   "5+"
 
 # Archive mail in a folder named for the mailing list or original
 # folder.
-save-hook . ~/Mail/Archive/%B
+fcc-save-hook . ~/Mail/Archive/%B
 
 # Call urlview.
 macro index \cb |urlview\n
