@@ -7,6 +7,8 @@ export MANPATH="/home/lbesnard/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/lbesnard/.linuxbrew/share/info:$INFOPATH"
 export SHELL=$HOME/.linuxbrew/bin/zsh
 export DEFAULT_USER=loz
+export DISPLAY=:0.0
+
 #export HOST=ᐉ
 setopt nosharehistory
 setopt interactivecomments
@@ -106,7 +108,7 @@ zplug "plugins/vagrant",  from:oh-my-zsh
 #zplug "horosgrisa/zsh-dropbox"
 #zplug "joepvd/grep2awk"
 #zplug "chrissicool/zsh-bash"
-
+zplug "soimort/translate-shell"
 zplug "zsh-users/zsh-history-substring-search", defer:2
 
 # Load the theme.
@@ -170,9 +172,11 @@ if zplug check zsh-users/zsh-history-substring-search; then
     bindkey "$terminfo[kcud1]" history-substring-search-down
 fi
 
-if command -v tmux>/dev/null; then
-    [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach;
-fi
+#if command -v tmux>/dev/null; then
+    #[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach;
+#fi
+alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
+
 
 # beets
 autoload bashcompinit

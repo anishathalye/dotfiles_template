@@ -1,16 +1,30 @@
 acousticbrainz:
     auto: yes
 
+badfiles:
+      commands: {}
+    #    commands:
+    #    ogg: myoggchecker --opt1 --opt2
+    #    flac: flac --test --warnings-as-errors --silent
+
 chroma:
     auto: yes
 
-directory: /media/lbesnard/music/music_library
+directory: /media/lbesnard/music/music_library2
+
+duplicates:
+    album: yes
+    path: yes
 
 fetchart:
     auto: yes
     maxwidth: 1000
-    cover_names: cover front art album folder back
-    sources: filesystem coverart itunes amazon albumart
+    cover_names: cover Cover front Front art album portada folder Folder
+    sources: filesystem coverart itunes amazon albumart google
+
+
+ftintitle:
+    auto: yes
 
 import:
     copy: no
@@ -26,8 +40,12 @@ item_fields:
 lastgenre:
     auto: yes
     fallback: 'unknown'
+    source: artist
+    canonical: ~/genres-tree.yaml
+    whitelist: ~/beets_genre
+    #prefer_specific: true
 
-library: ~/musiclibrary.blb
+library: ~/musiclibrary2.blb
 
 smartplaylist:
     playlist_dir: ~/playlists
@@ -45,15 +63,16 @@ the:
 threaded: yes
 
 paths:
-    default: '$genre/%the{$albumartist}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
-    comp: Compilations/$album/$track $title
+    default: '%title{$genre}/%the{%title{$albumartist}}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
     albumtype:soundtrack: Soundtracks/$albumartist - $original_year - $album/%if{$multidisc,Disc $disc/}$track $title
     singleton: '%the{$albumartist}/$year -  $album/$track $title'
     mis:1: '%the{$albumartist}/$year - $album/$track $title'
 
 per_disc_numbering: true
 
-plugins: inline convert web lastgenre play chroma fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist artistcountry the fuzzy random web bandcamp
+#plugins: rewrite fetchart badfiles inline convert web lastgenre play chroma fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist artistcountry the fuzzy random web bandcamp scrub ftintitle
+plugins: info rewrite fetchart badfiles inline convert web lastgenre play fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist artistcountry the fuzzy random web bandcamp scrub ftintitle
+#plugins: inline the fuzzy lastgenre fetchart
 
 pluginpath:
     - ~/github_repo/dotfiles/beets
@@ -64,14 +83,27 @@ play:
 
 replace:
     '[\\/]': _
-    '^\.': _
+    '^\.':
     '[\x00-\x1f]': _
     '[<>:"\?\*\|]': _
     '\.$': _
     '\s+$': ''
     '^\s+': ''
 
+rewrite:
+    artist The Jimi Hendrix Experience: Jimi Hendrix
+    albumartist The Jimi Hendrix Experience: Jimi Hendrix
+    artist .*Grateful Dead.*: Grateful Dead
+    albumartist .*Grateful Dead.*: Grateful Dead
+    artist .*Bill Monroe.*: Bill Monroe
+    albumartist .*Bill Monroe.*: Bill Monroe
+
+
 path_sep_replace: _
+
+scrub:
+        auto: yes
+
 
 ui:
     color: yes

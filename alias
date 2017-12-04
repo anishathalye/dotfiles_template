@@ -16,6 +16,7 @@ alias chef_provision_laptop_from_local='cd $GITHUB_DIR/chef_laptop; $GITHUB_DIR/
 alias chef_provision_po="chef_cd && vagrant provision po"
 alias chef_sample="chef_cd && rm -f private; ln -s private-sample private"
 alias clear_tmp="find /tmp -mtime +1 -and -not -exec fuser -s {} ';' -and -exec rm -Rf {} ';'"
+alias copy='| xclip -sel clip'
 alias data_services_cd="cd $CHEF_DIR/src/data-services"
 alias dotfiles="cd $GITHUB_DIR/dotfiles"
 alias egrep='egrep --color=auto'
@@ -26,7 +27,6 @@ alias geoserver_cd="cd $CHEF_DIR/src/geoserver"
 alias github_cd="cd $GITHUB_DIR"
 alias grep='grep --color=auto'
 alias iftop_wlan='iftop -i wlan0'
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias irssi='screen irssi'
 alias killall='killall -SIGUSR1'
 alias l='ls -CF'
@@ -46,6 +46,8 @@ alias ports='netstat -tulanp' # open ports
 alias project_officer_user='sudo -u projectofficer -s'
 alias rsrc='source ~/.bashrc'
 alias shutdown_now='sudo shutdown -h now'
+alias split_flac_album='shnsplit -f *.cue -t %n-%t -o flac *.flac'
+alias split_ape_album='shnsplit -f *.cue -t %n-%t -o flac *.ape'
 alias ssh-add='ssh-add -t 10h'
 #alias ssh_po="chef_sample && vagrant ssh po"
 alias talend='/opt/TOS_DI-r96646-V5.1.3/TOS_DI-linux-gtk-x86_64'
