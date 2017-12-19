@@ -54,12 +54,6 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/Applications/mampstack-7.0.23-0/php/bin:$PATH
 export MANPATH=/usr/local/man:$MANPATH
 
-### Liquid Prompt
-
-if [ -f /usr/local/share/liquidprompt ]; then
-    . /usr/local/share/liquidprompt
-      fi
-
 
 ### Other
 
