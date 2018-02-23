@@ -45,7 +45,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(brew git git-flow history osx taskwarrior tig vi-mode web-search)
+plugins=(brew git git-flow gpg-agent history osx taskwarrior vi-mode web-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -102,5 +102,4 @@ eval "$(rbenv init -)"
 task
 
 # ssh-agent.
-# ssh-agent
-ssh-add -A
+ssh-add -K ~/.ssh/id_rsa

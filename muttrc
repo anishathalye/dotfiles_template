@@ -24,7 +24,7 @@ set query_command="lbdbq '%s'"
 # macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 
 # Header display.
-unignore reply-to
+unignore bcc reply-to
 
 # Spam detection.
 spam "X-Spam-Score"   "5+"
@@ -48,7 +48,7 @@ source ~/.dotfiles/muttrc.notmuch
 # source ~/.dotfiles/muttrc.muttils
 
 # Colour scheme.
-source ~/proj/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
+source ~/Projects/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
 
 # Source private config.
 source ~/.muttrc.private

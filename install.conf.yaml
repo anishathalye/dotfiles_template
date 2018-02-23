@@ -15,8 +15,7 @@
     ~/.notmuch-config: notmuch-config
     ~/.offlineimap: offlineimap.private/
     ~/.offlineimaprc: offlineimaprc.private
-    ~/.signature: signature
-    ~/.signature.ascm: signature.ascm
+    ~/.signature: signatures.private/location.txt
     ~/.task: task.private/
     ~/.taskrc: taskrc
     ~/.tigrc: tigrc
