@@ -5,6 +5,8 @@
 
 - clean: ["~"]
 
-- link: {}
+- link:
+    ~/.zshenv:
+    ~/.zshrc:
 
 - shell: []
