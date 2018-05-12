@@ -1,0 +1,15 @@
+[user]
+	name = Rob Looby
+	email = robertjlooby@gmail.com
+	signingkey = 6CD187E7204064C7
+[push]
+	default = current
+[core]
+	editor = /usr/bin/vim
+[commit]
+	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
