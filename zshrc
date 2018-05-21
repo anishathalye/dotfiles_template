@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/Applications/mampstack-7.0.23-0/php/bin:$PATH
+export PATH=$PATH:$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/Applications/mampstack-7.0.23-0/php/bin
 export MANPATH=/usr/local/man:$MANPATH
 
 
