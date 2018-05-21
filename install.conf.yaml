@@ -21,6 +21,7 @@
     ~/.taskrc: taskrc
     ~/.tigrc: tigrc
     ~/.timewarrior/timewarrior.cfg: timewarrior.cfg
+    ~/.todo: todo.private/
     ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.zshenv: zshenv
