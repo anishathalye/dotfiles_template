@@ -1,0 +1,71 @@
+# $Id$
+# vim:ft=muttrc
+# example muttrc for Python muttils package
+
+# sigpager
+# sigpager appends separator by default
+# unset sig_dashes or use sigpager --nosep
+set sig_dashes=no
+set signature="sigpager|"
+# alternatively you can run sigpager in the editor
+# see example-mail.vim
+
+# urlpager
+# this is for recent Mutt versions that support variables
+# configuration is simpler, but less flexible otherwise
+macro index,pager,attach ,u "\
+<enter-command> set my_pipe_decode=\$pipe_decode my_wait_key=\$wait_key \
+pipe_decode=no wait_key=no<enter>\
+<pipe-message> urlpager<enter>\
+<enter-command> set pipe_decode=\$my_pipe_decode wait_key=\$my_wait_key \
+&my_pipe_decode &my_wait_key<enter>\
+" "go to any url"
+macro index,pager,attach ,t "\
+<enter-command> set my_pipe_decode=\$pipe_decode my_wait_key=\$wait_key \
+pipe_decode=no wait_key=no<enter>\
+<pipe-message> urlpager -b w3m -pweb<enter>\
+<enter-command> set pipe_decode=\$my_pipe_decode wait_key=\$my_wait_key \
+&my_pipe_decode &my_wait_key<enter>\
+" "text browse web"
+
+# wrap as $display_filter
+set my_wrapfilter="wrap -M -e \"\\|\" -w $my_wrapwidth -H"
+set my_wrapfilter_i="wrap -M -e \"\\|\" -i $my_wrapwidth -H"
+set my_wrapfilter_r="wrap -M -e \"\\|\" -r $my_wrapwidth -H"
+set display_filter=""
+macro pager <F4> "\
+<enter-command> set display_filter=''<enter>\
+<exit><display-message>" "Default display"
+macro pager ,w "\
+<enter-command> set display_filter='$my_wrapfilter'<enter>\
+<exit><display-message>\
+<enter-command> set display_filter=''<enter>\
+" "Wrap65"
+macro pager ,i "\
+<enter-command> set display_filter='$my_wrapfilter_i'<enter>\
+<exit><display-message>\
+<enter-command> set display_filter=''<enter>\
+" "Wrap65 indent starting paragraph"
+macro pager ,r "\
+<enter-command> set display_filter='$my_wrapfilter_r'<enter>\
+<exit><display-message>\
+<enter-command> set display_filter=''<enter>\
+" "Wrap65 respecting line breaks"
+
+# call viewhtmlmsg from macro
+macro index,pager <F7> "\
+<enter-command> set my_pipe_decode=\$pipe_decode my_wait_key=\$wait_key \
+pipe_decode=no wait_key=no<enter>\
+<pipe-message> viewhtmlmsg<enter>\
+<enter-command> set pipe_decode=\$my_pipe_decode wait_key=\$my_wait_key \
+&my_pipe_decode &my_wait_key<enter>\
+" "view HTML in browser"
+macro index,pager <F8> "\
+<enter-command> set my_pipe_decode=\$pipe_decode my_wait_key=\$wait_key \
+pipe_decode=no wait_key=no<enter>\
+<pipe-message> viewhtmlmsg -s<enter>\
+<enter-command> set pipe_decode=\$my_pipe_decode wait_key=\$my_wait_key \
+&my_pipe_decode &my_wait_key<enter>\
+" "view HTML (safe) in browser"
+
+# EOF vim:ft=muttrc

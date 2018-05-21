@@ -1,0 +1,9 @@
+# From https://upsilon.cc/~zack/blog/posts/2011/01/how_to_use_Notmuch_with_Mutt/mutt-notmuch.1.html.
+# The first macro (activated by <F8>) will prompt the user for notmuch search terms and then jump to a temporary maildir showing search results. The second macro (activated by <F9>) will reconstruct the thread corresponding to the current mail and show it as search results.
+
+macro index <F8> \
+          "<enter-command>unset wait_key<enter><shell-escape>~/bin/mutt-notmuch --prompt search<enter><change-folder-readonly>~/.cache/mutt_results<enter>" \
+          "search mail (using notmuch)"
+macro index <F9> \
+          "<enter-command>unset wait_key<enter><pipe-message>~/bin/mutt-notmuch thread<enter><change-folder-readonly>~/.cache/mutt_results<enter><enter-command>set wait_key<enter>" \
+          "search and reconstruct owning thread (using notmuch)"
