@@ -1,3 +1,3 @@
-set guifont=Noto_Mono:h16
+set guifont=Noto_Mono:h14
 set lines=40
 
