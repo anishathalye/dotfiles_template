@@ -34,6 +34,3 @@
 [submodule "vim/bundle/todo.txt-vim"]
 	path = vim/bundle/todo.txt-vim
 	url = git@github.com:freitass/todo.txt-vim.git
-[submodule "vim/bundle/taskwiki"]
-	path = vim/bundle/taskwiki
-	url = git@github.com:tbabej/taskwiki.git
