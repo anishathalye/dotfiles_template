@@ -40,9 +40,6 @@
 [submodule "vim/bundle/vim-rhubarb"]
 	path = vim/bundle/vim-rhubarb
 	url = git@github.com:tpope/vim-rhubarb.git
-[submodule "vim/bundle/csv"]
-	path = vim/bundle/csv
-	url = https://github.com/chrisbra/csv.vim
 [submodule "vim/bundle/rainbow_csv"]
 	path = vim/bundle/rainbow_csv
 	url = https://github.com/mechatroner/rainbow_csv
