@@ -58,6 +58,7 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 
 " Colorscheme
 Plug 'vim-scripts/wombat256.vim'
+Plug 'kien/rainbow_parentheses.vim'
 
 " Haskell
 Plug 'alx741/vim-hindent', { 'for': 'haskell' }
@@ -202,6 +203,12 @@ endif
 
 let g:airline_powerline_fonts = 1
 let g:airline_symbols.space = "\ua0"
+
+" Rainbow Parens
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 " }}}
 
 " Files, backups and undo {{{
