@@ -1,3 +1,16 @@
-- clean: []
-- link: {}
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ["~"]
+
+- link:
+    ~/.gitconfig:
+    ~/.tmux.conf:
+    ~/.vim:
+    ~/.vimrc:
+    ~/.zshenv:
+    ~/.zshrc:
+
 - shell: []
