@@ -59,7 +59,10 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 " Colorscheme
 Plug 'vim-scripts/wombat256.vim'
 
-" Custom bundles
+" Haskell
+Plug 'alx741/vim-hindent', { 'for': 'haskell' }
+
+" Ruby
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 
 call plug#end()
