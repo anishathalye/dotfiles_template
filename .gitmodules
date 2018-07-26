@@ -43,3 +43,6 @@
 [submodule "vim/bundle/rainbow_csv"]
 	path = vim/bundle/rainbow_csv
 	url = https://github.com/mechatroner/rainbow_csv
+[submodule "vim/bundle/trinity"]
+	path = vim/bundle/trinity
+	url = https://github.com/wesleyche/trinity
