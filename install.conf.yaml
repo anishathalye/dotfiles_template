@@ -8,9 +8,7 @@
     ~/.lftprc: lftprc
     ~/.mailcap: mailcap
     ~/.msmtprc: msmtprc.private
-    ~/.mutt: mutt/
     ~/.muttrc: muttrc
-    ~/.muttrc.aliases: muttrc.aliases
     ~/.muttrc.private: muttrc.private
     ~/.notmuch-config: notmuch-config
     ~/.offlineimap: offlineimap.private/
