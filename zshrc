@@ -96,7 +96,7 @@ source ~/.zshrc.private
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # rbenv
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 
 # List Taskwarrior tasks.
 # task
