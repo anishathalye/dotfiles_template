@@ -3,7 +3,7 @@
     ~/.config/alot: alot/
     ~/.config/alot/config: alot/config.private
     ~/.gvimrc: gvimrc
-    ~/.habitrpgrc: habitrpgrc
+    ~/.habitrpgrc: habitrpgrc.private
     ~/.lbdbrc: lbdbrc
     ~/.ledgerrc: ledgerrc.private
     ~/.lftprc: lftprc
