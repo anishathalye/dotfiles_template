@@ -99,7 +99,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # eval "$(rbenv init -)"
 
 # List Taskwarrior tasks.
-task
+task ready
 
 # List todo.txt top priority tasks.
 # todo.sh lsp A
