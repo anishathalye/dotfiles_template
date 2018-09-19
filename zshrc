@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$PATH:$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin
+export PATH=$PATH:$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/anaconda3/bin
 export MANPATH=/usr/local/man:$MANPATH
 
 
