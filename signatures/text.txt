@@ -1,0 +1,27 @@
+# ASCM signatures
+## Victoria
+### HTML
+Australian Student Christian Movement (Victoria)<br/>
+<a href="http://ascm.org.au/">Web</a> &endash; 
+<a href="https://www.facebook.com/AustralianStudentChristianMovement/">Facebook</a>&endash; 
+<a href="https://twitter.com/australianscm">Twitter</a> &endash; <a href="http://ascm.org.au/newsletter">Newsletter</a>
+### Text
+Australian Student Christian Movement (Victoria)
+http://ascm.org.au/
+https://www.facebook.com/AustralianStudentChristianMovement/
+https://twitter.com/australianscm
+http://ascm.org.au/newsletter
+## Personal
+### HTML
+Claudine Chionh<br/>
+Australian Student Christian Movement<br/>
+<a href="http://ascm.org.au/">Web</a> &endash; 
+<a href="https://www.facebook.com/AustralianStudentChristianMovement/">Facebook</a>&endash; 
+<a href="https://twitter.com/australianscm">Twitter</a> &endash; <a href="http://ascm.org.au/newsletter">Newsletter</a>
+### Text
+Claudine Chionh
+Australian Student Christian Movement
+http://ascm.org.au/
+https://www.facebook.com/AustralianStudentChristianMovement/
+https://twitter.com/australianscm
+http://ascm.org.au/newsletter
