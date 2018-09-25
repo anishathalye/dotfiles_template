@@ -16,7 +16,7 @@
     ~/.offlineimap: offlineimap.private/
     ~/.offlineimaprc: offlineimaprc.private
     ~/.signature: signatures.private/location.txt
-    ~/.signature.ascm: signatures.private/ascm.txt
+    ~/.signature.ascm: signatures/ascm.txt
     ~/.task: task.private/
     ~/.taskrc: taskrc
     ~/.tigrc: tigrc
