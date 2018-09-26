@@ -2,6 +2,7 @@
 - link:
     ~/.config/alot: alot/
     ~/.config/alot/config: alot/config.private
+    ~/.gnupg: gnupg.private/
     ~/.gvimrc: gvimrc
     ~/.habitrpgrc: habitrpgrc.private
     ~/.jrnl_config: jrnl
