@@ -55,3 +55,6 @@
 [submodule "vim/bundle/vim-easy-align"]
 	path = vim/bundle/vim-easy-align
 	url = https://github.com/junegunn/vim-easy-align
+[submodule "vim/bundle/toml"]
+	path = vim/bundle/toml
+	url = https://github.com/cespare/vim-toml
