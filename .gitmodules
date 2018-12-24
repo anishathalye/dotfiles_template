@@ -34,3 +34,30 @@
 [submodule "vim/bundle/todo.txt-vim"]
 	path = vim/bundle/todo.txt-vim
 	url = git@github.com:freitass/todo.txt-vim.git
+[submodule "vim/bundle/vim-fubitive"]
+	path = vim/bundle/vim-fubitive
+	url = https://github.com/tommcdo/vim-fubitive
+[submodule "vim/bundle/vim-rhubarb"]
+	path = vim/bundle/vim-rhubarb
+	url = git@github.com:tpope/vim-rhubarb.git
+[submodule "vim/bundle/rainbow_csv"]
+	path = vim/bundle/rainbow_csv
+	url = https://github.com/mechatroner/rainbow_csv
+[submodule "vim/bundle/trinity"]
+	path = vim/bundle/trinity
+	url = https://github.com/wesleyche/trinity
+[submodule "vim/bundle/ack.vim"]
+	path = vim/bundle/ack.vim
+	url = https://github.com/mileszs/ack.vim
+[submodule "vim/bundle/nerdtree-ack"]
+	path = vim/bundle/nerdtree-ack
+	url = https://github.com/tyok/nerdtree-ack
+[submodule "vim/bundle/vim-easy-align"]
+	path = vim/bundle/vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align
+[submodule "vim/bundle/toml"]
+	path = vim/bundle/toml
+	url = https://github.com/cespare/vim-toml
+[submodule "vim/bundle/vim-toml"]
+	path = vim/bundle/vim-toml
+	url = https://github.com/cespare/vim-toml

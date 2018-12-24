@@ -2,21 +2,22 @@
 - link:
     ~/.config/alot: alot/
     ~/.config/alot/config: alot/config.private
+    ~/.gnupg: gnupg.private/
     ~/.gvimrc: gvimrc
+    ~/.habitrpgrc: habitrpgrc.private
+    ~/.jrnl_config: jrnl
     ~/.lbdbrc: lbdbrc
     ~/.ledgerrc: ledgerrc.private
     ~/.lftprc: lftprc
     ~/.mailcap: mailcap
     ~/.msmtprc: msmtprc.private
-    ~/.mutt: mutt/
     ~/.muttrc: muttrc
-    ~/.muttrc.aliases: muttrc.aliases
     ~/.muttrc.private: muttrc.private
     ~/.notmuch-config: notmuch-config
     ~/.offlineimap: offlineimap.private/
     ~/.offlineimaprc: offlineimaprc.private
     ~/.signature: signatures.private/location.txt
-    ~/.signature.ascm: signatures.private/ascm.txt
+    ~/.signature.ascm: signatures/ascm.txt
     ~/.task: task.private/
     ~/.taskrc: taskrc
     ~/.tigrc: tigrc

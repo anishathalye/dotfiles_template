@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$PATH:$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/Applications/mampstack-7.0.23-0/php/bin
+export PATH=$PATH:$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/anaconda3/bin
 export MANPATH=/usr/local/man:$MANPATH
 
 
@@ -96,10 +96,13 @@ source ~/.zshrc.private
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # rbenv
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 
 # List Taskwarrior tasks.
-task
+# task ready
+
+# List todo.txt top priority tasks.
+# todo.sh lsp A
 
 # ssh-agent.
 ssh-add -K ~/.ssh/id_rsa

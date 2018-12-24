@@ -1,0 +1,13 @@
+{
+  "default_hour": 9, 
+  "timeformat": "%Y-%m-%d %H:%M", 
+  "linewrap": 79, 
+  "encrypt": false, 
+  "editor": "mvim --nofork", 
+  "default_minute": 0, 
+  "highlight": true, 
+  "journals": {
+    "default": "/Users/claudine/Data/jrnl/journal.txt"
+  }, 
+  "tagsymbols": "@"
+}
