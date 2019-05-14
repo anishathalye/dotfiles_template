@@ -1,14 +1,22 @@
 # MAIN OPTIONS
-VisualHostKey=no
+Host *
+VisualHostKey no
+ForwardX11 yes
 
-
-Host nec* nsp* aws* po*
+Host nec* nsp* aws* po* bfunk
     PermitLocalCommand yes
     LocalCommand tar ch -C${HOME} .gitconfig .screenrc .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
 
 Host github.com
     IdentityFile ~/.ssh/id_rsa
     Hostname ssh.github.com
+
+# bfunk
+Host bfunk
+    Hostname 10.1.1.198
+    User lbesnard
+    Port 22
+    ForwardAgent yes
 
 # UTAS GATEWAY
 Host its6
@@ -24,8 +32,8 @@ Host nec4
     Port 22
     ForwardAgent yes
 
-Host nec14
-    Hostname 14-nec-hob.emii.org.au
+Host nec6
+    Hostname 6-nec-hob.emii.org.au
     User lbesnard
     Port 22
     ForwardAgent yes
@@ -36,12 +44,33 @@ Host temp_auv
     port 22
     ForwardAgent yes
 
-Host nec_loz
+Host loz_nec
     Hostname 144.6.229.180
     user ubuntu
     port 22
     ForwardAgent yes
 
+Host omv
+    hostname 10.1.1.87
+    user lbesnard
+    ForwardAgent yes
+
+Host omv_tunnel
+    Hostname localhost
+    user lbesnard
+    Proxycommand ssh -q loz_nec nc -q0 %h 10022
+    ForwardAgent yes
+
+Host pihole_tunnel
+    Hostname 10.1.1.150
+    user pi
+    Proxycommand ssh -q omv_tunnel nc -q0 %h 22
+    ForwardAgent yes
+
+host pihole
+    Hostname 10.1.1.183
+    user pi
+    ForwardAgent yes
 
 # sydney
 Host aws10
@@ -52,16 +81,16 @@ Host aws10
 
 # po
 Host po
-  HostName 127.0.0.1
-  User vagrant
-  Port 2222
-  UserKnownHostsFile /dev/null
-  StrictHostKeyChecking no
-  PasswordAuthentication no
-  IdentityFile /home/lbesnard/github_repo/chef/.vagrant/machines/po/virtualbox/private_key
-  IdentitiesOnly yes
-  LogLevel FATAL
-  ForwardAgent yes
+    HostName 127.0.0.1
+    User vagrant
+    Port 2222
+    UserKnownHostsFile /dev/null
+    StrictHostKeyChecking no
+    PasswordAuthentication no
+    IdentityFile /home/lbesnard/github_repo/chef/.vagrant/machines/po/virtualbox/private_key
+    IdentitiesOnly yes
+    LogLevel FATAL
+    ForwardAgent yes
 
 # Nectar
 Host nec10
@@ -78,9 +107,9 @@ Host nec2
 
 # katabatic ACECRC
 Host katabatic
-     hostname acecompute.antcrc.utas.edu.au
-     user lbesnard
-     port 22
+    hostname acecompute.antcrc.utas.edu.au
+    user lbesnard
+    port 22
 
 # gcw0
 Host gcw0_wlan
@@ -101,13 +130,13 @@ Host nec10_tunnel
     Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 
-Host nec14_tunnel
-    Hostname 14-nec-hob.emii.org.au
+Host nec4_tunnel
+    Hostname 4-nec-hob.emii.org.au
     Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 
-Host nec4_tunnel
-    Hostname 4-nec-hob.emii.org.au
+Host aws2_tunnel
+    Hostname 2-aws-syd.emii.org.au
     Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 
@@ -115,6 +144,12 @@ Host aws10_tunnel
     Hostname 10-aws-syd.emii.org.au
     Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
+
+Host nec2_tunnel
+    Hostname 2-nec-hob.emii.org.au
+    Proxycommand ssh -q its6 nc -q0 %h  22
+    ForwardAgent yes
+
 
 # port forwarding
 #Host testdbprod

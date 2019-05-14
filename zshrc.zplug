@@ -9,6 +9,7 @@ export SHELL=$HOME/.linuxbrew/bin/zsh
 export DEFAULT_USER=loz
 export DISPLAY=:0.0
 
+
 #export HOST=ᐉ
 setopt nosharehistory
 setopt interactivecomments
@@ -178,10 +179,30 @@ fi
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
 
 
+test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.bash_profile
+echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.profile
+
 # beets
-autoload bashcompinit
-bashcompinit
-_get_comp_words_by_ref() { :; }
-compopt() { :; }
-_filedir() { :; }
-eval "$(beet completion)"
+#autoload bashcompinit
+#bashcompinit
+#_get_comp_words_by_ref() { :; }
+#compopt() { :; }
+#_filedir() { :; }
+#eval "$(beet completion)"
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/lbesnard/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/lbesnard/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/lbesnard/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/lbesnard/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

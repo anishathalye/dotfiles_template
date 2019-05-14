@@ -20,7 +20,7 @@ fetchart:
     auto: yes
     maxwidth: 1000
     cover_names: cover Cover front Front art album portada folder Folder
-    sources: filesystem coverart itunes amazon albumart google
+    sources: filesystem coverart amazon albumart google
 
 
 ftintitle:
@@ -71,7 +71,7 @@ paths:
 per_disc_numbering: true
 
 #plugins: rewrite fetchart badfiles inline convert web lastgenre play chroma fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist artistcountry the fuzzy random web bandcamp scrub ftintitle
-plugins: info rewrite fetchart badfiles inline convert web lastgenre play fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist artistcountry the fuzzy random web bandcamp scrub ftintitle
+plugins: info rewrite fetchart badfiles inline convert web lastgenre play fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist artistcountry the fuzzy random web scrub ftintitle
 #plugins: inline the fuzzy lastgenre fetchart
 
 pluginpath:

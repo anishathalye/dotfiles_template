@@ -91,7 +91,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 
-#cowsay -s "G'Day Mate"
 
 # color shell
 PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;35m\]'
@@ -131,3 +130,25 @@ PERL_MM_OPT="INSTALL_BASE=/home/lbesnard/perl5"; export PERL_MM_OPT;
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/lbesnard/.sdkman"
 [[ -s "/home/lbesnard/.sdkman/bin/sdkman-init.sh" ]] && source "/home/lbesnard/.sdkman/bin/sdkman-init.sh"
+
+# added by Anaconda2 installer
+export PATH="/home/lbesnard/anaconda2/bin:$PATH"
+
+# added by Miniconda3 installer
+export PATH="/home/lbesnard/miniconda3/bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/lbesnard/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/lbesnard/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/lbesnard/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/lbesnard/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
