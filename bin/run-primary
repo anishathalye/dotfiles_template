@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+docker run --name devserver-$(whoami) -p 3000:3000 -p 7778:7778 --volume "/Users/$(whoami):/home/$(whoami)" -d primarykids/devserver-$(whoami):latest
