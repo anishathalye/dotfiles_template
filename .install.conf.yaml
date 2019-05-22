@@ -11,6 +11,7 @@
     ~/.gitconfig:
     ~/.gitignore_global:
     ~/.shell:
+    ~/.spacemacs:
     ~/.zsh:
     ~/.zshrc:
 
