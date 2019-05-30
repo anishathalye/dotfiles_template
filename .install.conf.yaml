@@ -21,9 +21,9 @@
   - git update-submodules
   - >
     git cleanall -f
-    emacs.d/vendor/
-    irssi/scripts/vendor/
-    jupyter/nbextensions/
+    # emacs.d/vendor/
+    # irssi/scripts/vendor/
+    # jupyter/nbextensions/
     shell/plugins/
-    vim/bundle/
+    # vim/bundle/
     zsh/plugins/
