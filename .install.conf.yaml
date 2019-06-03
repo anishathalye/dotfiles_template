@@ -12,6 +12,7 @@
     ~/.gitignore_global:
     ~/.shell:
     ~/.spacemacs:
+    ~/.tmux.conf:
     ~/.zsh:
     ~/.zshrc:
 
