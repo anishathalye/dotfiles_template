@@ -1,3 +1,16 @@
 #!/usr/bin/env zsh
 
-docker run --name devserver-$(whoami) -p 3000:3000 -p 7778:7778 --volume "/Users/$(whoami):/home/$(whoami)" -d primarykids/devserver-$(whoami):latest
+USER=$(whoami)
+CONTAINER_ID=$(docker ps -a | grep devserver-$USER | cut -c 1-12)
+
+echo "Running devserver-$USER"
+
+if [ -z $CONTAINER_ID ]; then
+    docker run --name devserver-$USER -p 3000:3000 -p 7778:7778 --volume "/Users/$USER:/home/$USER" -d primarykids/devserver-$USER:latest
+else
+    echo "Container already exists for name: devserver-$USER, starting..."
+    docker start devserver-$USER
+fi
+
+echo "Exec-ing into container..."
+docker exec -it -u $USER devserver-$USER script -q -c "$SHELL" /dev/null
