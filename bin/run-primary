@@ -12,5 +12,7 @@ else
     docker start devserver-$USER
 fi
 
+
 echo "Exec-ing into container..."
-docker exec -it -u $USER devserver-$USER script -q -c "$SHELL" /dev/null
+# https://stackoverflow.com/questions/33493456/docker-bash-prompt-does-not-display-color-output
+docker exec -it -u $USER devserver-$USER env TERM=xterm-256color script -q -c "$SHELL" /dev/null
