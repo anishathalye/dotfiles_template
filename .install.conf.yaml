@@ -7,12 +7,14 @@
 
 - link:
     ~/.bash:
+    ~/.bashrc:
     ~/.bash_profile:
     ~/.gitconfig:
     ~/.gitignore_global:
     ~/.shell:
     ~/.spacemacs:
-    ~/.tmux.conf:
+    ~/.tmux:
+    ~/.tmux.conf: tmux/tmux.conf
     ~/.zsh:
     ~/.zshrc:
 
