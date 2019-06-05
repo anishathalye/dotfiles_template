@@ -12,6 +12,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # git related aliases
+alias git=hub # for https://hub.github.com/
 alias gag='git exec ag'
 
 # Update dotfiles
