@@ -103,6 +103,8 @@
 
 [user]
 	useConfigOnly = true
+	email = ethanzanemiller@gmail.com
+	name = Ethan Miller
 
 [http]
 	cookieFile = ~/.gitcookies
