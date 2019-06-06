@@ -1,3 +1,6 @@
+# Set emacs mode
+set -o emacs
+
 path_prepend "$HOME/.dotfiles/bin"
 
 # For Hub (http://hub.github.com)
