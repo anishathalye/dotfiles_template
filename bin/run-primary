@@ -6,7 +6,7 @@ CONTAINER_ID=$(docker ps -a | grep devserver-$USER | cut -c 1-12)
 echo "Running devserver-$USER"
 
 if [ -z $CONTAINER_ID ]; then
-    docker run --name devserver-$USER -p 3000:3000 -p 7778:7778 --volume "/Users/$USER:/home/$USER" -d primarykids/devserver-$USER:latest
+    docker run --name devserver-$USER -p 3000:3000 -p 7778:7778 --volume "/Users/$USER:/home/$USER" -d primarykids/devserver-$(echo $USER):latest
 else
     echo "Container already exists for name: devserver-$USER, starting..."
     docker start devserver-$USER
