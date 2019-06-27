@@ -131,11 +131,6 @@ PERL_MM_OPT="INSTALL_BASE=/home/lbesnard/perl5"; export PERL_MM_OPT;
 export SDKMAN_DIR="/home/lbesnard/.sdkman"
 [[ -s "/home/lbesnard/.sdkman/bin/sdkman-init.sh" ]] && source "/home/lbesnard/.sdkman/bin/sdkman-init.sh"
 
-# added by Anaconda2 installer
-export PATH="/home/lbesnard/anaconda2/bin:$PATH"
-
-# added by Miniconda3 installer
-export PATH="/home/lbesnard/miniconda3/bin:$PATH"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

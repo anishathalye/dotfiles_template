@@ -19,7 +19,7 @@ alias chef_sample="chef_cd && rm -f private; ln -s private-sample private"
 alias clear_tmp="find /tmp -mtime +1 -and -not -exec fuser -s {} ';' -and -exec rm -Rf {} ';'"
 alias copy='| xclip -sel clip'
 alias data_services_cd="cd $CHEF_DIR/src/data-services"
-alias display_docked=". /home/lbesnard/.screenlayout/work_screen.sh && mouse_setting.sh"
+alias display_docked=". /home/lbesnard/.screenlayout/work_screen2_thunder.sh && mouse_setting.sh"
 alias dotfiles="cd $GITHUB_DIR/dotfiles"
 alias egrep='egrep --color=auto'
 alias elinks_google='elinks www.google.com.au'
@@ -178,4 +178,20 @@ alias pip_install_requirements='xargs -a requirements.txt -n 1 pip install'
 kill_py () {
     local python_script_name=$1; shift
     kill -9 $(ps aux | grep '[p]ython.*${python_script_name}\.py'| awk '{print $2}')
+}
+
+function pdf2cbz(){
+	PDF_FILE="$1"; shift;
+	
+	PDF_FILE_PATH=`readlink -f "$PDF_FILE"`;
+	PDF_FILE_NAME=`basename "$PDF_FILE_PATH"`;
+	PDF_FILE_DIRNAME=`dirname "$PDF_FILE_PATH"`;
+    
+	temp_dir=`mktemp -d`;
+
+	pdfimages -j "$PDF_FILE_PATH" $temp_dir/page;
+	zip -jr "${PDF_FILE_PATH%.*}.cbz" $temp_dir/*;
+
+	mv "$PDF_FILE_PATH" "$PDF_FILE_DIRNAME"/."$PDF_FILE_NAME";
+	rm -Rf $temp_dir;
 }

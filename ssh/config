@@ -3,6 +3,9 @@ Host *
 VisualHostKey no
 ForwardX11 yes
 
+Host commandpost.aodn.org.au
+  ForwardAgent yes
+
 Host nec* nsp* aws* po* bfunk
     PermitLocalCommand yes
     LocalCommand tar ch -C${HOME} .gitconfig .screenrc .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
@@ -45,7 +48,7 @@ Host temp_auv
     ForwardAgent yes
 
 Host loz_nec
-    Hostname 144.6.229.180
+    Hostname 43.240.96.6 
     user ubuntu
     port 22
     ForwardAgent yes
@@ -147,6 +150,16 @@ Host aws10_tunnel
 
 Host nec2_tunnel
     Hostname 2-nec-hob.emii.org.au
+    Proxycommand ssh -q its6 nc -q0 %h  22
+    ForwardAgent yes
+
+Host nec14_tunnel
+    Hostname 14-nec-hob.emii.org.au
+    Proxycommand ssh -q its6 nc -q0 %h  22
+    ForwardAgent yes
+
+Host nec6_tunnel
+    Hostname 6-nec-hob.emii.org.au
     Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 
