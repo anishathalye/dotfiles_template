@@ -11,6 +11,7 @@
     ~/.bash_profile:
     ~/.gitconfig:
     ~/.gitignore_global:
+    ~/.irbrc:
     ~/.shell:
     ~/.spacemacs:
     ~/.tmux:
