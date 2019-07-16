@@ -14,7 +14,7 @@
 [._]*.s[a-v][a-z]
 *~
 \#*\#
-\.#*
+.\#*
 .ipynb_checkpoints/
 
 # Logs and databases #
@@ -32,3 +32,8 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
+# Emacs Specific
+##################
+.dir-locals.el
+.projectile
