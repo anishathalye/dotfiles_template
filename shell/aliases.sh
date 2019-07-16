@@ -130,3 +130,10 @@ alias mirrorsite='wget -m -k -K -E -e robots=off'
 
 # Mirror stdout to stderr, useful for seeing data going through a pipe
 alias peek='tee >(cat 1>&2)'
+
+# Primary aliases
+alias ptests='docker-compose exec web-dev bundle exec rspec ${1}'
+alias prc='docker-compose exec web-dev bundle exec rails c'
+alias plogs='docker-compose logs --follow web-dev'
+alias pdb='docker-compose exec -u postgres dev-db psql -h localhost'
+alias pexec="docker-compose exec ${1} ${2}"
