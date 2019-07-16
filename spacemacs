@@ -61,9 +61,9 @@ This function should only modify configuration layer settings."
      git
      ;; markdown
      multiple-cursors
-     treemacs
-     ;; (neotree :variables
-     ;;          neo-window-fixed-size nil)
+     ;; treemacs
+     (neotree :variables
+              neo-window-fixed-size nil)
      react
      prettier
      org
