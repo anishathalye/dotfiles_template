@@ -9,6 +9,7 @@
     ~/.bash:
     ~/.bashrc:
     ~/.bash_profile:
+    ~/.emacs.d:
     ~/.gitconfig:
     ~/.gitignore_global:
     ~/.irbrc:
