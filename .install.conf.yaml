@@ -19,7 +19,6 @@
     ~/.tmux:
     ~/.tmux.conf: tmux/tmux.conf
     ~/.zsh:
-    ~/.zshenv:
     ~/.zshrc:
 
 - shell: 
