@@ -13,11 +13,13 @@
     ~/.gitconfig:
     ~/.gitignore_global:
     ~/.irbrc:
+    ~/.pyenv:
     ~/.shell:
     ~/.spacemacs:
     ~/.tmux:
     ~/.tmux.conf: tmux/tmux.conf
     ~/.zsh:
+    ~/.zshenv:
     ~/.zshrc:
 
 - shell: 
