@@ -4,6 +4,11 @@
 
 source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Bindings for zsh-hisotry-substring-search
+# Setting here because something after plugins_after script reset these bindings
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 if [[ "$(tput colors)" == "256" ]]; then
