@@ -8,6 +8,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 path_prepend "$PYENV_ROOT/bin"
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
 fi
 
 # For Hub (http://hub.github.com)

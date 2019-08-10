@@ -19,3 +19,6 @@
 [submodule "pyenv"]
 	path = pyenv
 	url = https://github.com/pyenv/pyenv.git
+[submodule "pyenv-virtualenv"]
+	path = pyenv-virtualenv
+	url = https://github.com/pyenv/pyenv-virtualenv.git

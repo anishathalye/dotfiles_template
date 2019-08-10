@@ -14,6 +14,8 @@
     ~/.gitignore_global:
     ~/.irbrc:
     ~/.pyenv:
+    ~/.pyenv/plugins/pyenv-virtualenv:
+      path: pyenv-virtualenv
     ~/.shell:
     ~/.spacemacs:
     ~/.tmux:
