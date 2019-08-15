@@ -16,6 +16,8 @@
     ~/.pyenv:
     ~/.pyenv/plugins/pyenv-virtualenv:
       path: pyenv-virtualenv
+      create: false
+      relink: false
     ~/.shell:
     ~/.spacemacs:
     ~/.tmux:
