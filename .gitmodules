@@ -25,3 +25,9 @@
 [submodule "rbenv"]
 	path = rbenv
 	url = https://github.com/rbenv/rbenv.git
+[submodule "ruby-build"]
+	path = ruby-build
+	url = https://github.com/rbenv/ruby-build.git
+[submodule "nvm"]
+	path = nvm
+	url = git://github.com/nvm-sh/nvm.git

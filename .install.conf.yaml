@@ -13,12 +13,17 @@
     ~/.gitconfig:
     ~/.gitignore_global:
     ~/.irbrc:
+    ~/.nvm:
     ~/.pyenv:
     ~/.pyenv/plugins/pyenv-virtualenv:
       path: pyenv-virtualenv
       create: false
       relink: false
     ~/.rbenv:
+    ~/.rbenv/plugins/ruby-build:
+      path: ruby-build
+      create: true
+      relink: false
     ~/.shell:
     ~/.spacemacs:
     ~/.tmux:

@@ -5,9 +5,13 @@ path_prepend "$HOME/.dotfiles/bin"
 
 # For rbenv
 path_prepend "$HOME/.rbenv/bin"
-if command -v 1>/dev/null 2>&1; then
+if command -v rbenv 1>/dev/null 2>&1; then
     eval "$(rbenv init -)"
 fi
+
+# For nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # this loads nvm
 
 # For pyenv: https://github.com/pyenv/pyenv
 export PYENV_ROOT="$HOME/.pyenv"
