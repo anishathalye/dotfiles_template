@@ -21,6 +21,15 @@ if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv virtualenv-init -)"
 fi
 
+# For direnv
+if command -v direnv 1>/dev/null 2>&1; then
+    eval "$(direnv hook zsh)"
+fi
+
+# For miniconda
+path_prepend "$HOME/miniconda/bin"
+path_append "$HOME/miniconda"
+
 # For Hub (http://hub.github.com)
 eval "$(hub alias -s)"
 
