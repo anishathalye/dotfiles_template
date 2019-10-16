@@ -17,6 +17,7 @@
     ~/.tmux.conf.ssh: tmux.conf.ssh
     ~/.zshrc: zshrc
     ~/.zshrc.zplug: zshrc.zplug
+    ~/.zshrc.zplug.ssh: zshrc.zplug.ssh
     ~/.initsys.sh: initsys.sh
     ~/.xsessionrc: xsessionrc
     ~/.bashrc:
