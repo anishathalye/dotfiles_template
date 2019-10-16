@@ -224,7 +224,7 @@ set colorcolumn=79
 
 """" Display
 if has("gui_running")
-    colorscheme vitamins
+    colorscheme vitaminonec
     "colorscheme mustang
     " Remove menu bar
     set guioptions-=m
@@ -233,7 +233,7 @@ if has("gui_running")
     set guioptions-=T
 else
     if &t_Co >= 256
-        colorscheme vitamins
+        colorscheme vitaminonec
         "colorscheme mustang
     else
         colorscheme wargrey
