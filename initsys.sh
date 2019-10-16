@@ -45,6 +45,6 @@ add_line_bashrc 'export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"'
 add_line_bashrc 'export SHELL="$HOME/.linuxbrew/bin/zsh"'
 add_line_bashrc '$HOME/.linuxbrew/bin/zsh'
 
-vim +VundleClean +PluginInstall +qall
+vim +PlugInstall!
 
 source $HOME/.bashrc # reload configuration

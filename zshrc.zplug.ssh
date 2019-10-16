@@ -18,8 +18,7 @@ if [[ ! -d ~/.zplug ]]; then
   source ~/.zplug/init.zsh && zplug update --self
 fi
 
-# python venv
-[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
+ln -s ~/.tmux.conf.ssh ~/.tmux.conf
 
 # Essential
 source ~/.zplug/init.zsh
@@ -48,19 +47,15 @@ BULLETTRAIN_RUBY_SHOW=false
 zplug "plugins/command-not-found",  from:oh-my-zsh
 zplug "plugins/gitfast",  from:oh-my-zsh
 zplug "plugins/sudo",  from:oh-my-zsh
-#zplug "plugins/common-aliases",  from:oh-my-zsh
 zplug "plugins/autojump",  from:oh-my-zsh
 zplug "plugins/sublime",  from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
-## Syntax highlighting bundle.
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-history-substring-search"
-#zplug "chrissicool/zsh-bash"
 
 # Load the theme.
 setopt prompt_subst # Make sure propt is able to be generated properly.
-#zplug "adambiggs/zsh-theme", use:adambiggs.zsh-theme
 zplug "caiogondim/bullet-train-oh-my-zsh-theme", use:bullet-train.zsh-theme
 
 
@@ -95,8 +90,6 @@ bindkey "\033[4~" end-of-line
 bindkey "^[[3~" delete-char
 
 if [ ! -z ${SSH_TTY} ]; then
-    #source $DATA_SERVICES_DIR/profile.d/util.sh &>/dev/null;
-    #source $DATA_SERVICES_DIR/profile.d/input.sh &>/dev/null;
     source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
     source $DATA_SERVICES_DIR/lib/common/* &>/dev/null;
     compinit $DATA_SERVICES_DIR/profile.d/*;
@@ -116,7 +109,6 @@ if zplug check zsh-users/zsh-history-substring-search; then
       bindkey "$terminfo[kcuu1]" history-substring-search-up
       bindkey "$terminfo[kcud1]" history-substring-search-down
 fi
-
 
 if command -v tmux>/dev/null; then
     [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach;

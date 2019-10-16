@@ -8,94 +8,70 @@ if $TERM == "xterm"
 endif
 set term=screen-256color
 
-"--------------------------------------------------
-" Vundle initialization
-set nocompatible              " required
-
-" Setting up Vundle - the vim plugin bundler
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle..."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let iCanHazVundle=0
+" vim-plug install
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle
-Bundle 'gmarik/vundle'
 
 "--------------------------------------------------
-" Add all your plugins here (note older versions of Vundle used Bundle
-" instead of Plugin)
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'vim-scripts/indentpython.vim'
-"Bundle 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'nvie/vim-flake8'
-Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'christoomey/vim-sort-motion'
-Plugin 'majutsushi/tagbar'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plugin 'junegunn/vim-easy-align'
-Plugin 'tpope/vim-unimpaired'
-Bundle 'klen/python-mode'
-Plugin 'yann2192/vim-colorschemes'
-Plugin 'yann2192/vim-vitamins'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'wincent/Command-T'
-Plugin 'jnwhiteh/vim-golang'
-Plugin 'ervandew/supertab'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'matze/vim-move'
-Plugin 'mattn/gist-vim'
-Plugin 'mattn/webapi-vim' " used by gist
-Plugin 'mattn/emmet-vim'
-Plugin 'lukaszkorecki/workflowish' " todo lit
-Plugin 'itchyny/calendar.vim'
-Plugin 'tell-k/vim-autopep8'
-
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'tmhedberg/SimpylFold'
+Plug 'croaker/mustang-vim'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'Valloric/YouCompleteMe'
+Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'nvie/vim-flake8'
+Plug 'jnurmine/Zenburn'
+Plug 'altercation/vim-colors-solarized'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'christoomey/vim-sort-motion'
+Plug 'majutsushi/tagbar'
+Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-unimpaired'
+Plug 'klen/python-mode'
+Plug 'yann2192/vim-colorschemes'
+Plug 'yann2192/vim-vitamins'
+Plug 'davidhalter/jedi-vim'
+Plug 'wincent/Command-T'
+Plug 'jnwhiteh/vim-golang'
+Plug 'ervandew/supertab'
+Plug 'easymotion/vim-easymotion'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'matze/vim-move'
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim' " used by gist
+Plug 'mattn/emmet-vim'
+Plug 'lukaszkorecki/workflowish' " todo lit
+Plug 'itchyny/calendar.vim'
+Plug 'tell-k/vim-autopep8'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Snipmate
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
 " Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
-Plugin 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+Plug 'garbas/vim-snipmate'
 
 " Automatically sort python imports
-Bundle 'fisadev/vim-isort'
-
-" XML/HTML tags navigation
-Bundle 'matchit.zip'
+Plug 'fisadev/vim-isort'
 
 
-Bundle 'godlygeek/tabular'
-Bundle 'plasticboy/vim-markdown'
-" ============================================================================
-" Install plugins the first time vim runs
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
-if iCanHazVundle == 0
-    echo "Installing Bundles, please ignore key map error messages"
-    echo ""
-    :BundleInstall
-endif
-
-" ============================================================================
+" Initialize plugin system
+call plug#end()
 
 " All of your Plugins must be added before the following line
 filetype plugin indent on    " required
@@ -320,17 +296,6 @@ au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\
 " Don't let pyflakes use the quickfix window
 let g:pyflakes_use_quickfix = 0
 
-" Add the virtualenv's site-packages to vim path
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUALENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
 
 " Load up virtualenv's vimrc if it exists
 if filereadable($VIRTUAL_ENV . '/.vimrc')

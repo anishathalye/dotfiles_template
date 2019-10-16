@@ -1,6 +1,5 @@
 # Set up the prompt
 export TERM="xterm-256color"
-#export PATH="$HOME/usr/bin:$PATH"
 export PATH="$HOME/.linuxbrew/bin:$PATH"
 export PATH="/opt/MATLAB/R2014b/bin:$PATH"
 export MANPATH="/home/lbesnard/.linuxbrew/share/man:$MANPATH"
@@ -8,7 +7,6 @@ export INFOPATH="/home/lbesnard/.linuxbrew/share/info:$INFOPATH"
 export SHELL=$HOME/.linuxbrew/bin/zsh
 export DEFAULT_USER=loz
 export DISPLAY=:0.0
-
 
 #export HOST=ᐉ
 setopt nosharehistory
@@ -74,8 +72,6 @@ ZSH_TMUX_AUTOSTART_ONCE=true
 ZSH_TMUX_FIXTERM=true
 ZSH_TMUX_AUTOQUIT=false
 
-#POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 BULLETTRAIN_VIRTUALENV_BG=30
@@ -83,7 +79,6 @@ BULLETTRAIN_RUBY_SHOW=false
 
 BULLETTRAIN_PROMPT_ORDER=(time dir virtualenv git)
 BULLETTRAIN_CONTEXT_SHOW=true
-#BULLETTRAIN_IS_SSH_CLIENT=true
 
 # pip venv
 export WORKON_HOME=$HOME/.virtualenvs
@@ -97,27 +92,18 @@ zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
 zplug "plugins/virtualenv",  from:oh-my-zsh
 zplug "plugins/gitfast",  from:oh-my-zsh
 zplug "plugins/sudo",  from:oh-my-zsh
-#zplug "plugins/common-aliases",  from:oh-my-zsh
 zplug "plugins/autojump",  from:oh-my-zsh
 zplug "plugins/heroku",  from:oh-my-zsh
 zplug "plugins/sublime",  from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
-## Syntax highlighting bundle.
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "plugins/web-search",  from:oh-my-zsh
 zplug "plugins/vagrant",  from:oh-my-zsh
-#zplug "horosgrisa/zsh-dropbox"
-#zplug "joepvd/grep2awk"
-#zplug "chrissicool/zsh-bash"
 zplug "soimort/translate-shell"
 zplug "zsh-users/zsh-history-substring-search", defer:2
 
 # Load the theme.
 setopt prompt_subst # Make sure propt is able to be generated properly.
-#zplug "themes/agnoster", from:oh-my-zsh, use:agnoster.zsh-theme
-
-#zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
-#zplug "adambiggs/zsh-theme", use:adambiggs.zsh-theme
 zplug "caiogondim/bullet-train-oh-my-zsh-theme", use:bullet-train.zsh-theme
 
 
@@ -159,8 +145,6 @@ bindkey "\033[4~" end-of-line
 bindkey "^[[3~" delete-char
 
 if [ ! -z ${SSH_TTY} ]; then
-    #source $DATA_SERVICES_DIR/profile.d/util.sh &>/dev/null;
-    #source $DATA_SERVICES_DIR/profile.d/input.sh &>/dev/null;
     source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
     source $DATA_SERVICES_DIR/lib/common/* &>/dev/null;
     compinit $DATA_SERVICES_DIR/profile.d/*;
@@ -173,9 +157,6 @@ if zplug check zsh-users/zsh-history-substring-search; then
     bindkey "$terminfo[kcud1]" history-substring-search-down
 fi
 
-#if command -v tmux>/dev/null; then
-    #[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach;
-#fi
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
 
 
@@ -183,11 +164,3 @@ test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
 test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
 test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.bash_profile
 echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.profile
-
-# beets
-#autoload bashcompinit
-#bashcompinit
-#_get_comp_words_by_ref() { :; }
-#compopt() { :; }
-#_filedir() { :; }
-#eval "$(beet completion)"

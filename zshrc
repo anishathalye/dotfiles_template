@@ -1,4 +1,14 @@
-source /home/lbesnard/.zshrc.zplug
+# load different zshrc depending on hostname
+HOSTNAME=$(hostname)
+if [[ $HOSTNAME == *"aws"* ]]; then
+    source $HOME/.zshrc.zplug.ssh
+elif [[ $HOSTNAME == *"nec"* ]]; then
+    source $HOME/.zshrc.zplug.ssh
+elif [[ $HOSTNAME == *"brownfunk"* ]]; then
+    source $HOME/.zshrc.zplug.ssh
+else
+    source $HOME/.zshrc.zplug
+fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/lbesnard/.sdkman"
