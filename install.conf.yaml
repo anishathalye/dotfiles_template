@@ -65,6 +65,3 @@
     ~/.gpligrc:
         force: true
         path: gpligrc
-
-- shell:
-    - [vim +PlugInstall!]
