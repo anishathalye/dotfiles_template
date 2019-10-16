@@ -9,4 +9,4 @@
     url  = https://github.com/lbesnard/encryption
 [submodule "beets/bandcamp"]
 	path = beets/bandcamp
-	url = git@github.com:unrblt/beets-bandcamp.git
+	url = https://github.com/unrblt/beets-bandcamp
