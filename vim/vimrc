@@ -20,6 +20,7 @@ call plug#begin('~/.vim/plugged')
 
 
 "--------------------------------------------------
+Plug 'gkapfham/vim-vitamin-onec'
 Plug 'tmhedberg/SimpylFold'
 Plug 'croaker/mustang-vim'
 Plug 'vim-scripts/indentpython.vim'
@@ -223,8 +224,8 @@ set colorcolumn=79
 
 """" Display
 if has("gui_running")
-    "colorscheme vitamins
-    colorscheme mustang
+    colorscheme vitamins
+    "colorscheme mustang
     " Remove menu bar
     set guioptions-=m
 
@@ -232,8 +233,8 @@ if has("gui_running")
     set guioptions-=T
 else
     if &t_Co >= 256
-        "colorscheme vitamins
-        colorscheme mustang
+        colorscheme vitamins
+        "colorscheme mustang
     else
         colorscheme wargrey
     endif
