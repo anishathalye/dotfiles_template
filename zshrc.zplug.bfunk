@@ -25,7 +25,6 @@ if [[ ! -d ~/.zplug ]]; then
   source ~/.zplug/init.zsh && zplug update --self
 fi
 
-ln -sf ~/.tmux.conf.ssh ~/.tmux.conf
 
 # Essential
 source ~/.zplug/init.zsh

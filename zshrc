@@ -6,12 +6,16 @@ fi
 HOSTNAME=$(hostname)
 if [[ $HOSTNAME == *"aws"* ]]; then
     source $HOME/.zshrc.zplug.ssh
+    ln -sf ~/.tmux.conf.ssh ~/.tmux.conf
 elif [[ $HOSTNAME == *"nec"* ]]; then
     source $HOME/.zshrc.zplug.ssh
+    ln -sf ~/.tmux.conf.ssh ~/.tmux.conf
 elif [[ $HOSTNAME == *"brownfunk"* ]]; then
     source $HOME/.zshrc.zplug.bfunk
+    ln -sf ~/.tmux.conf.ssh ~/.tmux.conf
 else
     source $HOME/.zshrc.zplug
+    ln -sf ~/.tmux.conf.local ~/.tmux.conf
 fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!

@@ -13,7 +13,7 @@
     ~/.complete: complete
     ~/.flake8: flake8
     ~/.screenrc: screenrc
-    ~/.tmux.conf: tmux.conf.local
+    ~/.tmux.conf.local: tmux.conf.local
     ~/.tmux.conf.ssh: tmux.conf.ssh
     ~/.zshrc: zshrc
     ~/.zshrc.zplug: zshrc.zplug
