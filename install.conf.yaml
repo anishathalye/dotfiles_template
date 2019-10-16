@@ -15,6 +15,7 @@
     ~/.screenrc: screenrc
     ~/.tmux.conf: tmux.conf.local
     ~/.tmux.conf.ssh: tmux.conf.ssh
+    ~/.tmux.conf.bfunk: tmux.conf.bfunk
     ~/.zshrc: zshrc
     ~/.zshrc.zplug: zshrc.zplug
     ~/.zshrc.zplug.ssh: zshrc.zplug.ssh

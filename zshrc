@@ -1,3 +1,7 @@
+if [ -d "/usr/share/powerline/bindings/bash" ]; then
+    source /usr/share/powerline/bindings/bash/powerline.sh
+fi
+
 # load different zshrc depending on hostname
 HOSTNAME=$(hostname)
 if [[ $HOSTNAME == *"aws"* ]]; then
@@ -5,7 +9,7 @@ if [[ $HOSTNAME == *"aws"* ]]; then
 elif [[ $HOSTNAME == *"nec"* ]]; then
     source $HOME/.zshrc.zplug.ssh
 elif [[ $HOSTNAME == *"brownfunk"* ]]; then
-    source $HOME/.zshrc.zplug.ssh
+    source $HOME/.zshrc.zplug.bfunk
 else
     source $HOME/.zshrc.zplug
 fi
