@@ -71,6 +71,10 @@ Plug 'fisadev/vim-isort'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
+" fzf
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 " Initialize plugin system
 call plug#end()
 

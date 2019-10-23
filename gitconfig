@@ -43,6 +43,7 @@
     hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
     co = checkout
     com = !git checkout master && git pull && git bclean
+    co-pr = !sh -c 'git fetch origin pull/$1/head:pr/$1 && git checkout pr/$1' -
     co-wip-and-squash-last = !git co-wip && git squash-auto
     squash-auto = !"f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
     push-force-branch = !"f() { git branch  | grep '*' | sed 's/* //g'  | xargs git push -f origin; }; f"
