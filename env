@@ -30,4 +30,3 @@ export PYTHONPATH=$DATA_SERVICES_DIR/lib/python
 
 export SHELL=/usr/bin/zsh
 
-#export ANTIGEN_DIR=$GITHUB_DIR/antigen

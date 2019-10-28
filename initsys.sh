@@ -29,6 +29,8 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/the_silver_searcher ] && brew install the_silver_searcher
 [ ! -e .linuxbrew/bin/mc ] && brew install midnight-commander
 
+gem install colorls
+
 # To install useful key bindings and fuzzy completion:
 $(brew --prefix)/opt/fzf/install
 
