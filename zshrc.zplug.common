@@ -69,7 +69,7 @@ BULLETTRAIN_CONTEXT_SHOW=true
 # pip venv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
-source /usr/local/bin/virtualenvwrapper.sh
+[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
 zplug "hchbaw/auto-fu.zsh"
 zplug "gretzky/auto-color-ls"
