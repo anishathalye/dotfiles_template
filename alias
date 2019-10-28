@@ -38,7 +38,7 @@ if [ -x "$path_to_colorls" ] ; then
     alias ls='lc'
     alias lsa='lc -a'
     alias ll='lc -lh'
-    alias ls_time='lc -lrt'
+    alias lrt='lc -rt'
     alias ls_tree='lc --tree'
 else
     alias la='ls -a'

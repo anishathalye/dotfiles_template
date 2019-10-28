@@ -18,10 +18,6 @@ export FZF_DEFAULT_OPTS='
 setopt nosharehistory
 setopt interactivecomments
 
-# aliases
-[ -f $HOME/.env ] && source $HOME/.env
-[ -f $HOME/.alias ] && source $HOME/.alias
-source  /etc/profile.d/* # especially useful for remote connection
 
 # check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
@@ -104,7 +100,13 @@ fi
 # source plugins and add commands to the PATH
 zplug load
 
+# aliases
 . ~/.zplug/repos/robbyrussell/oh-my-zsh/plugins/common-aliases/common-aliases.plugin.zsh
+
+# overwrite aliases if needed
+[ -f $HOME/.env ] && source $HOME/.env
+[ -f $HOME/.alias ] && source $HOME/.alias
+source  /etc/profile.d/* # especially useful for remote connection
 
 
 #ZSH history
