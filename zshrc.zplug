@@ -85,12 +85,15 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh
 
-
+zplug "hchbaw/auto-fu.zsh"
+zplug "gretzky/auto-color-ls"
+zplug "chrissicool/zsh-256color"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "plugins/command-not-found",  from:oh-my-zsh
 zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
 zplug "plugins/virtualenv",  from:oh-my-zsh
 zplug "plugins/gitfast",  from:oh-my-zsh
+zplug "plugins/git",  from:oh-my-zsh
 zplug "plugins/sudo",  from:oh-my-zsh
 zplug "plugins/autojump",  from:oh-my-zsh
 zplug "plugins/heroku",  from:oh-my-zsh

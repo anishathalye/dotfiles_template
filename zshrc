@@ -2,6 +2,10 @@ if [ -d "/usr/share/powerline/bindings/bash" ]; then
     source /usr/share/powerline/bindings/bash/powerline.sh
 fi
 
+fpath=(~/.zsh_alias "${fpath[@]}")
+autoload -Uz history-search-end cani vmc vmi lps kp fp cani bip bup bcp tmuxify utils ll lx
+typeset -U PATH fpath
+
 # load different zshrc depending on hostname
 HOSTNAME=$(hostname)
 if [[ $HOSTNAME == *"aws"* ]]; then

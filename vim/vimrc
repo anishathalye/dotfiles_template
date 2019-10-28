@@ -494,3 +494,5 @@ let g:autopep8_select="W293,E261,E302,F405,E225,E203,E231,E305,E502,E124,E303,E2
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
+" the silver searcher integration
+let g:ackprg = 'ag --nogroup --nocolor --column'
