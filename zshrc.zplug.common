@@ -133,7 +133,7 @@ bindkey "\033[4~" end-of-line
 bindkey "^[[3~" delete-char
 
 # open vim with fzf
-bindkey -s '^e' 'vim $(fzf)\n'
+bindkey -s '^e' 'vim $(fzf -m --preview "head -100 {}")\n'
 
 fpath=(~/.zsh_alias "${fpath[@]}")
 autoload -Uz history-search-end cani vmc vmi lps kp fp cani bip bup bcp tmuxify utils ll lx

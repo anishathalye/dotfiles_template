@@ -24,6 +24,7 @@ alias dotfiles="cd $GITHUB_DIR/dotfiles"
 alias egrep='egrep --color=auto'
 alias elinks_google='elinks www.google.com.au'
 alias fgrep='fgrep --color=auto'
+alias fzfp="fzf -m --preview 'head -100 {}'"
 alias g='git'
 alias geoserver_cd="cd $CHEF_DIR/src/geoserver"
 alias github_cd="cd $GITHUB_DIR"
