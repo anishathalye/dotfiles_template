@@ -91,7 +91,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 
-
 # color shell
 PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;35m\]'
 trap 'echo -ne "\e[0m"' DEBUG
@@ -99,17 +98,8 @@ trap 'echo -ne "\e[0m"' DEBUG
 function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
 
 
-#alias tmux='tmux attach'
-#if command -v tmux>/dev/null; then
-  #[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2
-#fi
-
 
 source ~/.env    # load env variables
-#if command -v tmux>/dev/null; then
-  #[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach
-#fi
-
 source ~/.alias  # load aliases
 source ~/.complete # completion features
 
@@ -126,26 +116,6 @@ PERL5LIB="/home/lbesnard/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5L
 PERL_LOCAL_LIB_ROOT="/home/lbesnard/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/lbesnard/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/lbesnard/perl5"; export PERL_MM_OPT;
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/lbesnard/.sdkman"
-[[ -s "/home/lbesnard/.sdkman/bin/sdkman-init.sh" ]] && source "/home/lbesnard/.sdkman/bin/sdkman-init.sh"
-
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/lbesnard/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/lbesnard/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/lbesnard/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/lbesnard/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
