@@ -1,99 +1,6 @@
-# Set up the prompt
-export TERM="xterm-256color"
-export PATH="$HOME/.linuxbrew/bin:$PATH"
-export MANPATH="/home/lbesnard/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="/home/lbesnard/.linuxbrew/share/info:$INFOPATH"
-export SHELL=$HOME/.linuxbrew/bin/zsh
-#export HOST=ᐉ
-setopt nosharehistory
-setopt interactivecomments
-
-export FZF_DEFAULT_OPTS='
-  --bind ctrl-f:page-down,ctrl-b:page-up
-  --color=fg:#a8a8a8,bg:#1c1c1c,hl:#5f8700
-  --color=fg+:#afaf5f,bg+:#1c1c1c,hl+:#d78700
-  --color=info:#87afd7,prompt:#87afd7,pointer:#d78700
-  --color=marker:#d78700,spinner:#875f87,header:#875f87'
-
-[ -f $HOME/.env ] && source $HOME/.env
-[ -f $HOME/.alias ] && source $HOME/.alias
-source  /etc/profile.d/* # especially useful for remote connection
-
-# check if zplug is installed
-if [[ ! -d ~/.zplug ]]; then
-  git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
-fi
-
-
-# Essential
-source ~/.zplug/init.zsh
-
-# completion
-_cmpl_cheat() {
-reply=($(cheat -l | cut -d' ' -f1))
-}
-compctl -K _cmpl_cheat cheat
-
-# if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
-
-# change the size of history files
-export HISTSIZE=32768;
-export HISTFILESIZE=$HISTSIZE;
-
-# highlight options 
-export LSCOLORS=ExfxcxdxbxGxDxabagacad
-zstyle ':completion:*' list-colors ${LSCOLORS}
-zstyle ':completion:*:default' menu select=2
 BULLETTRAIN_VIRTUALENV_PREFIX=""
 BULLETTRAIN_VIRTUALENV_BG=30
-BULLETTRAIN_RUBY_SHOW=false
 
-zplug "plugins/command-not-found",  from:oh-my-zsh
-zplug "plugins/gitfast",  from:oh-my-zsh
-zplug "plugins/sudo",  from:oh-my-zsh
-zplug "plugins/autojump",  from:oh-my-zsh
-zplug "plugins/sublime",  from:oh-my-zsh
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-history-substring-search"
-
-# Load the theme.
-setopt prompt_subst # Make sure propt is able to be generated properly.
-zplug "caiogondim/bullet-train-oh-my-zsh-theme", use:bullet-train.zsh-theme
-
-
-if ! zplug check --verbose; then
-    zplug install
-fi
-
-# source plugins and add commands to the PATH
-zplug load
-
-. ~/.zplug/repos/robbyrussell/oh-my-zsh/plugins/common-aliases/common-aliases.plugin.zsh
-
-#ZSH history
-setopt append_history
-setopt hist_expire_dups_first
-setopt hist_fcntl_lock
-setopt hist_ignore_all_dups
-setopt hist_lex_words
-setopt hist_reduce_blanks
-setopt hist_save_no_dups
-#setopt share_history
-
-export CLICOLOR=1
-export BLOCK_SIZE=human-readable # https://www.gnu.org/software/coreutils/manual/html_node/Block-size.html
-export HISTSIZE=11000
-export SAVEHIST=10000
-export HISTFILE=~/.zsh_history
-
-# binkey for HOME END
-bindkey "\033[1~" beginning-of-line
-bindkey "\033[4~" end-of-line
-bindkey "^[[3~" delete-char
 
 _cmpl_inputlog() {
     reply=($(ls -d $ERROR_DIR/* | sed 's@.*/@@')) 
@@ -102,12 +9,6 @@ _cmpl_inputlog() {
 compctl -K _cmpl_inputlog input_logf
 compctl -K _cmpl_inputlog input_log
 
-
-if zplug check zsh-users/zsh-history-substring-search; then
-      zmodload zsh/terminfo
-      bindkey "$terminfo[kcuu1]" history-substring-search-up
-      bindkey "$terminfo[kcud1]" history-substring-search-down
-fi
 
 if command -v tmux>/dev/null; then
     [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach;

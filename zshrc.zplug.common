@@ -2,16 +2,23 @@
 export TERM="xterm-256color"
 export PATH="$HOME/.linuxbrew/bin:$PATH"
 export PATH="/opt/MATLAB/R2014b/bin:$PATH"
-export MANPATH="/home/lbesnard/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="/home/lbesnard/.linuxbrew/share/info:$INFOPATH"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 export SHELL=$HOME/.linuxbrew/bin/zsh
 export DEFAULT_USER=loz
 export DISPLAY=:0.0
 
-#export HOST=ᐉ
+export FZF_DEFAULT_OPTS='
+  --bind ctrl-f:page-down,ctrl-b:page-up
+  --color=fg:#a8a8a8,bg:#1c1c1c,hl:#5f8700
+  --color=fg+:#afaf5f,bg+:#1c1c1c,hl+:#d78700
+  --color=info:#87afd7,prompt:#87afd7,pointer:#d78700
+  --color=marker:#d78700,spinner:#875f87,header:#875f87'
+
 setopt nosharehistory
 setopt interactivecomments
 
+# aliases
 [ -f $HOME/.env ] && source $HOME/.env
 [ -f $HOME/.alias ] && source $HOME/.alias
 source  /etc/profile.d/* # especially useful for remote connection
@@ -25,9 +32,6 @@ fi
 # Essential
 source ~/.zplug/init.zsh
 
-# Background Agents
-command -v ssh-agent >/dev/null 2>&1 && zplug "plugins/ssh-agent", from:oh-my-zsh
-command -v gpg-agent >/dev/null 2>&1 && zplug "plugins/gpg-agent", from:oh-my-zsh
 
 # completion
 _cmpl_cheat() {
@@ -46,24 +50,6 @@ COMPLETION_WAITING_DOTS="true"
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
 
-SSH_ENV="$HOME/.ssh/environment"
-
-function start_agent {
-    echo "Initialising new SSH agent..."
-    (umask 066; /usr/bin/ssh-agent > "${SSH_ENV}")
-    . "${SSH_ENV}" > /dev/null
-    /usr/bin/ssh-add;
-}
-
-# Source SSH settings, if applicable
-if [ -f "${SSH_ENV}" ]; then
-    . "${SSH_ENV}" > /dev/null
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        start_agent;
-    }
-else
-    start_agent;
-fi
 
 # tmux plugin settings
 # this always starts tmux
@@ -93,7 +79,8 @@ zplug "plugins/command-not-found",  from:oh-my-zsh
 zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
 zplug "plugins/virtualenv",  from:oh-my-zsh
 zplug "plugins/gitfast",  from:oh-my-zsh
-zplug "plugins/git",  from:oh-my-zsh
+#zplug "plugins/git",  from:oh-my-zsh
+zplug 'wfxr/forgit'
 zplug "plugins/sudo",  from:oh-my-zsh
 zplug "plugins/autojump",  from:oh-my-zsh
 zplug "plugins/heroku",  from:oh-my-zsh
@@ -119,10 +106,6 @@ zplug load
 
 . ~/.zplug/repos/robbyrussell/oh-my-zsh/plugins/common-aliases/common-aliases.plugin.zsh
 
-# highlight options 
-export LSCOLORS=ExfxcxdxbxGxDxabagacad
-zstyle ':completion:*' list-colors ${LSCOLORS}
-zstyle ':completion:*:default' menu select=2
 
 #ZSH history
 setopt append_history
@@ -138,7 +121,7 @@ export CLICOLOR=1
 export BLOCK_SIZE=human-readable # https://www.gnu.org/software/coreutils/manual/html_node/Block-size.html
 export HISTSIZE=11000
 export SAVEHIST=10000
-export HISTFILE=~/.zsh_history
+export HISTFILE=$HOME/.zsh_history
 
 #source repos/robbyrussell/oh-my-zsh/lib/spectrum.zsh 
 
@@ -147,11 +130,12 @@ bindkey "\033[1~" beginning-of-line
 bindkey "\033[4~" end-of-line
 bindkey "^[[3~" delete-char
 
-if [ ! -z ${SSH_TTY} ]; then
-    source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
-    source $DATA_SERVICES_DIR/lib/common/* &>/dev/null;
-    compinit $DATA_SERVICES_DIR/profile.d/*;
-fi
+# open vim with fzf
+bindkey -s '^e' 'vim $(fzf)\n'
+
+fpath=(~/.zsh_alias "${fpath[@]}")
+autoload -Uz history-search-end cani vmc vmi lps kp fp cani bip bup bcp tmuxify utils ll lx
+typeset -U PATH fpath
 
 
 if zplug check zsh-users/zsh-history-substring-search; then
@@ -163,7 +147,9 @@ fi
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
 
 
-test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
-test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+test -d $HOME/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+test -d $HOME/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
 test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.bash_profile
 echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.profile
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

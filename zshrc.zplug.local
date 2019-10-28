@@ -1,0 +1,36 @@
+# Background Agents
+command -v ssh-agent >/dev/null 2>&1 && zplug "plugins/ssh-agent", from:oh-my-zsh
+command -v gpg-agent >/dev/null 2>&1 && zplug "plugins/gpg-agent", from:oh-my-zsh
+
+
+SSH_ENV="$HOME/.ssh/environment"
+
+function start_agent {
+    echo "Initialising new SSH agent..."
+    (umask 066; /usr/bin/ssh-agent > "${SSH_ENV}")
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add;
+}
+
+# Source SSH settings, if applicable
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi
+
+# add data-services
+if [ ! -z ${SSH_TTY} ]; then
+    source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
+    source $DATA_SERVICES_DIR/lib/common/* &>/dev/null;
+    compinit $DATA_SERVICES_DIR/profile.d/*;
+fi
+
+
+# matlab
+MCR_ROOT="/opt/MATLAB/MATLAB_Runtime/v95"
+MCR_APPS="$MCR_ROOT/bin:$MCR_ROOT/glnxa64"
+export PATH="$PATH:$MCR_APPS"1
