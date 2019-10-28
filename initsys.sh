@@ -27,6 +27,7 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/ripgrep ] && brew install ripgrep
 [ ! -e .linuxbrew/bin/fd ] && brew install fd
 [ ! -e .linuxbrew/bin/the_silver_searcher ] && brew install the_silver_searcher
+[ ! -e .linuxbrew/bin/mc ] && brew install midnight-commander
 
 # To install useful key bindings and fuzzy completion:
 $(brew --prefix)/opt/fzf/install
@@ -37,11 +38,6 @@ if cd $HOME/dotfiles; then git pull; else git clone https://github.com/lbesnard/
 . $HOME/dotfiles/install
 
 #curl -fsSL -o .zshrc https://raw.githubusercontent.com/lbesnard/dotfiles/master/zshrc.zplug.ssh
-#curl -fsSL -o .tmux.conf https://raw.githubusercontent.com/lbesnard/dotfiles/master/tmux.conf.ssh
-#curl -fsSL -o .zshrc https://raw.githubusercontent.com/lbesnard/dotfiles/master/zshrc.zplug.common
-#curl -fsSL -o .tmux.conf https://raw.githubusercontent.com/lbesnard/dotfiles/master/tmux.conf.local
-
-#curl -fsSL -o .vimrc https://raw.githubusercontent.com/lbesnard/dotfiles/master/vim/vimrc
 #curl -fsSL -o .gitconfig https://raw.githubusercontent.com/lbesnard/dotfiles/master/gitconfig
 
 export SHELL=$HOME/.linuxbrew/bin/zsh
