@@ -96,11 +96,17 @@ if command -v dig > /dev/null; then
     alias mygeo="curl -w \"\\n\" http://api.hackertarget.com/geoip/\?q=\`myip\`"
 fi
 
+
+if command -v ncdu > /dev/null; then
+    alias gt5=ncdu
+    alias hdd_report=ncdu
+fi
+
+# POSTGRES
 if command -v pgcli > /dev/null; then
     alias psql=pgcli
 fi
 
-# POSTGRES
 DBHOST='2-nec-hob.emii.org.au'
 [ -f $HOME/.pgpass ] && alias psql-dbrc="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
 

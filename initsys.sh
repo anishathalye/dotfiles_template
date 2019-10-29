@@ -35,6 +35,9 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/fasd ] && brew install fasd
 [ ! -e .linuxbrew/bin/pgcli ] && brew install brew tap-pin dbcli/tap && brew install pgcli
 [ ! -e .linuxbrew/bin/lnav ] && brew install lnav
+[ ! -e .linuxbrew/bin/p7zip ] && brew install p7zip
+[ ! -e .linuxbrew/bin/ncdu ] && brew install ncdu
+
 
 gem install colorls
 
