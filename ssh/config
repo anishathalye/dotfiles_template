@@ -6,7 +6,7 @@ ForwardX11 yes
 Host commandpost.aodn.org.au
   ForwardAgent yes
 
-Host nec* nsp* aws* po* bfunk
+Host nec* nsp* aws* po*
     PermitLocalCommand yes
     LocalCommand tar ch -C${HOME} .gitconfig .screenrc .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 ## script to initialise a working env remotely or locally
+mkdir -p $HOME/usr/bin
 export PATH="$HOME/usr/bin:$PATH"
 
 # install linuxbrew
@@ -28,6 +29,7 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/fd ] && brew install fd
 [ ! -e .linuxbrew/bin/the_silver_searcher ] && brew install the_silver_searcher
 [ ! -e .linuxbrew/bin/mc ] && brew install midnight-commander
+[ ! -e .linuxbrew/bin/fasd ] && brew install fasd
 
 gem install colorls
 
@@ -59,3 +61,7 @@ add_line_bashrc '$HOME/.linuxbrew/bin/zsh'
 vim +PlugInstall!
 
 source $HOME/.bashrc # reload configuration
+
+curl -fsSL -o $HOME/usr/bin/cheat https://github.com/cheat/cheat/releases/download/3.0.1/cheat-linux-amd64
+chmod +x $HOME/usr/bin/cheat 
+export PATH="$HOME/usr/bin/cheat:$PATH"

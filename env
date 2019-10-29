@@ -20,6 +20,7 @@ export CHEATPATH='$HOME/.cheat'
 
 export PATH=$HOME/.dotfiles/bin:${PATH}
 export PATH=$HOME/.dotfiles/bin/encryption:$PATH
+export PATH="${HOME}/usr/bin:$PATH"
 
 export GITHUB_DIR=$HOME/github_repo
 export DOTFILES=$HOME/github_repo/dotfiles

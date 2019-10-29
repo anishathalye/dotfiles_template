@@ -80,6 +80,8 @@ alias vim_plugin_install='vim +VundleClean +PluginInstall +qall'
 alias wd='cd /media/lbesnard/Laurent_emII'
 alias work_workspace='display_docked & tmux_start'
 
+alias v='f -e vim' # quick opening files with vim
+
 # timezone
 alias tz_paris='TZ="Europe/Paris" date'
 alias tz_hobart='TZ="Australia/Hobart" date'
@@ -205,3 +207,4 @@ function pdf2cbz(){
 	mv "$PDF_FILE_PATH" "$PDF_FILE_DIRNAME"/."$PDF_FILE_NAME";
 	rm -Rf $temp_dir;
 }
+

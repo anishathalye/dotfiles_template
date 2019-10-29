@@ -1,4 +1,0 @@
-# to compile package
-mvn clean package
-
-https://jenkins.aodn.org.au/job/talend_components_edge/

@@ -26,6 +26,9 @@
     ~/.bashrc:
         force: true
         path: bashrc
+    ~/.config/cheat/conf.yml:
+        create: true
+        path: cheat.yml
     ~/.config/sublime-text-2:
         create: true
         path: config/sublime-text-2/
