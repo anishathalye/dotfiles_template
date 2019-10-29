@@ -9,3 +9,5 @@
 *DS_Store
 */jenkins-trigger
 "config/sublime-text-2/Settings/Auto Save Session.sublime_session"
+*gconf/apps/guake/general/%gconf.xml
+*gconf/apps/guake/style/%gconf.xml
