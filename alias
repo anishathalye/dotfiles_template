@@ -96,6 +96,9 @@ if command -v dig > /dev/null; then
     alias mygeo="curl -w \"\\n\" http://api.hackertarget.com/geoip/\?q=\`myip\`"
 fi
 
+if command -v pgcli > /dev/null; then
+    alias psql=pgcli
+fi
 
 # POSTGRES
 DBHOST='2-nec-hob.emii.org.au'

@@ -88,6 +88,7 @@ zplug "plugins/web-search",  from:oh-my-zsh
 zplug "plugins/vagrant",  from:oh-my-zsh
 zplug "soimort/translate-shell"
 zplug "zsh-users/zsh-history-substring-search", defer:2
+zplug "rummik/zsh-tailf"
 
 # Load the theme.
 setopt prompt_subst # Make sure propt is able to be generated properly.

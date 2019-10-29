@@ -33,6 +33,8 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/the_silver_searcher ] && brew install the_silver_searcher
 [ ! -e .linuxbrew/bin/mc ] && brew install midnight-commander
 [ ! -e .linuxbrew/bin/fasd ] && brew install fasd
+[ ! -e .linuxbrew/bin/pgcli ] && brew install brew tap-pin dbcli/tap && brew install pgcli
+[ ! -e .linuxbrew/bin/lnav ] && brew install lnav
 
 gem install colorls
 
