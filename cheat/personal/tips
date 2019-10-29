@@ -1,0 +1,11 @@
+Performance Tools:
+nice/renice	Run a program with modified scheduling priority
+netstat		Print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships
+time		Time a simple command or give resource usage
+uptime		System Load Average
+ps			Report a snapshot of the current processes.
+vmstat		Report virtual memory statistics
+gprof		Display call graph profile data
+prof		Process Profiling
+top			Display system tasks
+

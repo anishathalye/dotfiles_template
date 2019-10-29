@@ -1,0 +1,29 @@
+# quit
+\q
+
+# list schemas
+select nspname from pg_catalog.pg_namespace;
+or
+\dn
+
+
+# List tables in a PostgreSQL schema
+# In all schemas:
+\dt *.*
+
+# In a particular schema:
+\dt public.*
+
+# Iterate over an array field and use the records for another query
+select url from indexed_file where id = ANY(select distinct file_id from measurements where "LONGITUDE" < 146.7 )
+
+# list databases
+psql -h localhost -U postgres -t -c "select datname from pg_database"
+
+
+# output to file, has to be connected
+postgres=# \o ~/sql.out
+postgres=# select * from foo;
+
+# copy as csv
+\COPY (SELECT *) ) TO '~/test.csv' WITH DELIMITER ';' CSV HEADER;

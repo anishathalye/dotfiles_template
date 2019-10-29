@@ -1,0 +1,8 @@
+# RO mount
+sshfs -o ro account@ip:remoteFolderFullPath localFolderPath 
+
+# umount
+fusermount -u ~/sshfsmount
+
+# OR LAZY UMOUNT
+sudo umount -l

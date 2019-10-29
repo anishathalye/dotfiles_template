@@ -1,0 +1,2 @@
+/etc/init.d/tomcat7 start
+/usr/share/tomcat7/bin/startup.sh
