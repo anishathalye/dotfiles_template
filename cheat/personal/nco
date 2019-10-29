@@ -1,2 +1,0 @@
-# permute dim
-ncpdq -O  -a INSTANCE,DEPTH $nc_file -o $nc_file_temp > `mktemp` 2>&1

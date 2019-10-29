@@ -1,0 +1,7 @@
+# permute dim
+ncpdq -O  -a INSTANCE,DEPTH $nc_file -o $nc_file_temp > `mktemp` 2>&1
+
+# remove dimensions with ncks
+ncks -F -d TIME,1 FILE.nc OUT.nc;
+ncks -F -d WAVENUM,1 -d TIME,1 -d DIRECTION,1 FILE.nc OUT.nc;
+ncks -x -v instrument_id,source_file FILE.nc OUT.nc;

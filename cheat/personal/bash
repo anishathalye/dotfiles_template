@@ -33,8 +33,6 @@ Tab	Auto-completes files, directories, and binaries
 SHIFT-INSERT paste from mouse middle click
 SHIFT-PAGEUP scroll up
 
-
-
 # return valid CF gatt time coverage string
 # $1 - one time str from ncdump
 # example 2015-01-10 00:01:59.999993

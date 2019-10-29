@@ -1,0 +1,3 @@
+stackman deploy
+stackman info --show-secrets
+

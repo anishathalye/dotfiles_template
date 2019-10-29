@@ -1,16 +1,22 @@
-# Displays everything in the target directory
-ls path/to/the/target/directory
+# To display everything in <dir>, excluding hidden files:
+ls <dir>
 
-# Displays everything including hidden files
-ls -a
+# To display everything in <dir>, including hidden files:
+ls -a <dir>
 
-# Displays all files, along with the size (with unit suffixes) and timestamp
-ls -lh 
+# To display all files, along with the size (with unit suffixes) and timestamp
+ls -lh <dir>
 
-# Display files, sorted by size
-ls -S
+# To display files, sorted by size:
+ls -S <dir>
 
+# To display directories only:
+ls -d */ <dir>
 
+# To display directories only, include hidden:
+ls -d .*/ */ <dir>
+
+# For big dir
 ls -f # does not stat. heaps faster when 100 000 + files
 
 # example to force a refresh of ls on files open by a process
