@@ -14,6 +14,9 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 # install powerline fonts
 [ ! -d $HOME/fonts/ ] && git clone git@github.com:powerline/fonts.git && source $HOME/fonts/install.sh
 
+curl -fsSL -o $HOME/usr/bin/cheat https://github.com/cheat/cheat/releases/download/3.0.1/cheat-linux-amd64
+chmod +x $HOME/usr/bin/cheat 
+
 # see https://github.com/Linuxbrew/homebrew-core/issues/955#issuecomment-250151297
 export HOMEBREW_ARCH=core2
 [ ! -f .linuxbrew/bin/gcc ] && brew install gcc
@@ -62,6 +65,4 @@ vim +PlugInstall!
 
 source $HOME/.bashrc # reload configuration
 
-curl -fsSL -o $HOME/usr/bin/cheat https://github.com/cheat/cheat/releases/download/3.0.1/cheat-linux-amd64
-chmod +x $HOME/usr/bin/cheat 
-export PATH="$HOME/usr/bin/cheat:$PATH"
+export PATH="$HOME/usr/bin:$PATH"
