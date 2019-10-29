@@ -1,5 +1,6 @@
-# quick way to get out of current directory ##
+unalias fd # in order to use https://github.com/sharkdp/fd
 
+# quick way to get out of current directory ##
 alias ..='cd ..'
 alias ...='cd ../../../'
 alias ....='cd ../../../../'

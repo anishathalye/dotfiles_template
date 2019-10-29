@@ -15,7 +15,7 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 [ ! -d $HOME/fonts/ ] && git clone git@github.com:powerline/fonts.git && source $HOME/fonts/install.sh
 
 curl -fsSL -o $HOME/usr/bin/cheat https://github.com/cheat/cheat/releases/download/3.0.1/cheat-linux-amd64
-chmod +x $HOME/usr/bin/cheat 
+chmod +x $HOME/usr/bin/cheat
 
 # see https://github.com/Linuxbrew/homebrew-core/issues/955#issuecomment-250151297
 export HOMEBREW_ARCH=core2
@@ -37,6 +37,7 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/lnav ] && brew install lnav
 [ ! -e .linuxbrew/bin/p7zip ] && brew install p7zip
 [ ! -e .linuxbrew/bin/ncdu ] && brew install ncdu
+[ ! -e .linuxbrew/bin/fd ] && brew install fd
 
 
 gem install colorls
