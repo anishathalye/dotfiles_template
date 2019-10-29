@@ -7,6 +7,6 @@
 [submodule "beets/bandcamp"]
 	path = beets/bandcamp
 	url = https://github.com/unrblt/beets-bandcamp
-[submodule "cheat/cheatsheets"]
+[submodule "cheat/community"]
 	path = cheat/community
 	url = https://github.com/cheat/cheatsheets
