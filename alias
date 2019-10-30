@@ -1,4 +1,4 @@
-unalias fd # in order to use https://github.com/sharkdp/fd
+unalias fd 2>/dev/null# in order to use https://github.com/sharkdp/fd
 
 # quick way to get out of current directory ##
 alias ..='cd ..'
