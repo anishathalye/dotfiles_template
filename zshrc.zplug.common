@@ -1,3 +1,10 @@
+# Turns out that compinit is ZSH checking the cached .zcompdump to see if it needs regenerating. The simplest fix is to only do that once a day. Thanks to this comment, we can achieve that pretty easily.
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
+
 # Set up the prompt
 export TERM="xterm-256color"
 export PATH="$HOME/.linuxbrew/bin:$PATH"
@@ -65,7 +72,7 @@ BULLETTRAIN_CONTEXT_SHOW=true
 # pip venv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
-[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
+#[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
 zplug "hchbaw/auto-fu.zsh"
 zplug "gretzky/auto-color-ls"
@@ -74,9 +81,9 @@ zplug "zsh-users/zsh-autosuggestions"
 #zplug "plugins/fasd",  from:oh-my-zsh
 zplug "plugins/command-not-found",  from:oh-my-zsh
 zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
-zplug "plugins/virtualenv",  from:oh-my-zsh
+#zplug "plugins/virtualenv",  from:oh-my-zsh
 zplug "plugins/gitfast",  from:oh-my-zsh
-#zplug "plugins/git",  from:oh-my-zsh
+##zplug "plugins/git",  from:oh-my-zsh
 zplug 'wfxr/forgit'
 zplug "plugins/sudo",  from:oh-my-zsh
 zplug "plugins/autojump",  from:oh-my-zsh

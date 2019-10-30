@@ -73,6 +73,4 @@ add_line_bashrc '$HOME/.linuxbrew/bin/zsh'
 
 vim +PlugInstall!
 
-source $HOME/.bashrc # reload configuration
-
 export PATH="$HOME/usr/bin:$PATH"

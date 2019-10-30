@@ -1,3 +1,5 @@
+#zmodload zsh/zprof  #debug startup time
+
 if [ -d "/usr/share/powerline/bindings/bash" ]; then
     source /usr/share/powerline/bindings/bash/powerline.sh
 fi
@@ -44,3 +46,4 @@ export VIRTUALENVWRAPPER_PYTHON=$HOME/anaconda3/bin/python
 # <<< conda initialize <<<
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#zprof #debug startup time
