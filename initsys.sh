@@ -5,9 +5,9 @@ mkdir -p $HOME/usr/bin
 export PATH="$HOME/usr/bin:$PATH"
 
 #
-if [[ $HOSTNAME == *'-aws-syd|-nec-hob'* ]]; then
-    git clone https://github.com/lbesnard/dotfiles $HOME/dotfiles_lbesnard
-    . $HOME/dotfiles_lbesnard/install
+if [[ $HOSTNAME == *'-aws-syd'* ]]; then
+    git clone https://github.com/lbesnard/dotfiles $HOME/dotfiles
+    . $HOME/dotfiles/install
 fi
 
 # install linuxbrew
@@ -45,6 +45,7 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/ncdu ] && brew install ncdu
 [ ! -e .linuxbrew/bin/fd ] && brew install fd
 [ ! -e .linuxbrew/bin/cmake ] && brew install cmake
+[ ! -e .linuxbrew/bin/tig ] && brew install tig
 
 
 gem install colorls

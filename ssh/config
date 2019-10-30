@@ -6,9 +6,9 @@ ForwardX11 yes
 Host commandpost.aodn.org.au
   ForwardAgent yes
 
-Host nec* nsp* aws* po*
+Host nec* nsp* aws* po* commandpost*
     PermitLocalCommand yes
-    LocalCommand tar ch -C${HOME} .gitconfig .screenrc .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
+    LocalCommand tar ch -C${HOME} .gitconfig .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
 
 Host github.com
     IdentityFile ~/.ssh/id_rsa

@@ -7,7 +7,7 @@ if [ ! -z ${SSH_TTY} ]; then
     source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
     source $DATA_SERVICES_DIR/lib/common/* &>/dev/null;
     compinit $DATA_SERVICES_DIR/profile.d/*;
-    alias sudo_project_officer='sudo -u projectofficer -i'
+    alias sudo_project_officer='PATH=$(getconf PATH); sudo -u projectofficer -i'
 fi
 
 
