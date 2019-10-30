@@ -4,12 +4,6 @@
 mkdir -p $HOME/usr/bin
 export PATH="$HOME/usr/bin:$PATH"
 
-#
-if [[ $HOSTNAME == *'-aws-syd'* ]]; then
-    git clone https://github.com/lbesnard/dotfiles $HOME/dotfiles
-    . $HOME/dotfiles/install
-fi
-
 # install linuxbrew
 [[ ! -f $HOME/.linuxbrew/bin/brew ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 
@@ -20,6 +14,7 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 # install powerline fonts
 [ ! -d $HOME/fonts/ ] && git clone https://github.com/powerline/fonts && source $HOME/fonts/install.sh
 
+# install cheat program
 curl -fsSL -o $HOME/usr/bin/cheat https://github.com/cheat/cheat/releases/download/3.0.1/cheat-linux-amd64
 chmod +x $HOME/usr/bin/cheat
 
@@ -39,7 +34,7 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/the_silver_searcher ] && brew install the_silver_searcher
 [ ! -e .linuxbrew/bin/mc ] && brew install midnight-commander
 [ ! -e .linuxbrew/bin/fasd ] && brew install fasd
-[ ! -e .linuxbrew/bin/pgcli ] && brew install brew tap-pin dbcli/tap && brew install pgcli
+[ ! -e .linuxbrew/bin/pgcli ] && brew install pgcli
 [ ! -e .linuxbrew/bin/lnav ] && brew install lnav
 [ ! -e .linuxbrew/bin/p7zip ] && brew install p7zip
 [ ! -e .linuxbrew/bin/ncdu ] && brew install ncdu
@@ -48,14 +43,16 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/tig ] && brew install tig
 
 
-gem install colorls
-
 # To install useful key bindings and fuzzy completion:
 $(brew --prefix)/opt/fzf/install
-
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
-if cd $HOME/dotfiles; then git pull; else git clone https://github.com/lbesnard/dotfiles.git; fi
+gem install colorls
+
+if cd $HOME/dotfiles; 
+	then git pull; 
+	else git clone https://github.com/lbesnard/dotfiles.git; 
+fi
 . $HOME/dotfiles/install
 
 #curl -fsSL -o .gitconfig https://raw.githubusercontent.com/lbesnard/dotfiles/master/gitconfig
