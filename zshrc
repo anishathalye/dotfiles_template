@@ -42,3 +42,5 @@ fi
 unset __conda_setup
 export VIRTUALENVWRAPPER_PYTHON=$HOME/anaconda3/bin/python
 # <<< conda initialize <<<
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
