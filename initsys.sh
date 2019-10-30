@@ -4,6 +4,12 @@
 mkdir -p $HOME/usr/bin
 export PATH="$HOME/usr/bin:$PATH"
 
+#
+if [[ $HOSTNAME == *'-aws-syd|-nec-hob'* ]]; then
+    git clone https://github.com/lbesnard/dotfiles $HOME/dotfiles_lbesnard
+    . $HOME/dotfiles_lbesnard/install
+fi
+
 # install linuxbrew
 [[ ! -f $HOME/.linuxbrew/bin/brew ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 
@@ -38,6 +44,7 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/p7zip ] && brew install p7zip
 [ ! -e .linuxbrew/bin/ncdu ] && brew install ncdu
 [ ! -e .linuxbrew/bin/fd ] && brew install fd
+[ ! -e .linuxbrew/bin/cmake ] && brew install cmake
 
 
 gem install colorls
