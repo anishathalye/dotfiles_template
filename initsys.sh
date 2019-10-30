@@ -18,7 +18,7 @@ export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
 # install powerline fonts
-[ ! -d $HOME/fonts/ ] && git clone git@github.com:powerline/fonts.git && source $HOME/fonts/install.sh
+[ ! -d $HOME/fonts/ ] && git clone https://github.com/powerline/fonts && source $HOME/fonts/install.sh
 
 curl -fsSL -o $HOME/usr/bin/cheat https://github.com/cheat/cheat/releases/download/3.0.1/cheat-linux-amd64
 chmod +x $HOME/usr/bin/cheat
@@ -57,7 +57,6 @@ $(brew --prefix)/opt/fzf/install
 if cd $HOME/dotfiles; then git pull; else git clone https://github.com/lbesnard/dotfiles.git; fi
 . $HOME/dotfiles/install
 
-#curl -fsSL -o .zshrc https://raw.githubusercontent.com/lbesnard/dotfiles/master/zshrc.zplug.ssh
 #curl -fsSL -o .gitconfig https://raw.githubusercontent.com/lbesnard/dotfiles/master/gitconfig
 
 export SHELL=$HOME/.linuxbrew/bin/zsh
