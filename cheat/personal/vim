@@ -176,3 +176,10 @@ visual + \cu  # uncomment
 
 # nerdtree
  ctrl t
+
+# search for string in files accross folder
+:Ag
+:Rg
+
+# search for files
+:FZF

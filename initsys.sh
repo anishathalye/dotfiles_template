@@ -41,17 +41,20 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/fd ] && brew install fd
 [ ! -e .linuxbrew/bin/cmake ] && brew install cmake
 [ ! -e .linuxbrew/bin/tig ] && brew install tig
-
+[ ! -e .linuxbrew/bin/bat ] && brew install bat
 
 # To install useful key bindings and fuzzy completion:
 $(brew --prefix)/opt/fzf/install
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
+# install nix
+# curl https://nixos.org/nix/install | sh
+
 gem install colorls
 
-if cd $HOME/dotfiles; 
-	then git pull; 
-	else git clone https://github.com/lbesnard/dotfiles.git; 
+if cd $HOME/dotfiles;
+	then git pull;
+	else git clone https://github.com/lbesnard/dotfiles.git;
 fi
 . $HOME/dotfiles/install
 

@@ -1,0 +1,9 @@
+# modify album genre
+beet modify -ay albumartist:'Flight Facilities' genre:Unknown genre=Electronic;
+beet modify -a albumartist:"Tycho" genre:Unknown genre=Ambient
+
+# remove
+beet remove -p Reggae/Errol Dunkley/1972 - Darling Ooh
+
+# list with path
+beet list -a year:0000 -albumartist:Wooden -p
