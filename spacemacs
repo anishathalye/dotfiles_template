@@ -36,7 +36,6 @@ This function should only modify configuration layer settings."
    '(racket
      csv
      osx
-     xml
      ruby
      sql
      yaml
