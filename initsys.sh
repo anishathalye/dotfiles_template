@@ -42,6 +42,7 @@ export HOMEBREW_ARCH=core2
 [ ! -e .linuxbrew/bin/cmake ] && brew install cmake
 [ ! -e .linuxbrew/bin/tig ] && brew install tig
 [ ! -e .linuxbrew/bin/bat ] && brew install bat
+[ ! -e .linuxbrew/bin/ranger ] && brew install ranger
 
 # To install useful key bindings and fuzzy completion:
 $(brew --prefix)/opt/fzf/install

@@ -1,72 +1,47 @@
 - shell:
-    - [mkdir -p ~/Downloads, Creating downloads directory]
-    - [git submodule update --init --recursive "libs", Installing submodules]
-    - [gconftool-2 --set /apps/guake/general/use_vte_titles --type boolean false, fix guake tab resize]
-
-- clean:
-   - "~"
-
+  - [mkdir -p ~/Downloads, Creating downloads directory]
+  - [git submodule update --init --recursive "libs", Installing submodules]
+  - [gconftool-2 --set /apps/guake/general/use_vte_titles --type boolean false, fix
+      guake tab resize]
+- clean: ['~']
 - link:
-    ~/.zsh_alias: zsh_alias
+    ~/.alias: alias
+    ~/.bashrc: {force: true, path: bashrc}
+    ~/.beets_genre: beets/beets_genre
+    ~/.cheat: {create: true, path: cheat/}
+    ~/.cmus/cmus-tmux-statusbar.sh: cmus/cmus-tmux-statusbar.sh
+    ~/.cmus/cmus_add_similar.py: {create: true, path: cmus/cmus_add_similar.py}
+    ~/.complete: complete
+    ~/.config/beets/config.yaml: beets/beets.yaml
+    ~/.config/cheat/conf.yml: {create: true, path: cheat.yml}
+    ~/.config/cmus/autosave: {create: true, path: cmus/autosave}
+    ~/.config/ranger: ranger
+    ~/.config/sublime-text-2: {create: true, path: config/sublime-text-2/}
     ~/.dotfiles: .
     ~/.env: env
-    ~/.alias: alias
-    ~/.complete: complete
     ~/.flake8: flake8
-    ~/.screenrc: screenrc
-    ~/.tmux.conf.local: tmux.conf.local
-    ~/.tmux.conf.ssh: tmux.conf.ssh
-    ~/.zshrc: zshrc
-    ~/.zshrc.zplug.common: zshrc.zplug.common
-    ~/.zshrc.zplug.local: zshrc.zplug.local
-    ~/.zshrc.zplug.ssh: zshrc.zplug.ssh
-    ~/.zshrc.zplug.bfunk: zshrc.zplug.bfunk
-    ~/.initsys.sh: initsys.sh
-    ~/.xsessionrc: xsessionrc
-    ~/.bashrc:
-        force: true
-        path: bashrc
-    ~/.config/cheat/conf.yml:
-        create: true
-        path: cheat.yml
-    ~/.config/sublime-text-2:
-        create: true
-        path: config/sublime-text-2/
+    ~/.gconf/apps/guake: {create: true, force: true, path: gconf/apps/guake/}
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
-    ~/.snes9x:
-        create: true
-        path: snes9x/
-    ~/bin: bin
-    ~/.cheat:
-        create: true
-        path: cheat/
-    ~/.gconf/apps/guake:
-        create: true
-        force: true
-        path: gconf/apps/guake/
+    ~/.gpligrc: {force: true, path: gpligrc}
+    ~/.initsys.sh: initsys.sh
+    ~/.irssi: {create: true, path: irssi}
+    ~/.lynx.cfg: lynx.cfg
+    ~/.ogierc: ogierc
+    ~/.psqlrc: psqlrc
+    ~/.screenrc: screenrc
+    ~/.snes9x: {create: true, path: snes9x/}
     ~/.ssh/config: ssh/config
     ~/.ssh/id_rsa.pub: ssh/id_rsa.pub
     ~/.ssh/id_rsa.pub.pem: ssh/id_rsa.pub.pem
-    ~/.lynx.cfg: lynx.cfg
-    ~/.psqlrc: psqlrc
-    ~/.irssi:
-        create: true
-        path: irssi
-    ~/.config/beets/config.yaml: beets/beets.yaml
-    ~/.cmus/cmus_add_similar.py:
-        create: true
-        path: cmus/cmus_add_similar.py
-    ~/.beets_genre : beets/beets_genre
-    ~/.cmus/cmus-tmux-statusbar.sh: cmus/cmus-tmux-statusbar.sh
-    ~/.config/cmus/autosave:
-        create: true
-        path: cmus/autosave
-    ~/.vimrc:
-        create: true
-        path: vim/vimrc
-        force: true
-    ~/.ogierc: ogierc
-    ~/.gpligrc:
-        force: true
-        path: gpligrc
+    ~/.tmux.conf.local: tmux.conf.local
+    ~/.tmux.conf.ssh: tmux.conf.ssh
+    ~/.vimrc: {create: true, force: true, path: vim/vimrc}
+    ~/.xsessionrc: xsessionrc
+    ~/.zsh_alias: zsh_alias
+    ~/.zshrc: zshrc
+    ~/.zshrc.zplug.bfunk: zshrc.zplug.bfunk
+    ~/.zshrc.zplug.common: zshrc.zplug.common
+    ~/.zshrc.zplug.local: zshrc.zplug.local
+    ~/.zshrc.zplug.ssh: zshrc.zplug.ssh
+    ~/bin: bin
