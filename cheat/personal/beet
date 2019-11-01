@@ -7,3 +7,6 @@ beet remove -p Reggae/Errol Dunkley/1972 - Darling Ooh
 
 # list with path
 beet list -a year:0000 -albumartist:Wooden -p
+
+# fetchart
+beet fetchart albumartist:"RÜFÜS DU SOL"
