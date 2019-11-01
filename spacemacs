@@ -74,7 +74,7 @@ This function should only modify configuration layer settings."
             shell-default-width '45
             shell-default-position 'right)
      ;; spell-checking
-     ;; syntax-checking
+     syntax-checking
      (version-control :variables
                       version-control-diff-tool 'git-gutter
                       version-control-diff-side 'left)
