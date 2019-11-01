@@ -118,13 +118,13 @@ PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-if [ -d "$HOME/.linuxbrew/bin" ] ; then
-    "$HOME/.linuxbrew/bin/zsh"
-fi
 export PATH="$HOME/.linuxbrew/bin:$PATH"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 export SHELL="$HOME/.linuxbrew/bin/zsh"
-$HOME/.linuxbrew/bin/zsh
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+if [ -d "$HOME/.linuxbrew/bin" ] ; then
+    $HOME/.linuxbrew/bin/zsh
+fi
