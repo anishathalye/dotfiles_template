@@ -131,6 +131,9 @@ alias mirrorsite='wget -m -k -K -E -e robots=off'
 # Mirror stdout to stderr, useful for seeing data going through a pipe
 alias peek='tee >(cat 1>&2)'
 
+# Get public url
+alias puburl='curl ipecho.net/plain ; echo'
+
 # Primary aliases
 alias pt='docker-compose exec web-dev bundle exec rspec ${1}'
 alias prc='docker-compose exec web-dev bundle exec rails c'
