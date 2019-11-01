@@ -23,7 +23,7 @@
     ~/.rbenv:
     ~/.rbenv/plugins/ruby-build:
       path: ruby-build
-      create: true
+      create: false
       relink: false
     ~/.shell:
     ~/.spacemacs:
@@ -32,15 +32,16 @@
     ~/.zsh:
     ~/.zshrc:
 
+- create:
+    - ~/.rbenv/plugins/ruby-build
+    - ~/.pyenv/plugins/pyenv-virtualenv
+
 - shell: 
   - git submodule sync --recursive
   # the following have to run after linking ~/.gitconfig
   - git update-submodules
   - >
     git cleanall -f
-    # emacs.d/vendor/
-    # irssi/scripts/vendor/
-    # jupyter/nbextensions/
+    rbenv/plugins/
     shell/plugins/
-    # vim/bundle/
     zsh/plugins/
