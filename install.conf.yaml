@@ -34,7 +34,8 @@
     ~/.ssh/config: ssh/config
     ~/.ssh/id_rsa.pub: ssh/id_rsa.pub
     ~/.ssh/id_rsa.pub.pem: ssh/id_rsa.pub.pem
-    ~/.tmux.conf.local: tmux.conf.local
+    ~/.tmux.conf: tmux.conf
+    ~/.tmux.conf.laptop: tmux.conf.laptop
     ~/.tmux.conf.ssh: tmux.conf.ssh
     ~/.vimrc: {create: true, force: true, path: vim/vimrc}
     ~/.xsessionrc: xsessionrc

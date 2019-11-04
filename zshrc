@@ -11,16 +11,16 @@ source $HOME/.zshrc.zplug.common
 HOSTNAME=$(hostname)
 if [[ $HOSTNAME == *"aws"* ]]; then
     source $HOME/.zshrc.zplug.ssh
-    ln -sf ~/.tmux.conf.ssh ~/.tmux.conf
+    ln -sf ~/.tmux.conf.ssh ~/.tmux.conf.local
 elif [[ $HOSTNAME == *"nec"* ]]; then
     source $HOME/.zshrc.zplug.ssh
-    ln -sf ~/.tmux.conf.ssh ~/.tmux.conf
+    ln -sf ~/.tmux.conf.ssh ~/.tmux.conf.local
 elif [[ $HOSTNAME == *"brownfunk"* ]]; then
     source $HOME/.zshrc.zplug.bfunk
-    ln -sf ~/.tmux.conf.ssh ~/.tmux.conf
+    ln -sf ~/.tmux.conf.ssh ~/.tmux.conf.local
 else
     source $HOME/.zshrc.zplug.local
-    ln -sf ~/.tmux.conf.local ~/.tmux.conf
+    ln -sf ~/.tmux.conf.laptop ~/.tmux.conf.local
 fi
 
 
