@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-## script to initialise a working env remotely or locally
+## script to install a functional working env on the $HOME directory
+## using linuxbrew
+## will install tools such as zsh, tmux, ranger, fzf ... and dotfiles
+
 mkdir -p $HOME/usr/bin
 export PATH="$HOME/usr/bin:$PATH"
 
@@ -14,50 +17,66 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 # install powerline fonts
 [ ! -d $HOME/fonts/ ] && git clone https://github.com/powerline/fonts && source $HOME/fonts/install.sh
 
-# install cheat program
+# install cheat program; see https://github.com/cheat/cheat for more info
 curl -fsSL -o $HOME/usr/bin/cheat https://github.com/cheat/cheat/releases/download/3.0.1/cheat-linux-amd64
 chmod +x $HOME/usr/bin/cheat
 
+# install or upgrade brew packages
+function brew_install_or_upgrade {
+    if brew ls --versions "$1" >/dev/null; then
+        HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade "$1"
+    else
+        HOMEBREW_NO_AUTO_UPDATE=1 brew install "$1"
+    fi
+}
+
 # see https://github.com/Linuxbrew/homebrew-core/issues/955#issuecomment-250151297
 export HOMEBREW_ARCH=core2
-[ ! -f .linuxbrew/bin/gcc ] && brew install gcc
-[ ! -e .linuxbrew/bin/zsh ] && brew install zsh
-[ ! -f .linuxbrew/bin/autojump ] && brew install autojump
-[ ! -e .linuxbrew/bin/tmux ] && brew install tmux
-[ ! -e .linuxbrew/bin/git ] && brew install git
-[ ! -e .linuxbrew/bin/curl ] && brew install curl
-[ ! -e .linuxbrew/bin/vim ] && brew install vim
-[ ! -e .linuxbrew/bin/hub ] && brew install hub
-[ ! -e .linuxbrew/bin/fzf ] && brew install fzf
-[ ! -e .linuxbrew/bin/ripgrep ] && brew install ripgrep
-[ ! -e .linuxbrew/bin/fd ] && brew install fd
-[ ! -e .linuxbrew/bin/the_silver_searcher ] && brew install the_silver_searcher
-[ ! -e .linuxbrew/bin/mc ] && brew install midnight-commander
-[ ! -e .linuxbrew/bin/fasd ] && brew install fasd
-[ ! -e .linuxbrew/bin/pgcli ] && brew install pgcli
-[ ! -e .linuxbrew/bin/lnav ] && brew install lnav
-[ ! -e .linuxbrew/bin/p7zip ] && brew install p7zip
-[ ! -e .linuxbrew/bin/ncdu ] && brew install ncdu
-[ ! -e .linuxbrew/bin/fd ] && brew install fd
-[ ! -e .linuxbrew/bin/cmake ] && brew install cmake
-[ ! -e .linuxbrew/bin/tig ] && brew install tig
-[ ! -e .linuxbrew/bin/bat ] && brew install bat
-[ ! -e .linuxbrew/bin/ranger ] && brew install ranger
 
-# To install useful key bindings and fuzzy completion:
+# install or upgrade pacakge in $HOME directory
+brew_install_or_upgrade gcc
+brew_install_or_upgrade zsh
+brew_install_or_upgrade tmux
+brew_install_or_upgrade autojump
+brew_install_or_upgrade git
+brew_install_or_upgrade curl
+brew_install_or_upgrade vim
+brew_install_or_upgrade hub
+brew_install_or_upgrade fzf
+brew_install_or_upgrade ripgrep
+brew_install_or_upgrade fd
+brew_install_or_upgrade the_silver_searcher
+brew_install_or_upgrade midnight-commander
+brew_install_or_upgrade fasd
+brew_install_or_upgrade pgcli
+brew_install_or_upgrade lnav
+brew_install_or_upgrade p7zip
+brew_install_or_upgrade ncdu
+brew_install_or_upgrade cmake
+brew_install_or_upgrade tig
+brew_install_or_upgrade bat
+brew_install_or_upgrade ranger
+
+
+# To install useful key bindings and fuzzy completion for fzf
 $(brew --prefix)/opt/fzf/install
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
-# install nix
-# curl https://nixos.org/nix/install | sh
-
+# fancy colorls
 gem install colorls
 
-if cd $HOME/dotfiles;
-	then git pull;
-	else git clone https://github.com/lbesnard/dotfiles.git;
+# setup dotfiles
+if cd $HOME/github_repo/dotfiles;then # on local computer
+    git pull
+    export DOTFILES_PATH=$HOME/github_repo/dotfiles
+elif cd $HOME/dotfiles; then # on any $HOME folder, the dotfiles repo should be clone to $HOME/dotfiles
+    git pull;
+    export DOTFILES_PATH=$HOME/dotfiles
+else
+    git clone https://github.com/lbesnard/dotfiles.git;
+    export DOTFILES_PATH=$HOME/dotfiles
 fi
-. $HOME/dotfiles/install
+. $DOTFILES_PATH/install
 
 #curl -fsSL -o .gitconfig https://raw.githubusercontent.com/lbesnard/dotfiles/master/gitconfig
 
@@ -75,6 +94,7 @@ add_line_bashrc 'export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"'
 add_line_bashrc 'export SHELL="$HOME/.linuxbrew/bin/zsh"'
 add_line_bashrc '$HOME/.linuxbrew/bin/zsh'
 
+# update vim
 vim +PlugInstall!
 
 export PATH="$HOME/usr/bin:$PATH"

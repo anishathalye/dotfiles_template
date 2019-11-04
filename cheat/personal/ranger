@@ -1,0 +1,26 @@
+# sort order
+o (then look at options
+
+# run shell command
+s
+
+# select file
+space
+
+# delete file
+space and :delete
+
+# rename file
+:rename
+
+# create few tabs
+tab (2, 3 ,4)
+
+# change between tabs
+tab
+
+# show hidden files
+zh
+
+# fzf integation
+ctrl f
