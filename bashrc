@@ -110,7 +110,6 @@ export HISTFILESIZE=5000
 #[[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
 
 
-
 PATH="$HOME/perl5/bin${PATH+:}${PATH}"; export PATH;
 PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
@@ -118,13 +117,11 @@ PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 
-export PATH="$HOME/.linuxbrew/bin:$PATH"
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-export SHELL="$HOME/.linuxbrew/bin/zsh"
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-if [ -d "$HOME/.linuxbrew/bin" ] ; then
-    $HOME/.linuxbrew/bin/zsh
-fi
+export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH"
+export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
+export SHELL="$HOMEBREW_PREFIX/bin/zsh"
+$HOMEBREW_PREFIX/bin/zsh

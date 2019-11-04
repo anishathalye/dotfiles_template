@@ -11,7 +11,6 @@ set -g default-terminal "screen-256color" # colors!
 setw -g xterm-keys on
 set -s escape-time 0                      # fastest command sequences
 set -sg repeat-time 400                   # increase repeat timeout
-set -s quiet on                           # disable various messages
 
 #set -g prefix2 C-a                        # GNU-Screen compatible prefix
 set -g prefix C-a                        # GNU-Screen compatible prefix

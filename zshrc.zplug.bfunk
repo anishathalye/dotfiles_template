@@ -14,5 +14,5 @@ if command -v tmux>/dev/null; then
     [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach;
 fi
 
-export PATH="$HOME/.linuxbrew/bin:$PATH"
-export SHELL="$HOME/.linuxbrew/bin/zsh"
+export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+export SHELL="$HOMEBREW_PREFIX/bin/zsh"

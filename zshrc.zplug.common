@@ -5,13 +5,20 @@ for dump in ~/.zcompdump(N.mh+24); do
 done
 compinit -C
 
+# check where is installed linuxbrew
+if [[ -d $HOME/.linuxbrew ]]; then
+	export HOMEBREW_PREFIX=$HOME/.linuxbrew
+elif [[ -d /home/linuxbrew ]]; then
+	export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+fi
+
 # Set up the prompt
 export TERM="xterm-256color"
-export PATH="$HOME/.linuxbrew/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export PATH="/opt/MATLAB/R2014b/bin:$PATH"
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-export SHELL=$HOME/.linuxbrew/bin/zsh
+export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH"
+export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
+export SHELL=$HOMEBREW_PREFIX/bin/zsh
 export DEFAULT_USER=loz
 export DISPLAY=:0.0
 
@@ -158,8 +165,8 @@ fi
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
 
 
-test -d $HOME/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
-test -d $HOME/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+test -d $HOMEBREW_PREFIX && PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
+test -d $HOMEBREW_PREFIX && PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
 test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.bash_profile
 echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.profile
 

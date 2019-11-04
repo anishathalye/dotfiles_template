@@ -3,16 +3,30 @@
 ## script to install a functional working env on the $HOME directory
 ## using linuxbrew
 ## will install tools such as zsh, tmux, ranger, fzf ... and dotfiles
+# install manually https://github.com/alexanderjeurissen/ranger_devicons
 
 mkdir -p $HOME/usr/bin
 export PATH="$HOME/usr/bin:$PATH"
 
 # install linuxbrew
-[[ ! -f $HOME/.linuxbrew/bin/brew ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+# if user has sudo privileges, linuxbrew should be installed in /home/linuxbrew
+# Otherwise the install script will automatically setup brew under $HOME/.linuxbrew
+if command -v brew > /dev/null; then
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+fi
 
-export PATH="$HOME/.linuxbrew/bin:$PATH"
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+# check where is installed linuxbrew
+if [[ -d $HOME/.linuxbrew ]]; then
+	export HOMEBREW_PREFIX=$HOME/.linuxbrew
+elif [[ -d /home/linuxbrew ]]; then
+	export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+fi
+
+eval $($HOMEBREW_PREFIX/bin/brew shellenv)
+
+export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH"
+export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
 
 # install powerline fonts
 [ ! -d $HOME/fonts/ ] && git clone https://github.com/powerline/fonts && source $HOME/fonts/install.sh
@@ -35,6 +49,7 @@ export HOMEBREW_ARCH=core2
 
 # install or upgrade pacakge in $HOME directory
 brew_install_or_upgrade gcc
+brew_install_or_upgrade ruby
 brew_install_or_upgrade zsh
 brew_install_or_upgrade tmux
 brew_install_or_upgrade autojump
@@ -80,7 +95,8 @@ fi
 
 #curl -fsSL -o .gitconfig https://raw.githubusercontent.com/lbesnard/dotfiles/master/gitconfig
 
-export SHELL=$HOME/.linuxbrew/bin/zsh
+export SHELL=$HOMEBREW_PREFIX/bin/zsh
+export PATH="$HOME/usr/bin:$PATH"
 
 #add line to bashrc only if not exist
 add_line_bashrc() {
@@ -88,13 +104,12 @@ add_line_bashrc() {
     grep -q "^${line}$" $HOME/.bashrc ||  echo $line >> $HOME/.bashrc
 }
 
-add_line_bashrc 'export PATH="$HOME/.linuxbrew/bin:$PATH"'
-add_line_bashrc 'export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"'
-add_line_bashrc 'export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"'
-add_line_bashrc 'export SHELL="$HOME/.linuxbrew/bin/zsh"'
-add_line_bashrc '$HOME/.linuxbrew/bin/zsh'
+add_line_bashrc "export HOMEBREW_PREFIX=${HOMEBREW_PREFIX}"
+add_line_bashrc "export PATH=${HOMEBREW_PREFIX}/bin:$PATH"
+add_line_bashrc "export MANPATH=${HOMEBREW_PREFIX}/share/man:$MANPATH"
+add_line_bashrc "export INFOPATH=${HOMEBREW_PREFIX}/share/info:$INFOPATH"
+add_line_bashrc "export SHELL=${HOMEBREW_PREFIX}/bin/zsh"
+add_line_bashrc "${HOMEBREW_PREFIX}/bin/zsh"
 
 # update vim
 vim +PlugInstall!
-
-export PATH="$HOME/usr/bin:$PATH"
