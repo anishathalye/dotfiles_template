@@ -15,8 +15,9 @@
     ~/.config/beets/config.yaml: beets/beets.yaml
     ~/.config/cheat/conf.yml: {create: true, path: cheat.yml}
     ~/.config/cmus/autosave: {create: true, path: cmus/autosave}
-    ~/.config/ranger: ranger
+    ~/.config/ranger: {create: true, path: config/ranger/}
     ~/.config/sublime-text-2: {create: true, path: config/sublime-text-2/}
+    ~/.config/tilda: {create: true, path: config/tilda/}
     ~/.dotfiles: .
     ~/.env: env
     ~/.flake8: flake8
