@@ -119,7 +119,13 @@ PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+# check where is installed linuxbrew
+if [[ -d $HOME/.linuxbrew ]]; then
+	export HOMEBREW_PREFIX=$HOME/.linuxbrew
+elif [[ -d /home/linuxbrew ]]; then
+	export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+fi
+
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH"
 export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
