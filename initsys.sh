@@ -81,12 +81,12 @@ $(brew --prefix)/opt/fzf/install
 gem install colorls
 
 # setup dotfiles
-if cd $HOME/github_repo/dotfiles;then # on local computer
+if [ -d $HOME/github_repo/dotfiles ];then # on local computer
+    export DOTFILES_PATH=$HOME/github_repo/dotfiles && cd $DOTFILES_PATH
     git pull
-    export DOTFILES_PATH=$HOME/github_repo/dotfiles
-elif cd $HOME/dotfiles; then # on any $HOME folder, the dotfiles repo should be clone to $HOME/dotfiles
+elif [ -d $HOME/dotfiles >/dev/null ]; then # on any $HOME folder, the dotfiles repo should be clone to $HOME/dotfiles
+    export DOTFILES_PATH=$HOME/dotfiles && cd $DOTFILES_PATH
     git pull;
-    export DOTFILES_PATH=$HOME/dotfiles
 else
     git clone https://github.com/lbesnard/dotfiles.git;
     export DOTFILES_PATH=$HOME/dotfiles
@@ -104,12 +104,12 @@ add_line_bashrc() {
     grep -q "^${line}$" $HOME/.bashrc ||  echo $line >> $HOME/.bashrc
 }
 
-add_line_bashrc "export HOMEBREW_PREFIX=${HOMEBREW_PREFIX}"
-add_line_bashrc "export PATH=${HOMEBREW_PREFIX}/bin:$PATH"
-add_line_bashrc "export MANPATH=${HOMEBREW_PREFIX}/share/man:$MANPATH"
-add_line_bashrc "export INFOPATH=${HOMEBREW_PREFIX}/share/info:$INFOPATH"
-add_line_bashrc "export SHELL=${HOMEBREW_PREFIX}/bin/zsh"
-add_line_bashrc "${HOMEBREW_PREFIX}/bin/zsh"
+#add_line_bashrc "export HOMEBREW_PREFIX=${HOMEBREW_PREFIX}"
+add_line_bashrc "export PATH=$HOMEBREW_PREFIX/bin:$PATH"
+add_line_bashrc "export MANPATH=$HOMEBREW_PREFIX/share/man:$MANPATH"
+add_line_bashrc "export INFOPATH=$HOMEBREW_PREFIX/share/info:$INFOPATH"
+add_line_bashrc "export SHELL=$HOMEBREW_PREFIX/bin/zsh"
+add_line_bashrc "$HOMEBREW_PREFIX/bin/zsh"
 
 # update vim
 vim +PlugInstall!
