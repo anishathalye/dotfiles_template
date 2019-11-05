@@ -24,3 +24,9 @@ zh
 
 # fzf integation
 ctrl f
+
+# delete
+f8
+
+# rename
+cw

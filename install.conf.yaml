@@ -25,6 +25,7 @@
     ~/.gitignore: gitignore
     ~/.gpligrc: {force: true, force: true, path: gpligrc}
     ~/.initsys.sh: initsys.sh
+    ~/.initsys_minimal.sh: initsys_minimal.sh
     ~/.irssi: {create: true, force: true, path: irssi}
     ~/.lynx.cfg: lynx.cfg
     ~/.ogierc: ogierc
