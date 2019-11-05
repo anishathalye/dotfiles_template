@@ -205,21 +205,37 @@ kill_py () {
 }
 
 function pdf2cbz(){
-	PDF_FILE="$1"; shift;
-	
-	PDF_FILE_PATH=`readlink -f "$PDF_FILE"`;
-	PDF_FILE_NAME=`basename "$PDF_FILE_PATH"`;
-	PDF_FILE_DIRNAME=`dirname "$PDF_FILE_PATH"`;
+    PDF_FILE="$1"; shift;
     
-	temp_dir=`mktemp -d`;
+    PDF_FILE_PATH=`readlink -f "$PDF_FILE"`;
+    PDF_FILE_NAME=`basename "$PDF_FILE_PATH"`;
+    PDF_FILE_DIRNAME=`dirname "$PDF_FILE_PATH"`;
+    
+    temp_dir=`mktemp -d`;
 
-	pdfimages -j "$PDF_FILE_PATH" $temp_dir/page;
-	zip -jr "${PDF_FILE_PATH%.*}.cbz" $temp_dir/*;
+    pdfimages -j "$PDF_FILE_PATH" $temp_dir/page;
+    zip -jr "${PDF_FILE_PATH%.*}.cbz" $temp_dir/*;
 
-	mv "$PDF_FILE_PATH" "$PDF_FILE_DIRNAME"/."$PDF_FILE_NAME";
-	rm -Rf $temp_dir;
+    mv "$PDF_FILE_PATH" "$PDF_FILE_DIRNAME"/."$PDF_FILE_NAME";
+    rm -Rf $temp_dir;
 }
 
+function pdf2cbz_all_files_in_dir() {
+    IFS=$(echo -en "\n\b");
+    for f in `find . -maxdepth 1 -type f -name '*.pdf' -not -path '*/\.*' -exec readlink -f {} \;`;do
+        pdf2cbz "$f"; 
+    done;
+}
+
+function dirs2cbz() {
+    IFS=$(echo -en "\n\b");
+    find . -type d -not -empty -print0 | while IFS= read -r -d '' dir; do   
+        if find "$dir" -maxdepth 1 -type f | read f; then 
+            zip "$(basename "$dir").cbz" "$dir"/*; 
+            rm -Rf "$dir" ;  
+        fi; 
+    done
+}
 
 ## bfunk aliases
 export dd1=/srv/dev-disk-by-label-media_center/                                                                                                                                                                                               
