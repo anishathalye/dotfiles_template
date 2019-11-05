@@ -119,6 +119,9 @@ DBHOST='dbprod.emii.org.au'
 DBHOST='10.11.12.13'
 [ -f $HOME/.pgpass ] && alias psql-po="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
 
+DBHOST='harvest-db-aodnstack-lbesnard.dev.aodn.org.au'
+[ -f $HOME/.pgpass ] && alias psql-pipeline-stack="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
+
 
 remove_space_from_filename_recur() {
     find . -depth -name "* *" -execdir rename 's/ /_/g' "{}" \;
