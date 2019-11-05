@@ -17,9 +17,9 @@ fi
 
 # check where is installed linuxbrew
 if [[ -d $HOME/.linuxbrew ]]; then
-	export HOMEBREW_PREFIX=$HOME/.linuxbrew
+    export HOMEBREW_PREFIX=$HOME/.linuxbrew
 elif [[ -d /home/linuxbrew ]]; then
-	export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+    export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 fi
 
 eval $($HOMEBREW_PREFIX/bin/brew shellenv)
@@ -71,6 +71,7 @@ brew_install_or_upgrade cmake
 brew_install_or_upgrade tig
 brew_install_or_upgrade bat
 brew_install_or_upgrade ranger
+brew_install_or_upgrade hightlight
 
 
 # To install useful key bindings and fuzzy completion for fzf
