@@ -1,6 +1,6 @@
 - shell:
   - [mkdir -p ~/Downloads, Creating downloads directory]
-  - [git submodule update --init --recursive "libs", Installing submodules]
+    #- [git submodule update --init --recursive "libs", Installing submodules]
 - clean: ['~']
 - link:
     ~/.alias: alias
