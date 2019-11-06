@@ -47,3 +47,5 @@
 - shell:
     - [chmod -R 0755 ~/.zplug, Making SSH-folder read-only]
     - [chmod -R 0755 ~/.zsh_alias, Making SSH-folder read-only]
+    - [chmod 600 ~/.ssh/config]
+    - [chown $USER ~/.ssh/config]
