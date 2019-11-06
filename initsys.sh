@@ -75,6 +75,7 @@ brew_install_or_upgrade hightlight
 brew_install_or_upgrade dfc
 brew_install_or_upgrade htop
 brew_install_or_upgrade exa
+brew_install_or_upgrade fpp
 
 # To install useful key bindings and fuzzy completion for fzf
 $(brew --prefix)/opt/fzf/install
