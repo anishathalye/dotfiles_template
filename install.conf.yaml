@@ -29,6 +29,7 @@
     ~/.ogierc: ogierc
     ~/.psqlrc: psqlrc
     ~/.screenrc: screenrc
+    ~/.screenlayout: {create: true, force: true, path: screenlayout}
     ~/.snes9x: {create: true, force: true, path: snes9x/}
     ~/.ssh/config: ssh/config
     ~/.ssh/id_rsa.pub: ssh/id_rsa.pub

@@ -88,7 +88,7 @@ alias vpn_bfunk_start='cd $HOME/Nextcloud/Private/ovpns && sudo openvpn lbesnard
 alias ssh_work='ssh `cat ~/Dropbox/work/ip_work`'
 alias ssh_home='ssh `cat ~/Dropbox/work/ip_home`'
 alias vim_plugin_install='vim +VundleClean +PluginInstall +qall'
-alias work_workspace='display_docked & tmux_start'
+alias work_workspace='display_docked & tmux'
 
 alias v='f -e vim' # quick opening files with vim
 
