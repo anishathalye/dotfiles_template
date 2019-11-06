@@ -19,10 +19,10 @@
     ~/.env: env
     ~/.flake8: flake8
     ~/.gconf/apps/guake: {create: true, force: true, path: gconf/apps/guake/}
-    ~/.gitconfig: gitconfig
+    ~/.gitconfig: {create: true, force: true, path: gitconfig}
     ~/.gitignore: gitignore
-    ~/.gpligrc: {force: true, force: true, path: gpligrc}
-    ~/.initsys.sh: initsys.sh
+    ~/.gpligrc: {create: true, force: true, path: gpligrc}
+    ~/.initsys.sh: {create: true, force: true, path: initsys.sh}
     ~/.irssi: {create: true, force: true, path: irssi}
     ~/.lynx.cfg: lynx.cfg
     ~/.ogierc: ogierc
