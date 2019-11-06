@@ -1,7 +1,8 @@
 - shell:
   - [mkdir -p ~/Downloads, Creating downloads directory]
     #- [git submodule update --init --recursive "libs", Installing submodules]
-- clean: ['~']
+  - clean:
+      ~/: {force: true}
 - link:
     ~/.alias: alias
     ~/.bashrc: {force: true, path: bashrc}
