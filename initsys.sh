@@ -31,6 +31,10 @@ export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
 # install powerline fonts
 [ ! -d $HOME/fonts/ ] && git clone https://github.com/powerline/fonts && source $HOME/fonts/install.sh
 
+# install nerd-fonts
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts && curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+
 # install cheat program; see https://github.com/cheat/cheat for more info
 curl -fsSL -o $HOME/usr/bin/cheat https://github.com/cheat/cheat/releases/download/3.0.1/cheat-linux-amd64
 chmod +x $HOME/usr/bin/cheat
