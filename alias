@@ -13,7 +13,7 @@ alias chef_cd="cd $CHEF_DIR"
 alias chef_private_cd="cd $CHEF_DIR/../chef-private"
 alias chef_imos="chef_cd && rm -f private; ln -s ../chef-private private"
 alias chef_po_box_start="chef_sample &&  ./bin/po-box.sh && vagrant ssh po"
-alias chef_provision_laptop_from_remote='cd $DOTFILES; git reset-branch-like-remote; cd $GITHUB_DIR/chef_laptop; git reset-branch-like-remote; $GITHUB_DIR/chef_laptop/install.sh;'
+alias chef_provision_laptop_from_remote='cd $DOTFILES_PATH; git reset-branch-like-remote; cd $GITHUB_DIR/chef_laptop; git reset-branch-like-remote; $GITHUB_DIR/chef_laptop/install.sh;'
 alias chef_provision_laptop_from_local='cd $GITHUB_DIR/chef_laptop; $GITHUB_DIR/chef_laptop/install.sh'
 alias chef_provision_po="chef_cd && vagrant provision po"
 alias chef_sample="chef_cd && rm -f private; ln -s private-sample private"
@@ -21,7 +21,7 @@ alias clear_tmp="find /tmp -mtime +1 -and -not -exec fuser -s {} ';' -and -exec 
 alias copy='| xclip -sel clip'
 alias data_services_cd="cd $CHEF_DIR/src/data-services"
 alias display_docked=". $HOME/.screenlayout/work_screen2_thunder.sh && mouse_setting.sh"
-alias dotfiles="cd $GITHUB_DIR/dotfiles"
+alias dotfiles="cd $DOTFILES_PATH"
 alias egrep='egrep --color=auto'
 alias elinks_google='elinks www.google.com.au'
 alias fgrep='fgrep --color=auto'
@@ -90,15 +90,14 @@ alias tz_utc='TZ="UTC" date'
 alias beet_genre_uniq_update="beet ls -f '\$genre' | sort -u > ~/.beets_genre"
 
 
-if command -v htop > /dev/null; then
-    alias top='htop'
-fi
+if command -v htop > /dev/null; then alias top='htop'; fi
+if command -v dfc > /dev/null; then alias df='dfc'; fi
+
 
 if command -v dig > /dev/null; then
     alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
     alias mygeo="curl -w \"\\n\" http://api.hackertarget.com/geoip/\?q=\`myip\`"
 fi
-
 
 if command -v ncdu > /dev/null; then
     alias gt5=ncdu

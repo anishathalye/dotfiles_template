@@ -72,6 +72,7 @@ brew_install_or_upgrade tig
 brew_install_or_upgrade bat
 brew_install_or_upgrade ranger
 brew_install_or_upgrade hightlight
+brew_install_or_upgrade dfc
 
 
 # To install useful key bindings and fuzzy completion for fzf

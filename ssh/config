@@ -97,14 +97,14 @@ Host po
     UserKnownHostsFile /dev/null
     StrictHostKeyChecking no
     PasswordAuthentication no
-    IdentityFile /home/lbesnard/github_repo/chef/.vagrant/machines/po/virtualbox/private_key
+    IdentityFile $CHEF_DIR/.vagrant/machines/po/virtualbox/private_key
     IdentitiesOnly yes
     LogLevel FATAL
     ForwardAgent yes
 
 # Nectar
 Host nec10
-    Hostname 10-nec-hob.emii.org.au 
+    Hostname 10-nec-hob.emii.org.au
     User lbesnard
     Port 22
     ForwardAgent yes

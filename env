@@ -12,7 +12,6 @@ export LD_LIBRARY_PATH=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/runtime/gl
 #MCR matlab library path
 export XAPPLRESDIR=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/X11/app-defaults
 
-
 # cheat sheet - see github repo https://github.com/chrisallenlane/cheat
 export EDITOR='vim'
 export CHEATCOLORS=true
@@ -22,9 +21,19 @@ export PATH=$HOME/.dotfiles/bin:${PATH}
 export PATH=$HOME/.dotfiles/bin/encryption:$PATH
 export PATH="${HOME}/usr/bin:$PATH"
 
-export GITHUB_DIR=$HOME/github_repo
-export DOTFILES=$HOME/github_repo/dotfiles
 export WWW_HOME='www.duckduckgo.com'
-export CHEF_DIR="$GITHUB_DIR/chef"
-export DATA_SERVICES_DIR="$GITHUB_DIR/chef/src/data-services"
-export PYTHONPATH=$DATA_SERVICES_DIR/lib/python
+
+if [ -d $HOME/github_repo ]; then
+    export GITHUB_DIR=$HOME/github_repo
+    export CHEF_DIR="$GITHUB_DIR/chef"
+    export DATA_SERVICES_DIR="$GITHUB_DIR/chef/src/data-services"
+    export PYTHONPATH=$DATA_SERVICES_DIR/lib/python
+fi
+
+
+# set DOTFILES_PATH env
+if [ -d $HOME/github_repo/dotfiles ];then # on local computer
+    export DOTFILES_PATH=$HOME/github_repo/dotfiles 
+elif [ -d $HOME/dotfiles >/dev/null ]; then # on any $HOME folder, the dotfiles repo should be clone to $HOME/dotfiles
+    export DOTFILES_PATH=$HOME/dotfiles 
+fi

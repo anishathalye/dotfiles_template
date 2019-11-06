@@ -1,8 +1,6 @@
 - shell:
   - [mkdir -p ~/Downloads, Creating downloads directory]
   - [git submodule update --init --recursive "libs", Installing submodules]
-  - [gconftool-2 --set /apps/guake/general/use_vte_titles --type boolean false, fix
-      guake tab resize]
 - clean: ['~']
 - link:
     ~/.alias: alias
@@ -47,3 +45,6 @@
     ~/.zshrc.zplug.local: {force: true, path: zsh/zshrc.zplug.local}
     ~/.zshrc.zplug.ssh: {force: true, path: zsh/zshrc.zplug.ssh}
     ~/bin: bin
+- shell:
+    - [chmod -R 0755 ~/.zplug, Making SSH-folder read-only]
+    - [chmod -R 0755 ~/.zsh_alias, Making SSH-folder read-only]
