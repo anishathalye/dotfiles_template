@@ -4,15 +4,11 @@ if [ -d "/usr/share/powerline/bindings/bash" ]; then
     source /usr/share/powerline/bindings/bash/powerline.sh
 fi
 
-
 source $HOME/.zshrc.zplug.common
 
 # load different zshrc/tmux config file depending on HOSTNAME
 HOSTNAME=$(hostname)
-if [[ $HOSTNAME == *"aws"* ]]; then
-    source $HOME/.zshrc.zplug.ssh
-    ln -sf ~/.tmux.conf.ssh ~/.tmux.conf.local
-elif [[ $HOSTNAME == *"nec"* ]]; then
+if [[ $HOSTNAME == *"aws"* ]] || [[ $HOSTNAME == *"nec"* ]] || [[ $USER == "ec2-user" ]] ; then
     source $HOME/.zshrc.zplug.ssh
     ln -sf ~/.tmux.conf.ssh ~/.tmux.conf.local
 elif [[ $HOSTNAME == *"brownfunk"* ]]; then
@@ -22,7 +18,6 @@ else
     source $HOME/.zshrc.zplug.local
     ln -sf ~/.tmux.conf.laptop ~/.tmux.conf.local
 fi
-
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

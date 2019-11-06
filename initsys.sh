@@ -73,7 +73,8 @@ brew_install_or_upgrade bat
 brew_install_or_upgrade ranger
 brew_install_or_upgrade hightlight
 brew_install_or_upgrade dfc
-
+brew_install_or_upgrade htop
+brew_install_or_upgrade exa
 
 # To install useful key bindings and fuzzy completion for fzf
 $(brew --prefix)/opt/fzf/install

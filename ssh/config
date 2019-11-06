@@ -15,7 +15,7 @@ Host geoserver-stack
     hostname geoserver-aodnstack-lbesnard.dev.aodn.org.au
     ForwardAgent yes
     PermitLocalCommand yes
-    LocalCommand tar ch -C${HOME} .gitconfig .initsys_minimal.sh | ssh -o PermitLocalCommand=no %n "tar mx -C/home/ec2-user"
+    LocalCommand tar ch -C${HOME} .gitconfig .initsys.sh .initsys_minimal.sh | ssh -o PermitLocalCommand=no %n "tar mx -C/home/ec2-user"
 
 Host github.com
     IdentityFile ~/.ssh/id_rsa
