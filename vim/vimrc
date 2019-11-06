@@ -15,6 +15,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+set encoding=utf-8
 
 call plug#begin('~/.vim/plugged')
 
