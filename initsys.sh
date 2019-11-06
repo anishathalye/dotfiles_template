@@ -76,6 +76,7 @@ brew_install_or_upgrade dfc
 brew_install_or_upgrade htop
 brew_install_or_upgrade exa
 brew_install_or_upgrade fpp
+brew_install_or_upgrade openssh # in order to have latest version => SetEnv
 
 # To install useful key bindings and fuzzy completion for fzf
 $(brew --prefix)/opt/fzf/install
