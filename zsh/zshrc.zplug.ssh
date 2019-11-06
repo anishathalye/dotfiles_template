@@ -5,7 +5,7 @@ if [ -d /mnt/ebs/data-services ] ;then
     source /mnt/ebs/data-services/env &>/dev/null;
 fi
 
-if [ ! -z ${SSH_TTY} ]; then
+if [ ! -z ${SSH_TTY} ] && [ ! -z $DATA_SERVICES_DIR ]; then
     source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
     source $DATA_SERVICES_DIR/lib/common/* &>/dev/null;
     compinit $DATA_SERVICES_DIR/profile.d/*;
