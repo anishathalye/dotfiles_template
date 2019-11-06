@@ -19,6 +19,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 "--------------------------------------------------
+Plug 'ervandew/supertab'
 Plug 'gkapfham/vim-vitamin-onec'
 Plug 'tmhedberg/SimpylFold'
 Plug 'croaker/mustang-vim'
@@ -44,7 +45,6 @@ Plug 'yann2192/vim-vitamins'
 Plug 'davidhalter/jedi-vim'
 Plug 'wincent/Command-T'
 Plug 'jnwhiteh/vim-golang'
-Plug 'ervandew/supertab'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'matze/vim-move'
