@@ -1,7 +1,9 @@
 BULLETTRAIN_VIRTUALENV_PREFIX=""
 BULLETTRAIN_VIRTUALENV_BG=30
 
-source /mnt/ebs/data-services/env &>/dev/null;
+if [ -d /mnt/ebs/data-services ] ;then
+    source /mnt/ebs/data-services/env &>/dev/null;
+fi
 
 if [ ! -z ${SSH_TTY} ]; then
     source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
