@@ -18,13 +18,12 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-
 "--------------------------------------------------
 Plug 'gkapfham/vim-vitamin-onec'
 Plug 'tmhedberg/SimpylFold'
 Plug 'croaker/mustang-vim'
 Plug 'vim-scripts/indentpython.vim'
-Plug 'Valloric/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'

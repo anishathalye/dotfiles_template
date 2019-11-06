@@ -1,1 +1,0 @@
-../../../libs/github/php.vim/syntax/php.vim
