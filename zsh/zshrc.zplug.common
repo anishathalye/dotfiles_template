@@ -82,7 +82,6 @@ export PROJECT_HOME=$HOME/Devel
 #[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
 zplug "hchbaw/auto-fu.zsh"
-zplug "gretzky/auto-color-ls"
 zplug "chrissicool/zsh-256color"
 zplug "zsh-users/zsh-autosuggestions"
 #zplug "plugins/fasd",  from:oh-my-zsh
@@ -103,6 +102,11 @@ zplug "plugins/vagrant",  from:oh-my-zsh
 zplug "soimort/translate-shell"
 zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "rummik/zsh-tailf"
+
+path_to_colorls=$(which colorls 2>/dev/null)
+if [ -x "$path_to_colorls" ] ; then
+    zplug "gretzky/auto-color-ls"
+fi
 
 # Load the theme.
 setopt prompt_subst # Make sure propt is able to be generated properly.
