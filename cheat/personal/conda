@@ -1,0 +1,6 @@
+# conda environments:
+ conda env list
+ conda info --envs
+
+# activate
+ conda activate py2.7

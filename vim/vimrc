@@ -29,7 +29,7 @@ Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'nvie/vim-flake8'
+"Plug 'nvie/vim-flake8'
 Plug 'jnurmine/Zenburn'
 Plug 'altercation/vim-colors-solarized'
 Plug 'jistr/vim-nerdtree-tabs'
@@ -437,7 +437,7 @@ command! PrettyXML call DoPrettyXML()
 
 " python flake8 F7
 let g:flake8_show_in_gutter=1  " show
-autocmd BufWritePost *.py call Flake8()
+"autocmd BufWritePost *.py call Flake8()
 
 " markdown
 let g:vim_markdown_folding_disabled = 1

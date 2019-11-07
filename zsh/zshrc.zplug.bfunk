@@ -11,7 +11,7 @@ compctl -K _cmpl_inputlog input_log
 
 
 if command -v tmux>/dev/null; then
-    [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach;
+    tmux_start
 fi
 
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"

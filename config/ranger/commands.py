@@ -1,4 +1,19 @@
 from ranger.api.commands import Command
+from collections import deque
+
+
+class rcomics(Command):
+    """
+    :rename_comics by appending the folder name to the start of the selected files
+    """
+    def execute(self):
+        import os
+        files = [f.relative_path for f in self.fm.thistab.get_selection()]
+
+        for file in files:
+            album_dir = os.path.basename(os.path.dirname(os.path.realpath(file)))
+            os.rename(file, '{prefix} - {filename}'.format(prefix=album_dir,
+                                                           filename=file))
 
 
 class fzf_select(Command):
@@ -31,7 +46,7 @@ class fzf_select(Command):
             else:
                 self.fm.select_file(fzf_file)
 
-from collections import deque
+
 fd_deq = deque()
 class fd_search(Command):
     """:fd_search [-d<depth>] <query>
@@ -132,11 +147,10 @@ from ranger.gui.colorscheme import ColorScheme
 from ranger.gui.color import *
 
 class Default(ColorScheme):
-	def use(self, context):
-		fg, bg, attr = default_colors
-
-		if context.reset:
-			return default_colors
+    def use(self, context):
+        fg, bg, attr = default_colors
+        if context.reset:
+            return default_colors
 
 		elif context.in_browser:
 			if context.selected:
@@ -233,4 +247,3 @@ class Default(ColorScheme):
 				attr |= normal
 
 		return fg, bg, attr
-

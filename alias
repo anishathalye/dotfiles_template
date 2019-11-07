@@ -218,12 +218,13 @@ kill_py () {
 }
 
 function pdf2cbz(){
+    IFS=$(echo -en "\n\b");
     PDF_FILE="$1"; shift;
-    
+
     PDF_FILE_PATH=`readlink -f "$PDF_FILE"`;
     PDF_FILE_NAME=`basename "$PDF_FILE_PATH"`;
     PDF_FILE_DIRNAME=`dirname "$PDF_FILE_PATH"`;
-    
+
     temp_dir=`mktemp -d`;
 
     pdfimages -j "$PDF_FILE_PATH" $temp_dir/page;
@@ -249,6 +250,13 @@ function dirs2cbz() {
         fi; 
     done
 }
+
+function append_folder_name_as_prefix_to_file(){
+    IFS=$(echo -en "\n\b");
+    local file="$1"; shift;
+    mv "${file}" "${PWD##*/} - ${file}"
+}
+alias comic_add_serie_name='append_folder_name_as_prefix_to_file'
 
 ## bfunk aliases
 export dd1=/srv/dev-disk-by-label-media_center/                                                                                                                                                                                               

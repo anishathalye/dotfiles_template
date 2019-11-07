@@ -12,7 +12,7 @@ export PATH="$HOME/usr/bin:$PATH"
 # if user has sudo privileges, linuxbrew should be installed in /home/linuxbrew
 # Otherwise the install script will automatically setup brew under $HOME/.linuxbrew
 if ! [ -x "$(command -v brew)" ]; then
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 fi
 
 # check where is installed linuxbrew
@@ -81,6 +81,7 @@ brew_install_or_upgrade htop
 brew_install_or_upgrade exa
 brew_install_or_upgrade fpp
 brew_install_or_upgrade openssh # in order to have latest version => SetEnv
+brew_install_or_upgrade pyenv-virtualenv
 
 # To install useful key bindings and fuzzy completion for fzf
 $(brew --prefix)/opt/fzf/install

@@ -7,9 +7,9 @@ compinit -C
 
 # check where is installed linuxbrew
 if [[ -d $HOME/.linuxbrew ]]; then
-	export HOMEBREW_PREFIX=$HOME/.linuxbrew
+    export HOMEBREW_PREFIX=$HOME/.linuxbrew
 elif [[ -d /home/linuxbrew ]]; then
-	export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+    export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 fi
 
 # Set up the prompt
@@ -42,7 +42,6 @@ fi
 # Essential
 source ~/.zplug/init.zsh
 
-
 # completion
 _cmpl_cheat() {
 reply=($(cheat -l | cut -d' ' -f1))
@@ -60,7 +59,6 @@ COMPLETION_WAITING_DOTS="true"
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
 
-
 # tmux plugin settings
 # this always starts tmux
 ZSH_TMUX_AUTOSTART=true
@@ -70,11 +68,17 @@ ZSH_TMUX_AUTOQUIT=false
 
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-BULLETTRAIN_VIRTUALENV_BG=30
-BULLETTRAIN_RUBY_SHOW=false
 
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+setopt prompt_subst # Make sure propt is able to be generated properly.
+zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, defer:3 # defer until other plugins like oh-my-zsh is loaded
+
+#BULLETTRAIN_VIRTUALENV_BG=30
+BULLETTRAIN_RUBY_SHOW=false
+#BULLETTRAIN_CONTEXT_SHOW=true
 BULLETTRAIN_PROMPT_ORDER=(time dir virtualenv git)
-BULLETTRAIN_CONTEXT_SHOW=true
 
 # pip venv
 export WORKON_HOME=$HOME/.virtualenvs
@@ -87,7 +91,7 @@ zplug "zsh-users/zsh-autosuggestions"
 #zplug "plugins/fasd",  from:oh-my-zsh
 zplug "plugins/command-not-found",  from:oh-my-zsh
 zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
-#zplug "plugins/virtualenv",  from:oh-my-zsh
+zplug "plugins/virtualenv",  from:oh-my-zsh
 zplug "plugins/gitfast",  from:oh-my-zsh
 ##zplug "plugins/git",  from:oh-my-zsh
 zplug 'wfxr/forgit'
@@ -102,6 +106,7 @@ zplug "plugins/vagrant",  from:oh-my-zsh
 zplug "soimort/translate-shell"
 zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "rummik/zsh-tailf"
+zplug "esc/conda-zsh-completion"
 
 path_to_colorls=$(which colorls 2>/dev/null)
 if [ -x "$path_to_colorls" ] ; then
@@ -109,8 +114,6 @@ if [ -x "$path_to_colorls" ] ; then
 fi
 
 # Load the theme.
-setopt prompt_subst # Make sure propt is able to be generated properly.
-zplug "caiogondim/bullet-train-oh-my-zsh-theme", use:bullet-train.zsh-theme
 
 
 if ! zplug check --verbose; then
@@ -168,8 +171,6 @@ fi
 
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
 
-
-test -d $HOMEBREW_PREFIX && PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
 test -d $HOMEBREW_PREFIX && PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
 test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.bash_profile
 echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.profile
@@ -184,5 +185,3 @@ j() {
 
 [ -f ~/.cheat/fzf.bash ] && source ~/.cheat/fzf.bash
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
