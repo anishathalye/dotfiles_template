@@ -257,6 +257,11 @@ function append_folder_name_as_prefix_to_file(){
     mv "${file}" "${PWD##*/} - ${file}"
 }
 alias comic_add_serie_name='append_folder_name_as_prefix_to_file'
+# docker compose
+alias dcp='docker-compose -f /opt/docker-compose.yml '
+alias dcpull='docker-compose -f /opt/docker-compose.yml pull --parallel'
+alias dclogs='docker-compose -f /opt/docker-compose.yml logs -tf --tail="50" '
+alias dtail='docker logs -tf --tail="50" "$@"'
 
 ## bfunk aliases
 export dd1=/srv/dev-disk-by-label-media_center/                                                                                                                                                                                               
