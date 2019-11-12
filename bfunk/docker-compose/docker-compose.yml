@@ -1,0 +1,348 @@
+version: "2"
+services:
+  mariadb:
+    image: linuxserver/mariadb
+    container_name: mariadb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
+      - TZ=$TZ
+      - MYSQL_DATABASE=USER_DB_NAME #optional
+      - MYSQL_USER=MYSQL_USER #optional
+      - MYSQL_PASSWORD=DATABASE_PASSWORD #optional
+      #- REMOTE_SQL=http://URL1/your.sql,https://URL2/your.sql #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/mariadb:/config
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+##################
+  jellyfin:
+    image: linuxserver/jellyfin
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - UMASK_SET=<022> #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/jellyfin:/config
+      - ${TV_SHOWS_PATH}:/data/tvshows:ro
+      - $MOVIES_PATH:/data/movies:ro
+      - $MOVIES_FR_PATH:/data/movies_french:ro
+      - $MOVIES_SPORT_PATH:/data/movies_adventure_sports:ro
+      - $YOGA_GLO_PATH:/data/yoga_glo:ro
+      - $GUITAR_VIDEOS_PATH:/data/guitar:ro
+    #volumes:
+      #- </path for transcoding>:/transcode #optional
+    ports:
+      - 8096:8096
+    #ports:
+    #  - 8920:8920 #optional
+    devices:
+      - /dev/dri:/dev/dri #optional
+    restart: unless-stopped
+###########################################
+  airsonic:
+    image: linuxserver/airsonic
+    container_name: airsonic
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - $DOCKER_CONFIG_PATH/airsonic:/config
+      - $MUSIC_PATH:/music:ro
+        #- $PLAYLIST_PATH:/playlists
+      - $PODCASTS_PATH:/podcasts
+    ports:
+      - 8080:4040
+    restart: unless-stopped
+######################################
+  calibre:
+    image: linuxserver/calibre
+    container_name: calibre
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      #- GUAC_USER=admin
+      #- GUAC_PASS=admin
+    volumes:
+      - $DOCKER_CONFIG_PATH/calibre:/config
+    ports:
+      - 7080:8080
+      - 7081:8081
+    restart: unless-stopped
+######################################
+  calibre-web:
+    image: linuxserver/calibre-web
+    container_name: calibre-web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - DOCKER_MODS=linuxserver/calibre-web:calibre
+    volumes:
+      - $DOCKER_CONFIG_PATH/calibre-web:/config
+      - $EBOOKS_PATH:/books:ro
+    ports:
+      - 8083:8083
+    restart: unless-stopped
+##############
+  ubooquity:
+    image: linuxserver/ubooquity
+    container_name: ubooquity
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - MAXMEM=1024
+    volumes:
+      - $DOCKER_CONFIG_PATH/ubooquity:/config
+      - $EBOOKS_PATH:/books:ro
+      - $COMICS_PATH:/comics:ro
+      - $SERVER_PATH:/files:ro
+    ports:
+      - 2202:2202
+      - 2203:2203
+    restart: unless-stopped
+#####################################
+  organizr:
+    image: linuxserver/organizr
+    container_name: organizr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - $DOCKER_CONFIG_PATH/organizr:/config
+    ports:
+      - 9983:80
+    restart: unless-stopped
+#####################################
+  fleet:
+    image: linuxserver/fleet
+    container_name: fleet
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - fleet_admin_authentication_type=DATABASE
+      - fleet_database_url=jdbc:mariadb://127.0.0.1:3306/fleet
+      - fleet_database_username=$DB_FLEET_USER
+      - fleet_database_password=$DB_FLEET_PASSWORD
+      - fleet_dockerhub_username=dockerhub_user
+      - fleet_dockerhub_password=password
+      - fleet_refresh_interval=60 #optional
+      - fleet_admin_secret=randomstring #optional
+      - fleet_admin_username=admin #optional
+      - fleet_admin_password=secretpassword #optional
+      - fleet_skip_sync_on_startup=true #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/fleet:/config
+    ports:
+      - 9999:8080
+    restart: unless-stopped
+#############################
+  nextcloud:
+    image: linuxserver/nextcloud
+    container_name: nextcloud
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+    volumes:
+      - $DOCKER_CONFIG_PATH/nextcloud:/config
+      - $NEXTCLOUD_DATA_PATH:/data
+    ports:
+      - 9393:443
+    restart: unless-stopped
+###################
+  pydio:
+    image: linuxserver/pydio
+    container_name: pydio
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+    volumes:
+      - $DOCKER_CONFIG_PATH/pydio:/config
+      - $SERVER_PATH:/data
+    ports:
+      - 7575:443
+    restart: unless-stopped
+##################
+  piwigo:
+    image: linuxserver/piwigo
+    container_name: piwigo
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+    volumes:
+      - $PIWIGO_CONFIG_PATH/piwigo:/config
+    ports:
+      - 8282:80
+    restart: unless-stopped
+####################
+# web indexer
+  #gossa-server:
+    #image: pldubouilh/gossa
+    #container_name: gossa
+    #restart: always
+    #ports:
+      #- 8001:8001
+    #volumes:
+  #      - $SERVER_PATH:/shared:ro
+#############
+  glance:
+    image: nicolargo/glances:latest-alpine
+    restart: always
+    pid: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - "GLANCES_OPT=-w"
+    ports:
+      - 61208:61208
+##############
+  lidarr:
+    image: linuxserver/lidarr
+    container_name: lidarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - UMASK_SET=022 #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/lidarr:/config
+      - $MUSIC_PATH:/music:ro
+      - $TORRENT_PATH/LIDARR_DL:/downloads
+    ports:
+      - 8686:8686
+    restart: unless-stopped
+#############
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - UMASK_SET=022 #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/radarr:/config
+      - $MOVIES_ENG_PATH:/movies:ro
+      - $TORRENT_PATH/RADARR_DL:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+##########################
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - UMASK_SET=022 #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/sonarr:/config
+      - ${TV_SHOWS_PATH}:/tv
+      - $TORRENT_PATH/SONARR_DL:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+#####################
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - RUN_OPTS=run options here #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/jackett:/config
+      - $TORRENT_PATH:/downloads
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+####################
+  couchpotato:
+    image: linuxserver/couchpotato
+    container_name: couchpotato
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - UMASK_SET=022
+    volumes:
+      - $DOCKER_CONFIG_PATH/couchpotato:/config
+      - $TORRENT_PATH/COUCHPOTATO_DL:/downloads
+      - $MOVIES_ENG_PATH:/movies:ro
+    ports:
+      - 5050:5050
+    restart: unless-stopped
+###################
+  booksonic:
+    image: linuxserver/booksonic
+    container_name: booksonic
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - CONTEXT_PATH=url-base
+    volumes:
+      - $DOCKER_CONFIG_PATH/booksonic:/config
+      - $AUDIOBOOKS_PATH:/audiobooks:ro
+      - $PODCASTS_PATH:/podcasts:ro
+      #- /path/to/othermedia:/othermedia
+    ports:
+      - 4040:4040
+    restart: unless-stopped
+##########################
+  h5ai:
+    image: awesometic/h5ai
+    container_name: h5ai
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+    volumes:
+      - $DOCKER_CONFIG_PATH/h5ai:/config
+      - $SERVER_PATH:/h5ai:ro
+    ports:
+      - 4344:80
+    restart: unless-stopped
+################
+  pyload:
+    image: linuxserver/pyload
+    container_name: pyload
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+    volumes:
+      - $DOCKER_CONFIG_PATH/pyload:/config
+      - $TORRENT_PATH/PYLOAD:/downloads
+    ports:
+      - 8000:8000
+      - 7227:7227 #optional
+    restart: unless-stopped
+######################
+  headphones:
+    image: linuxserver/headphones
+    container_name: headphones
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - $DOCKER_CONFIG_PATH/headphones:/config
+      - $TORRENT_PATH/MUSIC:/downloads
+      - $MUSIC_PATH:/music:ro
+    ports:
+      - 8181:8181
+    restart: unless-stopped
