@@ -389,3 +389,11 @@ services:
    environment:
      - RSS_URL=http://.../xxxxx.rss
 ########################3
+  filebot:
+    image: jlesage/filebot
+    build: .
+    ports:
+      - "5800:5800"
+    volumes:
+      - $DOCKER_CONFIG_PATH/filebot:/config:rw"
+      - $TORRENT_PATH/FILEBOT:/storage:rw"
