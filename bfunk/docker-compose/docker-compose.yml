@@ -402,5 +402,6 @@ services:
     image: genomehubs/h5ai
     ports:
       - 4344:80
-    volumnes:
+    volumes:
       - $DOCKER_CONFIG_PATH/h5ai2:/conf
+      - $SERVER_PATH:/var/www/data
