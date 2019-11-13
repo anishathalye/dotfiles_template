@@ -391,9 +391,8 @@ services:
 ########################3
   filebot:
     image: jlesage/filebot
-    build: .
     ports:
       - "5800:5800"
     volumes:
-      - $DOCKER_CONFIG_PATH/filebot:/config:rw"
-      - $TORRENT_PATH/FILEBOT:/storage:rw"
+      - $DOCKER_CONFIG_PATH/filebot:/config
+      - $TORRENT_PATH/FILEBOT:/storage
