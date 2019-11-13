@@ -312,7 +312,7 @@ services:
       - TZ=$TZ
     volumes:
       - $DOCKER_CONFIG_PATH/h5ai:/config
-      - $SERVER_PATH:/h5ai:ro
+      - $SERVER_PATH:/h5ai
     ports:
       - 4344:80
     restart: unless-stopped
