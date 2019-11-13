@@ -53,6 +53,7 @@ export HOMEBREW_ARCH=core2
 
 # install or upgrade pacakge in $HOME directory
 brew_install_or_upgrade gcc
+brew_install_or_upgrade ruby-install
 brew_install_or_upgrade ruby
 brew_install_or_upgrade zsh
 brew_install_or_upgrade tmux
