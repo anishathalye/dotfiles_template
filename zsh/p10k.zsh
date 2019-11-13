@@ -171,6 +171,7 @@
   # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
   # really need it.
   typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 }
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
