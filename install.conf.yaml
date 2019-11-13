@@ -4,6 +4,7 @@
   - clean:
       ~/: {force: true}
 - link:
+    ~/bfunk-docker-compose: {create: true, path: bfunk/docker-compose/}
     ~/.alias: alias
     ~/.bashrc: {force: true, path: bashrc}
     ~/.cheat: {create: true, force: true, path: cheat/}
