@@ -46,7 +46,6 @@
 
   # Right prompt segments.
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-      ip
       public_ip
       ip
       custom_wifi_signal
