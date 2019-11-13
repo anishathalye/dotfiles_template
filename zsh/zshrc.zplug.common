@@ -32,7 +32,6 @@ export FZF_DEFAULT_OPTS="\
 setopt nosharehistory
 setopt interactivecomments
 
-
 # check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
@@ -59,32 +58,16 @@ COMPLETION_WAITING_DOTS="true"
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
 
-# tmux plugin settings
-# this always starts tmux
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOSTART_ONCE=true
-ZSH_TMUX_FIXTERM=true
-ZSH_TMUX_AUTOQUIT=false
-
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-
-setopt prompt_subst # Make sure propt is able to be generated properly.
-zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, defer:3 # defer until other plugins like oh-my-zsh is loaded
-
-#BULLETTRAIN_VIRTUALENV_BG=30
-BULLETTRAIN_RUBY_SHOW=false
-#BULLETTRAIN_CONTEXT_SHOW=true
-BULLETTRAIN_PROMPT_ORDER=(time dir virtualenv git)
 
 # pip venv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 #[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
+setopt prompt_subst # Make sure prompt is able to be generated properly.
+zplug romkatv/powerlevel10k, as:theme, depth:1
 zplug "hchbaw/auto-fu.zsh"
 zplug "chrissicool/zsh-256color"
 zplug "zsh-users/zsh-autosuggestions"
@@ -110,14 +93,13 @@ zplug "esc/conda-zsh-completion"
 zplug "plugins/docker-compose",  from:oh-my-zsh
 zplug "plugins/docker",  from:oh-my-zsh
 zplug "plugins/systemd",   from:oh-my-zsh
+zplug "plugins/tmux",   from:oh-my-zsh
+
 
 path_to_colorls=$(which colorls 2>/dev/null)
 if [ -x "$path_to_colorls" ] ; then
     zplug "gretzky/auto-color-ls"
 fi
-
-# Load the theme.
-
 
 if ! zplug check --verbose; then
     zplug install
@@ -125,6 +107,13 @@ fi
 
 # source plugins and add commands to the PATH
 zplug load
+
+# tmux plugin settings
+# this always starts tmux
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART_ONCE=true
+ZSH_TMUX_FIXTERM=true
+ZSH_TMUX_AUTOQUIT=false
 
 # aliases
 . ~/.zplug/repos/robbyrussell/oh-my-zsh/plugins/common-aliases/common-aliases.plugin.zsh

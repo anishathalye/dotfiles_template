@@ -108,6 +108,8 @@ if command -v dfc > /dev/null; then alias df='dfc'; fi
 if command -v dig > /dev/null; then
     alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
     alias mygeo="curl -w \"\\n\" http://api.hackertarget.com/geoip/\?q=\`myip\`"
+else
+    alias myip="curl ifconfig.me"
 fi
 
 if command -v ncdu > /dev/null; then
@@ -270,11 +272,16 @@ alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias split_flac_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.flac` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'           
 alias split_ape_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.ape` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'             
 alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.vw` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'               
-alias start_vpn_torrent='sudo systemctl start vpn_access.service; sudo service transmission-daemon start; myip'                                                                                                                               
-alias stop_vpn_torrent='sudo service transmission-daemon stop; sudo systemctl stop vpn_access.service; myip'                                                                                                                                  
+alias start_vpn_torrent='sudo systemctl start vpn_access.service; sudo service transmission-daemon start; myip'
+alias stop_vpn_torrent='sudo service transmission-daemon stop; sudo systemctl stop vpn_access.service; myip'
 alias nginx_maintenance='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/omv_maintenance /etc/nginx/sites-enabled/omv_maintenance && sudo service nginx restart;'                                              
 alias nginx_organizr='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/organizr /etc/nginx/sites-enabled/organizr && sudo service nginx restart;'                                                               
 alias filebot_movie_rename_dryrun='IFS=$(echo -en "\n\b"); for dir in `find -type d`; do filebot -rename $dir --db TheMovieDB --format "/export/torrent/{plex}" --action test; done'                                                          
 alias filebot_movie_rename_move='IFS=$(echo -en "\n\b"); for dir in `find -type d`; do filebot -rename $dir --db TheMovieDB --format "/export/torrent/{plex}" --action move; done'                                                            
-alias filebot_tvshows_rename_dryrun='filebot -rename -r -non-strict . --db TheTVDB --format "/export/torrent/{plex}" --action test'                                                                                                           
+alias filebot_tvshows_rename_dryrun='filebot -rename -r -non-strict . --db TheTVDB --format "/export/torrent/{plex}" --action test'
 alias filebot_tvshows_rename_move='filebot -rename -r -non-strict . --db TheTVDB --format "/export/torrent/{plex}" --action move'
+
+AIRSONIC_DATA_DIR=/var/airsonic
+NEXCTLOUD_DATA_DIR=/srv/dev-disk-by-label-WD_data_10tb/nexctloud
+alias backup_airsonic='sudo system airsonic stop && tar -cvf "/tmp/airsonic_$(date +%F_%R).tar" /var/airsonic && sudo system airsonic restart'
+alias backup_nextcloud='sudo docker stop nextcloud && tar -cvf "/tmp/nextcloud_$(date +%F_%R).tar" $NEXCTLOUD_DATA_DIR &&; sudo docker start service nextcloud'

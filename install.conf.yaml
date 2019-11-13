@@ -45,6 +45,7 @@
     ~/.zshrc.zplug.common: {force: true, path: zsh/zshrc.zplug.common}
     ~/.zshrc.zplug.local: {force: true, path: zsh/zshrc.zplug.local}
     ~/.zshrc.zplug.ssh: {force: true, path: zsh/zshrc.zplug.ssh}
+    ~/.p10k.zsh: {force: true, path: zsh/p10k.zsh}
     ~/bin: bin
 - shell:
     - [chmod -R 0755 ~/.zplug, Making SSH-folder read-only]

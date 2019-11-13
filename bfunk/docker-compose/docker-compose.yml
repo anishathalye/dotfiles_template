@@ -346,3 +346,46 @@ services:
     ports:
       - 8181:8181
     restart: unless-stopped
+#######################
+  transmission:
+   image: haugene/transmission-openvpn
+   cap_add:
+     - NET_ADMIN
+   devices:
+     - /dev/net/tun
+   restart: always
+   ports:
+     - "9091:9091"
+     - "8888:8888"
+   dns:
+     - 8.8.8.8
+     - 8.8.4.4
+   volumes:
+     - /etc/localtime:/etc/localtime:ro
+     - $TORRENT_PATH:/data
+   environment:
+     - TRANSMISSION_INCOMPLETE_DIR=/data/transmission/incomplete
+     - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
+     - TRANSMISSION_BLOCKLIST_ENABLED=true
+     - TRANSMISSION_BLOCKLIST_URL=http://john.bitsurge.net/public/biglist.p2p.gz
+     - OPENVPN_PROVIDER=PIA
+     - OPENVPN_USERNAME=$PIA_USERNAME
+     - OPENVPN_PASSWORD=$PIA_PASSWORD
+     - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+     - LOCAL_NETWORK=10.1.1.0/24
+  proxy:
+   image: haugene/transmission-openvpn-proxy
+   links:
+     - transmission
+   ports:
+     - 7680:8080
+   volumes:
+     - /etc/localtime:/etc/localtime:ro
+
+  rss:
+   image: haugene/transmission-rss
+   links:
+     - transmission
+   environment:
+     - RSS_URL=http://.../xxxxx.rss
+########################3
