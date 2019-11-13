@@ -364,6 +364,7 @@ services:
      - /etc/localtime:/etc/localtime:ro
      - $TORRENT_PATH:/data
    environment:
+     - TRANSMISSION_WEB_UI=combustion
      - TRANSMISSION_INCOMPLETE_DIR=/data/transmission/incomplete
      - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
      - TRANSMISSION_BLOCKLIST_ENABLED=true
