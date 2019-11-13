@@ -314,7 +314,7 @@ services:
       - $DOCKER_CONFIG_PATH/h5ai:/config
       - $SERVER_PATH:/h5ai
     ports:
-      - 4344:80
+      - 2344:80
     restart: unless-stopped
 ################
   pyload:
@@ -397,3 +397,10 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/filebot:/config
       - $TORRENT_PATH/FILEBOT:/storage
+#########
+  h5ai2:
+    image: genomehubs/h5ai
+    ports:
+      - 4344:80
+    volumnes:
+      - $DOCKER_CONFIG_PATH/h5ai2:/conf
