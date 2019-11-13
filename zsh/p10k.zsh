@@ -41,6 +41,8 @@
       command_execution_time    # previous command duration
       newline                   # \n
       anaconda                # python virtual environment
+      pyenv
+      virtualenv
       prompt_char               # prompt symbol
   )
 
@@ -127,7 +129,7 @@
   # Don't show remote branch, current tag or stashes.
   typeset -g POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind)
   # Don't show the branh icon.
-  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=
+  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=$'\uF126 '
   # When in detached HEAD state, show @commit where branch normally goes.
   typeset -g POWERLEVEL9K_VCS_COMMIT_ICON='@'
   # Don't show staged, unstaged, untracked indicators.
