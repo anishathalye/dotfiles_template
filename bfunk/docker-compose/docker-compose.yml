@@ -367,12 +367,12 @@ services:
      - TRANSMISSION_INCOMPLETE_DIR=/data/transmission/incomplete
      - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
      - TRANSMISSION_BLOCKLIST_ENABLED=true
-     - TRANSMISSION_BLOCKLIST_URL=http://john.bitsurge.net/public/biglist.p2p.gz
+     - TRANSMISSION_BLOCKLIST_URL=$TRANSMISSION_BLOCKLIST_URL
      - OPENVPN_PROVIDER=PIA
      - OPENVPN_USERNAME=$PIA_USERNAME
      - OPENVPN_PASSWORD=$PIA_PASSWORD
      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
-     - LOCAL_NETWORK=10.1.1.0/24
+     - LOCAL_NETWORK=$LOCAL_NETWORK
   proxy:
    image: haugene/transmission-openvpn-proxy
    links:
