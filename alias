@@ -283,5 +283,5 @@ alias filebot_tvshows_rename_move='filebot -rename -r -non-strict . --db TheTVDB
 
 AIRSONIC_DATA_DIR=/var/airsonic
 NEXCTLOUD_DATA_DIR=/srv/dev-disk-by-label-WD_data_10tb/nexctloud
-alias backup_airsonic='sudo system airsonic stop && tar -cvf "/tmp/airsonic_$(date +%F_%R).tar" /var/airsonic && sudo system airsonic restart'
+alias backup_airsonic='sudo service airsonic stop && tar -cvf "/tmp/airsonic_$(date +%F_%R).tar" /var/airsonic && sudo service airsonic restart'
 alias backup_nextcloud='sudo docker stop nextcloud && tar -cvf "/tmp/nextcloud_$(date +%F_%R).tar" $NEXCTLOUD_DATA_DIR &&; sudo docker start service nextcloud'
