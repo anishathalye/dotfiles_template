@@ -42,7 +42,6 @@
       newline                   # \n
       anaconda                # python virtual environment
       prompt_char               # prompt symbol
-      ip
   )
 
   # Right prompt segments.
@@ -66,7 +65,7 @@
 
   typeset -g POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND=green
   typeset -g POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND=blue
-  typeset -g POWERLEVEL9K_IP_FOREGROUND=blue
+  typeset -g POWERLEVEL9K_IP_FOREGROUND=yellow
   typeset -g POWERLEVEL9K_PUBLIC_IP_FOREGROUND=blue
   typeset -g POWERLEVEL9K_TIME_FOREGROUND=red
 
