@@ -119,7 +119,7 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/organizr:/config
     ports:
-      - 9983:80
+      - 1111:80
     restart: unless-stopped
 #####################################
   fleet:

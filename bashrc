@@ -131,4 +131,6 @@ export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH"
 export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
 export SHELL="$HOMEBREW_PREFIX/bin/zsh"
 #$HOMEBREW_PREFIX/bin/zsh
+
+newgrp # reload groups on change (useful for tmux when user groups are being mod)
 $HOMEBREW_PREFIX/bin/tmux
