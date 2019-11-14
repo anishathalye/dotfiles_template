@@ -293,7 +293,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=$TZ
-      - CONTEXT_PATH=url-base
+      #- CONTEXT_PATH=url-base
     volumes:
       - $DOCKER_CONFIG_PATH/booksonic:/config
       - $AUDIOBOOKS_PATH:/audiobooks:ro
