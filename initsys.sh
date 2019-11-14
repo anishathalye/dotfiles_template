@@ -83,6 +83,7 @@ brew_install_or_upgrade exa
 brew_install_or_upgrade fpp
 brew_install_or_upgrade openssh # in order to have latest version => SetEnv
 brew_install_or_upgrade pyenv-virtualenv
+brew_install_or_upgrade pyenv
 
 # To install useful key bindings and fuzzy completion for fzf
 $(brew --prefix)/opt/fzf/install
