@@ -403,7 +403,7 @@ services:
     build:
       context: apaxy
       args:
-        apaxyPath: 'apaxy'
+        apaxyPath: ''
     ports:
         - '3321:8080'
     volumes:
