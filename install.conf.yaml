@@ -28,13 +28,14 @@
     ~/.irssi: {create: true, force: true, path: irssi}
     ~/.lynx.cfg: lynx.cfg
     ~/.ogierc: ogierc
+    ~/.pgpass: {create: true, force: true, path: pgadmin/pgpass}
     ~/.psqlrc: psqlrc
     ~/.screenrc: screenrc
     ~/.screenlayout: {create: true, force: true, path: screenlayout}
     ~/.snes9x: {create: true, force: true, path: snes9x/}
     ~/.ssh/config: ssh/config
-    ~/.ssh/id_rsa.pub: ssh/id_rsa.pub
-    ~/.ssh/id_rsa.pub.pem: ssh/id_rsa.pub.pem
+    ~/.ssh/id_rsa.pub: {create: true, force: true, path: ssh/id_rsa.pub}
+    ~/.ssh/id_rsa.pub.pem: {create: true, force: true, path: ssh/id_rsa.pub.pem}
     ~/.tmux.conf: {force: true, path: tmux/tmux.conf}
     ~/.tmux.conf.laptop: {force: true, path: tmux/tmux.conf.laptop}
     ~/.tmux.conf.ssh: {force: true, path: tmux/tmux.conf.ssh}
