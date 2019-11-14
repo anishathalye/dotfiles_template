@@ -1,0 +1,13 @@
+version: "3"
+services:
+  apaxy:
+    image: apaxy
+    build:
+      context: .
+      args:
+        apaxyPath: ''
+    ports:
+        - '3331:8080'
+    volumes:
+        - '/export:/usr/local/apache2/htdocs/share/:ro'
+    image: apax

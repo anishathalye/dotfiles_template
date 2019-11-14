@@ -401,11 +401,11 @@ services:
   apaxy:
     image: apaxy
     build:
-      context: .
+      context: apaxy
       args:
-        apaxyPath: 'apaxyi/'
+        apaxyPath: 'apaxy'
     ports:
         - '3321:8080'
     volumes:
-        - '$SERVER_PATH:/usr/local/apache2/htdocs/share:ro'
+        - '$SERVER_PATH:/usr/local/apache2/htdocs/share/'
     image: apax
