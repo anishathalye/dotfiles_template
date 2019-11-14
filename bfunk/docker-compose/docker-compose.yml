@@ -409,3 +409,11 @@ services:
     volumes:
         - '$SERVER_PATH:/usr/local/apache2/htdocs/share/'
     image: apax
+#############
+# for organizr help page
+  tecmint-web:
+    image: httpd:2.4
+    ports:
+      - 9090:80
+    volumes:
+      - $DOCKER_CONFIG_PATH/howto:/usr/local/apache2/htdocs/
