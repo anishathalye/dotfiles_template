@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   mariadb:
     image: linuxserver/mariadb
@@ -303,19 +303,19 @@ services:
       - 4040:4040
     restart: unless-stopped
 ##########################
-  h5ai:
-    image: awesometic/h5ai
-    container_name: h5ai
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-    volumes:
-      - $DOCKER_CONFIG_PATH/h5ai:/config
-      - $SERVER_PATH:/h5ai
-    ports:
-      - 4344:80
-    restart: unless-stopped
+#  h5ai:
+    #image: awesometic/h5ai
+    #container_name: h5ai
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=$TZ
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/h5ai:/config
+      #- $SERVER_PATH:/h5ai
+    #ports:
+      #- 4344:80
+    #restart: unless-stopped
 ################
   pyload:
     image: linuxserver/pyload
@@ -398,3 +398,14 @@ services:
       - $DOCKER_CONFIG_PATH/filebot:/config
       - $TORRENT_PATH/FILEBOT:/storage
 #########
+  apaxy:
+    image: apaxy
+    build:
+      context: .
+      args:
+        apaxyPath: 'apaxyi/'
+    ports:
+        - '3321:8080'
+    volumes:
+        - '$SERVER_PATH:/usr/local/apache2/htdocs/share:ro'
+    image: apax
