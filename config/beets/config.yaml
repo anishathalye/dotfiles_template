@@ -20,7 +20,7 @@ fetchart:
     auto: yes
     maxwidth: 1000
     cover_names: cover Cover front Front art album portada folder Folder
-    google-key: 
+    google-key:
     sources:
         - filesystem
         - coverart: release
@@ -54,7 +54,7 @@ lastgenre:
     whitelist: ~/.config/beets/beets_genre
     #prefer_specific: true
 
-library: ~/musiclibrary2.blb
+library: /opt/beets/musiclibrary2.blb
 
 replaygain:
         backend: gstreamer
@@ -189,6 +189,6 @@ subsonic:
     host: 10.1.1.198
     port: 8080
     user: admin
-    pass: 
+    pass:
     contextpath: /
 
