@@ -27,6 +27,7 @@
     ~/.initsys.sh: {create: true, force: true, path: initsys.sh}
     ~/.irssi: {create: true, force: true, path: irssi}
     ~/.lynx.cfg: lynx.cfg
+    ~/.myclirc: {create: true, force: true, path: myclirc}
     ~/.ogierc: ogierc
     ~/.pgpass: {create: true, force: true, path: pgadmin/pgpass}
     ~/.psqlrc: psqlrc
