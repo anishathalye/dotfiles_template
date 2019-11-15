@@ -57,7 +57,7 @@ lastgenre:
 library: /opt/beets/musiclibrary2.blb
 
 replaygain:
-        backend: gstreamer
+        backend: audiotools
 
 smartplaylist:
     playlist_dir: ~/playlists
