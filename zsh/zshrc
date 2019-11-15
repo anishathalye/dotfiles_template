@@ -32,18 +32,25 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ -d "$HOME/anaconda3"]; then
+    CONDA=anaconda3
+elif [ -d "$HOME/miniconda3"]; then
+    CONDA=miniconda3
+fi
+
+__conda_setup="$('/home/lbesnard/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/lbesnard/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/lbesnard/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="$HOME/anaconda3/bin:$PATH"
+        export PATH="/home/lbesnard/miniconda3/bin:$PATH"
     fi
 fi
+
 unset __conda_setup
-export VIRTUALENVWRAPPER_PYTHON=$HOME/anaconda3/bin/python
+export VIRTUALENVWRAPPER_PYTHON=$HOME/$CONDA/bin/python
 # <<< conda initialize <<<
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
