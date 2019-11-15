@@ -1,7 +1,7 @@
 " http://unlogic.co.uk/2013/02/08/vim-as-a-python-ide/
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/#vim-extensions
 " https://github.com/fisadev/fisa-vim-config
-
+"let g:ycm_path_to_python_interpreter = 'python3' 
 "set shell=/bin/bash
 if $TERM == "xterm"
     set t_Co=256               " 256 colors
@@ -25,7 +25,7 @@ Plug 'gkapfham/vim-vitamin-onec'
 Plug 'tmhedberg/SimpylFold'
 Plug 'croaker/mustang-vim'
 Plug 'vim-scripts/indentpython.vim'
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --js-completer' }
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
@@ -226,23 +226,15 @@ set colorcolumn=79
 :autocmd InsertEnter * set cul
 :autocmd InsertLeave * set nocul
 
-"""" Display
-if has("gui_running")
-    colorscheme vitaminonec
-    "colorscheme mustang
-    " Remove menu bar
-    set guioptions-=m
 
-    " Remove toolbar
-    set guioptions-=T
+"""" Display
+if &t_Co >= 256      
+    silent! colorscheme vitaminonec     
+    "    colorscheme mustang
 else
-    if &t_Co >= 256
-        colorscheme vitaminonec
-        "colorscheme mustang
-    else
-        colorscheme wargrey
-    endif
+    colorscheme wargrey
 endif
+
 
 " Paste from clipboard
 map <leader>p "+p
