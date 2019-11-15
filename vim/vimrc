@@ -488,3 +488,5 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " the silver searcher integration
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+command! -nargs=0 Sw w !sudo tee % > /dev/null
