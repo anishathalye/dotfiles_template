@@ -8,9 +8,9 @@ services:
       - PGID=1000
       - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
       - TZ=$TZ
-      - MYSQL_DATABASE=$PIWIGO_DB_NAME #optional
-      - MYSQL_USER=$PIWIGO_DB_USER #optional
-      - MYSQL_PASSWORD=$PIWIGO_DB_PASS #optional
+      - MYSQL_DATABASE=$DB_PIWIGO_SCHEMA #optional
+      - MYSQL_USER=$DB_PIWIGO_USER #optional
+      - MYSQL_PASSWORD=$DB_PIWIGO_PASS #optional
       #- REMOTE_SQL=http://URL1/your.sql,https://URL2/your.sql #optional
     volumes:
       - $DOCKER_CONFIG_PATH/mariadb:/config
@@ -135,7 +135,7 @@ services:
       - fleet_dockerhub_username=$DOCKERHUB_USER
       - fleet_dockerhub_password=$DOCKERHUB_PASS
       - fleet_refresh_interval=60 #optional
-      - fleet_admin_secret=$FLEET_ADMIN_SECRETrandomstring #optional
+      - fleet_admin_secret=$FLEET_ADMIN_SECRET#optional
       #- fleet_admin_username=admin #optional
       #- fleet_admin_password=secretpassword #optional
       - fleet_skip_sync_on_startup=true #optional
