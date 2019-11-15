@@ -285,3 +285,6 @@ AIRSONIC_DATA_DIR=/var/airsonic
 NEXCTLOUD_DATA_DIR=/srv/dev-disk-by-label-WD_data_10tb/nexctloud
 alias backup_airsonic='sudo service airsonic stop && tar -cvf "/tmp/airsonic_$(date +%F_%R).tar" /var/airsonic && sudo service airsonic restart'
 alias backup_nextcloud='sudo docker stop nextcloud && tar -cvf "/tmp/nextcloud_$(date +%F_%R).tar" $NEXCTLOUD_DATA_DIR &&; sudo docker start service nextcloud'
+
+# when files are copied manually to nextcloud folder
+alias nextcloud_force_rescan='docker exec nextcloud sudo -u abc php /config/www/nextcloud/occ files:scan --all'
