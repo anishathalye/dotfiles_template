@@ -86,6 +86,9 @@ brew_install_or_upgrade pyenv-virtualenv
 brew_install_or_upgrade pyenv
 brew_install_or_upgrade urlview
 
+brew tap fernandotcl/homebrew-fernandotcl
+brew_install_or_upgrade monkeys-audio
+
 # To install useful key bindings and fuzzy completion for fzf
 $(brew --prefix)/opt/fzf/install
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh

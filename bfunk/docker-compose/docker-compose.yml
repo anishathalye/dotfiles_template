@@ -198,6 +198,7 @@ services:
 #############
   glance:
     image: nicolargo/glances:latest-alpine
+    container_name: glances
     restart: always
     pid: host
     volumes:
@@ -349,6 +350,7 @@ services:
 #######################
   transmission:
    image: haugene/transmission-openvpn
+   container_name: transmission
    cap_add:
      - NET_ADMIN
    devices:
@@ -392,6 +394,7 @@ services:
 ########################3
   filebot:
     image: jlesage/filebot
+    container_name: filebot
     ports:
       - "5800:5800"
     volumes:
@@ -400,6 +403,7 @@ services:
 #########
   apaxy:
     image: apaxy
+    container_name: apaxy
     build:
       context: apaxy
       args:
@@ -412,6 +416,7 @@ services:
 #############
 # for organizr help page
   tecmint-web:
+    container_name: web-server
     image: httpd:2.4
     ports:
       - 9090:80
