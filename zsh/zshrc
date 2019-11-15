@@ -32,9 +32,9 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-if [ -d "$HOME/anaconda3"]; then
+if [ -d "$HOME/anaconda3" ]; then
     CONDA=anaconda3
-elif [ -d "$HOME/miniconda3"]; then
+elif [ -d "$HOME/miniconda3" ]; then
     CONDA=miniconda3
 fi
 
