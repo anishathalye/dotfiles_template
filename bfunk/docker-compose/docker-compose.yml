@@ -430,14 +430,14 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=$TZ
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - ES_HOST=elasticsearch
-      - ES_PORT=9200
-      - ES_USER=elastic
-      - ES_PASS=changeme
+      #- REDIS_HOST=redis
+      #- REDIS_PORT=6379
+      #- ES_HOST=elasticsearch
+      #- ES_PORT=9200
+      #- ES_USER=elastic
+      #- ES_PASS=changeme
       - RUN_ON_START=true
-      - USE_CRON=true
+      #- USE_CRON=true
     volumes:
       - $DOCKER_CONFIG_PATH/diskrover:/config
       - $SERVER_PATH:/data:ro
