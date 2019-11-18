@@ -468,3 +468,17 @@ services:
     volumes:
       - ${DOCKER_CONFIG_PATH}/redis:/data
 #####################
+# tinymediamanager - filebot replacement
+  tinymediamanager:
+    image: romancin/tinymediamanager:latest
+    container_name: tinymediamanager
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+    volumes:
+      - $DOCKER_CONFIG_PATH/tmm:/config
+      - $TORRENT_PATH/movies:/media
+    ports:
+      - 5800:5800
+      - 5900:5900

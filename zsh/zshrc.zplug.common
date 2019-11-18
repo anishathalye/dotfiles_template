@@ -93,7 +93,7 @@ zplug "esc/conda-zsh-completion"
 zplug "plugins/docker-compose",  from:oh-my-zsh
 zplug "plugins/docker",  from:oh-my-zsh
 zplug "plugins/systemd",   from:oh-my-zsh
-zplug "plugins/tmux",   from:oh-my-zsh
+#zplug "plugins/tmux",   from:oh-my-zsh
 
 
 path_to_colorls=$(which colorls 2>/dev/null)
