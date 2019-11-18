@@ -480,5 +480,5 @@ services:
       - $DOCKER_CONFIG_PATH/tmm:/config
       - $TORRENT_PATH/movies:/media
     ports:
-      - 5800:5800
+      - 5700:5800
       - 5900:5900
