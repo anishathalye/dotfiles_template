@@ -20,6 +20,7 @@ set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 
 "--------------------------------------------------
+Plug 'mileszs/ack.vim'
 Plug 'ervandew/supertab'
 Plug 'gkapfham/vim-vitamin-onec'
 Plug 'tmhedberg/SimpylFold'
@@ -40,7 +41,7 @@ Plug 'majutsushi/tagbar'
 Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-unimpaired'
-Plug 'klen/python-mode'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'yann2192/vim-colorschemes'
 Plug 'yann2192/vim-vitamins'
 Plug 'davidhalter/jedi-vim'
