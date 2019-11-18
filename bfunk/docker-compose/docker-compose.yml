@@ -70,7 +70,7 @@ services:
       #- GUAC_USER=admin
       #- GUAC_PASS=admin
     volumes:
-      - $DOCKER_CONFIG_PATH/calibre:/config
+      - $EBOOKS_PATH:/config
     ports:
       - 7080:8080
       - 7081:8081
