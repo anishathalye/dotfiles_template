@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # script to setup ssh on someone's computer with limited linux knowledged
-# curl -L https://raw.githubusercontent.com/lbesnard/dotfiles/bin/ssh_init.sh | bash
+# curl -L https://raw.githubusercontent.com/lbesnard/dotfiles/master/bin/ssh_init.sh | bash
 
 set -e
 sudo apt-get -y install openssh-server
