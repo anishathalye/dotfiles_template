@@ -71,6 +71,7 @@ services:
       #- GUAC_PASS=admin
     volumes:
       - $EBOOKS_PATH:/config
+      - $SERVER_PATH/share:/share
     ports:
       - 7080:8080
       - 7081:8081
