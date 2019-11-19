@@ -1,3 +1,9 @@
+# check if zplug is installed
+if [[ ! -d ~/.zplug ]]; then
+  git clone https://github.com/zplug/zplug ~/.zplug
+  source ~/.zplug/init.zsh && zplug update --self
+fi
+
 # Turns out that compinit is ZSH checking the cached .zcompdump to see if it needs regenerating. The simplest fix is to only do that once a day. Thanks to this comment, we can achieve that pretty easily.
 ## tmux plugin settings
 # this always starts tmux
@@ -5,7 +11,6 @@ ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOCONNECT=true
 ZSH_TMUX_FIXTERM=true
 ZSH_TMUX_AUTOQUIT=false
-
 
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
@@ -39,12 +44,6 @@ export FZF_DEFAULT_OPTS="\
 
 setopt nosharehistory
 setopt interactivecomments
-
-# check if zplug is installed
-if [[ ! -d ~/.zplug ]]; then
-  git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
-fi
 
 # Essential
 source ~/.zplug/init.zsh
