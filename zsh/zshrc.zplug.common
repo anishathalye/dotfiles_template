@@ -5,13 +5,13 @@ if [[ ! -d ~/.zplug ]]; then
 fi
 
 # TMUX conf
-#if [ -v SSH_TTY ]; then
+if [ ! -v SSH_TTY ]; then
     # this always starts tmux
     ZSH_TMUX_AUTOSTART=true
     ZSH_TMUX_AUTOCONNECT=true
     ZSH_TMUX_FIXTERM=true
     ZSH_TMUX_AUTOQUIT=true
-#fi
+fi
 
 # Turns out that compinit is ZSH checking the cached .zcompdump to see if it needs regenerating. The simplest fix is to only do that once a day. Thanks to this comment, we can achieve that pretty easily.
 autoload -Uz compinit
@@ -110,13 +110,13 @@ zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'wfxr/forgit'
 
-#if [ -v SSH_TTY ]; then
+if [ ! -v SSH_TTY ]; then
     zplug "plugins/tmux",   from:oh-my-zsh
-#fi
+fi
 
 path_to_colorls=$(which colorls 2>/dev/null)
 if [ -x "$path_to_colorls" ] ; then
-    zplug "gretzky/auto-color-ls"
+   zplug "gretzky/auto-color-ls"
 fi
 
 if ! zplug check --verbose; then
