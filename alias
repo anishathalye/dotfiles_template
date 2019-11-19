@@ -33,6 +33,7 @@ alias grep='grep --color=auto'
 alias iftop_wlan='iftop -i wlan0'
 alias irssi='screen irssi'
 alias killall='killall -SIGUSR1'
+alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
 
 path_to_colorls=$(which colorls 2>/dev/null)
 if [ -x "$path_to_colorls" ] ; then

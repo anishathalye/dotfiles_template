@@ -1,4 +1,4 @@
-# check if zplug is installed
+ check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
   source ~/.zplug/init.zsh #&& zplug update --self
@@ -182,7 +182,6 @@ if zplug check zsh-users/zsh-history-substring-search; then
     bindkey "$terminfo[kcud1]" history-substring-search-down
 fi
 
-alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
 
 test -d $HOMEBREW_PREFIX && PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
 test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.bash_profile
