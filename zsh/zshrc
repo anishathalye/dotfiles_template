@@ -9,6 +9,8 @@ fi
 
 if [ -d "/usr/share/powerline/bindings/bash" ]; then
     source /usr/share/powerline/bindings/bash/powerline.sh
+elif [ -d "$HOME/.vim/plugged/powerline/powerline/bindings/bash/powerline.sh" ]; then
+    source $HOME/.vim/plugged/powerline/powerline/bindings/bash/powerline.sh
 fi
 
 source $HOME/.zshrc.zplug.common
