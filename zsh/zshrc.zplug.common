@@ -6,11 +6,11 @@ fi
 
 # create variable SESSION_TYPE if SHELL is opened via SSH
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-  SESSION_TYPE=remote/ssh
+  export SESSION_TYPE=remote/ssh
 # many other tests omitted
 else
   case $(ps -o comm= -p $PPID) in
-    sshd|*/sshd) SESSION_TYPE=remote/ssh;;
+    sshd|*/sshd) export SESSION_TYPE=remote/ssh;;
   esac
 fi
 
@@ -24,7 +24,7 @@ if [ -z ${SESSION_TYPE+x} ]; then
 fi
 
 # Turns out that compinit is ZSH checking the cached .zcompdump to see if it needs regenerating. The simplest fix is to only do that once a day. Thanks to this comment, we can achieve that pretty easily.
-autoload -Uz compinit 
+autoload -Uz compinit
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
     compinit;
 else

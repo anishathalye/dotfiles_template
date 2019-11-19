@@ -126,11 +126,24 @@ elif [[ -d /home/linuxbrew ]]; then
 	export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 fi
 
+newgrp # reload groups on change (useful for tmux when user groups are being mod)
+
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH"
 export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
-#export SHELL="$HOMEBREW_PREFIX/bin/zsh"
-#$HOMEBREW_PREFIX/bin/zsh
 
-#newgrp # reload groups on change (useful for tmux when user groups are being mod)
-#$HOMEBREW_PREFIX/bin/tmux
+# create variable SESSION_TYPE if SHELL is opened via SSH
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  export SESSION_TYPE=remote/ssh
+# many other tests omitted
+else
+  case $(ps -o comm= -p $PPID) in
+    sshd|*/sshd) export SESSION_TYPE=remote/ssh;;
+  esac
+fi
+
+# run zsh on shh sessions
+if [ -z ${SESSION_TYPE+x} ] && [ -z ${HOMEBREW_PREFIX+x} ]; then
+    export SHELL="$HOMEBREW_PREFIX/bin/zsh"
+    $SHELL
+fi
