@@ -105,7 +105,6 @@ zplug "plugins/pip",  from:oh-my-zsh
 zplug "plugins/sublime",  from:oh-my-zsh
 zplug "plugins/sudo",  from:oh-my-zsh
 zplug "plugins/systemd",   from:oh-my-zsh
-zplug "plugins/tmux",   from:oh-my-zsh
 zplug "plugins/url-tools",  from:oh-my-zsh
 zplug "plugins/vagrant",  from:oh-my-zsh
 zplug "plugins/virtualenv",  from:oh-my-zsh
@@ -119,6 +118,10 @@ zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'wfxr/forgit'
+
+if [ -z ${SESSION_TYPE+x} ]; then
+    zplug "plugins/tmux",   from:oh-my-zsh
+fi
 
 path_to_colorls=$(which colorls 2>/dev/null)
 if [ -x "$path_to_colorls" ] ; then

@@ -117,7 +117,7 @@ PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+#[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # check where is installed linuxbrew
 if [[ -d $HOME/.linuxbrew ]]; then
@@ -132,5 +132,5 @@ export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
 #export SHELL="$HOMEBREW_PREFIX/bin/zsh"
 #$HOMEBREW_PREFIX/bin/zsh
 
-newgrp # reload groups on change (useful for tmux when user groups are being mod)
+#newgrp # reload groups on change (useful for tmux when user groups are being mod)
 #$HOMEBREW_PREFIX/bin/tmux
