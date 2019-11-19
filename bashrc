@@ -143,7 +143,7 @@ else
 fi
 
 # run zsh on shh sessions
-if [ -z ${SESSION_TYPE+x} ] && [ -z ${HOMEBREW_PREFIX+x} ]; then
+if [ -v SSH_AUTH_SOCK ] && [ -v HOMEBREW_PREFIX ]; then 
     export SHELL="$HOMEBREW_PREFIX/bin/zsh"
     $SHELL
 fi

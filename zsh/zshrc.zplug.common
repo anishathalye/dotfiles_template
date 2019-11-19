@@ -1,7 +1,7 @@
 # check if zplug is installed
 if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
+  source ~/.zplug/init.zsh #&& zplug update --self
 fi
 
 # create variable SESSION_TYPE if SHELL is opened via SSH
@@ -113,6 +113,7 @@ zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
 zplug "romkatv/powerlevel10k", as:theme, depth:1
 zplug "rummik/zsh-tailf"
 zplug "soimort/translate-shell"
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-history-substring-search", defer:2
