@@ -297,4 +297,4 @@ bind C-b send-prefix
 # move status line to top
 #set -g status-position top
 #
-set-option -g default-shell $SHELL
+set-option -g default-shell ${SHELL}

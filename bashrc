@@ -116,23 +116,25 @@ PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}";
 PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# check where is installed linuxbrew
+# check where is linuxbrew installed
 if [[ -d $HOME/.linuxbrew ]]; then
-	export HOMEBREW_PREFIX=$HOME/.linuxbrew
+    export HOMEBREW_PREFIX=$HOME/.linuxbrew
 elif [[ -d /home/linuxbrew ]]; then
-	export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+    export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 fi
-
-newgrp # reload groups on change (useful for tmux when user groups are being mod)
 
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH"
 export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
 
-# run tmux(zsh) on shh sessions
+zsh_brew_path=$HOMEBREW_PREFIX/bin/zsh
+if [ -f $zsh_brew_path ]; then
+    export SHELL=$zsh_brew_path
+fi
+
+# run tmux on ssh sessions. default shell will be usedL
 if [[ -z $TMUX && -n $SSH_TTY ]]; then
   me=$(whoami)
 
