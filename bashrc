@@ -135,5 +135,6 @@ export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
 # run zsh on shh sessions
 if [ -v SSH_AUTH_SOCK ] && [ -v HOMEBREW_PREFIX ]; then
     export SHELL="$HOMEBREW_PREFIX/bin/zsh"
+    tmux
     #$SHELL
 fi
