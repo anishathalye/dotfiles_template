@@ -5,7 +5,8 @@ if [[ ! -d ~/.zplug ]]; then
 fi
 
 # TMUX conf
-if [ ! -v SSH_TTY ]; then
+if [ ! -n "${SSH_TTY+1}" ]; then
+#if [[ ! -v SSH_TTY ]]; then
     # this always starts tmux
     ZSH_TMUX_AUTOSTART=true
     ZSH_TMUX_AUTOCONNECT=true
@@ -110,7 +111,8 @@ zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'wfxr/forgit'
 
-if [ ! -v SSH_TTY ]; then
+#if [[ ! -v SSH_TTY ]]; then
+if [ ! -n "${SSH_TTY+1}" ]; then
     zplug "plugins/tmux",   from:oh-my-zsh
 fi
 
