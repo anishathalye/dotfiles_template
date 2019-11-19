@@ -8,7 +8,7 @@ Host commandpost.aodn.org.au
 
 Host nec* nsp* aws* po* commandpost* 
     PermitLocalCommand yes
-    LocalCommand tar ch -C${HOME} .gitconfig .bashrc .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
+    LocalCommand tar ch -C${HOME} .gitconfig  .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
 
 Host geoserver-stack
     user ec2-user

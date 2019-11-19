@@ -126,14 +126,19 @@ elif [[ -d /home/linuxbrew ]]; then
 	export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 fi
 
-#newgrp # reload groups on change (useful for tmux when user groups are being mod)
+newgrp # reload groups on change (useful for tmux when user groups are being mod)
 
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH"
 export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
 
 # run tmux(zsh) on shh sessions
-if [ -v SSH_AUTH_SOCK ] && [ -v HOMEBREW_PREFIX ]; then
-    export SHELL="$HOMEBREW_PREFIX/bin/zsh"
-    [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach
+if [[ -z $TMUX && -n $SSH_TTY ]]; then
+  me=$(whoami)
+
+  if tmux has-session -t $me 2>/dev/null; then
+     exec tmux -2 attach-session -t $me
+  else
+     exec tmux -2 new-session -s $me
+  fi
 fi
