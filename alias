@@ -288,3 +288,6 @@ alias backup_nextcloud='sudo docker stop nextcloud && tar -cvf "/tmp/nextcloud_$
 
 # when files are copied manually to nextcloud folder
 alias nextcloud_force_rescan='docker exec nextcloud sudo -u abc php /config/www/nextcloud/occ files:scan --all'
+
+# update dotfiles
+alias dotf_update='dotfiles && git pull && bash install; cd -'
