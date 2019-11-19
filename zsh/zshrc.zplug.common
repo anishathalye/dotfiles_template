@@ -1,4 +1,12 @@
 # Turns out that compinit is ZSH checking the cached .zcompdump to see if it needs regenerating. The simplest fix is to only do that once a day. Thanks to this comment, we can achieve that pretty easily.
+## tmux plugin settings
+# this always starts tmux
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOCONNECT=true
+ZSH_TMUX_FIXTERM=true
+ZSH_TMUX_AUTOQUIT=false
+
+
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
@@ -67,34 +75,38 @@ export PROJECT_HOME=$HOME/Devel
 #[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
 setopt prompt_subst # Make sure prompt is able to be generated properly.
-zplug romkatv/powerlevel10k, as:theme, depth:1
-zplug "hchbaw/auto-fu.zsh"
-zplug "chrissicool/zsh-256color"
-zplug "zsh-users/zsh-autosuggestions"
-#zplug "plugins/fasd",  from:oh-my-zsh
-zplug "plugins/command-not-found",  from:oh-my-zsh
-zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
-zplug "plugins/virtualenv",  from:oh-my-zsh
-zplug "plugins/gitfast",  from:oh-my-zsh
-##zplug "plugins/git",  from:oh-my-zsh
-zplug 'wfxr/forgit'
-zplug "plugins/sudo",  from:oh-my-zsh
-zplug "plugins/autojump",  from:oh-my-zsh
-zplug "plugins/heroku",  from:oh-my-zsh
-zplug "plugins/sublime",  from:oh-my-zsh
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "plugins/web-search",  from:oh-my-zsh
-zplug "plugins/vagrant",  from:oh-my-zsh
-zplug "soimort/translate-shell"
-zplug "zsh-users/zsh-history-substring-search", defer:2
-zplug "rummik/zsh-tailf"
-zplug "esc/conda-zsh-completion"
-zplug "plugins/docker-compose",  from:oh-my-zsh
-zplug "plugins/docker",  from:oh-my-zsh
-zplug "plugins/systemd",   from:oh-my-zsh
-#zplug "plugins/tmux",   from:oh-my-zsh
 
+#zplug "plugins/git",  from:oh-my-zsh
+#zplug "plugins/fasd",  from:oh-my-zsh
+#zplug "plugins/virtualenv",  from:oh-my-zsh
+zplug "chrissicool/zsh-256color"
+zplug "esc/conda-zsh-completion"
+zplug "hchbaw/auto-fu.zsh"
+zplug "plugins/autojump",  from:oh-my-zsh
+zplug "plugins/command-not-found",  from:oh-my-zsh
+zplug "plugins/docker",  from:oh-my-zsh
+zplug "plugins/docker-compose",  from:oh-my-zsh
+zplug "plugins/extract",  from:oh-my-zsh
+zplug "plugins/gitfast",  from:oh-my-zsh
+zplug "plugins/heroku",  from:oh-my-zsh
+zplug "plugins/httpie",  from:oh-my-zsh
+zplug "plugins/pip",  from:oh-my-zsh
+zplug "plugins/sublime",  from:oh-my-zsh
+zplug "plugins/sudo",  from:oh-my-zsh
+zplug "plugins/systemd",   from:oh-my-zsh
+zplug "plugins/tmux",   from:oh-my-zsh
+zplug "plugins/url-tools",  from:oh-my-zsh
+zplug "plugins/vagrant",  from:oh-my-zsh
+zplug "plugins/web-search",  from:oh-my-zsh
+zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
+zplug "romkatv/powerlevel10k", as:theme, depth:1
+zplug "rummik/zsh-tailf"
+zplug "soimort/translate-shell"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-history-substring-search", defer:2
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug 'wfxr/forgit'
 
 path_to_colorls=$(which colorls 2>/dev/null)
 if [ -x "$path_to_colorls" ] ; then
@@ -107,13 +119,6 @@ fi
 
 # source plugins and add commands to the PATH
 zplug load
-
-# tmux plugin settings
-# this always starts tmux
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOCONNECT=true
-ZSH_TMUX_FIXTERM=true
-ZSH_TMUX_AUTOQUIT=false
 
 # aliases
 . ~/.zplug/repos/robbyrussell/oh-my-zsh/plugins/common-aliases/common-aliases.plugin.zsh

@@ -1,6 +1,3 @@
-BULLETTRAIN_VIRTUALENV_PREFIX=""
-BULLETTRAIN_VIRTUALENV_BG=30
-
 if [ -d /mnt/ebs/data-services ] ;then
     source /mnt/ebs/data-services/env &>/dev/null;
 fi
@@ -21,9 +18,9 @@ compctl -K _cmpl_inputlog input_logf
 compctl -K _cmpl_inputlog input_log
 
 
-if command -v tmux>/dev/null; then
-    tmux_start
-fi
+#if command -v tmux>/dev/null; then
+    #tmux_start
+#fi
 
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export SHELL="$HOMEBREW_PREFIX/bin/zsh"

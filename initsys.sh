@@ -52,39 +52,41 @@ function brew_install_or_upgrade {
 export HOMEBREW_ARCH=core2
 
 # install or upgrade pacakge in $HOME directory
-brew_install_or_upgrade gcc
-brew_install_or_upgrade ruby-install
-brew_install_or_upgrade ruby
-brew_install_or_upgrade zsh
-brew_install_or_upgrade tmux
-brew_install_or_upgrade autojump
-brew_install_or_upgrade git
-brew_install_or_upgrade curl
-brew_install_or_upgrade vim
-brew_install_or_upgrade hub
-brew_install_or_upgrade fzf
-brew_install_or_upgrade ripgrep
-brew_install_or_upgrade fd
-brew_install_or_upgrade the_silver_searcher
-brew_install_or_upgrade midnight-commander
-brew_install_or_upgrade fasd
-brew_install_or_upgrade pgcli
-brew_install_or_upgrade lnav
-brew_install_or_upgrade p7zip
-brew_install_or_upgrade ncdu
 brew_install_or_upgrade cmake
-brew_install_or_upgrade tig
+brew_install_or_upgrade gcc
+brew_install_or_upgrade ruby
+brew_install_or_upgrade ruby-install
+
+brew_install_or_upgrade autojump
 brew_install_or_upgrade bat
-brew_install_or_upgrade ranger
-brew_install_or_upgrade hightlight
+brew_install_or_upgrade curl
 brew_install_or_upgrade dfc
-brew_install_or_upgrade htop
 brew_install_or_upgrade exa
+brew_install_or_upgrade fasd
+brew_install_or_upgrade fd
 brew_install_or_upgrade fpp
+brew_install_or_upgrade fzf
+brew_install_or_upgrade git
+brew_install_or_upgrade hightlight
+brew_install_or_upgrade htop
+brew_install_or_upgrade httpie
+brew_install_or_upgrade hub
+brew_install_or_upgrade lnav
+brew_install_or_upgrade midnight-commander
+brew_install_or_upgrade ncdu
 brew_install_or_upgrade openssh # in order to have latest version => SetEnv
-brew_install_or_upgrade pyenv-virtualenv
+brew_install_or_upgrade p7zip
+brew_install_or_upgrade pgcli
 brew_install_or_upgrade pyenv
+brew_install_or_upgrade pyenv-virtualenv
+brew_install_or_upgrade ranger
+brew_install_or_upgrade ripgrep
+brew_install_or_upgrade the_silver_searcher
+brew_install_or_upgrade tig
+brew_install_or_upgrade tmux
 brew_install_or_upgrade urlview
+brew_install_or_upgrade vim
+brew_install_or_upgrade zsh
 
 brew tap fernandotcl/homebrew-fernandotcl
 brew_install_or_upgrade monkeys-audio

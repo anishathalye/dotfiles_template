@@ -185,7 +185,7 @@ alias igc_viewer='gpligc'
 alias riverHeight='python $GITHUB_DIR/River_Height_Tasmania/riverHeight.py && /usr/bin/elinks ~/Dropbox/Public/RiverStatusTasmania.html'
 alias gpsdump_flymaster='cd $HOME/Downloads; ./gpsdump -gy -ca0 -lflight'
 
-x(){
+function x(){
     if [ -f $1 ] ; then
             case $1 in
                     *.tar.bz2)   tar xvjf $1    ;;
