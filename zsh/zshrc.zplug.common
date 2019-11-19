@@ -4,24 +4,14 @@ if [[ ! -d ~/.zplug ]]; then
   source ~/.zplug/init.zsh #&& zplug update --self
 fi
 
-# create variable SESSION_TYPE if SHELL is opened via SSH
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-  export SESSION_TYPE=remote/ssh
-# many other tests omitted
-else
-  case $(ps -o comm= -p $PPID) in
-    sshd|*/sshd) export SESSION_TYPE=remote/ssh;;
-  esac
-fi
-
 # TMUX conf
-if [ -z ${SESSION_TYPE+x} ]; then
+#if [ -v SSH_TTY ]; then
     # this always starts tmux
     ZSH_TMUX_AUTOSTART=true
     ZSH_TMUX_AUTOCONNECT=true
     ZSH_TMUX_FIXTERM=true
     ZSH_TMUX_AUTOQUIT=true
-fi
+#fi
 
 # Turns out that compinit is ZSH checking the cached .zcompdump to see if it needs regenerating. The simplest fix is to only do that once a day. Thanks to this comment, we can achieve that pretty easily.
 autoload -Uz compinit
@@ -120,9 +110,9 @@ zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'wfxr/forgit'
 
-if [ -z ${SESSION_TYPE+x} ]; then
+#if [ -v SSH_TTY ]; then
     zplug "plugins/tmux",   from:oh-my-zsh
-fi
+#fi
 
 path_to_colorls=$(which colorls 2>/dev/null)
 if [ -x "$path_to_colorls" ] ; then
@@ -142,8 +132,6 @@ zplug load
 # overwrite aliases if needed
 [ -f $HOME/.env ] && source $HOME/.env
 [ -f $HOME/.alias ] && source $HOME/.alias
-source  /etc/profile.d/* # especially useful for remote connection
-
 
 #ZSH history
 setopt append_history

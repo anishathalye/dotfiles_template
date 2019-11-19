@@ -5,10 +5,5 @@ _cmpl_inputlog() {
 compctl -K _cmpl_inputlog input_logf
 compctl -K _cmpl_inputlog input_log
 
-
-#if command -v tmux>/dev/null; then
-    #tmux_start
-#fi
-
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export SHELL="$HOMEBREW_PREFIX/bin/zsh"

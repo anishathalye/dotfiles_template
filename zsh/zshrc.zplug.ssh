@@ -2,6 +2,8 @@ if [ -d /mnt/ebs/data-services ] ;then
     source /mnt/ebs/data-services/env &>/dev/null;
 fi
 
+source  /etc/profile.d/*  # specific to PO's vm
+
 if [ ! -z ${SSH_TTY} ] && [ ! -z $DATA_SERVICES_DIR ]; then
     source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
     source $DATA_SERVICES_DIR/lib/common/* &>/dev/null;
@@ -9,18 +11,12 @@ if [ ! -z ${SSH_TTY} ] && [ ! -z $DATA_SERVICES_DIR ]; then
     alias sudo_project_officer='PATH=$(getconf PATH):/usr/local/bin; sudo -u projectofficer -i'
 fi
 
-
 _cmpl_inputlog() {
     reply=($(ls -d $ERROR_DIR/* | sed 's@.*/@@')) 
     reply=($(echo $reply | tr -s " " "\012"))
 }
 compctl -K _cmpl_inputlog input_logf
 compctl -K _cmpl_inputlog input_log
-
-
-if command -v tmux>/dev/null; then
-    tmux_start
-fi
 
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export SHELL="$HOMEBREW_PREFIX/bin/zsh"
