@@ -35,30 +35,39 @@ alias irssi='screen irssi'
 alias killall='killall -SIGUSR1'
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
 
-path_to_colorls=$(which colorls 2>/dev/null)
-if [ -x "$path_to_colorls" ] ; then
-    alias lc='colorls -lA --sd'
-    alias ls='colorls'
-    alias lsa='lc'
-    alias ll='lc -lh'
-    alias lrt='lc -rt'
-    alias ls_tree='lc --tree'
-elif command -v exa > /dev/null; then
-    alias ls='exa'                                                          # ls
-    alias l='exa -lbF --git'                                                # list, size, type, git
-    alias ll='exa -lbGF --git'                                             # long list
-    alias llm='exa -lbGd --git --sort=modified'                            # long list, modified date sort
-    alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale'  # all list
-    alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
-
-    # specialty views
-    alias lS='exa -1'                                                              # one column, just names
-    alias lt='exa --tree --level=2'                                         # tree
-else
-    alias la='ls -a'
-    alias ll='ls -lh'
-    alias ls_time='ls -lrt'
+path_to_lsd=$(which lsd 2>/dev/null)
+if [ -x "$path_to_lsd" ] ; then
+    alias ls='lsd'
+	alias l='ls -l'
+	alias la='ls -a'
+	alias lla='ls -la'
+	alias lt='ls --tree'
 fi
+
+#path_to_colorls=$(which colorls 2>/dev/null)
+#if [ -x "$path_to_colorls" ] ; then
+    #alias lc='colorls -lA --sd'
+    #alias ls='colorls'
+    #alias lsa='lc'
+    #alias ll='lc -lh'
+    #alias lrt='lc -rt'
+    #alias ls_tree='lc --tree'
+#elif command -v exa > /dev/null; then
+    #alias ls='exa'                                                          # ls
+    #alias l='exa -lbF --git'                                                # list, size, type, git
+    #alias ll='exa -lbGF --git'                                             # long list
+    #alias llm='exa -lbGd --git --sort=modified'                            # long list, modified date sort
+    #alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale'  # all list
+    #alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
+
+    ## specialty views
+    #alias lS='exa -1'                                                              # one column, just names
+    #alias lt='exa --tree --level=2'                                         # tree
+#else
+    #alias la='ls -a'
+    #alias ll='ls -lh'
+    #alias ls_time='ls -lrt'
+#fi
 
 alias latest_installed_pckg='cat /var/log/apt/history.log | grep "\ install\ "'
 alias lock_screen='gnome-screensaver-command --lock || xscreensaver-command -lock'
@@ -242,17 +251,17 @@ function pdf2cbz(){
 function pdf2cbz_all_files_in_dir() {
     IFS=$(echo -en "\n\b");
     for f in `find . -maxdepth 1 -type f -name '*.pdf' -not -path '*/\.*' -exec readlink -f {} \;`;do
-        pdf2cbz "$f"; 
+        pdf2cbz "$f";
     done;
 }
 
 function dirs2cbz() {
     IFS=$(echo -en "\n\b");
-    find . -type d -not -empty -print0 | while IFS= read -r -d '' dir; do   
-        if find "$dir" -maxdepth 1 -type f | read f; then 
-            zip "$(basename "$dir").cbz" "$dir"/*; 
-            rm -Rf "$dir" ;  
-        fi; 
+    find . -type d -not -empty -print0 | while IFS= read -r -d '' dir; do
+        if find "$dir" -maxdepth 1 -type f | read f; then
+            zip "$(basename "$dir").cbz" "$dir"/*;
+            rm -Rf "$dir" ;
+        fi;
     done
 }
 
@@ -269,18 +278,18 @@ alias dclogs='docker-compose -f /opt/docker-compose.yml logs -tf --tail="50" '
 alias dtail='docker logs -tf --tail="50" "$@"'
 
 ## bfunk aliases
-export dd1=/srv/dev-disk-by-label-media_center/                                                                                                                                                                                               
-export dd2=/srv/dev-disk-by-id-ata-WDC_WD15EADS-00P8B0_WD-WMAVU0549888-part1/                                                                                                                                                                 
-alias myip='dig +short myip.opendns.com @resolver1.opendns.com'                                                                                                                                                                               
-alias split_flac_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.flac` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'           
-alias split_ape_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.ape` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'             
-alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.vw` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'               
+export dd1=/srv/dev-disk-by-label-media_center/
+export dd2=/srv/dev-disk-by-id-ata-WDC_WD15EADS-00P8B0_WD-WMAVU0549888-part1/
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias split_flac_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.flac` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
+alias split_ape_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.ape` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
+alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.vw` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias start_vpn_torrent='sudo systemctl start vpn_access.service; sudo service transmission-daemon start; myip'
 alias stop_vpn_torrent='sudo service transmission-daemon stop; sudo systemctl stop vpn_access.service; myip'
-alias nginx_maintenance='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/omv_maintenance /etc/nginx/sites-enabled/omv_maintenance && sudo service nginx restart;'                                              
-alias nginx_organizr='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/organizr /etc/nginx/sites-enabled/organizr && sudo service nginx restart;'                                                               
-alias filebot_movie_rename_dryrun='IFS=$(echo -en "\n\b"); for dir in `find -type d`; do filebot -rename $dir --db TheMovieDB --format "/export/torrent/{plex}" --action test; done'                                                          
-alias filebot_movie_rename_move='IFS=$(echo -en "\n\b"); for dir in `find -type d`; do filebot -rename $dir --db TheMovieDB --format "/export/torrent/{plex}" --action move; done'                                                            
+alias nginx_maintenance='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/omv_maintenance /etc/nginx/sites-enabled/omv_maintenance && sudo service nginx restart;'
+alias nginx_organizr='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/organizr /etc/nginx/sites-enabled/organizr && sudo service nginx restart;'
+alias filebot_movie_rename_dryrun='IFS=$(echo -en "\n\b"); for dir in `find -type d`; do filebot -rename $dir --db TheMovieDB --format "/export/torrent/{plex}" --action test; done'
+alias filebot_movie_rename_move='IFS=$(echo -en "\n\b"); for dir in `find -type d`; do filebot -rename $dir --db TheMovieDB --format "/export/torrent/{plex}" --action move; done'
 alias filebot_tvshows_rename_dryrun='filebot -rename -r -non-strict . --db TheTVDB --format "/export/torrent/{plex}" --action test'
 alias filebot_tvshows_rename_move='filebot -rename -r -non-strict . --db TheTVDB --format "/export/torrent/{plex}" --action move'
 

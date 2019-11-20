@@ -72,6 +72,7 @@ brew_install_or_upgrade htop
 brew_install_or_upgrade httpie
 brew_install_or_upgrade hub
 brew_install_or_upgrade lnav
+brew_install_or_upgrade lsd
 brew_install_or_upgrade midnight-commander
 brew_install_or_upgrade ncdu
 brew_install_or_upgrade openssh # in order to have latest version => SetEnv
@@ -81,12 +82,13 @@ brew_install_or_upgrade pyenv
 brew_install_or_upgrade pyenv-virtualenv
 brew_install_or_upgrade ranger
 brew_install_or_upgrade ripgrep
+brew_install_or_upgrade task
 brew_install_or_upgrade the_silver_searcher
 brew_install_or_upgrade tig
 brew_install_or_upgrade tmux
 brew_install_or_upgrade urlview
 brew_install_or_upgrade vim
-brew_install_or_upgrade nvim
+#brew_install_or_upgrade nvim
 brew_install_or_upgrade zsh
 
 brew tap fernandotcl/homebrew-fernandotcl
@@ -127,6 +129,9 @@ add_line_bashrc "export MANPATH=$HOMEBREW_PREFIX/share/man:$MANPATH"
 add_line_bashrc "export INFOPATH=$HOMEBREW_PREFIX/share/info:$INFOPATH"
 add_line_bashrc "export SHELL=$HOMEBREW_PREFIX/bin/zsh"
 add_line_bashrc "$HOMEBREW_PREFIX/bin/zsh"
+
+# neovim install
+pip3 install pynvim neovim
 
 # update vim . first activate conda base. install via vim/neovim
 #conda activate base && vim +PlugInstall!

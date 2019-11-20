@@ -116,10 +116,10 @@ if [ ! -n "${SSH_TTY+1}" ]; then
     zplug "plugins/tmux",   from:oh-my-zsh
 fi
 
-path_to_colorls=$(which colorls 2>/dev/null)
-if [ -x "$path_to_colorls" ] ; then
-   zplug "gretzky/auto-color-ls"
-fi
+#path_to_colorls=$(which colorls 2>/dev/null)
+#if [ -x "$path_to_colorls" ] ; then
+   #zplug "gretzky/auto-color-ls"
+#fi
 
 if ! zplug check --verbose; then
     zplug install
