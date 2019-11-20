@@ -96,6 +96,7 @@ zplug "plugins/pip",  from:oh-my-zsh
 zplug "plugins/sublime",  from:oh-my-zsh
 zplug "plugins/sudo",  from:oh-my-zsh
 zplug "plugins/systemd",   from:oh-my-zsh
+zplug "plugins/taskwarrior",   from:oh-my-zsh
 zplug "plugins/url-tools",  from:oh-my-zsh
 zplug "plugins/vagrant",  from:oh-my-zsh
 zplug "plugins/virtualenv",  from:oh-my-zsh
