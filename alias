@@ -84,6 +84,7 @@ alias use_antigen='echo source ~/.zshrc.antigen > ~/.zshrc; exit'
 alias use_zgen='echo source ~/.zshrc.zgen > ~/.zshrc; exit'
 alias use_zplug='echo source ~/.zshrc.zplug > ~/.zshrc; exit'
 alias vi='vim'
+alias nvi='nvim'
 [ -f ~/.utas_vpnc.conf ] && alias vpn_utas_connect='sudo vpnc ~/.utas_vpnc.conf --local-port 0' && alias vpn_utas_disconnect='sudo vpnc-disconnect'
 alias vpn_bfunk_start='cd $HOME/Nextcloud/Private/ovpns && sudo openvpn lbesnard.ovpn'
 alias ssh_work='ssh `cat ~/Dropbox/work/ip_work`'
@@ -105,6 +106,7 @@ alias beet_genre_uniq_update="beet ls -f '\$genre' | sort -u > ~/.beets_genre"
 if command -v htop > /dev/null; then alias top='htop'; fi
 if command -v dfc > /dev/null; then alias df='dfc'; fi
 
+if command -v nvim > /dev/null; then alias vi='nvim'; fi
 
 if command -v dig > /dev/null; then
     alias myip="dig +short myip.opendns.com @resolver1.opendns.com"

@@ -14,6 +14,7 @@
     ~/.config/beets: {create: true, force: false, path: config/beets/}
     ~/.config/cheat/conf.yml: {create: true, force: true, path: cheat.yml}
     ~/.config/cmus/autosave: {create: true, path: cmus/autosave}
+    ~/.config/nvim/init.vim: {create: true, force: true, path: vim/nvim.init.vim}
     ~/.config/ranger: {create: true, force: true, path: config/ranger/}
     ~/.config/sublime-text-2: {create: true, path: config/sublime-text-2/}
     ~/.config/tilda: {create: true, force: true, path: config/tilda/}

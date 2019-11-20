@@ -185,6 +185,7 @@ visual + \cu  # uncomment
 :FZF
 
 # move between windows after a :vnew for example
+ctrl-w h j k l
 ctrl h j k l
 
 # fold unfold blocks

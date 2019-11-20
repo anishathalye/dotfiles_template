@@ -86,6 +86,7 @@ brew_install_or_upgrade tig
 brew_install_or_upgrade tmux
 brew_install_or_upgrade urlview
 brew_install_or_upgrade vim
+brew_install_or_upgrade nvim
 brew_install_or_upgrade zsh
 
 brew tap fernandotcl/homebrew-fernandotcl
@@ -111,8 +112,6 @@ else
 fi
 . $DOTFILES_PATH/install
 
-#curl -fsSL -o .gitconfig https://raw.githubusercontent.com/lbesnard/dotfiles/master/gitconfig
-
 export SHELL=$HOMEBREW_PREFIX/bin/zsh
 export PATH="$HOME/usr/bin:$PATH"
 
@@ -129,5 +128,6 @@ add_line_bashrc "export INFOPATH=$HOMEBREW_PREFIX/share/info:$INFOPATH"
 add_line_bashrc "export SHELL=$HOMEBREW_PREFIX/bin/zsh"
 add_line_bashrc "$HOMEBREW_PREFIX/bin/zsh"
 
-# update vim
+# update vim . first activate conda base. install via vim/neovim
+#conda activate base && vim +PlugInstall!
 vim +PlugInstall!

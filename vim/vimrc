@@ -1,13 +1,14 @@
 " http://unlogic.co.uk/2013/02/08/vim-as-a-python-ide/
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/#vim-extensions
 " https://github.com/fisadev/fisa-vim-config
-"let g:ycm_path_to_python_interpreter = 'python3' 
+"let g:ycm_path_to_python_interpreter = 'python3'
 "set shell=/bin/bash
 if $TERM == "xterm"
     set t_Co=256               " 256 colors
 endif
-set term=screen-256color
-
+if !has('nvim')
+    set term=screen-256color
+endif
 " vim-plug install
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -20,43 +21,56 @@ set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 
 "--------------------------------------------------
-Plug 'mileszs/ack.vim'
+"Plug 'nvie/vim-flake8'
+"Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+"Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer --js-completer' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
+"Plug 'wincent/Command-T', { 'do': 'rake make' }
+Plug 'altercation/vim-colors-solarized'
+Plug 'christoomey/vim-sort-motion'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'croaker/mustang-vim'
+Plug 'davidhalter/jedi-vim'
+Plug 'easymotion/vim-easymotion'
 Plug 'ervandew/supertab'
 Plug 'gkapfham/vim-vitamin-onec'
-Plug 'tmhedberg/SimpylFold'
-Plug 'croaker/mustang-vim'
-Plug 'vim-scripts/indentpython.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --js-completer' }
-Plug 'scrooloose/syntastic'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
-"Plug 'nvie/vim-flake8'
-Plug 'jnurmine/Zenburn'
-Plug 'altercation/vim-colors-solarized'
+Plug 'itchyny/calendar.vim'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'kien/ctrlp.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'christoomey/vim-sort-motion'
-Plug 'majutsushi/tagbar'
-Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-unimpaired'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-Plug 'yann2192/vim-colorschemes'
-Plug 'yann2192/vim-vitamins'
-Plug 'davidhalter/jedi-vim'
-Plug 'wincent/Command-T'
+Plug 'jnurmine/Zenburn'
 Plug 'jnwhiteh/vim-golang'
-Plug 'easymotion/vim-easymotion'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'matze/vim-move'
+Plug 'junegunn/vim-easy-align'
+Plug 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'lukaszkorecki/workflowish' " todo lit
+Plug 'majutsushi/tagbar'
+Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim' " used by gist
-Plug 'mattn/emmet-vim'
-Plug 'lukaszkorecki/workflowish' " todo lit
-Plug 'itchyny/calendar.vim'
+Plug 'matze/vim-move'
+Plug 'mileszs/ack.vim'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
 Plug 'tell-k/vim-autopep8'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tmhedberg/SimpylFold'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'yann2192/vim-colorschemes'
+Plug 'yann2192/vim-vitamins'
 
 " Snipmate
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -68,13 +82,14 @@ Plug 'garbas/vim-snipmate'
 " Automatically sort python imports
 Plug 'fisadev/vim-isort'
 
-
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+nmap <Leader>f :Files<CR>
+
 
 " Initialize plugin system
 call plug#end()
@@ -176,7 +191,7 @@ set nowrap                  " don't wrap text
 set linebreak               " don't wrap textin the middle of a word
 set autoindent              " always set autoindenting on
 set smartindent             " use smart indent if there is no indent file
-set tabstop=4               " <tab> inserts 4 spaces 
+set tabstop=4               " <tab> inserts 4 spaces
 set shiftwidth=4            " but an indent level is 2 spaces wide.
 set softtabstop=4           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
@@ -219,7 +234,7 @@ set list                   " caractere $ en fin de ligne
 """ Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
 set smartcase               " unless uppercase letters are used in the regex.
-set smarttab                " Handle tabs more intelligently 
+set smarttab                " Handle tabs more intelligently
 set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
 
@@ -229,8 +244,8 @@ set colorcolumn=79
 
 
 """" Display
-if &t_Co >= 256      
-    silent! colorscheme vitaminonec     
+if &t_Co >= 256
+    silent! colorscheme vitaminonec
     "    colorscheme mustang
 else
     colorscheme wargrey
@@ -315,7 +330,6 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-
 " remove trailing space for bash file"
 autocmd BufWritePre *.sh :%s/\s\+$//e
 autocmd BufWritePre *.json :%s/\s\+$//e
@@ -374,7 +388,6 @@ nnoremap <space> za
 
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
-
 " run python
 nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 
@@ -390,13 +403,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-
-"" check YMC is compiled
-"let ymc_compiled=expand('~/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_client_support.so')
-"if !filereadable(ymc_compiled)
-    "echo "Compiling YMC..."
-    "silent !python ~/.vim/bundle/YouCompleteMe/install.py
-"endif
 
 function! DoPrettyXML()
   " save the filetype so we can restore it later
@@ -445,7 +451,7 @@ let g:calendar_google_task = 1
 map <Home> ^
 imap <Home> <Esc>^i
 
-" fold close all 
+" fold close all
 " zM and zR
 
 " python debug
@@ -474,7 +480,7 @@ noremap <space>gm :Gmove<Space>
 noremap <space>gb :Git branch<Space>
 noremap <space>go :Git checkout<Space>
 noremap <space>gps :Dispatch! git push<CR>
-nnoremap <space>gpl :Dispatch! git pull<CR>" 
+nnoremap <space>gpl :Dispatch! git pull<CR>"
 
 " highlight cursor, easier when lots of code
 set cursorline
@@ -491,3 +497,23 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 command! -nargs=0 Sw w !sudo tee % > /dev/null
+
+
+" airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+
+let g:airline#extensions#tabline#formatter = 'default'
+
+" solarized theme
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+
+" ctrlp 
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
