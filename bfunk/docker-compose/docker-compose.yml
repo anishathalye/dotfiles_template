@@ -377,6 +377,7 @@ services:
      - OPENVPN_PASSWORD=$PIA_PASSWORD
      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
      - LOCAL_NETWORK=$LOCAL_NETWORK
+   restart: unless-stopped
   proxy:
    image: haugene/transmission-openvpn-proxy
    links:
@@ -414,6 +415,7 @@ services:
     volumes:
         - '$SERVER_PATH:/usr/local/apache2/htdocs/share/'
     image: apax
+    restart: unless-stopped
 #############
 # for organizr help page
   tecmint-web:
@@ -423,6 +425,7 @@ services:
       - 9090:80
     volumes:
       - $DOCKER_CONFIG_PATH/howto:/usr/local/apache2/htdocs/
+    restart: unless-stopped
 ###############
   diskover:
     image: linuxserver/diskover
@@ -482,3 +485,4 @@ services:
     ports:
       - 5700:5800
       - 5900:5900
+    restart: unless-stopped
