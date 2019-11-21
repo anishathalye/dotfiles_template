@@ -21,6 +21,7 @@ set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 
 "--------------------------------------------------
+"https://jdhao.github.io/2018/12/24/centos_nvim_install_use_guide_en/
 "Plug 'nvie/vim-flake8'
 "Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 "Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer --js-completer' }
@@ -36,8 +37,18 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 
+" python ide
+Plug 'zchee/deoplete-jedi'
+Plug 'jiangmiao/auto-pairs'
+
+" Code jump (go-to) plugin
+Plug 'davidhalter/jedi-vim' 
+
+Plug 'machakann/vim-highlightedyank'
+
 "Plug 'wincent/Command-T', { 'do': 'rake make' }
 Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'croaker/mustang-vim'
@@ -496,6 +507,7 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 " the silver searcher integration
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
+" save file as root :Sw
 command! -nargs=0 Sw w !sudo tee % > /dev/null
 
 
@@ -507,8 +519,10 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'default'
 
 " solarized theme
-let g:airline_theme='solarized'
-let g:airline_solarized_bg='dark'
+"let g:airline_theme='solarized'
+"let g:airline_solarized_bg='dark'
+colorscheme gruvbox
+set background=dark " use dark mode
 
 " ctrlp 
 let g:ctrlp_map = '<c-p>'
@@ -517,3 +531,20 @@ let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
+" close preview window automatically
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif 
+
+" disable autocompletion, cause we use deoplete for completion
+let g:jedi#completions_enabled = 0
+
+" open the go-to function in split, not another buffer
+let g:jedi#use_splits_not_buffers = "right"
+"    <leader>d: go to definition
+    "K: check documentation of class or method
+    "<leader>n: show the usage of a name in current file
+    "<leader>r: rename a name
+
+
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"  "navigate through the auto-completion list with Tab
+
+hi HighlightedyankRegion cterm=reverse gui=reverse
