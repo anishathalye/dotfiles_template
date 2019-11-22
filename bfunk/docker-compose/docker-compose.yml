@@ -486,3 +486,23 @@ services:
       - 5700:5800
       - 5900:5900
     restart: unless-stopped
+################
+  codimd:
+    image: linuxserver/codimd:latest
+    container_name: codimd
+    restart: always
+    depends_on:
+      - mariadb
+    volumes:
+      - $DOCKER_CONFIG_PATH/codim:/config
+    environment:
+      - DB_HOST=$DB_HOST
+      - DB_USER=$DB_CODIMD_USER
+      - DB_PASS=$DB_CODIMD_PASS
+      - DB_NAME=$DB_NAME
+      - DB_PORT=$DB_PORT
+      - PGID=1000
+      - PUID=1000
+      - TZ=$TZ
+    ports:
+      - "3000:3000"
