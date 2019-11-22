@@ -37,3 +37,6 @@ if [ -d $HOME/github_repo/dotfiles ];then # on local computer
 elif [ -d $HOME/dotfiles >/dev/null ]; then # on any $HOME folder, the dotfiles repo should be clone to $HOME/dotfiles
     export DOTFILES_PATH=$HOME/dotfiles 
 fi
+
+if command -v nvim > /dev/null; then export EDITOR=nvim; fi
+#if command -v bat > /dev/null; then export VISUAL="bat"; fi

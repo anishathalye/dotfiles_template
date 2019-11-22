@@ -304,3 +304,4 @@ alias nextcloud_force_rescan='docker exec nextcloud sudo -u abc php /config/www/
 # update dotfiles
 alias dotf_update='dotfiles && git pull && bash install; cd -'
 
+if command -v bat > /dev/null; then alias cat="bat -p"; fi

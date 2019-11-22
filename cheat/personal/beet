@@ -10,3 +10,9 @@ beet list -a year:0000 -albumartist:Wooden -p
 
 # fetchart
 beet fetchart albumartist:"RÜFÜS DU SOL"
+
+# change The artists
+beet move -p -a albumartist::"^The\s"
+beet move -p -a albumartist::"^A\s"
+
+beet move -p -a albumartist::"^The\s" path::".*/Unknown/"
