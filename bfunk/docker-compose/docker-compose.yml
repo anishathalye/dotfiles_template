@@ -499,7 +499,7 @@ services:
       - DB_HOST=$DB_HOST
       - DB_USER=$DB_CODIMD_USER
       - DB_PASS=$DB_CODIMD_PASS
-      - DB_NAME=$DB_NAME
+      - DB_NAME=$DB_CODIMD_SCHEMA
       - DB_PORT=$DB_PORT
       - PGID=1000
       - PUID=1000
