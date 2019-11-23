@@ -94,7 +94,8 @@ the:
 threaded: yes
 
 paths:
-    default: '%title{$genre}/%the{%title{$albumartist}}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
+    #default: '%title{$genre}/%the{%title{$albumartist}}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
+    default: '%title{$genre}/%title{$albumartist}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
     albumtype:soundtrack: Soundtracks/$albumartist - $original_year - $album/%if{$multidisc,Disc $disc/}$track $title
     singleton: '%the{$albumartist}/$year -  $album/$track $title'
     mis:1: '%the{$albumartist}/$year - $album/$track $title'
@@ -102,7 +103,7 @@ paths:
 per_disc_numbering: true
 
 #plugins: rewrite fetchart badfiles inline convert web lastgenre play chroma fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist artistcountry the fuzzy random web bandcamp scrub ftintitle
-plugins: discogs info rewrite fetchart badfiles inline convert web lastgenre play fromfilename duplicates acousticbrainz mbsync cmus smartplaylist artistcountry the fuzzy random web scrub ftintitle replaygain subsonicupdate
+plugins: discogs info rewrite fetchart badfiles inline convert web lastgenre play fromfilename duplicates acousticbrainz mbsync cmus smartplaylist artistcountry  fuzzy random web scrub ftintitle replaygain subsonicupdate
 #plugins: inline the fuzzy lastgenre fetchart
 
 pluginpath:
@@ -189,6 +190,6 @@ subsonic:
     host: 10.1.1.198
     port: 8080
     user: admin
-    pass:
-    contextpath: /
+    pass: 6?ZgUs5d!d
+    contextpath: ''
 
