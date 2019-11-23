@@ -506,3 +506,18 @@ services:
       - TZ=$TZ
     ports:
       - "3000:3000"
+################
+  duckdns:
+    image: linuxserver/duckdns
+    container_name: duckdns
+    environment:
+      - PUID=1000 #optional
+      - PGID=1000 #optional
+      - TZ=$TZ
+      - SUBDOMAINS=$DUCKDNS_DOMAIN
+      - TOKEN=$DUCKDNS_TOCKEN
+      - LOG_FILE=false #optional
+    volumes:
+    volumes:
+      - $DOCKER_CONFIG_PATH/duckdns:/config #optional
+    restart: unless-stopped
