@@ -515,7 +515,7 @@ services:
       - PGID=1000 #optional
       - TZ=$TZ
       - SUBDOMAINS=$DUCKDNS_DOMAIN
-      - TOKEN=$DUCKDNS_TOCKEN
+      - TOKEN=$DUCKDNS_TOKEN
       - LOG_FILE=false #optional
     volumes:
     volumes:
