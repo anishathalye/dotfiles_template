@@ -522,13 +522,14 @@ services:
     restart: unless-stopped
 ##############
   gonic:
+    container_name: gonic
     image: sentriz/gonic:latest
     environment:
       - TZ=$TZ
     expose:
-      - 80
-    ports:
-      - 4747:4747
+      - 4747
+    #ports:
+      #- 4747:4747
     volumes:
       - $DOCKER_CONFIG_PATH/gonic:/data
       - $MUSIC_PATH:/music:ro
