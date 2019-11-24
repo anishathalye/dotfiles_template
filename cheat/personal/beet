@@ -16,3 +16,10 @@ beet move -p -a albumartist::"^The\s"
 beet move -p -a albumartist::"^A\s"
 
 beet move -p -a albumartist::"^The\s" path::".*/Unknown/"
+
+# get metadata info
+beet info -i 'genre' albumartist:Herbaliser
+
+# move (with dry-run)
+beet move path:"/export/music/beet_library/Avant-garde/" -p
+

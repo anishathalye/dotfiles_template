@@ -518,6 +518,17 @@ services:
       - TOKEN=$DUCKDNS_TOKEN
       - LOG_FILE=false #optional
     volumes:
-    volumes:
       - $DOCKER_CONFIG_PATH/duckdns:/config #optional
     restart: unless-stopped
+##############
+  gonic:
+    image: sentriz/gonic:latest
+    environment:
+      - TZ=$TZ
+    expose:
+      - 80
+    ports:
+      - 4747:4747
+    volumes:
+      - $DOCKER_CONFIG_PATH/gonic:/data
+      - $MUSIC_PATH:/music:ro
