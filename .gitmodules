@@ -10,3 +10,6 @@
 [submodule "cheat/community"]
 	path = cheat/community
 	url = https://github.com/cheat/cheatsheets
+[submodule "config/beets/plugins/airsonic"]
+	path = config/beets/plugins/airsonic
+	url = https://github.com/SolidHal/beets-airsonic.git

@@ -2,7 +2,7 @@ acousticbrainz:
     auto: yes
 
 badfiles:
-      commands: {}
+    commands: {}
     #    commands:
     #    ogg: myoggchecker --opt1 --opt2
     #    flac: flac --test --warnings-as-errors --silent
@@ -31,7 +31,6 @@ fetchart:
         - google
         - '*'
 
-
 ftintitle:
     auto: yes
 
@@ -45,6 +44,7 @@ import:
 
 item_fields:
     multidisc: 1 if disctotal > 1 else 0
+    genre_fix: genre.title()
 
 lastgenre:
     auto: yes
@@ -57,7 +57,7 @@ lastgenre:
 library: /opt/beets/musiclibrary2.blb
 
 replaygain:
-        backend: bs1770gain
+    backend: bs1770gain
 
 smartplaylist:
     playlist_dir: ~/playlists
@@ -95,20 +95,43 @@ threaded: yes
 
 paths:
     #default: '%title{$genre}/%the{%title{$albumartist}}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
-    default: '%title{$genre}/%title{$albumartist}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
+    #default: '%title{$genre}/%title{$albumartist}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
+    default: '$genre_fix/%title{$albumartist}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
     albumtype:soundtrack: Soundtracks/$albumartist - $original_year - $album/%if{$multidisc,Disc $disc/}$track $title
-    singleton: '%the{$albumartist}/$year -  $album/$track $title'
-    mis:1: '%the{$albumartist}/$year - $album/$track $title'
+    singleton: '$albumartist/$year -  $album/$track $title'
+    mis:1: '$albumartist/$year - $album/$track $title'
 
 per_disc_numbering: true
 
-#plugins: rewrite fetchart badfiles inline convert web lastgenre play chroma fromfilename duplicates acousticbrainz discogs mbsync cmus smartplaylist artistcountry the fuzzy random web bandcamp scrub ftintitle
-plugins: discogs info rewrite fetchart badfiles inline convert web lastgenre play fromfilename duplicates acousticbrainz mbsync cmus smartplaylist artistcountry  fuzzy random web scrub ftintitle replaygain subsonicupdate
-#plugins: inline the fuzzy lastgenre fetchart
+plugins:
+    - acousticbrainz
+    - airsonic
+    - artistcountry
+    - badfiles
+    - cmus
+    - convert
+    - discogs
+    - duplicates
+    - fetchart
+    - fromfilename
+    - ftintitle
+    - fuzzy
+    - info
+    - inline
+    - lastgenre
+    - mbsync
+    - play
+    - random
+    - replaygain
+    - rewrite
+    - scrub
+    - smartplaylist
+    - web
 
 pluginpath:
     - ~/.config/beets/plugins/
     - ~/.config/beets/plugins/bandcamp/beetsplug
+    - ~/.config/beets/plugins/airsonic/
 
 play:
     command: mp3blaster --list
@@ -135,7 +158,6 @@ path_sep_replace: _
 
 scrub:
         auto: yes
-
 
 ui:
     color: yes
@@ -186,10 +208,10 @@ match:
     track_length_max: 30
 
 
-subsonic:
-    host: 10.1.1.198
+airsonic:
+    server: http://10.1.1.198
     port: 8080
     user: admin
-    pass: 6?ZgUs5d!d
-    contextpath: ''
+    password: "6?ZgUs5d!d"
+    log: "/tmp/airsonic-beets.log"
 
