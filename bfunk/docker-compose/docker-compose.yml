@@ -527,9 +527,9 @@ services:
     environment:
       - TZ=$TZ
     expose:
-      - 4747
-    #ports:
-      #- 4747:4747
+      - 80
+    ports:
+      - 4747:80
     volumes:
       - $DOCKER_CONFIG_PATH/gonic:/data
       - $MUSIC_PATH:/music:ro
