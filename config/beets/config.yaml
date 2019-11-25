@@ -59,10 +59,6 @@ library: /opt/beets/musiclibrary2.blb
 replaygain:
     backend: bs1770gain
 
-smartplaylist:
-    playlist_dir: ~/playlists
-    playlists: [{name: all.m3u, query: ''}, {name:  vivaldi.m3u, query: 'kennedy'}]
-
 sort_item: albumartist+ album+ disc+ track+
 
 spotify:
@@ -94,8 +90,6 @@ the:
 threaded: yes
 
 paths:
-    #default: '%title{$genre}/%the{%title{$albumartist}}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
-    #default: '%title{$genre}/%title{$albumartist}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
     default: '$genre_fix/%title{$albumartist}/$original_year - $album/%if{$multidisc,Disc $disc/}$track $title'
     albumtype:soundtrack: Soundtracks/$albumartist - $original_year - $album/%if{$multidisc,Disc $disc/}$track $title
     singleton: '$albumartist/$year -  $album/$track $title'
@@ -112,10 +106,12 @@ plugins:
     - convert
     - discogs
     - duplicates
+    - fetchartist
     - fetchart
     - fromfilename
     - ftintitle
     - fuzzy
+    - hook
     - info
     - inline
     - lastgenre
@@ -132,6 +128,23 @@ pluginpath:
     - ~/.config/beets/plugins/
     - ~/.config/beets/plugins/bandcamp/beetsplug
     - ~/.config/beets/plugins/airsonic/
+    - ~/.config/beets/plugins/fetchartist/beetsplug/
+
+# recreated at each run monthly import playlists
+smartplaylist:
+    relative_to: /export/music # as setup on docker container
+    playlist_dir: /export/music/beet_library/playlists
+    playlists:
+        - name: 'Monthly_added_%time{$added,%Y-%m}.m3u'
+          query: 'added:2018-10..'
+
+hook:
+  hooks:
+    # renaming the "relative_to" part of the playlist created in smartplaylist so this can be used in the airsonic docker container automatically
+    - event: cli_exit
+      command: "sh -c 'for f in `find /export/music/beet_library/playlists -type f`; do sed -i \"s#beet_library#/music#g\" $f; done'"
+    - event: import
+      command: "sh -c 'for f in `find /export/music/beet_library/playlists -type f`; do sed -i \"s#beet_library#/music#g\" $f; done'"
 
 play:
     command: mp3blaster --list
@@ -215,3 +228,5 @@ airsonic:
     password: "6?ZgUs5d!d"
     log: "/tmp/airsonic-beets.log"
 
+fetchartist:
+    cover_name: "folder"
