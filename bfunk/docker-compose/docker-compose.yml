@@ -54,7 +54,7 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/airsonic:/config
       - $MUSIC_PATH:/music:ro
-        #- $PLAYLIST_PATH:/playlists
+      - $PLAYLIST_PATH:/playlists
       - $PODCASTS_PATH:/podcasts
     ports:
       - 8080:4040
@@ -393,15 +393,6 @@ services:
      - transmission
    environment:
      - RSS_URL=http://.../xxxxx.rss
-########################3
-  #filebot:
-    #image: jlesage/filebot
-    #container_name: filebot
-    #ports:
-      #- "5800:5800"
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/filebot:/config
-  #    - $TORRENT_PATH/FILEBOT:/storage
 #########
   apaxy:
     image: apaxy
@@ -417,7 +408,7 @@ services:
     image: apax
     restart: unless-stopped
 #############
-# for organizr help page
+# to store icons for organizr help page
   tecmint-web:
     container_name: web-server
     image: httpd:2.4
@@ -487,6 +478,7 @@ services:
       - 5900:5900
     restart: unless-stopped
 ################
+####### notes
   codimd:
     image: linuxserver/codimd:latest
     container_name: codimd
@@ -507,6 +499,7 @@ services:
     ports:
       - "3000:3000"
 ################
+########## get server ip to duckdns
   duckdns:
     image: linuxserver/duckdns
     container_name: duckdns
@@ -521,6 +514,7 @@ services:
       - $DOCKER_CONFIG_PATH/duckdns:/config #optional
     restart: unless-stopped
 ##############
+## airsonic replacement api
   gonic:
     container_name: gonic
     image: sentriz/gonic:latest
