@@ -54,7 +54,7 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/airsonic:/config
       - $MUSIC_PATH:/music:ro
-      - $PLAYLIST_PATH:/playlists
+      - $PLAYLISTS_PATH:/playlists
       - $PODCASTS_PATH:/podcasts
     ports:
       - 8080:4040
