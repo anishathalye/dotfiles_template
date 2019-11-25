@@ -80,12 +80,12 @@ spotify:
     ]
 
 
-the:
-    the: yes
-    a: yes
-    format: '{0}, {1}'
-    strip: no
-    patterns: []
+#the:
+    #the: yes
+    #a: yes
+    #format: '{0}, {1}'
+    #strip: no
+#    patterns: []
 
 threaded: yes
 
@@ -135,7 +135,7 @@ smartplaylist:
     relative_to: /export/music # as setup on docker container
     playlist_dir: /export/music/beet_library/playlists
     playlists:
-        - name: 'Monthly_added_%time{$added,%Y-%m}.m3u'
+        - name: 'New_%time{$added,%Y-%m}.m3u'
           query: 'added:2018-10..'
 
 hook:

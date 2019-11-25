@@ -131,6 +131,7 @@ add_line_bashrc "export SHELL=$HOMEBREW_PREFIX/bin/zsh"
 add_line_bashrc "$HOMEBREW_PREFIX/bin/zsh"
 
 # neovim install
+pip install pynvim neovim jedi
 pip3 install pynvim neovim jedi
 
 # update vim . first activate conda base. install via vim/neovim
