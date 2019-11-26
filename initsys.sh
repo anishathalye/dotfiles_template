@@ -94,14 +94,12 @@ brew_install_or_upgrade zsh
 brew tap fernandotcl/homebrew-fernandotcl
 brew_install_or_upgrade monkeys-audio
 
-brew cask install anaconda
-
 # To install useful key bindings and fuzzy completion for fzf
 $(brew --prefix)/opt/fzf/install
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 # fancy colorls
-gem install colorls
+#gem install colorls
 
 # setup dotfiles
 if [ -d $HOME/github_repo/dotfiles ];then # on local computer
@@ -132,15 +130,33 @@ add_line_bashrc "export INFOPATH=$HOMEBREW_PREFIX/share/info:$INFOPATH"
 add_line_bashrc "export SHELL=$HOMEBREW_PREFIX/bin/zsh"
 add_line_bashrc "$HOMEBREW_PREFIX/bin/zsh"
 
+################################################################
+# CONDA setup
+################################################################
+if [ -d "$HOME/anaconda3/bin" ]; then
+    CONDA=$HOME/anaconda3
+elif [ -d "$HOME/miniconda3/bin" ]; then
+    CONDA=$HOME/miniconda3
+else
+    wget https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh -O ~/anaconda.sh
+    bash ~/anaconda.sh -b -p $HOME/anaconda3
+    rm -f ~/anaconda.sh
+    CONDA=$HOME/anaconda3
+fi
 
+export PATH=$CONDA/bin:$PATH
+zsh
+
+################################################################
 # neovim install once anaconda/miniconda is installed
 # neovim is already set up properly in its init file to use excatly this env name
-if [ -n "$(command -v conda)" ]; then
-    if ! [ -d $HOME/anaconda3/env/neovim/bin ] ;then # on local computer
+################################################################
+if ! [ -d $CONDA/env/neovim/bin ] ;then # on local computer
         conda create -y -n neovim python=3.7
         conda activate neovim
         conda install -y -c conda-forge neovim
         conda install -y pynvim neovim jedi
-    fi
 fi
-nvim +PlugInstall!
+
+rm -Rf ~/.vim
+nvim +PlugInstall +qall > /dev/null;
