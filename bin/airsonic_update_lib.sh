@@ -2,11 +2,13 @@
 #
 # inpsired from Paul Komurka https://github.com/pawlex/pub.scripts.misc
 #
+. $HOME/.env_private
+
 COOKIE="cookie.curl"
 STORECOOKIE="--cookie-jar $COOKIE"
 LOADCOOKIE="-b $COOKIE"
 URLROOT=$AIRSONIC_URL
-ADMIN_USERNAME=$AIRSONIC_AMDIN_USER
+ADMIN_USERNAME=$AIRSONIC_ADMIN_USER
 ADMIN_PASSWORD=$AIRSONIC_ADMIN_PASS # who cares of this password anyway!GG^
 
 # Pull the page to get the CSRF and store the initial cookie.
