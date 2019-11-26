@@ -135,7 +135,7 @@ add_line_bashrc "$HOMEBREW_PREFIX/bin/zsh"
 
 # neovim install once anaconda/miniconda is installed
 # neovim is already set up properly in its init file to use excatly this env name
-if [ -x "$(command -v conda)" ]; then
+if [ -n "$(command -v conda)" ]; then
     if ! [ -d $HOME/anaconda3/env/neovim/bin ] ;then # on local computer
         conda create -y -n neovim python=3.7
         conda activate neovim
