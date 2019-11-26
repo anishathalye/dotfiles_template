@@ -100,6 +100,7 @@ function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
 
 
 source ~/.env    # load env variables
+source ~/.env_private    # load env variables
 source ~/.alias  # load aliases
 source ~/.complete # completion features
 

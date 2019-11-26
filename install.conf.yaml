@@ -20,6 +20,7 @@
     ~/.config/tilda: {create: true, force: true, path: config/tilda/}
     ~/.dotfiles: .
     ~/.env: env
+    ~/.env_private: env_private
     ~/.flake8: flake8
     ~/.gconf/apps/guake: {create: true, force: true, path: gconf/apps/guake/}
     ~/.gitconfig: {create: true, force: true, path: gitconfig}

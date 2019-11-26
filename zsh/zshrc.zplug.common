@@ -134,6 +134,7 @@ zplug load
 
 # overwrite aliases if needed
 [ -f $HOME/.env ] && source $HOME/.env
+[ -f $HOME/.env_private ] && source $HOME/.env_private
 [ -f $HOME/.alias ] && source $HOME/.alias
 
 #ZSH history
