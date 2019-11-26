@@ -236,7 +236,7 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/radarr:/config
       - $MOVIES_ENG_PATH:/movies
-      - $TORRENT_PATH/RADARR_DL:/downloads
+      - $TORRENT_PATH/completed:/downloads
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -252,7 +252,7 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/sonarr:/config
       - ${TV_SHOWS_PATH}:/tv
-      - $TORRENT_PATH/SONARR_DL:/downloads
+      - $TORRENT_PATH/completed:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
