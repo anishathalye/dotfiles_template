@@ -235,7 +235,7 @@ services:
       - UMASK_SET=022 #optional
     volumes:
       - $DOCKER_CONFIG_PATH/radarr:/config
-      - $MOVIES_ENG_PATH:/movies:ro
+      - $MOVIES_ENG_PATH:/movies
       - $TORRENT_PATH/RADARR_DL:/downloads
     ports:
       - 7878:7878
