@@ -472,7 +472,7 @@ services:
       - TZ=$TZ
     volumes:
       - $DOCKER_CONFIG_PATH/tmm:/config
-      - $TORRENT_PATH/movies:/media
+      - $TORRENT_PATH/completed:/media
     ports:
       - 5700:5800
       - 5900:5900
