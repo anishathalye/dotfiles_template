@@ -1,6 +1,9 @@
 # conda environments:
- conda env list
- conda info --envs
+conda env list
+conda info --envs
 
 # activate
- conda activate py2.7
+conda activate py2.7
+
+# remove env
+conda env remove -n neovim
