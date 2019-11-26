@@ -99,19 +99,20 @@ per_disc_numbering: true
 
 plugins:
     - acousticbrainz
-    - airsonic
     - artistcountry
     - badfiles
     - cmus
     - convert
     - discogs
     - duplicates
+    - edit
     - fetchartist
     - fetchart
     - fromfilename
     - ftintitle
     - fuzzy
     - hook
+    - importadded
     - info
     - inline
     - lastgenre
@@ -145,6 +146,17 @@ hook:
       command: "sh -c 'for f in `find /export/music/beet_library/playlists -type f`; do sed -i \"s#beet_library#/music#g\" $f; done'"
     - event: import
       command: "sh -c 'for f in `find /export/music/beet_library/playlists -type f`; do sed -i \"s#beet_library#/music#g\" $f; done'"
+
+    - event: import
+      command: "sh -c 'sh $HOME/bin/airsonic_update_lib.sh'"
+
+edit:
+    itemfields: track title artist album albumartist genre year
+    albumfields: album albumartist genre year
+
+importadded:
+    preserve_mtimes: yes
+    preserve_write_mtimes: yes
 
 play:
     command: mp3blaster --list
@@ -219,14 +231,6 @@ match:
     ignored: []
     track_length_grace: 10
     track_length_max: 30
-
-
-airsonic:
-    server: http://10.1.1.198
-    port: 8080
-    user: admin
-    password: "6?ZgUs5d!d"
-    log: "/tmp/airsonic-beets.log"
 
 fetchartist:
     cover_name: "folder"
