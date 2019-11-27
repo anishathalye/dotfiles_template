@@ -45,6 +45,7 @@ import:
 item_fields:
     multidisc: 1 if disctotal > 1 else 0
     genre_fix: genre.title()
+    genre_no_space: genre.lower().replace(' ','_')
 
 lastgenre:
     auto: yes
@@ -53,6 +54,13 @@ lastgenre:
     canonical: ~/.config/beets/genres-tree.yaml
     whitelist: ~/.config/beets/beets_genre
     #prefer_specific: true
+
+wlg:
+    auto: no
+    force: no
+    count: 1
+    separator: ', '
+    whitelist: ~/.config/beets/beets_genre
 
 library: /opt/beets/musiclibrary2.blb
 
@@ -124,31 +132,33 @@ plugins:
     - scrub
     - smartplaylist
     - web
+    - wlg
 
 pluginpath:
     - ~/.config/beets/plugins/
     - ~/.config/beets/plugins/bandcamp/beetsplug
     - ~/.config/beets/plugins/airsonic/
     - ~/.config/beets/plugins/fetchartist/beetsplug/
+    - ~/.config/beets/whatlastgenre/plugin/beets/beetsplug
 
 # recreated at each run monthly import playlists
 smartplaylist:
     relative_to: /export/music # as setup on docker container
     playlist_dir: /export/music/beet_library/playlists
     playlists:
-        - name: 'New_%time{$added,%Y-%m}.m3u'
+        - name: 'New_%time{$added,%Y-%m}_$genre_no_space.m3u'
           query: 'added:2018-10..'
 
 hook:
   hooks:
     # renaming the "relative_to" part of the playlist created in smartplaylist so this can be used in the airsonic docker container automatically
     - event: cli_exit
-      command: "sh -c 'for f in `find /export/music/beet_library/playlists -type f`; do sed -i \"s#beet_library#/music#g\" $f; done'"
+      command: "sh -c 'for f in `find /export/music/beet_library/playlists -type f`; do sed -i \"s#beet_library#/music#g\" \"$f\"; done'"
     - event: import
-      command: "sh -c 'for f in `find /export/music/beet_library/playlists -type f`; do sed -i \"s#beet_library#/music#g\" $f; done'"
+      command: "sh -c 'for f in `find /export/music/beet_library/playlists -type f`; do sed -i \"s#beet_library#/music#g\" \"$f\"; done'"
 
     - event: import
-      command: "sh -c 'sh $HOME/bin/airsonic_update_lib.sh'"
+      command: "sh -c 'sh /home/lbesnard/bin/airsonic_update_lib.sh'"
 
 edit:
     itemfields: track title artist album albumartist genre year

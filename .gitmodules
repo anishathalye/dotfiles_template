@@ -16,3 +16,6 @@
 [submodule "config/beets/plugins/fetchartist"]
 	path = config/beets/plugins/fetchartist
 	url = https://github.com/andrekupka/fetchartist.git
+[submodule "config/beets/whatlastgenre"]
+	path = config/beets/whatlastgenre
+	url = https://github.com/davdittrich/whatlastgenre.git

@@ -43,6 +43,7 @@
     ~/.tmux.conf.laptop: {force: true, path: tmux/tmux.conf.laptop}
     ~/.tmux.conf.ssh: {force: true, path: tmux/tmux.conf.ssh}
     ~/.vimrc: {create: true, force: true, path: vim/vimrc}
+    ~/.whatlastgenre: {create: true, force: false, path: whatlastgenre}
     ~/.xsessionrc: xsessionrc
     ~/.zsh_alias: zsh_alias
     ~/.zshrc: {force: true, path: zsh/zshrc}

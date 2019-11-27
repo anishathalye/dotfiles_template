@@ -1,0 +1,30 @@
+[wlg]
+sources = discogs, lastfm, redacted
+whitelist = 
+tagsfile = 
+vaqueries = true
+id3v23sep = 
+
+[genres]
+love = electronic, blues 
+hate =  pop
+
+[scores]
+artist = 1.33
+various = 0.66
+splitup = 0.33
+minimum = 0.10
+src_discogs = 1.00
+src_lastfm = 0.66
+src_mbrainz = 0.66
+src_redacted = 1.50
+
+[discogs]
+token = 
+secret = 
+
+[redacted]
+username = 
+password = 
+session = 
+
