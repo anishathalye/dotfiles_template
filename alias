@@ -115,7 +115,11 @@ alias beet_genre_uniq_update="beet ls -f '\$genre' | sort -u > ~/.beets_genre"
 if command -v htop > /dev/null; then alias top='htop'; fi
 if command -v dfc > /dev/null; then alias df='dfc'; fi
 
-if command -v nvim > /dev/null; then alias vi='nvim'; fi
+if command -v nvim > /dev/null; then
+    alias vim='nvim'
+    alias vi='nvim'
+    alias v='f -e nvim' # replace default fasd alias from zsh plugin
+fi
 
 if command -v dig > /dev/null; then
     alias myip="dig +short myip.opendns.com @resolver1.opendns.com"

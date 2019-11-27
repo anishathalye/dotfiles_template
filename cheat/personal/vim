@@ -205,3 +205,7 @@ zd deletes the fold at the cursor.
 zE deletes all folds.
 [z move to start of open fold.
 ]z move to end of open fold.
+
+
+# which file am i editing
+ctrl G

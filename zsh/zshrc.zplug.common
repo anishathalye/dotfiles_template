@@ -80,7 +80,6 @@ export PROJECT_HOME=$HOME/Devel
 setopt prompt_subst # Make sure prompt is able to be generated properly.
 
 #zplug "plugins/git",  from:oh-my-zsh
-#zplug "plugins/fasd",  from:oh-my-zsh
 zplug "chrissicool/zsh-256color"
 zplug "esc/conda-zsh-completion"
 zplug "hchbaw/auto-fu.zsh"
@@ -89,6 +88,7 @@ zplug "plugins/command-not-found",  from:oh-my-zsh
 zplug "plugins/docker",  from:oh-my-zsh
 zplug "plugins/docker-compose",  from:oh-my-zsh
 zplug "plugins/extract",  from:oh-my-zsh
+zplug "plugins/fasd",  from:oh-my-zsh
 zplug "plugins/gitfast",  from:oh-my-zsh
 zplug "plugins/heroku",  from:oh-my-zsh
 zplug "plugins/httpie",  from:oh-my-zsh
@@ -105,12 +105,12 @@ zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
 zplug "romkatv/powerlevel10k", as:theme, depth:1
 zplug "rummik/zsh-tailf"
 zplug "soimort/translate-shell"
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'wfxr/forgit'
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 #if [[ ! -v SSH_TTY ]]; then
 if [ ! -n "${SSH_TTY+1}" ]; then
@@ -179,13 +179,13 @@ test -d $HOMEBREW_PREFIX && PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PA
 test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.bash_profile
 echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.profile
 
-j() {
-    if [[ "$#" -ne 0 ]]; then
-        cd $(autojump $@)
-        return
-    fi
-    cd "$(autojump -s | sort -k1gr | awk '$1 ~ /[0-9]:/ && $2 ~ /^\// { for (i=2; i<=NF; i++) { print $(i) } }' |  fzf --height 40% --reverse --inline-info)" 
-}
+#j() {
+    #if [[ "$#" -ne 0 ]]; then
+        #cd $(autojump $@)
+        #return
+    #fi
+    #cd "$(autojump -s | sort -k1gr | awk '$1 ~ /[0-9]:/ && $2 ~ /^\// { for (i=2; i<=NF; i++) { print $(i) } }' |  fzf --height 40% --reverse --inline-info)" 
+#}
 
 [ -f ~/.cheat/fzf.bash ] && source ~/.cheat/fzf.bash
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
