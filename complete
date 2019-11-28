@@ -16,7 +16,6 @@ if command -v beet > /dev/null; then
     eval "$(beet completion)"
 fi
 
-
 _list_igc_files() {
     local curr_arg
     local option_list

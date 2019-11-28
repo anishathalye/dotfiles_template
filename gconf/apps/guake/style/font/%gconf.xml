@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <gconf>
-	<entry name="allow_bold" mtime="1485303112" type="bool" value="true"/>
-	<entry name="palette_name" mtime="1485303112" type="string">
+	<entry name="allow_bold" mtime="1572576392" type="bool" value="true"/>
+	<entry name="palette_name" mtime="1572576392" type="string">
 		<stringvalue>Xterm</stringvalue>
 	</entry>
-	<entry name="palette" mtime="1485303112" type="string">
+	<entry name="palette" mtime="1572576392" type="string">
 		<stringvalue>#000000000000:#cdcb00000000:#0000cdcb0000:#cdcbcdcb0000:#1e1a908fffff:#cdcb0000cdcb:#0000cdcbcdcb:#e5e2e5e2e5e2:#4ccc4ccc4ccc:#ffff00000000:#0000ffff0000:#ffffffff0000:#46458281b4ae:#ffff0000ffff:#0000ffffffff:#ffffffffffff:#ffffffffffff:#000000000000</stringvalue>
 	</entry>
 </gconf>

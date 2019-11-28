@@ -23,3 +23,10 @@ beet info -i 'genre' albumartist:Herbaliser
 # move (with dry-run)
 beet move path:"/export/music/beet_library/Avant-garde/" -p
 
+# beet list path
+beet list path:"`pwd`"
+
+# write metadata with external software
+whatlastgenre -l 1 /path/to/albums
+#reimport files with modifications
+beet import -A /path/to/albums
