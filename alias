@@ -35,6 +35,7 @@ alias irssi='screen irssi'
 alias killall='killall -SIGUSR1'
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
 
+alias s='var=$(grep -e "^Host " ~/.ssh/config | sed "s#Host ##" | fzf) && ssh $var' # ssh with fzf to list known hosts from ssh/config
 path_to_lsd=$(which lsd 2>/dev/null)
 if [ -x "$path_to_lsd" ] ; then
     alias ls='lsd'
