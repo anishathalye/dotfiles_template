@@ -548,3 +548,7 @@ let g:jedi#use_splits_not_buffers = "right"
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"  "navigate through the auto-completion list with Tab
 
 hi HighlightedyankRegion cterm=reverse gui=reverse
+
+" add yaml stuffs
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=4 sts=2 sw=2 expandtab

@@ -221,6 +221,7 @@ services:
       - $DOCKER_CONFIG_PATH/lidarr:/config
       - $MUSIC_PATH:/music:ro
       - $TORRENT_PATH/LIDARR_DL:/downloads
+      - $TORRENT_PATH/completed:/data/completed
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -237,6 +238,7 @@ services:
       - $DOCKER_CONFIG_PATH/radarr:/config
       - $MOVIES_ENG_PATH:/movies
       - $TORRENT_PATH/completed:/downloads
+      - $TORRENT_PATH/completed:/data/completed
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -368,7 +370,7 @@ services:
      - /etc/localtime:/etc/localtime:ro
      - $TORRENT_PATH:/data
    environment:
-     - TRANSMISSION_WEB_UI=combustion
+     - TRANSMISSION_WEB_UI=transmission-web-control
      - TRANSMISSION_INCOMPLETE_DIR=/data/transmission/incomplete
      - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
      - TRANSMISSION_BLOCKLIST_ENABLED=true
@@ -528,3 +530,14 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/gonic:/data
       - $MUSIC_PATH:/music:ro
+#######################
+#### picard id3 tag
+  picard:
+    container_name: picard
+    image: metabrainz/picard-website
+    environment:
+      - TZ=$TZ
+    ports:
+      - 3031:3031
+    volumes:
+      - $TORRENT_PATH/BEET_IMPORT:/data
