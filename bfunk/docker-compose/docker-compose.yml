@@ -253,6 +253,7 @@ services:
       - $DOCKER_CONFIG_PATH/sonarr:/config
       - ${TV_SHOWS_PATH}:/tv
       - $TORRENT_PATH/completed:/downloads
+      - $TORRENT_PATH/completed:/data/completed
     ports:
       - 8989:8989
     restart: unless-stopped

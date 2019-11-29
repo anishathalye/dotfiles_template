@@ -1,7 +1,7 @@
 # MAIN OPTIONS
 Host *
 VisualHostKey no
-ForwardX11 no
+#ForwardX11 no
 
 Host commandpost.aodn.org.au
   ForwardAgent yes
