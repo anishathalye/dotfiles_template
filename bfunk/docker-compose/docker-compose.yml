@@ -530,14 +530,3 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/gonic:/data
       - $MUSIC_PATH:/music:ro
-#######################
-#### picard id3 tag
-  picard:
-    container_name: picard
-    image: metabrainz/picard-website
-    environment:
-      - TZ=$TZ
-    ports:
-      - 3031:3031
-    volumes:
-      - $TORRENT_PATH/BEET_IMPORT:/data
