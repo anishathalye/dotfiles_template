@@ -530,3 +530,19 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/gonic:/data
       - $MUSIC_PATH:/music:ro
+################
+  lazylibrarian:
+    image: linuxserver/lazylibrarian
+    container_name: lazylibrarian
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - DOCKER_MODS=linuxserver/calibre-web:calibre #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/lazylibrarian:/config
+      - $TORRENT_PATH/EBOOKS:/downloads
+      - $EBOOKS_PATH:/books
+    ports:
+      - 5299:5299
+    restart: unless-stopped
