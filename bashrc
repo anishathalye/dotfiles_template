@@ -97,8 +97,8 @@ trap 'echo -ne "\e[0m"' DEBUG
 
 function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
 
-[ -f ~/.env ] && source ~/.env
-[ -f ~/.env_private ] && source ~/.env_private
+#[ -f ~/.env ] && source ~/.env
+#[ -f ~/.env_private ] && source ~/.env_private
 [ -f ~/.alias ] && source ~/.alias
 [ -f ~/.complete ] && source ~/.complete
 

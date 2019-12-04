@@ -2,26 +2,26 @@
 export JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export PATH=$JAVA_HOME/bin:$PATH
-#export JAVA_OPTS="-Xms512M -Xmx512M -Djava.awt.headless=true"
 export CATALINA_HOME="/usr/share/tomcat7"
 export CATALINA_BASE="/var/lib/tomcat7"
 
+##############################
 # MATLAB
+##############################
 export LD_LIBRARY_PATH=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/os/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64/native_threads:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64/server:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64
-
 #MCR matlab library path
 export XAPPLRESDIR=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/X11/app-defaults
 
+
+##############################
+# Various
+##############################
 # cheat sheet - see github repo https://github.com/chrisallenlane/cheat
-export EDITOR='vim'
 export CHEATCOLORS=true
 export CHEATPATH='$HOME/.cheat'
 
-export PATH=$HOME/.dotfiles/bin:${PATH}
-export PATH=$HOME/.dotfiles/bin/encryption:$PATH
-export PATH="${HOME}/usr/bin:$PATH"
+if command -v nvim > /dev/null; then export EDITOR=nvim; else export EDITOR='vim'; fi
 
-export WWW_HOME='www.duckduckgo.com'
 
 if [ -d $HOME/github_repo ]; then
     export GITHUB_DIR=$HOME/github_repo
@@ -31,12 +31,16 @@ if [ -d $HOME/github_repo ]; then
 fi
 
 
+##############################
 # set DOTFILES_PATH env
+##############################
 if [ -d $HOME/github_repo/dotfiles ];then # on local computer
     export DOTFILES_PATH=$HOME/github_repo/dotfiles 
 elif [ -d $HOME/dotfiles >/dev/null ]; then # on any $HOME folder, the dotfiles repo should be clone to $HOME/dotfiles
     export DOTFILES_PATH=$HOME/dotfiles 
 fi
 
-if command -v nvim > /dev/null; then export EDITOR=nvim; fi
-#if command -v bat > /dev/null; then export VISUAL="bat"; fi
+
+export PATH=$HOME/.dotfiles/bin:${PATH}
+export PATH=$HOME/.dotfiles/bin/encryption:$PATH
+export PATH="${HOME}/usr/bin:$PATH"

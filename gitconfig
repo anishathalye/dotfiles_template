@@ -1,5 +1,5 @@
 [core]
-    editor   = vim
+    editor   = nvim
     #autocrlf = true
 [user]
     name  = lbesnard
@@ -32,6 +32,10 @@
 # http://haacked.com/archive/2014/07/28/github-flow-aliases/
 [alias]
     alias = !tac ~/.gitconfig | sed -e '/alias/q' |tac | tail -n+2
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    ss = stash save
+    sp = stash pop
     s = status
     a = add
     p = pull

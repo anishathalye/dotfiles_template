@@ -1,6 +1,20 @@
+[ -f ~/.env ] && source ~/.env
+[ -f ~/.env_private ] && source ~/.env_private
+
 unalias  fd >/dev/null 2>/dev/null # in order to use https://github.com/sharkdp/fd
 
-# quick way to get out of current directory ##
+##########################
+# DOTFILES UPDATE
+##########################
+alias dotfiles="cd $DOTFILES_PATH"
+# update dotfiles
+alias dotf_update='dotfiles && git pull && bash install; cd -'
+
+
+##########################
+# ls and cd aliases
+##########################
+# quick way to get out of current directory
 alias ..='cd ..'
 alias ...='cd ../../../'
 alias ....='cd ../../../../'
@@ -8,7 +22,22 @@ alias .....='cd ../../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
 alias cc='ls -f | wc -l' # ls -f does not stat() and makes it faster
-alias ccat='source-highlight --out-format=esc -o STDOUT -i'
+
+path_to_lsd=$(which lsd 2>/dev/null)
+if [ -x "$path_to_lsd" ] ; then
+    alias ls='lsd'
+    alias l='ls -l'
+    alias la='ls -a'
+    alias lla='ls -la'
+    alias lt='ls --tree'
+fi
+
+alias ls_recur="find . -type f -exec ls -l {} \; 2> /dev/null | sort -t' ' -k +6,6 -k +7,7"
+
+
+##########################
+# CHEF cooking
+##########################
 alias chef_cd="cd $CHEF_DIR"
 alias chef_private_cd="cd $CHEF_DIR/../chef-private"
 alias chef_imos="chef_cd && rm -f private; ln -s ../chef-private private"
@@ -17,191 +46,29 @@ alias chef_provision_laptop_from_remote='cd $DOTFILES_PATH; git reset-branch-lik
 alias chef_provision_laptop_from_local='cd $GITHUB_DIR/chef_laptop; $GITHUB_DIR/chef_laptop/install.sh'
 alias chef_provision_po="chef_cd && vagrant provision po"
 alias chef_sample="chef_cd && rm -f private; ln -s private-sample private"
+
+
+##########################
+# Various
+##########################
+alias project_officer_user='sudo -u projectofficer -s'
+alias rsrc='source ~/.bashrc'
 alias clear_tmp="find /tmp -mtime +1 -and -not -exec fuser -s {} ';' -and -exec rm -Rf {} ';'"
-alias copy='| xclip -sel clip'
-alias data_services_cd="cd $CHEF_DIR/src/data-services"
 alias display_docked=". $HOME/.screenlayout/work_screen2_thunder.sh && mouse_setting.sh"
-alias dotfiles="cd $DOTFILES_PATH"
-alias egrep='egrep --color=auto'
-alias elinks_google='elinks www.google.com.au'
-alias fgrep='fgrep --color=auto'
+alias work_workspace='display_docked & tmux'
 alias fzfp="fzf -m --preview 'head -100 {}'"
 alias g='git'
 alias geoserver_cd="cd $CHEF_DIR/src/geoserver"
 alias github_cd="cd $GITHUB_DIR"
+
 alias grep='grep --color=auto'
-alias iftop_wlan='iftop -i wlan0'
-alias irssi='screen irssi'
-alias killall='killall -SIGUSR1'
-alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
-
-alias s='var=$(grep -e "^Host " ~/.ssh/config | sed "s#Host ##" | fzf) && ssh $var' # ssh with fzf to list known hosts from ssh/config
-path_to_lsd=$(which lsd 2>/dev/null)
-if [ -x "$path_to_lsd" ] ; then
-    alias ls='lsd'
-	alias l='ls -l'
-	alias la='ls -a'
-	alias lla='ls -la'
-	alias lt='ls --tree'
-fi
-
-#path_to_colorls=$(which colorls 2>/dev/null)
-#if [ -x "$path_to_colorls" ] ; then
-    #alias lc='colorls -lA --sd'
-    #alias ls='colorls'
-    #alias lsa='lc'
-    #alias ll='lc -lh'
-    #alias lrt='lc -rt'
-    #alias ls_tree='lc --tree'
-#elif command -v exa > /dev/null; then
-    #alias ls='exa'                                                          # ls
-    #alias l='exa -lbF --git'                                                # list, size, type, git
-    #alias ll='exa -lbGF --git'                                             # long list
-    #alias llm='exa -lbGd --git --sort=modified'                            # long list, modified date sort
-    #alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale'  # all list
-    #alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
-
-    ## specialty views
-    #alias lS='exa -1'                                                              # one column, just names
-    #alias lt='exa --tree --level=2'                                         # tree
-#else
-    #alias la='ls -a'
-    #alias ll='ls -lh'
-    #alias ls_time='ls -lrt'
-#fi
-
-alias latest_installed_pckg='cat /var/log/apt/history.log | grep "\ install\ "'
-alias lock_screen='gnome-screensaver-command --lock || xscreensaver-command -lock'
-alias ls_recur="find . -type f -exec ls -l {} \; 2> /dev/null | sort -t' ' -k +6,6 -k +7,7"
-alias lynx='lynx -cfg=~/.lynx.cfg '
-alias mac_wlan_random='sudo ifconfig wlp1s0 down && sudo macchanger -r wlp1s0 && sudo ifconfig wlp1s0 up'
-alias music_player='mp3blaster'
-alias nch='ncdump -h'
-alias ports='netstat -tulanp' # open ports
-alias project_officer_user='sudo -u projectofficer -s'
-alias rsrc='source ~/.bashrc'
-alias shutdown_now='sudo shutdown -h now'
-alias split_flac_album='shnsplit -f *.cue -t %n-%t -o flac *.flac'
-alias split_ape_album='shnsplit -f *.cue -t %n-%t -o flac *.ape'
-alias split_wv_album='shnsplit -f *.cue -t %n-%t -o flac *.vw'
-alias ssh-add='ssh-add -t 10h'
-#alias ssh_po="chef_sample && vagrant ssh po"
-alias talend='/opt/TOS_DI-r96646-V5.1.3/TOS_DI-linux-gtk-x86_64'
 alias trim="sed 's/^ *//;s/ *$//'"
-alias harvesters_wp_cd='cd /opt/TOS_DI-r96646-V5.1.3/harvesters_wp/harvesters/workspace'
-alias temperature='sensors;sudo hddtemp /dev/sda'
-alias use_antigen='echo source ~/.zshrc.antigen > ~/.zshrc; exit'
-alias use_zgen='echo source ~/.zshrc.zgen > ~/.zshrc; exit'
-alias use_zplug='echo source ~/.zshrc.zplug > ~/.zshrc; exit'
-alias vi='vim'
-alias nvi='nvim'
-[ -f ~/.utas_vpnc.conf ] && alias vpn_utas_connect='sudo vpnc ~/.utas_vpnc.conf --local-port 0' && alias vpn_utas_disconnect='sudo vpnc-disconnect'
-alias vpn_bfunk_start='cd $HOME/Nextcloud/Private/ovpns && sudo openvpn lbesnard.ovpn'
-alias ssh_work='ssh `cat ~/Dropbox/work/ip_work`'
-alias ssh_home='ssh `cat ~/Dropbox/work/ip_home`'
-alias vim_plugin_install='vim +VundleClean +PluginInstall +qall'
-alias work_workspace='display_docked & tmux'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias copy='| xclip -sel clip'
 
-alias v='f -e vim' # quick opening files with vim
-
-# timezone
-alias tz_paris='TZ="Europe/Paris" date'
-alias tz_hobart='TZ="Australia/Hobart" date'
-alias tz_utc='TZ="UTC" date'
-
-# beet
-alias beet_genre_uniq_update="beet ls -f '\$genre' | sort -u > ~/.beets_genre"
-
-
-if command -v htop > /dev/null; then alias top='htop'; fi
-if command -v dfc > /dev/null; then alias df='dfc'; fi
-
-if command -v nvim > /dev/null; then
-    alias vim='nvim'
-    alias vi='nvim'
-    alias v='f -e nvim' # replace default fasd alias from zsh plugin
-fi
-
-if command -v dig > /dev/null; then
-    alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
-    alias mygeo="curl -w \"\\n\" http://api.hackertarget.com/geoip/\?q=\`myip\`"
-else
-    alias myip="curl ifconfig.me"
-fi
-
-if command -v ncdu > /dev/null; then
-    alias gt5=ncdu
-    alias hdd_report=ncdu
-fi
-
-# POSTGRES
-if command -v pgcli > /dev/null; then
-    alias psql=pgcli
-fi
-
-DBHOST='2-nec-hob.emii.org.au'
-[ -f $HOME/.pgpass ] && alias psql-dbrc="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
-
-DBHOST='dbprod.emii.org.au'
-[ -f $HOME/.pgpass ] && alias psql-dbprod="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
-
-DBHOST='10.11.12.13'
-[ -f $HOME/.pgpass ] && alias psql-po="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
-
-DBHOST='harvest-db-aodnstack-lbesnard.dev.aodn.org.au'
-[ -f $HOME/.pgpass ] && alias psql-pipeline-stack="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
-
-
-remove_space_from_filename_recur() {
-    find . -depth -name "* *" -execdir rename 's/ /_/g' "{}" \;
-}
-
-remove_file_extension() {
-    local file="$1"; shift
-    mv $file ${file%\.[^.]*}
-}
-
-ncdumph() {
-    command ncdump -h "$@" | less;
-}
-#export -f ncdumph
-
-nc_checker_cf() {
-    command netcdf-checker -t=cf "$@" | less;
-}
-#export -f nc_checker_cf
-
-nc_checker_imos() {
-    command netcdf-checker -t=imoscf "$@" | less;
-}
-#export -f nc_checker_imos
-###########################
-# music database + player #
-###########################
-alias update-music-db='updatedb -l 0 -o ~/.externalHD_music.db -U /media/lbesnard/music/Music/'
-alias locate-external='locate -i -d ~/.externalHD_music.db'
-
-# $1 - string to search for
-function listen-to() {
-    listen_to="$1"; shift
-    local playlist=`mktemp`
-    locate-external "$listen_to" > $playlist
-    sed -i -r '/.mp3$|.wav$|.ogg$/!d' $playlist
-    mp3blaster --list $playlist
-    rm $playlist
-}
-#export -f listen-to
-
-# source NETCDF tools
-#[ -f $CHEF_DIR/src/data-services/lib/common/netcdf-utils.sh ] && source $CHEF_DIR/src/data-services/lib/common/netcdf-utils.sh
-#[ -f $CHEF_DIR/src/data-services/lib/netcdf/netcdf-cf-imos-compliance.sh ] && source $CHEF_DIR/src/data-services/lib/netcdf/netcdf-cf-imos-compliance.sh
-
-# paragliding
-alias flightrecorder='cd $HOME/paragliding ; sudo flightrecorder && chown $USER:$USER *.IGC; rsync -avc $HOME/paragliding/ $HOME/Dropbox/paragliding_igc'
-alias igc_viewer='gpligc'
-alias riverHeight='python $GITHUB_DIR/River_Height_Tasmania/riverHeight.py && /usr/bin/elinks ~/Dropbox/Public/RiverStatusTasmania.html'
-alias gpsdump_flymaster='cd $HOME/Downloads; ./gpsdump -gy -ca0 -lflight'
-
+alias irssi='screen irssi'
+alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
 function x(){
     if [ -f $1 ] ; then
             case $1 in
@@ -223,6 +90,146 @@ function x(){
     fi
 }
 
+
+##########################
+# NETWORK
+##########################
+alias iftop_wlan='iftop -i wlan0'
+alias lynx='lynx -cfg=~/.lynx.cfg'
+alias elinks_google='elinks www.google.com.au'
+alias mac_wlan_random='sudo ifconfig wlp1s0 down && sudo macchanger -r wlp1s0 && sudo ifconfig wlp1s0 up'
+alias ports='netstat -tulanp' # open ports
+alias ssh-add='ssh-add -t 10h'
+
+if command -v dig > /dev/null; then
+    alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+    alias mygeo="curl -w \"\\n\" http://api.hackertarget.com/geoip/\?q=\`myip\`"
+else
+    alias myip="curl ifconfig.me"
+fi
+
+# ssh
+alias s='var=$(grep -e "^Host " ~/.ssh/config | sed "s#Host ##" | fzf) && ssh $var' # ssh with fzf to list known hosts from ssh/config
+[ -f ~/.utas_vpnc.conf ] && alias vpn_utas_connect='sudo vpnc ~/.utas_vpnc.conf --local-port 0' && alias vpn_utas_disconnect='sudo vpnc-disconnect'
+alias vpn_bfunk_start='cd $HOME/Nextcloud/Private/ovpns && sudo openvpn lbesnard.ovpn'
+
+
+##########################
+# vim nvim alias
+##########################
+if command -v nvim > /dev/null; then
+    alias vim='nvim'
+    alias vi='nvim'
+    alias v='f -e nvim' # replace default fasd alias from zsh plugin
+fi
+alias vim_plugin_install='vim +PluginInstall +qall'
+
+if command -v bat > /dev/null; then alias cat="bat -p"; fi
+
+
+
+##########################
+# timezone
+##########################
+alias tz_paris='TZ="Europe/Paris" date'
+alias tz_hobart='TZ="Australia/Hobart" date'
+alias tz_utc='TZ="UTC" date'
+
+
+##########################
+# SYSTEM
+##########################
+if command -v htop > /dev/null; then alias top='htop'; fi
+if command -v dfc > /dev/null; then alias df='dfc'; fi
+
+if command -v ncdu > /dev/null; then
+    alias gt5=ncdu
+    alias hdd_report=ncdu
+fi
+
+alias temperature='sensors;sudo hddtemp /dev/sda'
+alias shutdown_now='sudo shutdown -h now'
+alias latest_installed_pckg='cat /var/log/apt/history.log | grep "\ install\ "'
+alias killall='killall -SIGUSR1'
+alias lock_screen='gnome-screensaver-command --lock || xscreensaver-command -lock'
+
+
+#########################
+# DATABASE
+#########################
+if command -v pgcli > /dev/null; then
+    alias psql=pgcli
+fi
+
+DBHOST='2-nec-hob.emii.org.au'
+[ -f $HOME/.pgpass ] && alias psql-dbrc="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
+
+DBHOST='dbprod.emii.org.au'
+[ -f $HOME/.pgpass ] && alias psql-dbprod="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
+
+DBHOST='10.11.12.13'
+[ -f $HOME/.pgpass ] && alias psql-po="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
+
+DBHOST='harvest-db-aodnstack-lbesnard.dev.aodn.org.au'
+[ -f $HOME/.pgpass ] && alias psql-pipeline-stack="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
+
+
+
+
+##########################
+# file handling
+##########################
+remove_space_from_filename_recur() {
+    find . -depth -name "* *" -execdir rename 's/ /_/g' "{}" \;
+}
+
+remove_file_extension() {
+    local file="$1"; shift
+    mv $file ${file%\.[^.]*}
+}
+
+
+
+##########################
+# NetCDF
+##########################
+ncdumph() {
+    command ncdump -h "$@" | less;
+}
+
+nc_checker_cf() {
+    command netcdf-checker -t=cf "$@" | less;
+}
+
+nc_checker_imos() {
+    command netcdf-checker -t=imoscf "$@" | less;
+}
+
+
+###########################
+# MUSIC
+###########################
+alias beet_genre_uniq_update="beet ls -f '\$genre' | sort -u > ~/.beets_genre"
+
+alias split_flac_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.flac` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
+alias split_ape_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.ape` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
+alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.vw` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
+alias music_player='mp3blaster'
+
+
+###########################
+# paragliding
+###########################
+alias flightrecorder='cd $HOME/paragliding ; sudo flightrecorder && chown $USER:$USER *.IGC; rsync -avc $HOME/paragliding/ $HOME/Dropbox/paragliding_igc'
+alias igc_viewer='gpligc'
+alias riverHeight='python $GITHUB_DIR/River_Height_Tasmania/riverHeight.py && /usr/bin/elinks ~/Dropbox/Public/RiverStatusTasmania.html'
+alias gpsdump_flymaster='cd $HOME/Downloads; ./gpsdump -gy -ca0 -lflight'
+alias paragliding_create_osm_map='$GITHUB_DIR/OSM_Tile_Download/osm_ogie3d.py'
+
+
+##############################
+# PYTHON
+##############################
 python_venv_init () {
     local venv_name=$1; shift
     mkdir venv_name && cd venv_name;
@@ -236,6 +243,10 @@ kill_py () {
     kill -9 $(ps aux | grep '[p]ython.*${python_script_name}\.py'| awk '{print $2}')
 }
 
+
+##############################
+# COMICS specific functions
+##############################
 function pdf2cbz(){
     IFS=$(echo -en "\n\b");
     PDF_FILE="$1"; shift;
@@ -246,11 +257,15 @@ function pdf2cbz(){
 
     temp_dir=`mktemp -d`;
 
-    pdfimages -j "$PDF_FILE_PATH" $temp_dir/page;
-    zip -jr "${PDF_FILE_PATH%.*}.cbz" $temp_dir/*;
+    if command -v pdfimages > /dev/null; then
+        pdfimages -j "$PDF_FILE_PATH" $temp_dir/page && \
+        zip -jr "${PDF_FILE_PATH%.*}.cbz" $temp_dir/* && \
+        mv "$PDF_FILE_PATH" "$PDF_FILE_DIRNAME"/."$PDF_FILE_NAME" && \
+        rm -Rf $temp_dir;
+    else
+        echo "Please install pdfimages package"
+    fi
 
-    mv "$PDF_FILE_PATH" "$PDF_FILE_DIRNAME"/."$PDF_FILE_NAME";
-    rm -Rf $temp_dir;
 }
 
 function pdf2cbz_all_files_in_dir() {
@@ -276,37 +291,38 @@ function append_folder_name_as_prefix_to_file(){
     mv "${file}" "${PWD##*/} - ${file}"
 }
 alias comic_add_serie_name='append_folder_name_as_prefix_to_file'
+
+
+##############################
 # docker compose
+##############################
 alias dcp='docker-compose -f /opt/docker-compose.yml '
 alias dcpull='docker-compose -f /opt/docker-compose.yml pull --parallel'
 alias dclogs='docker-compose -f /opt/docker-compose.yml logs -tf --tail="50" '
 alias dtail='docker logs -tf --tail="50" "$@"'
+DOCKER_CONFIG_DIR=/opt/docker_config
 
-## bfunk aliases
+
+##############################
+## BFUNK
+##############################
 export dd1=/srv/dev-disk-by-label-media_center/
 export dd2=/srv/dev-disk-by-id-ata-WDC_WD15EADS-00P8B0_WD-WMAVU0549888-part1/
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
-alias split_flac_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.flac` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
-alias split_ape_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.ape` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
-alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.vw` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
-alias start_vpn_torrent='sudo systemctl start vpn_access.service; sudo service transmission-daemon start; myip'
-alias stop_vpn_torrent='sudo service transmission-daemon stop; sudo systemctl stop vpn_access.service; myip'
-alias nginx_maintenance='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/omv_maintenance /etc/nginx/sites-enabled/omv_maintenance && sudo service nginx restart;'
-alias nginx_organizr='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/organizr /etc/nginx/sites-enabled/organizr && sudo service nginx restart;'
-alias filebot_movie_rename_dryrun='IFS=$(echo -en "\n\b"); for dir in `find -type d`; do filebot -rename $dir --db TheMovieDB --format "/export/torrent/{plex}" --action test; done'
-alias filebot_movie_rename_move='IFS=$(echo -en "\n\b"); for dir in `find -type d`; do filebot -rename $dir --db TheMovieDB --format "/export/torrent/{plex}" --action move; done'
-alias filebot_tvshows_rename_dryrun='filebot -rename -r -non-strict . --db TheTVDB --format "/export/torrent/{plex}" --action test'
-alias filebot_tvshows_rename_move='filebot -rename -r -non-strict . --db TheTVDB --format "/export/torrent/{plex}" --action move'
+#alias start_vpn_torrent='sudo systemctl start vpn_access.service; sudo service transmission-daemon start; myip'
+#alias stop_vpn_torrent='sudo service transmission-daemon stop; sudo systemctl stop vpn_access.service; myip'
+#alias nginx_maintenance='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/omv_maintenance /etc/nginx/sites-enabled/omv_maintenance && sudo service nginx restart;'
+#alias nginx_organizr='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/organizr /etc/nginx/sites-enabled/organizr && sudo service nginx restart;'
+#alias filebot_movie_rename_dryrun='IFS=$(echo -en "\n\b"); for dir in `find -type d`; do filebot -rename $dir --db TheMovieDB --format "/export/torrent/{plex}" --action test; done'
+#alias filebot_movie_rename_move='IFS=$(echo -en "\n\b"); for dir in `find -type d`; do filebot -rename $dir --db TheMovieDB --format "/export/torrent/{plex}" --action move; done'
+#alias filebot_tvshows_rename_dryrun='filebot -rename -r -non-strict . --db TheTVDB --format "/export/torrent/{plex}" --action test'
+#alias filebot_tvshows_rename_move='filebot -rename -r -non-strict . --db TheTVDB --format "/export/torrent/{plex}" --action move'
 
-AIRSONIC_DATA_DIR=/var/airsonic
-NEXCTLOUD_DATA_DIR=/srv/dev-disk-by-label-WD_data_10tb/nexctloud
+AIRSONIC_DATA_DIR=$DOCKER_CONFIG_DIR/airsonic
+NEXCTLOUD_DATA_DIR=/export/nexctloud
 alias backup_airsonic='sudo service airsonic stop && tar -cvf "/tmp/airsonic_$(date +%F_%R).tar" /var/airsonic && sudo service airsonic restart'
 alias backup_nextcloud='sudo docker stop nextcloud && tar -cvf "/tmp/nextcloud_$(date +%F_%R).tar" $NEXCTLOUD_DATA_DIR &&; sudo docker start service nextcloud'
 
 # when files are copied manually to nextcloud folder
 alias nextcloud_force_rescan='docker exec nextcloud sudo -u abc php /config/www/nextcloud/occ files:scan --all'
 
-# update dotfiles
-alias dotf_update='dotfiles && git pull && bash install; cd -'
-
-if command -v bat > /dev/null; then alias cat="bat -p"; fi

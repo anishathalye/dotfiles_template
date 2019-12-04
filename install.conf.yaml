@@ -33,6 +33,7 @@
     ~/.ogierc: ogierc
     ~/.pgpass: {create: true, force: true, path: pgadmin/pgpass}
     ~/.psqlrc: psqlrc
+    ~/.p10k.zsh: {force: true, path: zsh/p10k.zsh}
     ~/.screenrc: screenrc
     ~/.screenlayout: {create: true, force: true, path: screenlayout}
     ~/.snes9x: {create: true, force: true, path: snes9x/}
@@ -51,7 +52,7 @@
     ~/.zshrc.zplug.common: {force: true, path: zsh/zshrc.zplug.common}
     ~/.zshrc.zplug.local: {force: true, path: zsh/zshrc.zplug.local}
     ~/.zshrc.zplug.ssh: {force: true, path: zsh/zshrc.zplug.ssh}
-    ~/.p10k.zsh: {force: true, path: zsh/p10k.zsh}
+    ~/.zplug/_beet: {force: true, path: zsh/_beet}
     ~/bin: bin
 - shell:
     - [chmod -R 0755 ~/.zplug, Making SSH-folder read-only]

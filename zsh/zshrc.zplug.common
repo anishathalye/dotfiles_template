@@ -112,15 +112,9 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'wfxr/forgit'
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
-#if [[ ! -v SSH_TTY ]]; then
 if [ ! -n "${SSH_TTY+1}" ]; then
     zplug "plugins/tmux",   from:oh-my-zsh
 fi
-
-#path_to_colorls=$(which colorls 2>/dev/null)
-#if [ -x "$path_to_colorls" ] ; then
-   #zplug "gretzky/auto-color-ls"
-#fi
 
 if ! zplug check --verbose; then
     zplug install
@@ -133,8 +127,6 @@ zplug load
 . ~/.zplug/repos/robbyrussell/oh-my-zsh/plugins/common-aliases/common-aliases.plugin.zsh
 
 # overwrite aliases if needed
-[ -f $HOME/.env ] && source $HOME/.env
-[ -f $HOME/.env_private ] && source $HOME/.env_private
 [ -f $HOME/.alias ] && source $HOME/.alias
 
 #ZSH history
@@ -160,7 +152,7 @@ bindkey "\033[1~" beginning-of-line
 bindkey "\033[4~" end-of-line
 bindkey "^[[3~" delete-char
 
-# open vim with fzf
+# open vim with fzf; type ctrl e
 bindkey -s '^e' 'vim $(fzf -m --preview "head -100 {}")\n'
 
 fpath=(~/.zsh_alias "${fpath[@]}")

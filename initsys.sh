@@ -67,6 +67,7 @@ brew_install_or_upgrade fd
 brew_install_or_upgrade fpp
 brew_install_or_upgrade fzf
 brew_install_or_upgrade git
+brew_install_or_upgrade googler
 brew_install_or_upgrade hightlight
 brew_install_or_upgrade htop
 brew_install_or_upgrade httpie

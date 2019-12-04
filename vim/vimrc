@@ -40,8 +40,9 @@ let g:deoplete#enable_at_startup = 1
 " python ide
 Plug 'zchee/deoplete-jedi'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround' 
 
-" Code jump (go-to) plugin
+" Code jump (go-to) plugin : <leader> d
 Plug 'davidhalter/jedi-vim' 
 
 Plug 'machakann/vim-highlightedyank'
