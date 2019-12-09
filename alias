@@ -39,9 +39,10 @@ alias ls_recur="find . -type f -exec ls -l {} \; 2> /dev/null | sort -t' ' -k +6
 # CHEF cooking
 ##########################
 alias chef_cd="cd $CHEF_DIR"
+alias talend="chef_cd && /bin/talend7-pipeline.sh"
 alias chef_private_cd="cd $CHEF_DIR/../chef-private"
 alias chef_imos="chef_cd && rm -f private; ln -s ../chef-private private"
-alias chef_po_box_start="chef_sample &&  ./bin/po-box.sh && vagrant ssh po"
+alias chef_po_box_start="chef_sample &&  ./bin/pipeline-box.sh && vagrant ssh po"
 alias chef_provision_laptop_from_remote='cd $DOTFILES_PATH; git reset-branch-like-remote; cd $GITHUB_DIR/chef_laptop; git reset-branch-like-remote; $GITHUB_DIR/chef_laptop/install.sh;'
 alias chef_provision_laptop_from_local='cd $GITHUB_DIR/chef_laptop; $GITHUB_DIR/chef_laptop/install.sh'
 alias chef_provision_po="chef_cd && vagrant provision po"
@@ -281,8 +282,8 @@ alias comic_pdf2cbz_all_files_in_dir=pdf2cbz_all_files_in_dir
 function dirs2cbz() {
     IFS=$(echo -en "\n\b");
     for dir in `find . -mindepth 1 -type d -not -empty`; do
-        if find "$dir" -maxdepth 1 -type f | read f; then
-            zip "$(basename "$dir").cbz" "$dir"/* && rm -Rf "$dir" ;
+        if find "$dir" -maxdepth 1 -type f -not -ipath '.*\.cbz' -not -ipath '.*\.cbr' -not  -ipath '.*\.pdf'| read f; then
+            zip "$(dirname "$dir")/$(basename "$dir").cbz" "$dir"/* && rm -Rf "$dir" ;*/
         fi;
     done
 }
