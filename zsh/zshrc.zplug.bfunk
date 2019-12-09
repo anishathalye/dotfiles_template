@@ -7,3 +7,5 @@ compctl -K _cmpl_inputlog input_log
 
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export SHELL="$HOMEBREW_PREFIX/bin/zsh"
+
+fpath=(~/.zplug/complete/beet $fpath)

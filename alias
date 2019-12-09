@@ -265,8 +265,9 @@ function pdf2cbz(){
     else
         echo "Please install pdfimages package"
     fi
-
 }
+alias comic_pdf2cbz='pdf2cbz'
+
 
 function pdf2cbz_all_files_in_dir() {
     IFS=$(echo -en "\n\b");
@@ -274,16 +275,19 @@ function pdf2cbz_all_files_in_dir() {
         pdf2cbz "$f";
     done;
 }
+alias comic_pdf2cbz_all_files_in_dir=pdf2cbz_all_files_in_dir
+
 
 function dirs2cbz() {
     IFS=$(echo -en "\n\b");
-    find . -type d -not -empty -print0 | while IFS= read -r -d '' dir; do
+    for dir in `find . -mindepth 1 -type d -not -empty`; do
         if find "$dir" -maxdepth 1 -type f | read f; then
-            zip "$(basename "$dir").cbz" "$dir"/*;
-            rm -Rf "$dir" ;
+            zip "$(basename "$dir").cbz" "$dir"/* && rm -Rf "$dir" ;
         fi;
     done
 }
+alias comic_dirs2cbz=dirs2cbz
+
 
 function append_folder_name_as_prefix_to_file(){
     IFS=$(echo -en "\n\b");

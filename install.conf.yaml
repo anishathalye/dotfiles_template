@@ -4,7 +4,6 @@
   - clean:
       ~/: {force: true}
 - link:
-    ~/bfunk-docker-compose: {create: true, path: bfunk/docker-compose/}
     ~/.alias: alias
     ~/.bashrc: {force: true, path: bashrc}
     ~/.cheat: {create: true, force: true, path: cheat/}
@@ -31,28 +30,29 @@
     ~/.lynx.cfg: lynx.cfg
     ~/.myclirc: {create: true, force: true, path: myclirc}
     ~/.ogierc: ogierc
+    ~/.p10k.zsh: {force: true, path: zsh/p10k.zsh}
     ~/.pgpass: {create: true, force: true, path: pgadmin/pgpass}
     ~/.psqlrc: psqlrc
-    ~/.p10k.zsh: {force: true, path: zsh/p10k.zsh}
-    ~/.screenrc: screenrc
     ~/.screenlayout: {create: true, force: true, path: screenlayout}
+    ~/.screenrc: screenrc
     ~/.snes9x: {create: true, force: true, path: snes9x/}
     ~/.ssh/config: ssh/config
-    ~/.ssh/id_rsa.pub: {create: true, force: true, path: ssh/id_rsa.pub}
     ~/.ssh/id_rsa.pub.pem: {create: true, force: true, path: ssh/id_rsa.pub.pem}
-    ~/.tmux.conf: {force: true, path: tmux/tmux.conf}
+    ~/.ssh/id_rsa.pub: {create: true, force: true, path: ssh/id_rsa.pub}
     ~/.tmux.conf.laptop: {force: true, path: tmux/tmux.conf.laptop}
     ~/.tmux.conf.ssh: {force: true, path: tmux/tmux.conf.ssh}
+    ~/.tmux.conf: {force: true, path: tmux/tmux.conf}
     ~/.vimrc: {create: true, force: true, path: vim/vimrc}
     ~/.whatlastgenre: {create: true, force: false, path: whatlastgenre}
     ~/.xsessionrc: xsessionrc
+    ~/.zplug/complete/beet/_beet: {force: true, path: zsh/_beet}
     ~/.zsh_alias: zsh_alias
-    ~/.zshrc: {force: true, path: zsh/zshrc}
     ~/.zshrc.zplug.bfunk: {force: true, path: zsh/zshrc.zplug.bfunk}
     ~/.zshrc.zplug.common: {force: true, path: zsh/zshrc.zplug.common}
     ~/.zshrc.zplug.local: {force: true, path: zsh/zshrc.zplug.local}
     ~/.zshrc.zplug.ssh: {force: true, path: zsh/zshrc.zplug.ssh}
-    ~/.zplug/_beet: {force: true, path: zsh/_beet}
+    ~/.zshrc: {force: true, path: zsh/zshrc}
+    ~/bfunk-docker-compose: {create: true, path: bfunk/docker-compose/}
     ~/bin: bin
 - shell:
     - [chmod -R 0755 ~/.zplug, Making SSH-folder read-only]
