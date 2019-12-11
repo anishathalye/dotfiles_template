@@ -343,7 +343,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
+      - TZ=$TZ
     volumes:
       - $DOCKER_CONFIG_PATH/headphones:/config
       - $TORRENT_PATH/MUSIC:/downloads
@@ -537,7 +537,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
+      - TZ=$TZ
       - DOCKER_MODS=linuxserver/calibre-web:calibre #optional
     volumes:
       - $DOCKER_CONFIG_PATH/lazylibrarian:/config
@@ -546,3 +546,35 @@ services:
     ports:
       - 5299:5299
     restart: unless-stopped
+################
+  firefox:
+    image: jlesage/firefox
+    container_name: firefox
+    build: .
+    ports:
+      - 5800:5800
+    volumes:
+      - $DOCKER_CONFIG_PATH/firefox:/config:rw
+################
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    environment:
+      - TZ=$TZ
+      - GF_SERVER_ROOT_URL=$SERVER_URL
+      - GF_SECURITY_ADMIN_PASSWORD=$GF_PASS
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    user: '1000'
+    volumes:
+      - $DOCKER_CONFIG_PATH/grafana::/var/lib/grafana
+#####################
+  docusaurus:
+    build: .
+    ports:
+      - 3001:3000
+      - 35729:35729
+    volumes:
+      - $DOCKER_CONFIG_PATH/docusaurus:/app/website
+    working_dir: /app/website
