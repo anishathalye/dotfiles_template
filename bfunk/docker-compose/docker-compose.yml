@@ -588,8 +588,8 @@ services:
       - TZ=$TZ
       - GF_SERVER_ROOT_URL=$SERVER_URL
       - GF_SECURITY_ADMIN_PASSWORD=$GF_PASS
-      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
-    user: '1000'
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
+    user: '0'
     links:
       - influxdb
     volumes:
