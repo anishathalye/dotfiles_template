@@ -554,6 +554,7 @@ services:
       - 5800:5800
     volumes:
       - $DOCKER_CONFIG_PATH/firefox:/config:rw
+    restart: always
 ##########################
 # Grafana influx telegraf
 ##########################
