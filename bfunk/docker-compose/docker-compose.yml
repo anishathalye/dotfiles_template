@@ -568,6 +568,11 @@ services:
       - TZ=$TZ
       - INFLUXDB_DATA_ENGINE=tsm1
       - INFLUXDB_REPORTING_DISABLED=false
+      - INFLUXDB_DB=$INFLUXDB_DB
+      - INFLUXDB_USER=$INFLUXDB_USER
+      - INFLUXDB_USER_PASSWORD=$INFLUXDB_USER_PASSWORD
+      - INFLUXDB_ADMIN_PASSWORD=$INFLUXDB_ADMIN_PASSWORD
+      - INFLUXDB_ADMIN_USER=$INFLUXDB_ADMIN_USER
     volumes:
       - $DOCKER_CONFIG_PATH/influxdb/data:/var/lib/influxdb
 
@@ -594,5 +599,3 @@ services:
       - influxdb
     volumes:
       - $DOCKER_CONFIG_PATH/grafana:/var/lib/grafana
-
-
