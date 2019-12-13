@@ -613,7 +613,8 @@ services:
     environment:
       - TZ=$TZ
     restart: unless-stopped
-    links: redis:redis
+    links:
+      - redis
 
   redis:
     container_name: redis
