@@ -608,8 +608,29 @@ services:
     ports:
       - 3637:80
     volumes:
-      - $DOCKER_CONFIG_PATH/wallabag/data:/var/www/wallabag/data
+      - $DOCKER_CONFIG_PATH/wallabag/data:/var/www/wallabag/
       - $DOCKER_CONFIG_PATH/wallabag/opt:/opt/wallabag/images
     environment:
       - TZ=$TZ
     restart: unless-stopped
+    links: redis:redis
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    restart: unless-stopped
+
+##########
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    ports:
+      - 6767:8000
+      - 6263:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $DOCKER_CONFIG_PATH/portainer:/data portainer/portainer
+    restart: unless-stopped
+
