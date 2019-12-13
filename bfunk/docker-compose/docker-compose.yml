@@ -608,13 +608,13 @@ services:
     ports:
       - 3637:80
     volumes:
-      - $DOCKER_CONFIG_PATH/wallabag/:/var/www/wallabag/
+      - $DOCKER_CONFIG_PATH/wallabag/var/www/wallabag/data:/var/www/wallabag/data
+      - $DOCKER_CONFIG_PATH/wallabag/opt/wallabag/images:/var/www/wallabag/web/assets/images
     environment:
       - TZ=$TZ
     restart: unless-stopped
     links:
       - redis
-
   redis:
     container_name: redis
     image: redis:alpine
