@@ -612,6 +612,7 @@ services:
       - $DOCKER_CONFIG_PATH/wallabag/opt/wallabag/images:/var/www/wallabag/web/assets/images
     environment:
       - TZ=$TZ
+      - SYMFONY__ENV__DOMAIN_NAME=$SERVER_URL:3637
     restart: unless-stopped
     links:
       - redis
