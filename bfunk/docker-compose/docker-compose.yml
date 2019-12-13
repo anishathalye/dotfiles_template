@@ -600,3 +600,16 @@ services:
       - influxdb
     volumes:
       - $DOCKER_CONFIG_PATH/grafana:/var/lib/grafana
+####################
+### Wallabag
+  wallabag:
+    image: wallabag/wallabag
+    container_name: wallabag
+    ports:
+      - 3637:80
+    volumes:
+      - $DOCKER_CONFIG_PATH/wallabag/data:/var/www/wallabag/data
+      - $DOCKER_CONFIG_PATH/wallabag/opt:/opt/wallabag/images
+    environment:
+      - TZ=$TZ
+    restart: unless-stopped
