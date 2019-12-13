@@ -608,8 +608,7 @@ services:
     ports:
       - 3637:80
     volumes:
-      - $DOCKER_CONFIG_PATH/wallabag/data:/var/www/wallabag/
-      - $DOCKER_CONFIG_PATH/wallabag/opt:/opt/wallabag/images
+      - $DOCKER_CONFIG_PATH/wallabag/:/var/www/wallabag/
     environment:
       - TZ=$TZ
     restart: unless-stopped
