@@ -297,6 +297,35 @@ function append_folder_name_as_prefix_to_file(){
 }
 alias comic_add_serie_name='append_folder_name_as_prefix_to_file'
 
+function cbz2pdf(){
+    IFS=$(echo -en "\n\b");
+    ARCHIVE_FILE="$1"; shift;
+
+    ARCHIVE_FILE_PATH=`readlink -f "$ARCHIVE_FILE"`;
+    ARCHIVE_FILE_NAME=`basename "$ARCHIVE_FILE_PATH"`;
+    ARCHIVE_FILE_DIRNAME=`dirname "$ARCHIVEFILE_PATH"`;
+
+    temp_dir=`mktemp -d`;
+
+    if ! command -v dwebp > /dev/null; then
+        echo "Please install webp package"
+        return 1
+    fi
+
+    if command -v convert > /dev/null; then
+        unzip -j "$ARCHIVE_FILE_PATH" -d $temp_dir
+        find $temp_dir/ -name "*.webp" -exec dwebp {} -o {}.jpg \;
+		convert $temp_dir/*.jpg "${ARCHIVE_FILE_PATH%.*}.pdf"
+
+        mv "$ARCHIVE_FILE_PATH" "$ARCHIVE_FILE_DIRNAME"/."$ARCHIVE_FILE_NAME" && \
+        rm -Rf $temp_dir;
+    else
+        echo "Please install imagemagick package"
+        return 1
+    fi
+}
+alias comic_cbz2pdf='cbz2pdf'
+
 
 ##############################
 # docker compose
