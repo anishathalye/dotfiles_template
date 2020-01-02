@@ -1,6 +1,7 @@
 # Set emacs mode
 set -o emacs
 
+path_prepend "$HOME/bin"
 path_prepend "$HOME/.dotfiles/bin"
 
 # For rbenv
