@@ -134,10 +134,17 @@ alias peek='tee >(cat 1>&2)'
 # Get public url
 alias puburl='curl ipecho.net/plain ; echo'
 
-# Primary aliases
+# Primary aliases & functions
 alias pt='docker-compose exec web-dev bundle exec rspec ${1}'
 alias prc='docker-compose exec web-dev bundle exec rails c'
 alias plogs='docker-compose logs --follow web-dev'
 alias pdb='docker-compose exec -u postgres dev-db psql -h localhost'
 alias pe="docker-compose exec ${1} ${2}"
 alias psoftdown="docker-compose rm -sf web-dev && docker-compose up -d web-dev"
+
+p-ssh-to () {
+  TARGET_HOST=${1}
+  BASTION_HOST=${2}
+  echo "Logging into $TARGET_HOST via bastion..."
+  ssh -i ~/.ssh/id_rsa emiller@$TARGET_HOST -o "proxycommand ssh -W %h:%p -i ~/.ssh/id_rsa emiller@$BASTION_HOST"
+}
