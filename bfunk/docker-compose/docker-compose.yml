@@ -72,6 +72,7 @@ services:
     volumes:
       - $EBOOKS_PATH:/config
       - $SERVER_PATH/share:/share
+      - $SERVER_PATH/torrent:/torrent
     ports:
       - 7080:8080
       - 7081:8081
