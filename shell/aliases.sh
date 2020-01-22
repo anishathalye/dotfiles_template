@@ -135,12 +135,12 @@ alias peek='tee >(cat 1>&2)'
 alias puburl='curl ipecho.net/plain ; echo'
 
 # Primary aliases & functions
-alias pt='docker-compose exec web-dev bundle exec rspec ${1}'
-alias prc='docker-compose exec web-dev bundle exec rails c'
-alias plogs='docker-compose logs --follow web-dev'
-alias pdb='docker-compose exec -u postgres dev-db psql -h localhost'
+alias ptest='docker-compose exec rails bundle exec rspec ${1}'
+alias prc='docker-compose exec rails bundle exec rails c'
+alias plogs='docker-compose logs --follow rails'
+alias pdb='docker-compose exec dev-db psql -U postgres -h localhost primary_development'
 alias pe="docker-compose exec ${1} ${2}"
-alias psoftdown="docker-compose rm -sf web-dev && docker-compose up -d web-dev"
+alias preset-sidekiq="docker-compose rm -sf sidekiq && docker-compose up -d sidekiq"
 
 p-ssh-to () {
   TARGET_HOST=${1}
