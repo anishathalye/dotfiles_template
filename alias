@@ -201,13 +201,13 @@ ncdumph() {
 cc_cf() {
     local ncf=$1; shift
     . /mnt/ebs/pipeline/bin/activate
-    compliance_checker -t=cf $ncf
+    compliance-checker -t=cf $ncf
 }
 
 cc_imos() {
     local ncf=$1; shift
     . /mnt/ebs/pipeline/bin/activate
-    compliance_checker -t=imos $ncf
+    compliance-checker -t=imos $ncf
 }
 
 
