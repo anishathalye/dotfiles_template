@@ -198,12 +198,16 @@ ncdumph() {
     command ncdump -h "$@" | less;
 }
 
-nc_checker_cf() {
-    command netcdf-checker -t=cf "$@" | less;
+cc_cf() {
+    local ncf=$1; shift
+    . $VIRTUAL_ENV/bin/activate # env variable defined on vm
+    compliance_checker -t=cf $ncf
 }
 
-nc_checker_imos() {
-    command netcdf-checker -t=imoscf "$@" | less;
+cc_imos() {
+    local ncf=$1; shift
+    . $VIRTUAL_ENV/bin/activate # env variable defined on vm
+    compliance_checker -t=imos $ncf
 }
 
 
