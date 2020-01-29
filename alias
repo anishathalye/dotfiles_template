@@ -81,18 +81,34 @@ pipe_file_error_output(){
 }
 
 # compliance checker running the cf check
-# $1 netcdf file
+# $1 cf version
+# $2 netcdf file
 cc_cf() {
+    local cf_version=$1; shift
     local ncf=$1; shift
-    . /mnt/ebs/pipeline/bin/activate
-    compliance-checker -t=cf $ncf
+    [ -f /mnt/ebs/pipeline/bin/activate ] && /mnt/ebs/pipeline/bin/activate
+    compliance-checker -t=cf:$cf_version $ncf
+}
+
+# compliance checker running the cf 1.6 check
+# $1 netcdf file
+cc_cf_1.6() {
+    local ncf=$1; shift
+    cc_cf 1.6 $ncf
+}
+
+# compliance checker running the latest cf check
+# $1 netcdf file
+cc_cf_latest() {
+    local ncf=$1; shift
+    cc_cf latest $ncf
 }
 
 # compliance checker running the imos check
 # $1 netcdf file
 cc_imos() {
     local ncf=$1; shift
-    . /mnt/ebs/pipeline/bin/activate
+    [ -f /mnt/ebs/pipeline/bin/activate ] && /mnt/ebs/pipeline/bin/activate
     compliance-checker -t=imos $ncf
 }
 

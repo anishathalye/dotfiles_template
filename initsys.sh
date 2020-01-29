@@ -58,6 +58,7 @@ brew_install_or_upgrade ruby
 brew_install_or_upgrade ruby-install
 
 brew_install_or_upgrade autojump
+brew_install_or_upgrade angle-grinder
 brew_install_or_upgrade bat
 brew_install_or_upgrade curl
 brew_install_or_upgrade dfc
