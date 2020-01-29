@@ -76,7 +76,7 @@ services:
     ports:
       - 7080:8080
       - 7081:8081
-    restart: unless-stopped
+    restart: always
 ######################################
   calibre-web:
     image: linuxserver/calibre-web
