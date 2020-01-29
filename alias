@@ -50,6 +50,30 @@ alias chef_sample="chef_cd && rm -f private; ln -s private-sample private"
 
 
 ##########################
+# IMOS related - pipeline 
+##########################
+# pipeline 
+alias pipe_tasklog_tailf='var=$(find /mnt/ebs/log/pipeline/process/ -type f -name "task*.log" | fzf) && tail -f $var'
+alias pipe_alllog_tailf='var=$(find /mnt/ebs/log/pipeline -type f -name "*.log" | fzf) && tail -f $var'
+alias pipe_ls_error='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && ls $var'
+alias pipe_cd_error='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && cd $var'
+
+alias talend_cd='var=$(find /mnt/ebs/talend/jobs -maxdepth 1 -type d | fzf) && cd $var'
+
+cc_cf() {
+    local ncf=$1; shift
+    . /mnt/ebs/pipeline/bin/activate
+    compliance-checker -t=cf $ncf
+}
+
+cc_imos() {
+    local ncf=$1; shift
+    . /mnt/ebs/pipeline/bin/activate
+    compliance-checker -t=imos $ncf
+}
+
+
+##########################
 # Various
 ##########################
 alias project_officer_user='sudo -u projectofficer -s'
@@ -196,18 +220,6 @@ remove_file_extension() {
 ##########################
 ncdumph() {
     command ncdump -h "$@" | less;
-}
-
-cc_cf() {
-    local ncf=$1; shift
-    . /mnt/ebs/pipeline/bin/activate
-    compliance-checker -t=cf $ncf
-}
-
-cc_imos() {
-    local ncf=$1; shift
-    . /mnt/ebs/pipeline/bin/activate
-    compliance-checker -t=imos $ncf
 }
 
 
