@@ -28,17 +28,6 @@ export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH"
 export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
 
-# install powerline fonts
-[ ! -d $HOME/fonts/ ] && git clone https://github.com/powerline/fonts && source $HOME/fonts/install.sh
-
-# install nerd-fonts
-mkdir -p ~/.local/share/fonts
-cd ~/.local/share/fonts && curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
-
-# install cheat program; see https://github.com/cheat/cheat for more info
-curl -fsSL -o $HOME/usr/bin/cheat https://github.com/cheat/cheat/releases/download/3.0.1/cheat-linux-amd64
-chmod +x $HOME/usr/bin/cheat
-
 # install or upgrade brew packages
 function brew_install_or_upgrade {
     if brew ls --versions "$1" >/dev/null; then
@@ -116,6 +105,7 @@ else
 fi
 . $DOTFILES_PATH/install
 
+
 export SHELL=$HOMEBREW_PREFIX/bin/zsh
 export PATH="$HOME/usr/bin:$PATH"
 
@@ -131,6 +121,18 @@ add_line_bashrc "export MANPATH=$HOMEBREW_PREFIX/share/man:$MANPATH"
 add_line_bashrc "export INFOPATH=$HOMEBREW_PREFIX/share/info:$INFOPATH"
 add_line_bashrc "export SHELL=$HOMEBREW_PREFIX/bin/zsh"
 add_line_bashrc "$HOMEBREW_PREFIX/bin/zsh"
+
+# install powerline fonts
+[ ! -d $HOME/fonts/ ] && git clone https://github.com/powerline/fonts && source $HOME/fonts/install.sh
+
+# install nerd-fonts
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts && curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+
+# install cheat program; see https://github.com/cheat/cheat for more info
+curl -fsSL -o $HOME/usr/bin/cheat https://github.com/cheat/cheat/releases/download/3.0.1/cheat-linux-amd64
+chmod +x $HOME/usr/bin/cheat
+
 
 ################################################################
 # CONDA setup

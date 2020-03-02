@@ -27,6 +27,7 @@ path_to_lsd=$(which lsd 2>/dev/null)
 if [ -x "$path_to_lsd" ] ; then
     alias ls='lsd'
     alias l='ls -l'
+    alias ll='ls -l'
     alias la='ls -a'
     alias lla='ls -la'
     alias lt='ls --tree'
@@ -86,7 +87,7 @@ pipe_file_error_output(){
 cc_cf() {
     local cf_version=$1; shift
     local ncf=$1; shift
-    [ -f /mnt/ebs/pipeline/bin/activate ] && /mnt/ebs/pipeline/bin/activate
+    [ -f /mnt/ebs/pipeline/bin/activate ] && . /mnt/ebs/pipeline/bin/activate
     compliance-checker -t=cf:$cf_version $ncf
 }
 
@@ -108,7 +109,7 @@ cc_cf_latest() {
 # $1 netcdf file
 cc_imos() {
     local ncf=$1; shift
-    [ -f /mnt/ebs/pipeline/bin/activate ] && /mnt/ebs/pipeline/bin/activate
+    [ -f /mnt/ebs/pipeline/bin/activate ] && . /mnt/ebs/pipeline/bin/activate
     compliance-checker -t=imos $ncf
 }
 
