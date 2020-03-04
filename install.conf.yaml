@@ -18,21 +18,21 @@
     ~/.config/sublime-text-2: {create: true, path: config/sublime-text-2/}
     ~/.config/tilda: {create: true, force: true, path: config/tilda/}
     ~/.dotfiles: {force: true, path: '.', create: true}
-    ~/.env: {force: true, path:env, create: true}
-    ~/.env_private: {force: true, path:env_private, create: true}
-    ~/.flake8: {force: true, path:flake8, create: true}
+    ~/.env: {force: true, path: env, create: true}
+    ~/.env_private: {force: true, path: env_private, create: true}
+    ~/.flake8: {force: true, path: flake8, create: true}
     ~/.gconf/apps/guake: {create: true, force: true, path: gconf/apps/guake/}
     ~/.gitconfig: {create: true, force: true, path: gitconfig}
-    ~/.gitignore: {force: true,gitignore, create: true}
+    ~/.gitignore: {force: true, path: gitignore, create: true}
     ~/.gpligrc: {create: true, force: true, path: gpligrc}
     ~/.initsys.sh: {create: true, force: true, path: initsys.sh}
     ~/.irssi: {create: true, force: true, path: irssi}
-    ~/.lynx.cfg: {force: true,lynx.cfg, create: true}
+    ~/.lynx.cfg: {force: true, path: lynx.cfg, create: true}
     ~/.myclirc: {create: true, force: true, path: myclirc}
-    ~/.ogierc: {force: true, path:ogierc, create: true}
+    ~/.ogierc: {force: true, path: ogierc, create: true}
     ~/.p10k.zsh: {force: true, path: zsh/p10k.zsh}
     ~/.pgpass: {create: true, force: true, path: pgadmin/pgpass}
-    ~/.psqlrc: {force: true, path:psqlrc, create: true}
+    ~/.psqlrc: {force: true, path: psqlrc, create: true}
     ~/.screenlayout: {create: true, force: true, path: screenlayout}
     ~/.screenrc: {force: true, path:screenrc, create: true}
     ~/.snes9x: {create: true, force: true, path: snes9x/}
@@ -45,7 +45,7 @@
     ~/.utas_vpnc.conf: {force: true, path: utas/utas_vpnc.conf}
     ~/.vimrc: {create: true, force: true, path: vim/vimrc}
     ~/.whatlastgenre: {create: true, force: false, path: whatlastgenre}
-    ~/.xsessionrc: {force: true, path:xsessionrc}
+    ~/.xsessionrc: {force: true, path: xsessionrc}
     ~/.zplug/complete/beet/_beet: {force: true, path: zsh/_beet}
     ~/.zsh_alias: {force: true, path: zsh_alias}
     ~/.zshrc.zplug.bfunk: {force: true, path: zsh/zshrc.zplug.bfunk}
