@@ -17,7 +17,7 @@
     ~/.config/ranger: {create: true, force: true, path: config/ranger/}
     ~/.config/sublime-text-2: {create: true, path: config/sublime-text-2/}
     ~/.config/tilda: {create: true, force: true, path: config/tilda/}
-    ~/.dotfiles: {force: true, path: '.', create:true}
+    ~/.dotfiles: {force: true, path: '.', create: true}
     ~/.env: {force: true, path:env, create: true}
     ~/.env_private: {force: true, path:env_private, create: true}
     ~/.flake8: {force: true, path:flake8, create: true}
