@@ -4,12 +4,12 @@
   - clean:
       ~/: {force: true}
 - link:
-    ~/.alias: alias
+  ~/.alias: {force: true, path: alias, create: true}
     ~/.bashrc: {force: true, path: bashrc}
     ~/.cheat: {create: true, force: true, path: cheat/}
-    ~/.cmus/cmus-tmux-statusbar.sh: cmus/cmus-tmux-statusbar.sh
+    ~/.cmus/cmus-tmux-statusbar.sh: {create: true, path: cmus/cmus-tmux-statusbar.sh, force: true}
     ~/.cmus/cmus_add_similar.py: {create: true, path: cmus/cmus_add_similar.py}
-    ~/.complete: complete
+    ~/.complete: {force: true, path: complete, create: true}
     ~/.config/beets: {create: true, force: false, path: config/beets/}
     ~/.config/cheat/conf.yml: {create: true, force: true, path: cheat.yml}
     ~/.config/cmus/autosave: {create: true, path: cmus/autosave}
@@ -17,26 +17,26 @@
     ~/.config/ranger: {create: true, force: true, path: config/ranger/}
     ~/.config/sublime-text-2: {create: true, path: config/sublime-text-2/}
     ~/.config/tilda: {create: true, force: true, path: config/tilda/}
-    ~/.dotfiles: .
-    ~/.env: env
-    ~/.env_private: env_private
-    ~/.flake8: flake8
+    ~/.dotfiles: {force: true, path: ., create:true}
+    ~/.env: {force: true, path:env, create: true}
+    ~/.env_private: {force: true, path:env_private, create: true}
+    ~/.flake8: {force: true, path:flake8, create: true}
     ~/.gconf/apps/guake: {create: true, force: true, path: gconf/apps/guake/}
     ~/.gitconfig: {create: true, force: true, path: gitconfig}
-    ~/.gitignore: gitignore
+    ~/.gitignore: {force: true,gitignore, create: true}
     ~/.gpligrc: {create: true, force: true, path: gpligrc}
     ~/.initsys.sh: {create: true, force: true, path: initsys.sh}
     ~/.irssi: {create: true, force: true, path: irssi}
-    ~/.lynx.cfg: lynx.cfg
+    ~/.lynx.cfg: {force: true,lynx.cfg, create: true}
     ~/.myclirc: {create: true, force: true, path: myclirc}
-    ~/.ogierc: ogierc
+    ~/.ogierc: {force: true, path:ogierc, create: true}
     ~/.p10k.zsh: {force: true, path: zsh/p10k.zsh}
     ~/.pgpass: {create: true, force: true, path: pgadmin/pgpass}
-    ~/.psqlrc: psqlrc
+    ~/.psqlrc: {force: true, path:psqlrc, create: true}
     ~/.screenlayout: {create: true, force: true, path: screenlayout}
-    ~/.screenrc: screenrc
+    ~/.screenrc: {force: true, path:screenrc, create: true}
     ~/.snes9x: {create: true, force: true, path: snes9x/}
-    ~/.ssh/config: ssh/config
+    ~/.ssh/config: {force: true, path: ssh/config, create: true}
     ~/.ssh/id_rsa.pub.pem: {create: true, force: true, path: ssh/id_rsa.pub.pem}
     ~/.ssh/id_rsa.pub: {create: true, force: true, path: ssh/id_rsa.pub}
     ~/.tmux.conf.laptop: {force: true, path: tmux/tmux.conf.laptop}
@@ -45,19 +45,19 @@
     ~/.utas_vpnc.conf: {force: true, path: utas/utas_vpnc.conf}
     ~/.vimrc: {create: true, force: true, path: vim/vimrc}
     ~/.whatlastgenre: {create: true, force: false, path: whatlastgenre}
-    ~/.xsessionrc: xsessionrc
+    ~/.xsessionrc: {force: true, path:xsessionrc}
     ~/.zplug/complete/beet/_beet: {force: true, path: zsh/_beet}
-    ~/.zsh_alias: zsh_alias
+    ~/.zsh_alias: {force: true, path: zsh_alias}
     ~/.zshrc.zplug.bfunk: {force: true, path: zsh/zshrc.zplug.bfunk}
     ~/.zshrc.zplug.common: {force: true, path: zsh/zshrc.zplug.common}
     ~/.zshrc.zplug.local: {force: true, path: zsh/zshrc.zplug.local}
     ~/.zshrc.zplug.ssh: {force: true, path: zsh/zshrc.zplug.ssh}
     ~/.zshrc: {force: true, path: zsh/zshrc}
-    ~/bfunk-docker-compose: {create: true, path: bfunk/docker-compose/}
+    ~/bfunk-docker-compose: {force: true, create: true, path: bfunk/docker-compose/}
     ~/bin: bin
 - shell:
     - [chmod -R 0755 ~/.zplug, Making SSH-folder read-only]
     - [chmod -R 0755 ~/.zsh_alias, Making SSH-folder read-only]
     - [chmod 600 ~/.ssh/config]
     - [chown $USER ~/.ssh/config]
-    - [ chmod 0000 ~/.utas_vpnc.conf, sudo chown root ~/.utas_vpnc.conf ]
+    - [chmod 0000 ~/.utas_vpnc.conf; sudo chown root ~/.utas_vpnc.conf ]
