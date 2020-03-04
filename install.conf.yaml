@@ -8,14 +8,14 @@
     ~/.bashrc: {force: true, path: bashrc}
     ~/.cheat: {create: true, force: true, path: cheat/}
     ~/.cmus/cmus-tmux-statusbar.sh: {create: true, path: cmus/cmus-tmux-statusbar.sh, force: true}
-    ~/.cmus/cmus_add_similar.py: {create: true, path: cmus/cmus_add_similar.py}
+    ~/.cmus/cmus_add_similar.py: {create: true, path: cmus/cmus_add_similar.py, force: true}
     ~/.complete: {force: true, path: complete, create: true}
     ~/.config/beets: {create: true, force: false, path: config/beets/}
     ~/.config/cheat/conf.yml: {create: true, force: true, path: cheat.yml}
-    ~/.config/cmus/autosave: {create: true, path: cmus/autosave}
+    ~/.config/cmus/autosave: {create: true, force: true, path: cmus/autosave}
     ~/.config/nvim/init.vim: {create: true, force: true, path: vim/nvim.init.vim}
     ~/.config/ranger: {create: true, force: true, path: config/ranger/}
-    ~/.config/sublime-text-2: {create: true, path: config/sublime-text-2/}
+    ~/.config/sublime-text-2: {create: true, force: true, path: config/sublime-text-2/}
     ~/.config/tilda: {create: true, force: true, path: config/tilda/}
     ~/.dotfiles: {force: true, path: '.', create: true}
     ~/.env: {force: true, path: env, create: true}
@@ -54,7 +54,7 @@
     ~/.zshrc.zplug.ssh: {force: true, path: zsh/zshrc.zplug.ssh}
     ~/.zshrc: {force: true, path: zsh/zshrc}
     ~/bfunk-docker-compose: {force: true, create: true, path: bfunk/docker-compose/}
-    ~/bin: bin
+    ~/bin: {path: bin, create: true, force: true}
 - shell:
     - [chmod -R 0755 ~/.zplug, Making SSH-folder read-only]
     - [chmod -R 0755 ~/.zsh_alias, Making SSH-folder read-only]
