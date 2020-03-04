@@ -42,6 +42,7 @@
     ~/.tmux.conf.laptop: {force: true, path: tmux/tmux.conf.laptop}
     ~/.tmux.conf.ssh: {force: true, path: tmux/tmux.conf.ssh}
     ~/.tmux.conf: {force: true, path: tmux/tmux.conf}
+    ~/.utas_vpnc.conf: {force: true, path: utas/utas_vpnc.conf}
     ~/.vimrc: {create: true, force: true, path: vim/vimrc}
     ~/.whatlastgenre: {create: true, force: false, path: whatlastgenre}
     ~/.xsessionrc: xsessionrc
@@ -59,3 +60,4 @@
     - [chmod -R 0755 ~/.zsh_alias, Making SSH-folder read-only]
     - [chmod 600 ~/.ssh/config]
     - [chown $USER ~/.ssh/config]
+    - [ chmod 0000 ~/.utas_vpnc.conf, sudo chown root ~/.utas_vpnc.conf ]
