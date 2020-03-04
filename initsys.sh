@@ -66,6 +66,7 @@ brew_install_or_upgrade lnav
 brew_install_or_upgrade lsd
 brew_install_or_upgrade midnight-commander
 brew_install_or_upgrade ncdu
+brew_install_or_upgrade node
 brew_install_or_upgrade openssh # in order to have latest version => SetEnv
 brew_install_or_upgrade p7zip
 brew_install_or_upgrade pgcli
@@ -160,6 +161,8 @@ if ! [ -d $CONDA/env/neovim/bin ] ;then # on local computer
         conda activate neovim
         conda install -y -c conda-forge neovim
         conda install -y pynvim neovim jedi
+        $CONDA/env/neovim/bin/pip install pynvim
+        $CONDA/env/neovim/bin/pip installi msgpack-python
 fi
 
 rm -Rf ~/.vim
