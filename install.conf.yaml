@@ -34,7 +34,7 @@
     ~/.pgpass: {create: true, force: true, path: pgadmin/pgpass}
     ~/.psqlrc: {force: true, path: psqlrc, create: true}
     ~/.screenlayout: {create: true, force: true, path: screenlayout}
-    ~/.screenrc: {force: true, path:screenrc, create: true}
+    ~/.screenrc: {force: true, path: screenrc, create: true}
     ~/.snes9x: {create: true, force: true, path: snes9x/}
     ~/.ssh/config: {force: true, path: ssh/config, create: true}
     ~/.ssh/id_rsa.pub.pem: {create: true, force: true, path: ssh/id_rsa.pub.pem}
