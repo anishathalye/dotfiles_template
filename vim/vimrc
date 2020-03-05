@@ -276,8 +276,9 @@ nnoremap <leader><space> :nohlsearch<cr>
 " Remove trailing whitespace on <leader>S
 nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 
-" remove trailing space for python file"
+" remove trailing space for python yaml file"
 autocmd FileType python autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType yaml autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 "
 " Resize split
