@@ -185,7 +185,7 @@ fi
 # ssh
 alias s='var=$(grep -e "^Host " ~/.ssh/config | sed "s#Host ##" | fzf) && ssh $var' # ssh with fzf to list known hosts from ssh/config
 [ -f ~/.utas_vpnc.conf ] && alias vpn_utas_connect='sudo vpnc ~/.utas_vpnc.conf --local-port 0' && alias vpn_utas_disconnect='sudo vpnc-disconnect'
-alias vpn_bfunk_start='cd $HOME/Nextcloud/Private/ovpns && sudo openvpn lbesnard.ovpn'
+alias vpn_bfunk_start='cd $DOTFILES_PRIVATE_PATH/openvpn && sudo openvpn lbesnard_duckdns.ovpn'
 
 
 ##########################

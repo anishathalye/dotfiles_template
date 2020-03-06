@@ -162,7 +162,7 @@ if ! [ -d $CONDA/env/neovim/bin ] ;then # on local computer
         conda install -y -c conda-forge neovim
         conda install -y pynvim neovim jedi
         $CONDA/env/neovim/bin/pip install pynvim
-        $CONDA/env/neovim/bin/pip installi msgpack-python
+        $CONDA/env/neovim/bin/pip install msgpack-python
 fi
 
 rm -Rf ~/.vim

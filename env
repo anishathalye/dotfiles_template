@@ -40,6 +40,12 @@ elif [ -d $HOME/dotfiles >/dev/null ]; then # on any $HOME folder, the dotfiles 
     export DOTFILES_PATH=$HOME/dotfiles 
 fi
 
+if [ -d $HOME/github_repo/dotfiles_private ];then # on local computer
+    export DOTFILES_PRIVATE_PATH=$HOME/github_repo/dotfiles_private 
+elif [ -d $HOME/dotfiles_private >/dev/null ]; then # on any $HOME folder, the dotfiles_private repo should be clone to $HOME/dotfiles_private
+    export DOTFILES_PRIVATE_PATH=$HOME/dotfiles_private 
+fi
+
 
 export PATH=$HOME/.dotfiles/bin:${PATH}
 export PATH=$HOME/.dotfiles/bin/encryption:$PATH
