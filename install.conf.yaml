@@ -61,4 +61,4 @@
     - [chmod -R 0755 ~/.zsh_alias, Making SSH-folder read-only]
     - [chmod 600 ~/.ssh/config]
     - [chown $USER ~/.ssh/config]
-    - [chmod 0000 ~/.utas_vpnc.conf; sudo chown root ~/.utas_vpnc.conf ]
+    - [chmod 0000 ~/.utas_vpnc.conf] #;sudo chown root ~/.utas_vpnc.conf ]
