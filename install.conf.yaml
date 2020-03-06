@@ -5,6 +5,7 @@
       ~/: {force: true}
 - link:
     ~/.alias: {force: true, path: alias, create: true}
+    ~/.ansible.cfg: {force: true, path: ansible.cfg, create: true}
     ~/.bashrc: {force: true, path: bashrc}
     ~/.cheat: {create: true, force: true, path: cheat/}
     ~/.cmus/cmus-tmux-statusbar.sh: {create: true, path: cmus/cmus-tmux-statusbar.sh, force: true}
