@@ -1,0 +1,43 @@
+// name, tileType, tileSize, minZoom et maxZoom sont des mots réservés. Ils sont sensibles aux majuscules et minuscules
+// De même, Zoom, X et Y sont sensibles aux majuscules et minuscules
+// Gestion erreur : Si vous obtenez des croix rouges, la carte est centrée hors de France
+//
+// *******************************************************************
+// ***** Gestion du système d exploitation MacOS (Macintosh)
+// *****
+// ***** Si vous êtes sous MacOS, mettre false au lieu de true (en minuscule et sans "") à la ligne suivante :
+Boolean  Windows_ou_Linux = true ;
+// *****
+// *******************************************************************
+
+name = "France, cartes de vol VFR - 2018"; 
+
+String Myurl = "http://wxs.ign.fr/";
+String Mykey = "an7nvfzojv5wa96dsga5nk8w";
+String Myfolder = "/geoportail/wmts/";
+String Mylayer = "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-OACI";
+String Mystyle = "normal";
+String Mytilematrixset = "PM";
+String Myservice = "WMTS";
+String Myrequest = "GetTile";
+String Myversion = "1.0.0";
+String Myformat = "image%2Fjpeg";
+
+tileType = "jpg";
+minZoom = 6;
+maxZoom = 11;
+
+String getTileUrl(int Zoom, int X, int Y) {
+	return Myurl + Mykey + Myfolder + "?Layer=" + Mylayer + "&Style=" + Mystyle + "&Tilematrixset=" + Mytilematrixset + "&Service=" + Myservice + "&Request=" + Myrequest + "&Version=" + Myversion + "&Format=" + Myformat + "&TileMatrix=" + Zoom + "&TileCol=" + X + "&TileRow=" + Y;
+}
+
+void addHeaders(java.net.HttpURLConnection conn) {
+	if (Windows_ou_Linux) {
+		// Pour Windows et Linux
+		conn.addRequestProperty("User-Agent","Mozilla/5.0 Gecko/20100101 Firefox/49.0");
+	}else{
+		// Pour MacOS
+		conn.addRequestProperty("Referer",Referer);
+		conn.addRequestProperty("User-Agent",UserAgent);	
+	}
+}

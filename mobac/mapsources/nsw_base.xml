@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customMapSource>
+ <name>NSWBase</name>
+ <minZoom>0</minZoom>
+ <maxZoom>16</maxZoom>
+ <tileType>jpg</tileType>
+ <tileUpdate>IfNoneMatch</tileUpdate>
+ <url>http://mapsq.six.nsw.gov.au/arcgis/rest/services/sixmaps/LPIMap/MapServer/tile/{$z}/{$y}/{$x}</url>
+ <backgroundColor>#000000</backgroundColor>
+</customMapSource>

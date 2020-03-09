@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<customMultiLayerMapSource> 
+<name>France, cartes des pentes IGN (sur niveaux de gris) - 2018</name> 
+<tileType>png</tileType> 
+<layers> 
+<customMapSource> 
+   <name>Carte IGN (niveaux de gris)</name> 
+   <tileType>png</tileType> 
+   <minZoom>6</minZoom> 
+   <maxZoom>17</maxZoom> 
+   <url><![CDATA[http://wxs.ign.fr/an7nvfzojv5wa96dsga5nk8w/geoportail/wmts?layer=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.NIVEAUXGRIS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={$z}&TileCol={$x}&TileRow={$y}]]></url> 
+</customMapSource> 
+<customMapSource> 
+   <name>Carte des pentes</name> 
+   <tileType>png</tileType> 
+   <minZoom>6</minZoom> 
+   <maxZoom>17</maxZoom> 
+   <url><![CDATA[http://wxs.ign.fr/an7nvfzojv5wa96dsga5nk8w/geoportail/wmts?layer=GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={$z}&TileCol={$x}&TileRow={$y}]]></url> 
+</customMapSource> 
+</layers> 
+<layersAlpha>1.0 0.5</layersAlpha> 
+</customMultiLayerMapSource> 

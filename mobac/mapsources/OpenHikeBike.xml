@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customMapSource>
+   <name>OpenHikeBike</name>
+   <minZoom>5</minZoom>
+   <maxZoom>17</maxZoom>
+   <tileType>png</tileType>
+   <tileUpdate>IfNoneMatch</tileUpdate>
+   <url>http://{$serverpart}.tiles.wmflabs.org/hikebike/{$z}/{$x}/{$y}.png</url>
+   <serverParts>a b c</serverParts>
+   <backgroundColor>#000000</backgroundColor>
+</customMapSource>

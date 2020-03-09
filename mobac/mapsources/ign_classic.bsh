@@ -1,0 +1,18 @@
+name = "IGN Geoportail - classic";
+
+tileType = "jpg";
+tileSize = 256;
+minZoom = 0;
+maxZoom = 18;
+tileUpdate = TileUpdate.IfModifiedSince;
+backgroundColor = "#ffffff";
+ignoreError = "True";
+
+String getTileUrl( int zoom, int x, int y ) {
+/*return "http://gpp3-wxs.ign.fr/j5tcdln4ya4xggpdu4j0f0cn/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&STYLE=normal&FORMAT=image/jpeg&TILEMATRIXSET=PM&TILEMATRIX=" + zoom + "&TILEROW=" + y + "&TILECOL=" + x + ".jpg";*/
+  return "http://wxs.ign.fr/an7nvfzojv5wa96dsga5nk8w/wmts?layer=GEOGRAPHICALGRIDSYSTEMS.MAPS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image/jpeg&TileMatrix=" + zoom + "&TILEROW=" + y + "&TILECOL=" + x+ ".jpg";
+}
+
+void addHeaders( java.net.HttpURLConnection conn) {
+conn.addRequestProperty("Referer","http://m.geoportail.fr/index.html");
+}

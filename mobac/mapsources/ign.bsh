@@ -1,0 +1,17 @@
+name = "IGN Geoportail - new style";
+
+tileType = "jpg";
+tileSize = 256;
+minZoom = 0;
+maxZoom = 18;
+tileUpdate = TileUpdate.IfModifiedSince;
+backgroundColor = "#ffffff";
+ignoreError = "True";
+
+String getTileUrl( int zoom, int x, int y ) {
+  return "http://wxs.ign.fr/an7nvfzojv5wa96dsga5nk8w/wmts?layer=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image/jpeg&TileMatrix=" + zoom + "&TILEROW=" + y + "&TILECOL=" + x+ ".jpg";
+}
+
+void addHeaders( java.net.HttpURLConnection conn) {
+conn.addRequestProperty("Referer","http://m.geoportail.fr/index.html");
+}

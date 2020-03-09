@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customWmsMapSource>
+<name>IGN WMS JPG-raster 2015</name>
+<minZoom>6</minZoom>
+<maxZoom>16</maxZoom>
+<tileType>JPG</tileType>
+<version>1.1.1</version>
+<layers>mtn_rasterizado</layers>
+<url>http://www.ign.es/wms-inspire/mapa-raster?</url>
+<coordinatesystem>EPSG:4326</coordinatesystem>
+<aditionalparameters>&amp;EXCEPTIONS=BLANK&amp;Styles=</aditionalparameters>
+<backgroundColor>#000000</backgroundColor>
+</customWmsMapSource>

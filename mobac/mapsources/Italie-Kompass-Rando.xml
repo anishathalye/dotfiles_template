@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<customMapSource> 
+<name>Italie, cartes de randonnées Kompass - 2018</name> 
+<minZoom>6</minZoom> 
+<maxZoom>16</maxZoom> 
+<tileType>JPG</tileType> 
+<url><![CDATA[http://ec3.cdn.ecmaps.de/WmsGateway.ashx.jpg?Experience=kompass&MapStyle=KOMPASS%20Touristik&TileX={$x}&TileY={$y}&ZoomLevel={$z}]]></url>
+<ignoreErrors>true</ignoreErrors> 
+<backgroundColor>#000000</backgroundColor> 
+</customMapSource>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customMapSource>
+   <name>OpenCycleMap</name>
+   <minZoom>5</minZoom>
+   <maxZoom>17</maxZoom>
+   <tileType>png</tileType>
+   <tileUpdate>IfNoneMatch</tileUpdate>
+   <url>https://{$serverpart}.tile.thunderforest.com/cycle/{$z}/{$x}/{$y}.png</url>
+   <serverParts>a b c</serverParts>
+   <backgroundColor>#000000</backgroundColor>
+</customMapSource>

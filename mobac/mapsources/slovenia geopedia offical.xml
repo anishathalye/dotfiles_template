@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customMapSource>
+   <name>Slovenia geopedia official</name>
+   <minZoom>10</minZoom>
+   <maxZoom>15</maxZoom>
+   <tileType>jpg</tileType>
+   <tileUpdate>IfNoneMatch</tileUpdate>
+   <url>http://www.geopedia.si/#T184_x{$x}_y{$y}_s{$z}_b5</url>
+   <backgroundColor>#000000</backgroundColor>
+</customMapSource>

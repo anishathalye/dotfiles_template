@@ -1,0 +1,35 @@
+// name, tileType, tileSize, minZoom et maxZoom sont des mots réservés. Ils sont sensibles aux majuscules et minuscules
+// De même, Zoom, X et Y sont sensibles aux majuscules et minuscules
+// Gestion erreur : Si vous obtenez des croix rouges, la carte est centrée hors de France
+//
+// *******************************************************************
+// ***** Gestion du système d exploitation MacOS (Macintosh)
+// ***** Non géré pour cette carte actuellement, me contacter pour creuser l affaire
+// *****
+// ***** Si vous êtes sous MacOS, mettre false au lieu de true (en minuscule et sans "") à la ligne suivante :
+Boolean  Windows_ou_Linux = true ;
+// *****
+// *******************************************************************
+
+name = "Espagne, cartes IGN - 2018"; 
+
+String Myurl = "http://www.ign.es/";
+String Mykey = ".";
+String Myfolder = "/wmts/mapa-raster/";
+String Mylayer = "MTN";
+String Mystyle = "normal";
+String Mytilematrixset = "GoogleMapsCompatible";
+String Myservice = "WMTS";
+String Myrequest = "GetTile";
+String Myversion = "1.0.0";
+String Myformat = "image%2Fjpeg";
+
+tileType = "jpg";
+minZoom = 4;
+maxZoom = 20;
+
+
+String getTileUrl(int Zoom, int X, int Y) {
+	return Myurl + Mykey + Myfolder + "?Layer=" + Mylayer + "&Style=" + Mystyle + "&Tilematrixset=" + Mytilematrixset + "&Service=" + Myservice + "&Request=" + Myrequest + "&Version=" + Myversion + "&Format=" + Myformat + "&TileMatrix=" + Zoom + "&TileCol=" + X + "&TileRow=" + Y;
+}
+

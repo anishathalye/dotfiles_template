@@ -1,0 +1,44 @@
+// name, tileType, tileSize, minZoom et maxZoom sont des mots réservés. Ils sont sensibles aux majuscules et minuscules
+// De même, Zoom, X et Y sont sensibles aux majuscules et minuscules
+// Gestion erreur : Si vous obtenez des croix rouges, la carte est centrée hors de France
+//
+// *******************************************************************
+// ***** Gestion du système d exploitation MacOS (Macintosh)
+// *****
+// ***** Si vous êtes sous MacOS, mettre false au lieu de true (en minuscule et sans "") à la ligne suivante :
+Boolean  Windows_ou_Linux = true ;
+// *****
+// *******************************************************************
+
+name = "Suisse, cartes et photos Swisstopo - 2018";
+
+String Myurl = "http://wmts10.geo.admin.ch/";
+String Mykey = "1.0.0";
+String Myfolder = "/ch.swisstopo.pixelkarte-farbe/default/current/3857/";
+String Myfolder_Picture = "/ch.swisstopo.swissimage/default/current/3857/";
+
+
+tileType = "jpg";
+minZoom = 4;
+maxZoom = 20;
+
+
+String getTileUrl(int Zoom, int X, int Y) {
+	if (Zoom < 16) {
+		return Myurl + Mykey + Myfolder + Zoom + "/" + X + "/"+ Y + ".png";
+	} else {
+		return Myurl + Mykey + Myfolder_Picture + Zoom + "/" + X + "/"+ Y + ".png";
+	}
+}
+
+void addHeaders(java.net.HttpURLConnection conn) {
+	if (Windows_ou_Linux) {
+		// Pour Windows et Linux
+		conn.addRequestProperty("Referer","http://www.swisstopo.admin.ch/internet/swisstopo/en/home.html");
+		conn.addRequestProperty("User-Agent","Mozilla/5.0 Gecko/20100101 Firefox/49.0");
+	}else{
+		// Pour MacOS
+		conn.addRequestProperty("Referer","http://www.swisstopo.admin.ch/internet/swisstopo/en/home.html");
+		conn.addRequestProperty("User-Agent",UserAgent);	
+	}
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customMapSource>
+ <name>NewZealand</name>
+ <minZoom>6</minZoom>
+ <maxZoom>16</maxZoom>
+ <tileType>jpg</tileType>
+ <tileUpdate>IfNoneMatch</tileUpdate>
+ <url>http://nz1.nztopomaps.com/{$z}/{$x}/{$y}.png</url>
+ <backgroundColor>#000000</backgroundColor>
+</customMapSource>

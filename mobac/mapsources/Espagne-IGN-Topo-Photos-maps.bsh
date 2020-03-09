@@ -1,0 +1,102 @@
+// name, tileType, tileSize, minZoom et maxZoom sont des mots réservés. Ils sont sensibles aux majuscules et minuscules
+// De même, Zoom, X et Y sont sensibles aux majuscules et minuscules
+// Gestion erreur : Si vous obtenez des croix rouges, la carte est centrée hors de France
+//
+// *******************************************************************
+// ***** Gestion du système d exploitation MacOS (Macintosh)
+// ***** Non géré pour cette carte actuellement, me contacter pour creuser l affaire
+// *****
+// ***** Si vous êtes sous MacOS, mettre false au lieu de true (en minuscule et sans "") à la ligne suivante :
+Boolean  Windows_ou_Linux = true ;
+// *****
+// *******************************************************************
+
+name = "Espagne, cartes et photos IGN - 2018"; 
+
+String Myurl = "http://www.ign.es/";
+String Myurl_Picture = "http://www.idee.es/";
+String Mykey = ".";
+String Myfolder = "/wmts/mapa-raster/";
+String Myfolder_Picture = "/wms/PNOA/PNOA/";
+String Mylayer = "MTN";
+String Mylayers = "pnoa";
+String Mystyle = "normal";
+String Mytilematrixset = "GoogleMapsCompatible";
+String Myservice = "WMTS";
+String Myservice_Picture = "WMS";
+String Myrequest = "GetTile";
+String Myrequest_Picture = "GetMap";
+String Myversion = "1.0.0";
+String Myversion_Picture = "1.1.1";
+String Myformat = "image%2Fjpeg";
+String Mytransparent = "true";
+String Mycrs = "EPSG%3A3857";
+String Mysrs = "EPSG%3A3857";
+String Mywidth = "256";
+String Myheight = "256";
+
+tileType = "jpg";
+minZoom = 4;
+maxZoom = 20;
+tileUpdate = TileUpdate.IfModifiedSince;
+backgroundColor = "#ffffff";
+ignoreError = "True";
+
+static import java.lang.Math.*; 
+
+String getTileUrl(int Zoom, int X, int Y) {
+	if (Zoom < 16) {
+		return Myurl + Mykey + Myfolder + "?Layer=" + Mylayer + "&Style=" + Mystyle + "&Tilematrixset=" + Mytilematrixset + "&Service=" + Myservice + "&Request=" + Myrequest + "&Version=" + Myversion + "&Format=" + Myformat + "&TileMatrix=" + Zoom + "&TileCol=" + X + "&TileRow=" + Y;
+	}else{
+		return Myurl_Picture + Mykey + Myfolder_Picture + "?Layers=" + Mylayers + "&transparent=" + Mytransparent + "&Service=" + Myservice_Picture + "&Request=" + Myrequest_Picture + "&version=" + Myversion_Picture + "&Format=" + Myformat + "&crs=" + Mycrs + "&srs=" + Mysrs + "&width=" + Mywidth + "&height=" + Myheight + "&bbox=" + mercatorTileEdges(X,Y,Zoom);
+	}
+}
+
+numTiles(Z){
+return abs(pow(2,Z));
+}
+mercatorToLat(mercatorY){
+return(toDegrees(atan(sinh(mercatorY))));
+}
+latEdges1(Y,Z){
+n = numTiles(Z);
+unit = 1 / n;
+relY1 = Y * unit;
+lat1 = mercatorToLat(PI * (1 - 2 * relY1));
+return lat1;
+}
+latEdges2(Y,Z){
+n = numTiles(Z);
+unit = 1 / n;
+relY1 = Y * unit;
+relY2 = relY1 + unit;
+lat2 = mercatorToLat(PI * (1 - 2 * relY2));
+return lat2;
+}
+lonEdges1(X,Z){
+n = numTiles(Z);
+unit = 360 / n;
+lon1 = -180 + X * unit;
+return lon1;
+}
+lonEdges2(X,Z){
+n = numTiles(Z);
+unit = 360 / n;
+lon1 = -180 + X * unit;
+lon2 = lon1 + unit;
+return lon2;
+}
+tileEdges(X,Y,Z){
+return (latEdges2(Y,Z)+","+lonEdges1(X,Z)+","+latEdges1(Y,Z)+","+lonEdges2(X,Z));
+}
+lon2mercator(l){
+return (l * 20037508.34 / 180);
+}
+lat2mercator(l){
+r = toRadians(l);
+lat = log((1+sin(r)) / (1-sin(r)));
+return (lat * 20037508.34 / 2 / PI);
+}
+mercatorTileEdges(X,Y,Z){
+return (lon2mercator(lonEdges1(X,Z))+","+lat2mercator(latEdges2(Y,Z))+","+lon2mercator(lonEdges2(X,Z))+","+lat2mercator(latEdges1(Y,Z)));
+} 

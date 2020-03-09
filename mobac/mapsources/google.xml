@@ -1,0 +1,15 @@
+<!--  
+ custom "Google Map" source for Mobile Atlas Creator 1.9.8
+ save in *.xml and move to /mapsources 
+-->
+
+<customMapSource>
+  <name>Google Map</name>
+  <minZoom>0</minZoom>
+  <maxZoom>20</maxZoom>
+  <tileType>PNG</tileType>
+  <tileUpdate>IfNoneMatch</tileUpdate>
+  <url>http://mt{$serverpart}.google.com/vt/lyrs=m@176103410&amp;hl=zh-TW&amp;x={$x}&amp;y={$y}&amp;z={$z}&amp;s=Galileo&amp;scale=1</url>
+  <serverParts>0 1 2 3</serverParts>
+</customMapSource>
+

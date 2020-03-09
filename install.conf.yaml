@@ -56,6 +56,8 @@
     ~/.zshrc: {force: true, path: zsh/zshrc}
     ~/bfunk-docker-compose: {force: true, create: true, path: bfunk/docker-compose/}
     ~/bin: {path: bin, create: true, force: true}
+    ~/Mobac/mapsources: {path: mobac/mapsources, create: true, force: true}
+
 - shell:
     - [chmod -R 0755 ~/.zplug, Making SSH-folder read-only]
     - [chmod -R 0755 ~/.zsh_alias, Making SSH-folder read-only]
