@@ -9,3 +9,5 @@ ncks -x -v instrument_id,source_file FILE.nc OUT.nc;
 # modify attribute
 ncatted -O -a  reference_datum,BOT_DEPTH,o,c,"Mean Sea Level (MSL)" in.nc
 
+# modify global attribute
+ncatted -O -a site_name,global,o,c,"Bad Site" in.nc
