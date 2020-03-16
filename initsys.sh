@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
 ## script to install a functional working env on the $HOME directory
-## using linuxbrew
+## using linuxbrew and ansible
 ## will install tools such as zsh, tmux, ranger, fzf ... and dotfiles
-# install manually https://github.com/alexanderjeurissen/ranger_devicons
-
-mkdir -p $HOME/usr/bin
-export PATH="$HOME/usr/bin:$PATH"
 
 # install linuxbrew
 # if user has sudo privileges, linuxbrew should be installed in /home/linuxbrew
@@ -15,7 +11,7 @@ if ! [ -x "$(command -v brew)" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 fi
 
-# check where is installed linuxbrew
+# check where is linuxbrew installed
 if [[ -d $HOME/.linuxbrew ]]; then
     export HOMEBREW_PREFIX=$HOME/.linuxbrew
 elif [[ -d /home/linuxbrew ]]; then
@@ -28,142 +24,23 @@ export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH"
 export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
 
-# install or upgrade brew packages
-function brew_install_or_upgrade {
-    if brew ls --versions "$1" >/dev/null; then
-        HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade "$1"
-    else
-        HOMEBREW_NO_AUTO_UPDATE=1 brew install "$1"
-    fi
-}
-
 # see https://github.com/Linuxbrew/homebrew-core/issues/955#issuecomment-250151297
 export HOMEBREW_ARCH=core2
 
-# install or upgrade pacakge in $HOME directory
+# install or upgrade packages
 brew_install_or_upgrade cmake
 brew_install_or_upgrade gcc
 brew_install_or_upgrade ruby
 brew_install_or_upgrade ruby-install
 
-brew_install_or_upgrade autojump
-brew_install_or_upgrade angle-grinder
-brew_install_or_upgrade bat
-brew_install_or_upgrade curl
-brew_install_or_upgrade dfc
-brew_install_or_upgrade exa
-brew_install_or_upgrade fasd
-brew_install_or_upgrade fd
-brew_install_or_upgrade fpp
-brew_install_or_upgrade fzf
-brew_install_or_upgrade git
-brew_install_or_upgrade googler
-brew_install_or_upgrade hightlight
-brew_install_or_upgrade htop
-brew_install_or_upgrade httpie
-brew_install_or_upgrade hub
-brew_install_or_upgrade lnav
-brew_install_or_upgrade lsd
-brew_install_or_upgrade midnight-commander
-brew_install_or_upgrade ncdu
-brew_install_or_upgrade node
-brew_install_or_upgrade openssh # in order to have latest version => SetEnv
-brew_install_or_upgrade p7zip
-brew_install_or_upgrade pgcli
-brew_install_or_upgrade pyenv
-brew_install_or_upgrade pyenv-virtualenv
-brew_install_or_upgrade ranger
-brew_install_or_upgrade ripgrep
-brew_install_or_upgrade task
-brew_install_or_upgrade the_silver_searcher
-brew_install_or_upgrade tig
-brew_install_or_upgrade tmux
-brew_install_or_upgrade urlview
-brew_install_or_upgrade vim
-brew_install_or_upgrade nvim  # python dependancies will be installed via conda
-brew_install_or_upgrade zsh
+brew_install_or_upgrade ansible
 
-brew tap fernandotcl/homebrew-fernandotcl
-brew_install_or_upgrade monkeys-audio
+ansible-pull -U https://github.com/lbesnard/ansible_laptop.git remote.yml -i hosts -t brew
+ansible-pull -U https://github.com/lbesnard/ansible_laptop.git remote.yml -i hosts -t dotfiles
+ansible-pull -U https://github.com/lbesnard/ansible_laptop.git remote.yml -i hosts -t conda
+ansible-pull -U https://github.com/lbesnard/ansible_laptop.git remote.yml -i hosts -t neovim
+ansible-pull -U https://github.com/lbesnard/ansible_laptop.git remote.yml -i hosts -t cheat
 
 # To install useful key bindings and fuzzy completion for fzf
 $(brew --prefix)/opt/fzf/install
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-
-# fancy colorls
-#gem install colorls
-
-# setup dotfiles
-if [ -d $HOME/github_repo/dotfiles ];then # on local computer
-    export DOTFILES_PATH=$HOME/github_repo/dotfiles && cd $DOTFILES_PATH
-    git pull
-elif [ -d $HOME/dotfiles >/dev/null ]; then # on any $HOME folder, the dotfiles repo should be clone to $HOME/dotfiles
-    export DOTFILES_PATH=$HOME/dotfiles && cd $DOTFILES_PATH
-    git pull;
-else
-    git clone https://github.com/lbesnard/dotfiles.git;
-    export DOTFILES_PATH=$HOME/dotfiles
-fi
-. $DOTFILES_PATH/install
-
-
-export SHELL=$HOMEBREW_PREFIX/bin/zsh
-export PATH="$HOME/usr/bin:$PATH"
-
-#add line to bashrc only if not exist
-add_line_bashrc() {
-    local line="$1"; shift
-    grep -q "^${line}$" $HOME/.bashrc ||  echo $line >> $HOME/.bashrc
-}
-
-#add_line_bashrc "export HOMEBREW_PREFIX=${HOMEBREW_PREFIX}"
-add_line_bashrc "export PATH=$HOMEBREW_PREFIX/bin:$PATH"
-add_line_bashrc "export MANPATH=$HOMEBREW_PREFIX/share/man:$MANPATH"
-add_line_bashrc "export INFOPATH=$HOMEBREW_PREFIX/share/info:$INFOPATH"
-add_line_bashrc "export SHELL=$HOMEBREW_PREFIX/bin/zsh"
-add_line_bashrc "$HOMEBREW_PREFIX/bin/zsh"
-
-# install powerline fonts
-[ ! -d $HOME/fonts/ ] && git clone https://github.com/powerline/fonts && source $HOME/fonts/install.sh
-
-# install nerd-fonts
-mkdir -p ~/.local/share/fonts
-cd ~/.local/share/fonts && curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
-
-# install cheat program; see https://github.com/cheat/cheat for more info
-curl -fsSL -o $HOME/usr/bin/cheat https://github.com/cheat/cheat/releases/download/3.0.1/cheat-linux-amd64
-chmod +x $HOME/usr/bin/cheat
-
-
-################################################################
-# CONDA setup
-################################################################
-if [ -d "$HOME/anaconda3/bin" ]; then
-    CONDA=$HOME/anaconda3
-elif [ -d "$HOME/miniconda3/bin" ]; then
-    CONDA=$HOME/miniconda3
-else
-    wget https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh -O ~/anaconda.sh
-    bash ~/anaconda.sh -b -p $HOME/anaconda3
-    rm -f ~/anaconda.sh
-    CONDA=$HOME/anaconda3
-fi
-
-export PATH=$CONDA/bin:$PATH
-zsh
-
-################################################################
-# neovim install once anaconda/miniconda is installed
-# neovim is already set up properly in its init file to use excatly this env name
-################################################################
-if ! [ -d $CONDA/env/neovim/bin ] ;then # on local computer
-        conda create -y -n neovim python=3.7
-        conda activate neovim
-        conda install -y -c conda-forge neovim
-        conda install -y pynvim neovim jedi
-        $CONDA/env/neovim/bin/pip install pynvim
-        $CONDA/env/neovim/bin/pip install msgpack-python
-fi
-
-rm -Rf ~/.vim
-nvim +PlugInstall +qall > /dev/null;
