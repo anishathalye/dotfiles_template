@@ -1,0 +1,273 @@
+# Background programs
+set $fehcmd "feh --randomize --bg-fill ~/Pictures/wallpapers/*"
+exec --no-startup-id $fehcmd
+exec --no-startup-id systemd-run --on-calendar="*-*-* *:*:00" --user -- $fehcmd
+exec --no-startup-id compton
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Your preferred terminal emulator
+set $term tilix
+
+#Window title font
+font pango:DejaVu Sans Mono 10
+
+# Your preferred application launcher
+set $menu rofi -show drun
+bindsym $mod+d exec $menu
+
+### Key bindings
+#
+# Basics:
+#
+# start a terminal
+bindsym $mod+Return exec $term
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# exit i3 (logs you out of your wayland session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+#lock
+bindsym $mod+BackSpace exec "i3lock -c 68615E && systemctl suspend"
+
+# sticky a floating window, stays around on all workspaces
+bindsym $mod+t sticky toggle
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+#
+# Moving around:
+#
+# Move your focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+# or use $mod+[up|down|left|right]
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# _move_ the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+# ditto, with arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+#
+# Workspaces:
+#
+#
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6:"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
+
+
+# move focused container to workspace
+# Mod1 is Alt in i3
+bindsym $mod+Mod1+1 move container to workspace $ws1
+bindsym $mod+Mod1+2 move container to workspace $ws2
+bindsym $mod+Mod1+3 move container to workspace $ws3
+bindsym $mod+Mod1+4 move container to workspace $ws4
+bindsym $mod+Mod1+5 move container to workspace $ws5
+bindsym $mod+Mod1+6 move container to workspace $ws6
+bindsym $mod+Mod1+7 move container to workspace $ws7
+bindsym $mod+Mod1+8 move container to workspace $ws8
+bindsym $mod+Mod1+9 move container to workspace $ws9
+bindsym $mod+Mod1+0 move container to workspace $ws10
+
+# Move Workspace to monitor
+bindsym $mod+Mod1+j move workspace to output eDP-1
+bindsym $mod+Mod1+l move workspace to output DP-1
+bindsym $mod+Mod1+h move workspace to output DP-2
+
+#
+# Layout stuff:
+#
+# You can "split" the current object of your focus with
+# $mod+b or $mod+v, for horizontal and vertical splits
+# respectively.
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+
+# move focus to the parent container
+bindsym $mod+a focus parent
+
+#
+# Scratchpad:
+#
+# Sway has a "scratchpad", which is a bag of holding for windows.
+# You can send windows there and get them back later.
+
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Shift+$left resize shrink width 150px
+    bindsym Shift+$down resize grow height 150px
+    bindsym Shift+$up resize shrink height 150px
+    bindsym Shift+$right resize grow width 150px
+
+    # ditto, with arrow keys
+    bindsym Left resize shrink width 50px
+    bindsym Down resize grow height 50px
+    bindsym Up resize shrink height 50px
+    bindsym Right resize grow width 50px
+
+    # return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+bindsym $mod+m mode "move" focus floating
+mode "move" {
+    bindsym $mod+Tab focus right
+
+    bindsym Left  move left 50px
+    bindsym Down  move down 50px
+    bindsym Up    move up 50px
+    bindsym Right move right 50px
+
+    bindsym $left move left 10px
+    bindsym $down move down 10px
+    bindsym $up move up 10px
+    bindsym $right move right 10px
+
+    bindsym Shift+$left move left 150px
+    bindsym Shift+$down move down 150px
+    bindsym Shift+$up move up 150px
+    bindsym Shift+$right move right 150px
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# class                 border  bground text    indicator child_border
+client.focused          #3D97B8 #1B1918 #E6E2E0 #7B9726   #3D97B8
+client.focused_inactive #1B1918 #68615E #E6E2E0 #484E50   #5F676A
+client.unfocused        #1B1918 #68615E #E6E2E0 #292D2E   #222222
+client.urgent           #1B1918 #F22C40 #FFFFFF #F22C40   #F22C40
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+
+client.background       #FFFFFF
+
+bar {
+  position top
+  colors {
+    background #1B1918
+    statusline #E6E2E0
+    separator  #666666
+
+    focused_workspace  #3D97B8 #68615E #E6E2E0
+    active_workspace   #2C2421 #1B1918 #E6E2E0
+    inactive_workspace #2C2421 #1B1918 #A8A19F
+    urgent_workspace   #2C2421 #F22C40 #E6E2E0
+    binding_mode       #2C2421 #F22C40 #E6E2E0
+  }
+  tray_output primary
+  status_command i3status
+  separator_symbol " | "
+}
+
+for_window [class=".*"] border pixel 3
+gaps inner 10
+gaps outer 0
+
+assign [class="Slack"] workspace $ws3
+exec_always slack
+
+assign [class="Vpnui"] workspace $ws6
+exec_always /opt/cisco/anyconnect/bin/vpnui
+
+assign [class="Firefox"] workspace $ws2
+exec_always firefox

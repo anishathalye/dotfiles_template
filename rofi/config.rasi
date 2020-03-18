@@ -1,0 +1,22 @@
+configuration {
+  width: 30;
+  lines: 20;
+  columns: 2;
+  font: "mono 18";
+}
+
+* {
+  background-color: #E6E2E0;
+  border-color: #407EE7;
+  text-color: #1B1918;
+}
+
+#window {
+  border: 2;
+  padding: 20;
+}
+
+#element selected {
+  background-color: #407EE7;
+  text-color: #E6E2E0;
+}

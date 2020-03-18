@@ -40,6 +40,30 @@
 [submodule "vim/plugins/tmuxline.vim"]
 	path = vim/plugins/tmuxline.vim
 	url = https://github.com/edkolev/tmuxline.vim.git
-[submodule "vim/plugins/neocomplete.vim"]
-	path = vim/plugins/neocomplete.vim
-	url = https://github.com/Shougo/neocomplete.vim.git
+[submodule "vim/plugins/ack.vim"]
+	path = vim/plugins/ack.vim
+	url = https://github.com/mileszs/ack.vim.git
+[submodule "vim/plugins/purescript-vim"]
+	path = vim/plugins/purescript-vim
+	url = https://github.com/raichoo/purescript-vim.git
+[submodule "vim/plugins/vim-abolish"]
+	path = vim/plugins/vim-abolish
+	url = https://github.com/tpope/tpope-vim-abolish.git
+[submodule "vim/plugins/avro-vim"]
+	path = vim/plugins/avro-vim
+	url = https://github.com/dln/avro-vim.git
+[submodule "vim/plugins/vim-hindent"]
+	path = vim/plugins/vim-hindent
+	url = https://github.com/alx741/vim-hindent.git
+[submodule "vim/plugins/intero-neovim"]
+	path = vim/plugins/intero-neovim
+	url = https://github.com/parsonsmatt/intero-neovim.git
+[submodule "vim/plugins/vim-deoplete"]
+	path = vim/plugins/vim-deoplete
+	url = git@github.com:Shougo/deoplete.nvim.git
+[submodule "tilix/base16-tilix"]
+	path = tilix/base16-tilix
+	url = https://github.com/karlding/base16-tilix.git
+[submodule "font/powerline-fonts"]
+	path = font/powerline-fonts
+	url = https://github.com/powerline/fonts.git

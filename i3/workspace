@@ -1,0 +1,2 @@
+# Examples of how to move workspaces to a monitor
+i3-msg '[workspace="1"]' move workspace to output DP-1-2
