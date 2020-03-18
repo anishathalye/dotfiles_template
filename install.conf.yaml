@@ -44,6 +44,7 @@
     ~/.tmux.conf.ssh: {force: true, path: tmux/tmux.conf.ssh}
     ~/.tmux.conf: {force: true, path: tmux/tmux.conf}
     ~/.utas_vpnc.conf: {force: true, path: utas/utas_vpnc.conf}
+    ~/.utas_vpnc.sh: {force: true, path: utas/utas_vpnc.sh}
     ~/.vimrc: {create: true, force: true, path: vim/vimrc}
     ~/.whatlastgenre: {create: true, force: false, path: whatlastgenre}
     ~/.xsessionrc: {force: true, path: xsessionrc}

@@ -173,7 +173,25 @@ Host nec6_tunnel
     Proxycommand ssh -q its6 nc -q0 %h  22
     ForwardAgent yes
 
+######### AODN REMOTE ACCESS
+Host jumpbox.emii.org.au
+  ForwardAgent yes
 
+Host *-aws-syd *-nec-hob
+  HostName %h.emii.org.au
+  ProxyCommand ssh jumpbox.emii.org.au -W %h:%p
+  ControlMaster auto
+  ControlPath ~/.ssh/jumpbox-%r@%h:%p
+  ControlPersist 5m
+  ForwardAgent yes
+
+Host commandpost
+  HostName commandpost.aodn.org.au
+  ProxyCommand ssh jumpbox.emii.org.au -W %h:%p
+  ControlMaster auto
+  ControlPath ~/.ssh/jumpbox-%r@%h:%p
+  ControlPersist 5m
+  ForwardAgent yes
 # port forwarding
 #Host testdbprod
 #    Hostname
