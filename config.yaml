@@ -3,21 +3,40 @@
       relink: true
       create: true
     shell:
-      stdout: true
+      stdout: false
       stderr: true
 - clean: ['~']
 - link:
     ~/.vimrc: vim/vimrc
     ~/.vim: vim/vim
+    ~/.config/nvim/init.vim: vim/nvim/init.vim
     ~/.gitconfig: git/gitconfig
     ~/.bashrc: bash/bash.sh
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.reset.conf: tmux/tmux.reset.conf
+    ~/.ssh/config: ssh/config
+    ~/.config/i3/config: i3/config
+    ~/.config/i3status/config: i3status/config
+    ~/.config/tilix/schemes: tilix/base16-tilix/tilix
+    ~/.local/share/fonts/CousinePowerline.ttf: 'font/powerline-fonts/Cousine/Cousine for Powerline.ttf'
+    ~/bin/workdesk.sh: scripts/workdesk.sh
+    ~/bin/laptop.sh: scripts/laptop.sh
+    ~/bin/home.sh: scripts/home.sh
+    ~/.config/compton.conf: compton/compton.conf
+    ~/.config/rofi/config.rasi: rofi/config.rasi
 - shell:
   -
     description: Updating git submodules..
     command: git submodule update --init --recursive ./
 
   -
-    description: Fixing OSX's great bash config behavior
-    command: if [[ $(uname -s) == "Darwin" ]]; then  echo "if [ -s ~/.bashrc ]; then source ~/.bashrc; fi" > ~/.bash_profile ; fi
+    description: Loading Tilix config files
+    command: dconf load /com/gexperts/Tilix/ < tilix/tilix.dconf
+
+  -
+    description: Reloading font cache
+    command: fc-cache -f -v
+
+  -
+    description: Install required packages
+    command: scripts/install.sh

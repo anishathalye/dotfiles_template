@@ -3,6 +3,8 @@ set nocompatible
 " Syntax
 syntax enable
 filetype plugin indent on
+"" Syntax for avdl
+au BufRead,BufNewFile *.avdl setlocal filetype=avro-idl
 
 " Colors
 colorscheme base16-atelier-forest
@@ -73,6 +75,16 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 " Alt-o to close all but this buffer
 " This may not work on all systems
 noremap <Esc>o :only<CR>
+" Same Binding for OSX
+noremap ø :only<CR>
 
 " Redraw screen mapping
 nnoremap <leader>r :redraw!<CR>
+
+let g:deoplete#enable_at_startup = 1
+
+let g:python2_host_prog = '/usr/local/bin/python2'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+" Lets us select in between the final char and the newline
+set virtualedit=onemore
