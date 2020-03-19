@@ -15,7 +15,7 @@
 
   -
     description: Moving old bashrc
-    command: mv ~/.bashrc ~/.bashrc.asinstalled
+    command: FILE="$HOME/.bashrc"; if [[ -e "$FILE" ]] && [[ ! -L "$FILE ]]; then mv "$FILE" "${FILE}.asinstalled"; else echo "$FILE doesn't exist or exists as a link, not moving, no error" >&2; fi
 
 - link:
     ~/.vimrc: vim/vimrc
