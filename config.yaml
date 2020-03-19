@@ -5,7 +5,14 @@
     shell:
       stdout: false
       stderr: true
+
 - clean: ['~']
+
+- shell:
+  -
+    description: Updating git submodules..
+    command: git submodule update --init --recursive ./
+
 - link:
     ~/.vimrc: vim/vimrc
     ~/.vim: vim/vim
@@ -24,11 +31,8 @@
     ~/bin/home.sh: scripts/home.sh
     ~/.config/compton.conf: compton/compton.conf
     ~/.config/rofi/config.rasi: rofi/config.rasi
-- shell:
-  -
-    description: Updating git submodules..
-    command: git submodule update --init --recursive ./
 
+- shell:
   -
     description: Loading Tilix config files
     command: dconf load /com/gexperts/Tilix/ < tilix/tilix.dconf
