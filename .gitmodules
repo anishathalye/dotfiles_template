@@ -60,7 +60,7 @@
 	url = https://github.com/parsonsmatt/intero-neovim.git
 [submodule "vim/plugins/vim-deoplete"]
 	path = vim/plugins/vim-deoplete
-	url = git@github.com:Shougo/deoplete.nvim.git
+	url = https://github.com/Shougo/deoplete.nvim.git
 [submodule "tilix/base16-tilix"]
 	path = tilix/base16-tilix
 	url = https://github.com/karlding/base16-tilix.git
