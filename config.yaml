@@ -48,3 +48,7 @@
   -
     description: Install required packages
     command: scripts/install.sh
+    
+  -
+    description: Fix ssh config permissions
+    command: chmod 600 ssh/config
