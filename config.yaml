@@ -13,6 +13,10 @@
     description: Updating git submodules..
     command: git submodule update --init --recursive ./
 
+  -
+    description: Moving old bashrc
+    command: mv ~/.bashrc ~/.bashrc.asinstalled
+
 - link:
     ~/.vimrc: vim/vimrc
     ~/.vim: vim/vim
