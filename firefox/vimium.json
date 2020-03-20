@@ -9,7 +9,7 @@
   "filterLinkHints": false,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.\nmap c LinkHints.activateModeToOpenInNewForegroundTab\nunmap t\nunmap T\nmap T createTab\nmap t Vomnibar.activateTabSelection\n\nmap <m-o> goBack\nmap <m-i> goForward\nmap a LinkHints.activateModeToHover",
+  "keyMappings": "# Insert your preferred key mappings here.\nmap c LinkHints.activateModeToOpenInNewForegroundTab\nunmap t\nunmap T\nmap T createTab\nmap t Vomnibar.activateTabSelection\nunmap K\nunmap J\nmap K previousTab\nmap J nextTab\n\nmap <m-o> goBack\nmap <m-i> goForward\nmap a LinkHints.activateModeToHover",
   "linkHintCharacters": "sadfjklewcmpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
