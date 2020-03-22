@@ -31,8 +31,8 @@
 	;;     :classpath-overrides - map of lib to path that overrides the result of resolving deps
 
   :aliases {
-          {:new {:extra-deps {seancorfield/clj-new {:mvn/version "0.9.0"}}
-                  :main-opts ["-m" "clj-new.create"]}}
+          :new {:extra-deps {seancorfield/clj-new {:mvn/version "0.9.0"}}
+                  :main-opts ["-m" "clj-new.create"]}
           :deps {:extra-deps {org.clojure/tools.deps.alpha {:mvn/version "0.5.435"}}}
           :test {:extra-paths ["test"]}
   }
