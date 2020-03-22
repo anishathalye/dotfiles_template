@@ -9,6 +9,7 @@
     ~/.bash:
     ~/.bashrc:
     ~/.bash_profile:
+    ~/.clojure:
     ~/.direnvrc:
     ~/.emacs.d:
     ~/.gitconfig:
