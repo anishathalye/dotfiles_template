@@ -28,6 +28,7 @@
       relink: false
     ~/.shell:
     ~/.spacemacs:
+    ~/.spacemacs-private:
     ~/.tmux:
     ~/.tmux.conf: tmux/tmux.conf
     ~/.zsh:
