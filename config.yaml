@@ -17,6 +17,10 @@
     description: Moving old bashrc
     command: FILE="$HOME/.bashrc"; if [[ -e "$FILE" ]] && [[ ! -L "$FILE" ]]; then mv "$FILE" "${FILE}.asinstalled"; else echo "$FILE doesn't exist or exists as a link, not moving, no error" >&2; fi
 
+  -
+    description: Combine Work and Global ssh configs
+    command: CONFIG="./ssh/finalconfig"; rm $CONFIG;cat "./ssh/config" "newline" "./ssh/workconfig" > $CONFIG
+
 - link:
     ~/.vimrc: vim/vimrc
     ~/.vim: vim/vim
@@ -25,7 +29,7 @@
     ~/.bashrc: bash/bash.sh
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.reset.conf: tmux/tmux.reset.conf
-    ~/.ssh/config: ssh/config
+    ~/.ssh/config: ssh/finalconfig
     ~/.config/i3/config: i3/config
     ~/.config/i3status/config: i3status/config
     ~/.config/tilix/schemes: tilix/base16-tilix/tilix
@@ -48,7 +52,7 @@
   -
     description: Install required packages
     command: scripts/install.sh
-    
+
   -
     description: Fix ssh config permissions
-    command: chmod 600 ssh/config
+    command: chmod 600 ssh/finalconfig
