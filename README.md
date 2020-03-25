@@ -34,18 +34,18 @@ Other Setup Requirements
 Details
 -------
 
-Terminal: `tilix`, {Win + return}
-drun: `rofi`, {Win + d}
-Window Manager: `i3-gaps`, Load through login session
-Browser: `firefox`
-Terminal Window Manager: `tmux`
-Tmux config: tmuxifier - `windows $DIR`, `new-window $DIR`
-Editor: Neovim - `nvim`
-Font: [Cousine for Powerline](https://github.com/powerline/fonts/tree/master/Cousine)
-Colorscheme: [Base16 Atelier Forest Dark for tilix](https://github.com/karlding/base16-tilix)
-AudioControl: `pavucontrol`
-Network control: NetworkManager-tui - `nmtui`
-Communication: Slack
+* Terminal: `tilix`, {Win + return}
+* drun: `rofi`, {Win + d}
+* Window Manager: `i3-gaps`, Load through login session
+* Browser: `firefox`
+* Terminal Window Manager: `tmux`
+* Tmux config: tmuxifier - `windows $DIR`, `new-window $DIR`
+* Editor: Neovim - `nvim`
+* Font: [Cousine for Powerline](https://github.com/powerline/fonts/tree/master/Cousine)
+* Colorscheme: [Base16 Atelier Forest Dark for tilix](https://github.com/karlding/base16-tilix)
+* AudioControl: `pavucontrol`
+* Network control: NetworkManager-tui - `nmtui`
+* Communication: Slack
 
 
 License
