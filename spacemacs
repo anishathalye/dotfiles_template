@@ -40,7 +40,6 @@ This function should only modify configuration layer settings."
      sql
      yaml
      typescript
-     coffeescript
      markdown
      clojure
      docker
@@ -63,12 +62,7 @@ This function should only modify configuration layer settings."
      emacs-lisp
      git
      ;; markdown
-     multiple-cursors
-     ;; treemacs
-     (neotree :variables
-              neo-window-fixed-size nil)
      react
-     prettier
      org
      (shell :variables
             shell-default-shell 'multi-term
