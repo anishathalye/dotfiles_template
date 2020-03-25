@@ -88,3 +88,22 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 
 " Lets us select in between the final char and the newline
 set virtualedit=onemore
+
+" Keybindings for system clipboard
+"
+" Normal Mode
+" \y => yy into clipboard
+nmap <Leader>y "+yy
+" \p => p from clipboard
+nmap <Leader>p "+p
+nmap <Leader>P "+p
+"
+" Visual Mode
+" \y => yank selection into clipboard
+vmap <Leader>y "+y
+" \p => paste selection over visual selection
+vmap <Leader>p "+p
+"
+" Insert Mode
+" \p => paste selection at location, stay in insert mode
+imap <Leader>p <Esc>"+pa
