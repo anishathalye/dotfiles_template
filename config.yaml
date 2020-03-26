@@ -19,7 +19,7 @@
 
   -
     description: Combine Work and Global ssh configs
-    command: CONFIG="./ssh/finalconfig"; rm $CONFIG;cat "./ssh/config" "newline" "./ssh/workconfig" > $CONFIG
+    command: CONFIG="./ssh/finalconfig"; rm -f $CONFIG;cat "./ssh/config" "newline" "./ssh/workconfig" > $CONFIG
 
 - link:
     ~/.vimrc: vim/vimrc
