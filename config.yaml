@@ -30,7 +30,6 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.reset.conf: tmux/tmux.reset.conf
     ~/.ssh/config: ssh/finalconfig
-    ~/.config/i3/config: i3/config
     ~/.config/i3status/config: i3status/config
     ~/.config/i3blocks/config: i3/blocks/config
     ~/.config/i3blocks/blocklets/battery: i3/blocks/i3blocks-contrib/battery2/battery2
@@ -55,7 +54,7 @@
 
   -
     description: Install required packages
-    command: echo blah#scripts/install.sh
+    command: scripts/install.sh
 
   -
     description: Fix ssh config permissions
