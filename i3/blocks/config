@@ -1,0 +1,20 @@
+[battery]
+command=$SCRIPT_DIR/battery
+markup=pango
+interval=30
+
+[time]
+command=$SCRIPT_DIR/time
+markup=pango
+STRFTIME_FORMAT=%Y-%m-%d %H:%M:%S
+interval=1
+
+[wifi]
+command=$SCRIPT_DIR/wifi
+label=wifi:
+INTERFACE=wlo1
+interval=60
+
+[load_average]
+command=cut -d ' ' -f1,2,3 /proc/loadavg
+interval=10

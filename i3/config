@@ -258,7 +258,7 @@ bar {
     binding_mode       #2C2421 #F22C40 #E6E2E0
   }
   tray_output primary
-  status_command i3status
+  status_command SCRIPT_DIR=~/.config/i3blocks/blocklets/ i3blocks
   separator_symbol " | "
 }
 
