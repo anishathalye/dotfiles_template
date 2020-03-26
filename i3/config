@@ -1,7 +1,7 @@
 # Background programs
 set $fehcmd feh --randomize --bg-fill ~/Pictures/wallpapers/
 exec --no-startup-id $fehcmd
-exec --no-startup-id systemd-run --on-calendar="*-*-* *:*:00" --user -- $fehcmd
+exec --no-startup-id systemd-run --on-calendar="*-*-* *:0/15" --user -- $fehcmd
 exec --no-startup-id compton
 
 ### Variables
