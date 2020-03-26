@@ -1,7 +1,7 @@
 # Background programs
 set $fehcmd feh --randomize --bg-fill ~/Pictures/wallpapers/
 exec --no-startup-id $fehcmd
-exec --no-startup-id systemd-run --on-calendar="*-*-* *:*:00" --user -- $fehcmd
+exec --no-startup-id systemd-run --on-calendar="*-*-* *:0/15" --user -- $fehcmd
 exec --no-startup-id compton
 
 ### Variables
@@ -19,7 +19,7 @@ set $right l
 set $term tilix
 
 #Window title font
-font pango:DejaVu Sans Mono 10
+font pango:DejaVu Sans Mono 12
 
 # Your preferred application launcher
 set $menu rofi -show drun
@@ -43,6 +43,9 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 #lock
 bindsym $mod+BackSpace exec "i3lock -c 68615E && systemctl suspend"
+
+#shutdown
+bindsym $mod+Shift+BackSpace exec "i3-nagbar -t warning -m 'You pressed the shutdown shortcut. Do you really want to Shutdown?' -B 'Yes, Shutdown' 'systemctl poweroff'"
 
 # sticky a floating window, stays around on all workspaces
 bindsym $mod+t sticky toggle
@@ -94,7 +97,7 @@ set $ws6 "6:"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
+set $ws10 "10:"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -271,3 +274,6 @@ exec_always /opt/cisco/anyconnect/bin/vpnui
 
 assign [class="Firefox"] workspace $ws2
 exec_always firefox
+
+assign [class="Pavucontrol"] workspace $ws10
+exec_always pavucontrol

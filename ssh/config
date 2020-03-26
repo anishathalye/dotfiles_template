@@ -1,3 +1,6 @@
+# This file is concatenated with an optional `workconfig`(ignored by git) file in this directory.
+# This operation is performed by the install script, so you will want to rerun ./install to update the catted `finalconfig` file which is the symlink.
+
 Host *
   ForwardAgent yes
   AddKeysToAgent yes
