@@ -21,6 +21,10 @@
     description: Combine Work and Global ssh configs
     command: CONFIG="./ssh/finalconfig"; rm -f $CONFIG;cat "./ssh/config" "newline" "./ssh/workconfig" > $CONFIG
 
+  -
+    description: Fix ssh config permissions
+    command: chmod 600 ssh/finalconfig
+
 - link:
     ~/.vimrc: vim/vimrc
     ~/.vim: vim/vim
@@ -55,7 +59,3 @@
   -
     description: Install required packages
     command: scripts/install.sh
-
-  -
-    description: Fix ssh config permissions
-    command: chmod 600 ssh/finalconfig
