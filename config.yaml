@@ -29,7 +29,9 @@
     ~/.vimrc: vim/vimrc
     ~/.vim: vim/vim
     ~/.config/nvim/init.vim: vim/nvim/init.vim
-    ~/.gitconfig: git/gitconfig
+    ~/.config/git/config: git/gitconfig
+    ~/.config/git/workconfig: git/workconfig
+    ~/.config/git/personalconfig: git/personalconfig
     ~/.bashrc: bash/bash.sh
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.reset.conf: tmux/tmux.reset.conf
