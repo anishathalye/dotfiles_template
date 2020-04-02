@@ -11,10 +11,21 @@ interval=1
 
 [wifi]
 command=$SCRIPT_DIR/wifi
-label=wifi:
-INTERFACE=wlo1
-interval=60
-
-[load_average]
-command=cut -d ' ' -f1,2,3 /proc/loadavg
+instance=_first_
+format_up=:%quality on %essid
+format_down=: down
 interval=10
+
+[load]
+command=$SCRIPT_DIR/load
+max_threshold=8
+interval=1
+
+[ethernet]
+command=$SCRIPT_DIR/ethernet
+full_text=test
+instance=_first_
+interval=10
+markup=pango
+format_up=: %ip (%speed)
+format_down=: down

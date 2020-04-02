@@ -21,11 +21,17 @@
     description: Combine Work and Global ssh configs
     command: CONFIG="./ssh/finalconfig"; rm -f $CONFIG;cat "./ssh/config" "newline" "./ssh/workconfig" > $CONFIG
 
+  -
+    description: Fix ssh config permissions
+    command: chmod 600 ssh/finalconfig
+
 - link:
     ~/.vimrc: vim/vimrc
     ~/.vim: vim/vim
     ~/.config/nvim/init.vim: vim/nvim/init.vim
-    ~/.gitconfig: git/gitconfig
+    ~/.config/git/config: git/gitconfig
+    ~/.config/git/workconfig: git/workconfig
+    ~/.config/git/personalconfig: git/personalconfig
     ~/.bashrc: bash/bash.sh
     ~/.tmux.conf: tmux/tmux.conf
     ~/.tmux.reset.conf: tmux/tmux.reset.conf
@@ -34,7 +40,9 @@
     ~/.config/i3blocks/config: i3/blocks/config
     ~/.config/i3blocks/blocklets/battery: i3/blocks/i3blocks-contrib/battery2/battery2
     ~/.config/i3blocks/blocklets/time: i3/blocks/i3blocks-contrib/time/time
-    ~/.config/i3blocks/blocklets/wifi: i3/blocks/i3blocks-contrib/wifi/wifi
+    ~/.config/i3blocks/blocklets/wifi: i3/blocks/i3blocks-status/wireless
+    ~/.config/i3blocks/blocklets/ethernet: i3/blocks/i3blocks-status/ethernet
+    ~/.config/i3blocks/blocklets/load: i3/blocks/i3blocks-status/load
     ~/.config/tilix/schemes: tilix/base16-tilix/tilix
     ~/.local/share/fonts/CousinePowerline.ttf: 'font/powerline-fonts/Cousine/Cousine for Powerline.ttf'
     ~/bin/workdesk.sh: scripts/workdesk.sh
@@ -55,7 +63,3 @@
   -
     description: Install required packages
     command: scripts/install.sh
-
-  -
-    description: Fix ssh config permissions
-    command: chmod 600 ssh/finalconfig

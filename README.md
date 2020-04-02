@@ -18,6 +18,7 @@ Installation
 Other Setup Requirements
 ------------------------
 
+* Update `./git/workconfig` with name and email you want to default to in `~/git/`
 * Firefox bookmarks(firefox/bookmarks.json)(Empty right now, fill in with blank one as we go)
 * Firefox plugins
   * Vimium(config at firefox/vimium.json)

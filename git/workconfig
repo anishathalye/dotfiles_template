@@ -1,0 +1,5 @@
+# This file configures `~/git`, generally work email and name will exist here. `~/git/personal` is overridden by the `personalconfig` file
+
+[user]
+  name = Kraig McKernan
+  email = kmckernan@rubiconproject.com

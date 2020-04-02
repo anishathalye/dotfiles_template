@@ -1,0 +1,5 @@
+# This file exists to allow a `~/git/personal` folder to have different git config settings than normal
+
+[user]
+  name = Kraig McKernan
+  email = kraigmckernan@gmail.com
