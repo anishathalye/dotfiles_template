@@ -19,7 +19,7 @@ set $right l
 set $term tilix
 
 #Window title font
-font pango:DejaVu Sans Mono 12
+font pango:DejaVu Sans Mono, FontAwesome 12
 
 # Your preferred application launcher
 set $menu rofi -show drun
@@ -260,6 +260,9 @@ bar {
   tray_output primary
   status_command SCRIPT_DIR=~/.config/i3blocks/blocklets/ i3blocks
   separator_symbol " | "
+  font pango:DejaVu Sans Mono, Font Awesome 5 Free 12
+  #font pango:Cousine Bold 11
+  #font pango:Font Awesome 5 Free
 }
 
 for_window [class=".*"] border pixel 3
