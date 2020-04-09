@@ -21,6 +21,7 @@
       path: pyenv-virtualenv
       create: false
       relink: false
+    ~/qmk_firmware:
     ~/.rbenv:
     ~/.rbenv/plugins/ruby-build:
       path: ruby-build

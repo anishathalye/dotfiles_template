@@ -31,3 +31,6 @@
 [submodule "nvm"]
 	path = nvm
 	url = git://github.com/nvm-sh/nvm.git
+[submodule "qmk_firmware"]
+	path = qmk_firmware
+	url = git://github.com/ezmiller/qmk_firmware.git
