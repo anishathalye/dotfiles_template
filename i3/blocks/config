@@ -29,3 +29,7 @@ interval=10
 markup=pango
 format_up=: %ip (%speed)
 format_down=: down
+
+[hostname]
+command=echo ": $(hostname)"
+interval=100
