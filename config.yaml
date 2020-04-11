@@ -18,6 +18,10 @@
     command: FILE="$HOME/.bashrc"; if [[ -e "$FILE" ]] && [[ ! -L "$FILE" ]]; then mv "$FILE" "${FILE}.asinstalled"; else echo "$FILE doesn't exist or exists as a link, not moving, no error" >&2; fi
 
   -
+    description: Create work ssh if it doesn't exist
+    command: FILE="./ssh/workconfig"; touch $FILE
+
+  -
     description: Combine Work and Global ssh configs
     command: CONFIG="./ssh/finalconfig"; rm -f $CONFIG;cat "./ssh/config" "newline" "./ssh/workconfig" > $CONFIG
 
