@@ -45,7 +45,7 @@ services:
     restart: unless-stopped
 ###########################################
   airsonic:
-    image: linuxserver/airsonic
+    image: linuxserver/airsonic:latest
     container_name: airsonic
     environment:
       - PUID=1000
@@ -484,7 +484,7 @@ services:
 ################
 ####### notes
   codimd:
-    image: linuxserver/codimd:latest
+    image: linuxserver/codimd:1.5.0-ls27
     container_name: codimd
     restart: always
     depends_on:
