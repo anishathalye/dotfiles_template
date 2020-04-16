@@ -636,14 +636,13 @@ services:
       - $DOCKER_CONFIG_PATH/portainer:/data portainer/portainer
     restart: unless-stopped
 ###########
-   db:
-    docker:
-      depends_on:
-       - mariadb
+  wordpress:
     image: wordpress:latest
     ports:
        - "7000:80"
     restart: always
+    depends_on:
+      - mariadb
     environment:
       WORDPRESS_DB_HOST: mariadb:3306
       WORDPRESS_DB_USER: $DB_WP_USER
