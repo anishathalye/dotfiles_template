@@ -19,6 +19,9 @@ alias update_etcher='curl -s https://api.github.com/repos/balena-io/etcher/relea
 alias update_shotcut='curl -s https://api.github.com/repos/mltframework/shotcut/releases/latest | grep "browser_download_url.*AppImage" | cut -d : -f 2,3 | tr -d \" | wget -qi - -O $HOME/bin/Shotcut.AppImage && chmod +x $HOME/bin/*.AppImage'
 alias update_appimages='update_nextcloud; update_joplin; update_etcher; update_shotcut'
 
+alias shotcut='Shotcut.AppImage --QT_SCALE_FACTOR 1'
+alias Shotcut='shotcut'
+
 ##########################
 # ls and cd aliases
 ##########################

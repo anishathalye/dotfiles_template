@@ -635,4 +635,19 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - $DOCKER_CONFIG_PATH/portainer:/data portainer/portainer
     restart: unless-stopped
-
+###########
+   db:
+    docker:
+      depends_on:
+       - mariadb
+    image: wordpress:latest
+    ports:
+       - "7000:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_USER: $DB_WP_USER
+      WORDPRESS_DB_PASSWORD: $DB_WP_PASS
+      WORDPRESS_DB_NAME: $DB_WP_SCHEMA
+    volumes:
+       - $DOCKER_CONFIG_PATH/wordpress:/var/www/html

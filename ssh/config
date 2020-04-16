@@ -3,196 +3,76 @@ Host *
 VisualHostKey no
 #ForwardX11 no
 
-Host commandpost.aodn.org.au
+Host jumpbox
+  Hostname %h.emii.org.au
   ForwardAgent yes
 
-Host nec* nsp* aws* po* commandpost* 
-    PermitLocalCommand yes
-    LocalCommand tar ch -C${HOME} .gitconfig  .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
-
-Host geoserver-stack
-    user ec2-user
-    hostname geoserver-aodnstack-lbesnard.dev.aodn.org.au
-    ForwardAgent yes
-    PermitLocalCommand yes
-    #SetEnv LANG=C LC_CTYPE="en_US.UTF-8"
-    LocalCommand tar ch -C${HOME} .gitconfig .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C/home/ec2-user"
-
-Host github.com
-    IdentityFile ~/.ssh/id_rsa
-    Hostname ssh.github.com
-    ForwardX11 no
-
-# bfunk
-Host bfunk
-    Hostname 10.1.1.198
-    User lbesnard
-    Port 22
-    ForwardAgent yes
-    ForwardX11 yes
-
-# UTAS GATEWAY
-Host its6
-    Hostname 6-its-hob.emii.org.au
-    User lbesnard
-    Port 22
-    ForwardAgent yes
-
-# Nectar machines hobart
-Host nec4
-    Hostname 4-nec-hob.emii.org.au
-    User lbesnard
-    Port 22
-    ForwardAgent yes
-
-Host nec6
-    Hostname 6-nec-hob.emii.org.au
-    User lbesnard
-    Port 22
-    ForwardAgent yes
-
-Host temp_auv
-    Hostname 144.6.235.66
-    user lbesnard
-    port 22
-    ForwardAgent yes
-
-Host loz_nec
-    Hostname 43.240.96.6 
-    user ubuntu
-    port 22
-    ForwardAgent yes
-
-Host omv
-    hostname 10.1.1.87
-    user lbesnard
-    ForwardAgent yes
-
-Host omv_tunnel
-    Hostname localhost
-    user lbesnard
-    Proxycommand ssh -q loz_nec nc -q0 %h 10022
-    ForwardAgent yes
-
-Host pihole_tunnel
-    Hostname 10.1.1.150
-    user pi
-    Proxycommand ssh -q omv_tunnel nc -q0 %h 22
-    ForwardAgent yes
-
-host pihole
-    Hostname 10.1.1.183
-    user pi
-    ForwardAgent yes
-
-# sydney
-Host aws10
-    Hostname 10-aws-syd.emii.org.au
-    User lbesnard
-    Port 22
-    ForwardAgent yes
-
-# po
-Host po
-    HostName 127.0.0.1
-    User vagrant
-    Port 2222
-    UserKnownHostsFile /dev/null
-    StrictHostKeyChecking no
-    PasswordAuthentication no
-    IdentityFile $CHEF_DIR/.vagrant/machines/po/virtualbox/private_key
-    IdentitiesOnly yes
-    LogLevel FATAL
-    ForwardAgent yes
-
-# Nectar
-Host nec10
-    Hostname 10-nec-hob.emii.org.au
-    User lbesnard
-    Port 22
-    ForwardAgent yes
-
-Host nec2
-    Hostname 2-nec-hob.emii.org.au
-    User lbesnard
-    Port 22
-    ForwardAgent yes
-
-# katabatic ACECRC
-Host katabatic
-    hostname acecompute.antcrc.utas.edu.au
-    user lbesnard
-    port 22
-
-# gcw0
-Host gcw0_wlan
-    hostname 10.1.2.1
-    user root
-    port 22
-    IdentityFile ~/.ssh/id_dsa.pub
-
-Host gcw0_usb0
-    hostname 10.1.1.2
-    user root
-    port 22
-    IdentityFile ~/.ssh/id_rsa.pub
-
-# tunnel through its6
-Host nec10_tunnel
-    Hostname  10-nec-hob.emii.org.au
-    Proxycommand ssh -q its6 nc -q0 %h  22
-    ForwardAgent yes
-
-Host nec4_tunnel
-    Hostname 4-nec-hob.emii.org.au
-    Proxycommand ssh -q its6 nc -q0 %h  22
-    ForwardAgent yes
-
-Host aws2_tunnel
-    Hostname 2-aws-syd.emii.org.au
-    Proxycommand ssh -q its6 nc -q0 %h  22
-    ForwardAgent yes
-
-Host aws10_tunnel
-    Hostname 10-aws-syd.emii.org.au
-    Proxycommand ssh -q its6 nc -q0 %h  22
-    ForwardAgent yes
-
-Host nec2_tunnel
-    Hostname 2-nec-hob.emii.org.au
-    Proxycommand ssh -q its6 nc -q0 %h  22
-    ForwardAgent yes
-
-Host nec14_tunnel
-    Hostname 14-nec-hob.emii.org.au
-    Proxycommand ssh -q its6 nc -q0 %h  22
-    ForwardAgent yes
-
-Host nec6_tunnel
-    Hostname 6-nec-hob.emii.org.au
-    Proxycommand ssh -q its6 nc -q0 %h  22
-    ForwardAgent yes
-
-######### AODN REMOTE ACCESS
-Host jumpbox.emii.org.au
+Host *-nec
+  Hostname %h-hob.emii.org.au
+  Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
 
-Host *-aws-syd *-nec-hob
-  HostName %h.emii.org.au
-  ProxyCommand ssh jumpbox.emii.org.au -W %h:%p
-  ControlMaster auto
-  ControlPath ~/.ssh/jumpbox-%r@%h:%p
-  ControlPersist 5m
+Host *-aws
+  Hostname %h-syd.emii.org.au
+  Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
 
 Host commandpost
-  HostName commandpost.aodn.org.au
-  ProxyCommand ssh jumpbox.emii.org.au -W %h:%p
-  ControlMaster auto
-  ControlPath ~/.ssh/jumpbox-%r@%h:%p
-  ControlPersist 5m
+  Hostname %h.aodn.org.au
+  Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
-# port forwarding
-#Host testdbprod
-#    Hostname
-#    LocalForward 5555 dbprod.emii.org.au:5432
+
+Host *nec* *nsp* *aws* *po* commandpost* 
+  PermitLocalCommand yes
+  LocalCommand tar ch -C${HOME} .gitconfig  .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
+
+Host po
+  HostName 127.0.0.1
+  User vagrant
+  Port 2222
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile $CHEF_DIR/.vagrant/machines/po/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+  ForwardAgent yes
+
+Host geoserver-stack
+  user ec2-user
+  hostname geoserver-aodnstack-lbesnard.dev.aodn.org.au
+  ForwardAgent yes
+  PermitLocalCommand yes
+  #SetEnv LANG=C LC_CTYPE="en_US.UTF-8"
+  LocalCommand tar ch -C${HOME} .gitconfig .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C/home/ec2-user"
+
+Host github.com
+  IdentityFile ~/.ssh/id_rsa
+  Hostname ssh.github.com
+  ForwardX11 no
+
+# bfunk
+Host bfunk
+  Hostname 10.1.1.198
+  User lbesnard
+  Port 22
+  ForwardAgent yes
+  ForwardX11 yes
+
+host pihole
+  Hostname 10.1.1.183
+  user pi
+  ForwardAgent yes
+
+# gcw0
+Host gcw0_wlan
+  hostname 10.1.2.1
+  user root
+  port 22
+  IdentityFile ~/.ssh/id_dsa.pub
+
+Host gcw0_usb0
+  hostname 10.1.1.2
+  user root
+  port 22
+  IdentityFile ~/.ssh/id_rsa.pub

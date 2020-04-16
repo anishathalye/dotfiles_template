@@ -1,0 +1,4 @@
+# Wii Wii U
+
+# convert WBfS to ISO
+wit COPY test.wbfs test.iso
