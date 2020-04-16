@@ -21,6 +21,25 @@ It uses:
 * [nerds-fonts](https://github.com/ryanoasis/nerd-fonts/blob/master/readme.md#font-installation)
 * [dotbot](https://github.com/anishathalye/dotbot)
 
-Installation
--------------
+## Installation
+
+### 1) Remote machine 
+for a remote machine (without sudo access), simply run
+```bash
 curl -L https://raw.githubusercontent.com/lbesnard/dotfiles/master/initsys.sh | bash
+```
+
+This will install [linuxbrew](https://docs.brew.sh/Homebrew-on-Linux), and then install in the home dir
+various tools such as Ansible. The above tools will also be installed.
+
+### 2) Local machine
+
+This is highly dependent on https://github.com/lbesnard/ansible_laptop which will
+automatically install the dotfiles.
+
+However it is possible to clone the repo and install it manually
+```bash
+git clone git@github.com:lbesnard/dotfiles.git
+cd dotfiles
+./install
+```
