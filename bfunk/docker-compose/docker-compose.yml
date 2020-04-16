@@ -645,7 +645,7 @@ services:
     depends_on:
       - mariadb
     environment:
-      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_HOST: $DB_WP_URL
       WORDPRESS_DB_USER: $DB_WP_USER
       WORDPRESS_DB_PASSWORD: $DB_WP_PASS
       WORDPRESS_DB_NAME: $DB_WP_SCHEMA
