@@ -638,8 +638,9 @@ services:
 ###########
   wordpress:
     image: wordpress:latest
+    container_name: wordpress
     ports:
-       - "7000:80"
+       - 5555:80
     restart: always
     depends_on:
       - mariadb
