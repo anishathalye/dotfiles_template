@@ -64,6 +64,7 @@ This function should only modify configuration layer settings."
      ;; markdown
      react
      org
+     neotree
      (shell :variables
             shell-default-shell 'multi-term
             shell-default-width '45
