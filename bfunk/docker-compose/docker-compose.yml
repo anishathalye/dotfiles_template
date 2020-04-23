@@ -651,3 +651,20 @@ services:
       WORDPRESS_DB_NAME: $DB_WP_SCHEMA
     volumes:
        - $DOCKER_CONFIG_PATH/wordpress:/var/www/html
+#########################
+### bazarr
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - UMASK_SET=022 #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/bazarr:/config
+      - $MOVIES_ENG_PATH:/movies
+      - $TV_SHOWS_PATH:/tv
+    ports:
+      - 6768:6767
+    restart: unless-stopped
