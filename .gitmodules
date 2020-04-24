@@ -67,9 +67,3 @@
 [submodule "font/powerline-fonts"]
 	path = font/powerline-fonts
 	url = https://github.com/powerline/fonts.git
-[submodule "i3/blocks/i3blocks-contrib"]
-	path = i3/blocks/i3blocks-contrib
-	url = https://github.com/vivien/i3blocks-contrib.git
-[submodule "i3/blocks/i3blocks-status"]
-	path = i3/blocks/i3blocks-status
-	url = https://github.com/kraigmckernan/i3blocks-status.git

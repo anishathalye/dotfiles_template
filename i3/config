@@ -3,6 +3,8 @@ set $fehcmd feh --randomize --bg-fill ~/Pictures/wallpapers/
 exec --no-startup-id $fehcmd
 exec --no-startup-id systemd-run --on-calendar="*-*-* *:0/15" --user -- $fehcmd
 exec --no-startup-id compton
+exec --no-startup-id nm-applet --sm-disable
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 ### Variables
 #
@@ -213,6 +215,9 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
 bindsym $mod+m mode "move" focus floating
 mode "move" {
     bindsym $mod+Tab focus right
@@ -246,30 +251,10 @@ client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 
 client.background       #FFFFFF
 
-bar {
-  position top
-  colors {
-    background #1B1918
-    statusline #E6E2E0
-    separator  #666666
-
-    focused_workspace  #3D97B8 #68615E #E6E2E0
-    active_workspace   #2C2421 #1B1918 #E6E2E0
-    inactive_workspace #2C2421 #1B1918 #A8A19F
-    urgent_workspace   #2C2421 #F22C40 #E6E2E0
-    binding_mode       #2C2421 #F22C40 #E6E2E0
-  }
-  tray_output primary
-  status_command SCRIPT_DIR=~/.config/i3blocks/blocklets/ i3blocks
-  separator_symbol " | "
-  font pango:DejaVu Sans Mono, Font Awesome 5 Free 12
-  #font pango:Cousine Bold 11
-  #font pango:Font Awesome 5 Free
-}
-
 for_window [class=".*"] border pixel 3
 gaps inner 10
 gaps outer 0
+gaps top 30 # For Polybar
 
 assign [class="Slack"] workspace $ws3
 exec_always slack

@@ -41,12 +41,8 @@
     ~/.tmux.reset.conf: tmux/tmux.reset.conf
     ~/.ssh/config: ssh/finalconfig
     ~/.config/i3/config: i3/config
-    ~/.config/i3blocks/config: i3/blocks/config
-    ~/.config/i3blocks/blocklets/battery: i3/blocks/i3blocks-contrib/battery2/battery2
-    ~/.config/i3blocks/blocklets/time: i3/blocks/i3blocks-contrib/time/time
-    ~/.config/i3blocks/blocklets/wifi: i3/blocks/i3blocks-status/wireless
-    ~/.config/i3blocks/blocklets/ethernet: i3/blocks/i3blocks-status/ethernet
-    ~/.config/i3blocks/blocklets/load: i3/blocks/i3blocks-status/load
+    ~/.config/polybar/config: polybar/config
+    ~/.config/polybar/launch.sh: polybar/launch.sh
     ~/.config/tilix/schemes: tilix/base16-tilix/tilix
     ~/.local/share/fonts/CousinePowerline.ttf: 'font/powerline-fonts/Cousine/Cousine for Powerline.ttf'
     ~/bin/workdesk.sh: scripts/workdesk.sh
