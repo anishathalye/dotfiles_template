@@ -24,7 +24,7 @@ Other Setup Requirements
   * Vimium(config at firefox/vimium.json)
   * Tab Reloader
 * keepassx with DB in google drive
-* Cisco Anyconnect for VPN
+* Setup vpn with NetworkManager
 * Save ssh-key password in agent
 * Handle power key button press using `/etc/systemd/logind.conf`
 * Update randr configs with arandr, update i3 monitor configs to match
@@ -38,6 +38,7 @@ Details
 * Terminal: `tilix`, {Win + return}
 * drun: `rofi`, {Win + d}
 * Window Manager: `i3-gaps`, Load through login session
+* Bar: `polybar`
 * Browser: `firefox`
 * Terminal Window Manager: `tmux`
 * Tmux config: tmuxifier - `windows $DIR`, `new-window $DIR`

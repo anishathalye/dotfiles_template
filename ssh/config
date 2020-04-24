@@ -5,6 +5,3 @@ Host *
   ForwardAgent yes
   AddKeysToAgent yes
   ServerAliveInterval 60
-
-Host github.com
-  IdentityFile ~/.ssh/github_rsa
