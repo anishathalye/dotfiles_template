@@ -276,21 +276,21 @@ services:
       - 9117:9117
     restart: unless-stopped
 ####################
-  couchpotato:
-    image: linuxserver/couchpotato
-    container_name: couchpotato
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-      - UMASK_SET=022
-    volumes:
-      - $DOCKER_CONFIG_PATH/couchpotato:/config
-      - $TORRENT_PATH/COUCHPOTATO_DL:/downloads
-      - $MOVIES_ENG_PATH:/movies:ro
-    ports:
-      - 5050:5050
-    restart: unless-stopped
+#  couchpotato:
+    #image: linuxserver/couchpotato
+    #container_name: couchpotato
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=$TZ
+      #- UMASK_SET=022
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/couchpotato:/config
+      #- $TORRENT_PATH/COUCHPOTATO_DL:/downloads
+      #- $MOVIES_ENG_PATH:/movies:ro
+    #ports:
+      #- 5050:5050
+#    restart: unless-stopped
 ###################
   booksonic:
     image: linuxserver/booksonic
