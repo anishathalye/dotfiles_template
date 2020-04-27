@@ -308,20 +308,6 @@ services:
     ports:
       - 4040:4040
     restart: unless-stopped
-##########################
-#  h5ai:
-    #image: awesometic/h5ai
-    #container_name: h5ai
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=$TZ
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/h5ai:/config
-      #- $SERVER_PATH:/h5ai
-    #ports:
-      #- 4344:80
-    #restart: unless-stopped
 ################
   pyload:
     image: linuxserver/pyload
@@ -668,3 +654,17 @@ services:
     ports:
       - 6768:6767
     restart: unless-stopped
+########################
+### h5ai - file browser
+  h5ai:
+    image: awesometic/h5ai
+    container_name: h5ai
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+    volumes:
+      - $DOCKER_CONFIG_PATH/h5ai:/config
+      - $SERVER_PATH:/h5ai:ro
+    ports:
+      - 4344:80
