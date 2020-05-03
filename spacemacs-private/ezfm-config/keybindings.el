@@ -6,3 +6,5 @@
 
 ;; Trying this out - might work better w/ minivan keyboard
 (define-key evil-insert-state-map (kbd "C-;") 'evil-normal-state)
+;; Hmmm. Haven't been using this much...
+(define-key evil-insert-state-map (kbd "C-c C-g m") 'golden-ratio-mode)

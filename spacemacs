@@ -486,16 +486,6 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (mac-auto-operator-composition-mode t)
-  (setq js-indent-level 2)
-  (add-hook 'js-mode-hook 'prettier-js-mode)
-  (add-hook 'web-mode-hook 'prettier-js-mode)
-  (setq projectile-enable-caching t)
-  (setq multi-term-program "/usr/local/bin/zsh")
-  (setq helm-split-window-default-side 'right)
-  (define-key evil-insert-state-map (kbd "C-c C-g m") 'golden-ratio-mode)
-  (advice-add 'risky-local-variable-p :override #'ignore)
-  (setq ruby-insert-encoding-magic-comment nil)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
