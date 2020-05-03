@@ -141,10 +141,3 @@ alias plogs='docker-compose logs --follow rails'
 alias pdb='docker-compose exec dev-db psql -U postgres -h localhost primary_development'
 alias pe="docker-compose exec ${1} ${2}"
 alias preset-sidekiq="docker-compose rm -sf sidekiq && docker-compose up -d sidekiq"
-
-p-ssh-to () {
-  TARGET_HOST=${1}
-  BASTION_HOST=${2}
-  echo "Logging into $TARGET_HOST via bastion..."
-  ssh -i ~/.ssh/id_rsa emiller@$TARGET_HOST -o "proxycommand ssh -W %h:%p -i ~/.ssh/id_rsa emiller@$BASTION_HOST"
-}
