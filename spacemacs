@@ -61,7 +61,6 @@ This function should only modify configuration layer settings."
      ;; better-defaults
      emacs-lisp
      git
-     ;; markdown
      react
      org
      neotree
