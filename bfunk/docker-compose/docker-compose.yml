@@ -11,7 +11,6 @@ services:
       - MYSQL_DATABASE=$DB_PIWIGO_SCHEMA #optional
       - MYSQL_USER=$DB_PIWIGO_USER #optional
       - MYSQL_PASSWORD=$DB_PIWIGO_PASS #optional
-      #- REMOTE_SQL=http://URL1/your.sql,https://URL2/your.sql #optional
     volumes:
       - $DOCKER_CONFIG_PATH/mariadb:/config
     ports:
@@ -188,16 +187,6 @@ services:
       - 8282:80
     restart: unless-stopped
 ####################
-# web indexer
-  #gossa-server:
-    #image: pldubouilh/gossa
-    #container_name: gossa
-    #restart: always
-    #ports:
-      #- 8001:8001
-    #volumes:
-  #      - $SERVER_PATH:/shared:ro
-#############
   glance:
     image: nicolargo/glances:latest-alpine
     container_name: glances
@@ -276,22 +265,6 @@ services:
       - 9117:9117
     restart: unless-stopped
 ####################
-#  couchpotato:
-    #image: linuxserver/couchpotato
-    #container_name: couchpotato
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=$TZ
-      #- UMASK_SET=022
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/couchpotato:/config
-      #- $TORRENT_PATH/COUCHPOTATO_DL:/downloads
-      #- $MOVIES_ENG_PATH:/movies:ro
-    #ports:
-      #- 5050:5050
-#    restart: unless-stopped
-###################
   booksonic:
     image: linuxserver/booksonic
     container_name: booksonic
@@ -357,6 +330,8 @@ services:
      - /etc/localtime:/etc/localtime:ro
      - $TORRENT_PATH:/data
    environment:
+     - CREATE_TUN_DEVICE=true
+     - WEBPROXY_ENABLED=false
      - TRANSMISSION_WEB_UI=transmission-web-control
      - TRANSMISSION_INCOMPLETE_DIR=/data/transmission/incomplete
      - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
@@ -368,21 +343,6 @@ services:
      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
      - LOCAL_NETWORK=$LOCAL_NETWORK
    restart: unless-stopped
-  proxy:
-   image: haugene/transmission-openvpn-proxy
-   links:
-     - transmission
-   ports:
-     - 7680:8080
-   volumes:
-     - /etc/localtime:/etc/localtime:ro
-
-  rss:
-   image: haugene/transmission-rss
-   links:
-     - transmission
-   environment:
-     - RSS_URL=http://.../xxxxx.rss
 #########
   apaxy:
     image: apaxy
@@ -504,20 +464,6 @@ services:
       - $DOCKER_CONFIG_PATH/duckdns:/config #optional
     restart: unless-stopped
 ##############
-## airsonic replacement api
-  gonic:
-    container_name: gonic
-    image: sentriz/gonic:latest
-    environment:
-      - TZ=$TZ
-    expose:
-      - 80
-    ports:
-      - 4747:80
-    volumes:
-      - $DOCKER_CONFIG_PATH/gonic:/data
-      - $MUSIC_PATH:/music:ro
-################
   lazylibrarian:
     image: linuxserver/lazylibrarian
     container_name: lazylibrarian
@@ -587,6 +533,7 @@ services:
       - influxdb
     volumes:
       - $DOCKER_CONFIG_PATH/grafana:/var/lib/grafana
+    restart: unless-stopped
 ####################
 ### Wallabag
   wallabag:
@@ -668,3 +615,4 @@ services:
       - $SERVER_PATH:/h5ai:ro
     ports:
       - 4344:80
+    restart: unless-stopped
