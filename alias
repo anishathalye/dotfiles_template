@@ -416,6 +416,12 @@ function comic_repack_corrupt_archive2cbz(){
 }
 
 
+function comic_repack_all_corrupt_archive2cbz(){
+    IFS=$(echo -en "\n\b");
+    for f in `find . -maxdepth 1 -type f  -not -path '*/\.*' -exec readlink -f {} \;`;do
+        comic_repack_corrupt_archive2cbz "$f";
+    done;
+}
 
 ##############################
 # docker compose
