@@ -1,0 +1,95 @@
+# For the benefit of emacs users: -*- shell-script -*-
+#
+#  _ _____ _     _            _
+# (_)___ /| |__ | | ___   ___| | _____
+# | | |_ \| '_ \| |/ _ \ / __| |/ / __|
+# | |___) | |_) | | (_) | (__|   <\__ \
+# |_|____/|_.__/|_|\___/ \___|_|\_\___/
+
+align=center
+separator=false
+#color=#ffffff
+separator_block_width=20
+markup=pango
+
+
+[battery]
+interval=2
+color=#ff79c6
+
+[priv-ip]
+command=ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}'
+interval=10
+label=PRIV
+
+
+[public-ip]
+command=dig +short myip.opendns.com @resolver1.opendns.com
+interval=10
+label=PUB
+
+[wifi]
+command=iwgetid -r | tr '\n' ' ' && grep $(iwgetid -m | awk '{ printf "%s", $1 }') /proc/net/wireless | awk '{ printf "%i%\n", int($3 * 100 / 70) }'
+instance=wlp11s0f3u1
+interval=5
+label= 
+
+[new-vpn]
+command=~/.config/i3blocks/blocks/openvpn/openvpn
+interval=1
+#label=<span color="#8be9fd"> </span>
+label= 
+
+[utas-vpn]
+command=ps aux | grep -qE '^root.*vpnc.*utas_vpnc.conf' && echo up || echo down
+interval=1
+#label=<span color="#8be9fd"> </span>
+label=UTAS  
+
+
+[home]
+command=/bin/df -h /home/lbesnard | awk 'FNR==2{print $4}'
+interval=3
+#label=<span color="#a9e185"> </span>
+label= 
+
+
+[cpu-temperature]
+command=~/.config/i3blocks/blocks/temperature/temperature
+interval=2
+#SENSOR_CHIP="jc42-i2c-0-1a"
+#label=<span color="#8be9fd"> </span>
+label= 
+
+[memory]
+command=free -h --si | awk 'FNR==2{ print $0 }' | awk '{ print $7 }'
+interval=2
+#label=<span color="#a9e185"> </span>
+label= 
+
+[volume]
+command=~/.config/i3blocks/blocks/volume/volume
+interval=1
+label=VOL
+signal=1
+
+[time]
+command=date '+%I:%M'
+interval=1
+#label=<span color="#ffb86c"> </span>
+label= 
+
+[date]
+command=date '+%A %e'
+interval=60
+#label=<span color="#8be9fd"> </span>
+label= 
+
+[shutdown_menu]
+full_text=<span color="#a9e185"> </span>
+command=~/.config/i3blocks/blocks/shutdown_menu/shutdown_menu
+#ROFI_TEXT=Menu:
+#ROFI_OPTIONS=-no-config -location 3 -yoffset 29 -width 5 -xoffset 5 -bw 0 -border 0 -theme ~/.config/rofi/menu.rasi
+#ENABLE_CONFIRMATIONS=true
+#LAUNCHER=rofi
+#LOCKSCRIPT=betterlockscreen -l dimblur

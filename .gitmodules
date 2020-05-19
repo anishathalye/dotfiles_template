@@ -19,3 +19,6 @@
 [submodule "config/beets/whatlastgenre"]
 	path = config/beets/whatlastgenre
 	url = https://github.com/davdittrich/whatlastgenre.git
+[submodule "config/i3blocks/blocks"]
+	path = config/i3blocks/blocks
+	url = git@github.com:vivien/i3blocks-contrib.git

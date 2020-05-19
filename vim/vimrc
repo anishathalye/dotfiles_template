@@ -3,9 +3,11 @@
 " https://github.com/fisadev/fisa-vim-config
 "let g:ycm_path_to_python_interpreter = 'python3'
 "set shell=/bin/bash
-if $TERM == "xterm"
+if $TERM == "xterm" || $TERM == "xterm-256color"
     set t_Co=256               " 256 colors
+    syntax on
 endif
+
 if !has('nvim')
     set term=screen-256color
 endif
@@ -49,7 +51,6 @@ Plug 'machakann/vim-highlightedyank'
 
 "Plug 'wincent/Command-T', { 'do': 'rake make' }
 Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'croaker/mustang-vim'
@@ -102,6 +103,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 nmap <Leader>f :Files<CR>
 
+Plug 'morhetz/gruvbox'
 
 " Initialize plugin system
 call plug#end()
