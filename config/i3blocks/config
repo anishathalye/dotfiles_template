@@ -7,15 +7,22 @@
 # |_|____/|_.__/|_|\___/ \___|_|\_\___/
 
 align=center
-separator=false
+separator=true
 #color=#ffffff
 separator_block_width=20
 markup=pango
 
 
 [battery]
+command=~/.config/i3blocks/blocks/battery2/battery2
 interval=2
 color=#ff79c6
+
+[bandwith3]
+command=~/.config/i3blocks/blocks/bandwidth3/bandwidth3
+interval=1
+markup=pango
+#color=#8be9fd
 
 [priv-ip]
 command=ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}'
@@ -70,11 +77,16 @@ label=
 [volume]
 command=~/.config/i3blocks/blocks/volume/volume
 interval=1
-label=VOL
+label= 
 signal=1
 
+[bluetooth]
+command=~/.config/i3blocks/bluetooth
+label= 
+interval=1
+
 [time]
-command=date '+%I:%M'
+command=date '+%H:%M'
 interval=1
 #label=<span color="#ffb86c"> </span>
 label= 

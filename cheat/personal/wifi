@@ -1,0 +1,8 @@
+# restart service
+sudo systemctl start wpa_supplicant.service
+
+# list all wifi
+nmcli dev wifi list
+
+# edit wifi
+nmtui
