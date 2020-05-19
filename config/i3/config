@@ -131,6 +131,10 @@ bindsym $mod+Shift+0 move container to workspace $workspace0
 
 # Always open some programs on specified workspace
 assign [class="firefox"]    $workspace1
+assign [class="jetbrains-toolbox"]    $workspace2
+assign [class="pcmanfm"]    $workspace4
+assign [class="virtualbox"]    $workspace5
+assign [class="zoom"]    $workspace9
 
 # Enable float for some windows
 for_window [class="^Pavucontrol$"] floating enable
@@ -233,3 +237,8 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 
 # print screen
 bindsym Print exec scrot $HOME/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png
+
+#autostart
+exec skypeforlinux --minimize
+exec ~/bin/jetbrains-toolbox --minimize
+
