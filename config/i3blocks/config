@@ -41,17 +41,17 @@ instance=wlp11s0f3u1
 interval=5
 label= 
 
-[new-vpn]
+[bfunk-vpn]
 command=~/.config/i3blocks/blocks/openvpn/openvpn
-interval=1
-#label=<span color="#8be9fd"> </span>
+instance=home
+interval=2
 label= 
 
 [utas-vpn]
 command=ps aux | grep -qE '^root.*vpnc.*utas_vpnc.conf' && echo up || echo down
 interval=1
 #label=<span color="#8be9fd"> </span>
-label=UTAS  
+label= UTAS
 
 
 [home]

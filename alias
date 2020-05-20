@@ -137,7 +137,7 @@ alias fzfp="fzf -m --preview 'head -100 {}'"
 alias g='git'
 alias geoserver_cd="cd $CHEF_DIR/src/geoserver"
 alias github_cd="cd $GITHUB_DIR"
-
+alias sublime=`subl`
 alias grep='grep --color=auto'
 alias trim="sed 's/^ *//;s/ *$//'"
 alias egrep='egrep --color=auto'
@@ -177,6 +177,8 @@ alias elinks_google='elinks www.google.com.au'
 alias mac_wlan_random='sudo ifconfig wlp1s0 down && sudo macchanger -r wlp1s0 && sudo ifconfig wlp1s0 up'
 alias ports='netstat -tulanp' # open ports
 alias ssh-add='ssh-add -t 10h'
+alias wifi_restart='sudo systemctl restart wpa_supplicant.service'
+alias wifi_connect_to='nmtui'
 
 if command -v dig > /dev/null; then
     alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -188,7 +190,9 @@ fi
 # ssh
 alias s='var=$(grep -e "^Host " ~/.ssh/config | sed "s#Host ##" | fzf) && ssh $var' # ssh with fzf to list known hosts from ssh/config
 [ -f ~/.utas_vpnc.conf ] && alias vpn_utas_connect='sudo vpnc ~/.utas_vpnc.conf --local-port 0' && alias vpn_utas_disconnect='sudo vpnc-disconnect'
-alias vpn_bfunk_start='cd $DOTFILES_PRIVATE_PATH/openvpn && sudo openvpn lbesnard_duckdns.ovpn'
+
+alias vpn_bfunk_start='sudo openvpn --cd $DOTFILES_PRIVATE_PATH/openvpn/ --writepid /run/openvpn/home.pid --config bfunk.conf'
+alias vpn_evry_start='sudo openvpn --cd $DOTFILES_PRIVATE_PATH/openvpn/ --writepid /run/openvpn/home.pid --config evry.conf'
 
 
 ##########################

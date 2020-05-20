@@ -34,6 +34,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 # start window manager pcmanfm
 bindsym $mod+q exec pcmanfm
 
+bindsym $mod+i exec firefox
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -94,9 +96,9 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # Name the workspaces
-set $workspace1 " 1:  "
+set $workspace1 " 1:  "
 set $workspace2 " 2:  "
-set $workspace3 " 3:  "
+set $workspace3 " 3:  "
 set $workspace4 " 4:  "
 set $workspace5 " 5:  "
 set $workspace6 " 6:  "
@@ -130,7 +132,7 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace0
 
 # Always open some programs on specified workspace
-assign [class="firefox"]    $workspace1
+assign [class="firefox"]    $workspace3
 assign [class="jetbrains-toolbox"]    $workspace2
 assign [class="pcmanfm"]    $workspace4
 assign [class="virtualbox"]    $workspace5
@@ -170,16 +172,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym l resize shrink height 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"

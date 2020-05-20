@@ -1,5 +1,5 @@
 # restart service
-sudo systemctl start wpa_supplicant.service
+sudo systemctl restart wpa_supplicant.service
 
 # list all wifi
 nmcli dev wifi list
