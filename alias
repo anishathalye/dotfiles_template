@@ -144,6 +144,7 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias copy='| xclip -sel clip'
 alias automount='udiskie &'
+alias screen_layout='arandr'
 
 alias irssi='screen irssi'
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
