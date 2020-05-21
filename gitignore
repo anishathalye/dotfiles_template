@@ -1,5 +1,8 @@
 *.pyc
+*jar
 *DS_Store
+*.AppImage
+*.pyo
 *.pyc
 .svn
 *.swp
