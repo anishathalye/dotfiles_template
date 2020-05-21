@@ -15,6 +15,7 @@
     ~/.config/cheat/conf.yml: {create: true, force: true, path: cheat.yml}
     ~/.config/cmus/autosave: {create: true, force: true, path: cmus/autosave}
     ~/.config/nvim/init.vim: {create: true, force: true, path: vim/nvim.init.vim}
+    ~/.config/Nextcloud: {create: true, force: true, path: config/Nextcloud/}
     ~/.config/ranger: {create: true, force: true, path: config/ranger/}
     ~/.config/sublime-text-2: {create: true, force: true, path: config/sublime-text-2/}
     ~/.config/tilda: {create: true, force: true, path: config/tilda/}

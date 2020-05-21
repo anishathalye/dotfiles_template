@@ -51,7 +51,7 @@ alias ls_recur="find . -type f -exec ls -l {} \; 2> /dev/null | sort -t' ' -k +6
 # CHEF cooking
 ##########################
 alias chef_cd="cd $CHEF_DIR"
-alias talend="chef_cd && /bin/talend7-pipeline.sh"
+alias talend="chef_cd && ./bin/talend7-pipeline.sh"
 alias chef_private_cd="cd $CHEF_DIR/../chef-private"
 alias chef_imos="chef_cd && rm -f private; ln -s ../chef-private private"
 alias chef_po_box_start="chef_sample &&  ./bin/pipeline-box.sh && vagrant ssh po"
@@ -137,12 +137,13 @@ alias fzfp="fzf -m --preview 'head -100 {}'"
 alias g='git'
 alias geoserver_cd="cd $CHEF_DIR/src/geoserver"
 alias github_cd="cd $GITHUB_DIR"
-alias sublime=`subl`
+alias sublime='subl'
 alias grep='grep --color=auto'
 alias trim="sed 's/^ *//;s/ *$//'"
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias copy='| xclip -sel clip'
+alias automount='udiskie &'
 
 alias irssi='screen irssi'
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
@@ -298,11 +299,11 @@ ncdumph() {
 # MUSIC
 ###########################
 alias beet_genre_uniq_update="beet ls -f '\$genre' | sort -u > ~/.beets_genre"
-
 alias split_flac_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.flac` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias split_ape_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.ape` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.vw` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias music_player='mp3blaster'
+alias volume='pavulcontrol'
 
 
 ###########################
@@ -402,7 +403,7 @@ function cbz2pdf(){
     if command -v convert > /dev/null; then
         unzip -j "$ARCHIVE_FILE_PATH" -d $temp_dir
         find $temp_dir/ -name "*.webp" -exec dwebp {} -o {}.jpg \;
-		convert $temp_dir/*.jpg "${ARCHIVE_FILE_PATH%.*}.pdf"
+        convert $temp_dir/*.jpg "${ARCHIVE_FILE_PATH%.*}.pdf"
 
         mv "$ARCHIVE_FILE_PATH" "$ARCHIVE_FILE_DIRNAME"/."$ARCHIVE_FILE_NAME" && \
         rm -Rf $temp_dir;
