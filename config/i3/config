@@ -162,7 +162,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Lock screen
 #bindsym $mod+Shift+x exec betterlockscreen -l dimblur
-bindsym Control+Mod1+l exec i3lock
+bindsym Control+Mod1+l exec ~/.config/i3/scripts/blur_lock.sh
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -246,4 +246,6 @@ bindsym Print exec scrot $HOME/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png
 #autostart
 exec skypeforlinux --minimize
 exec ~/bin/jetbrains-toolbox --minimize
-
+exec --no-startup-id copyq
+exec --no-startup-id ~/bin/Nextcloud.AppImage&
+exec --no-startup-id ~/bin/Joplin.AppImage&

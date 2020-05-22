@@ -145,6 +145,8 @@ alias fgrep='fgrep --color=auto'
 alias copy='| xclip -sel clip'
 alias automount='udiskie &'
 alias screen_layout='arandr'
+alias brightness_up='sudo light -A 10'
+alias brightness_down='sudo light -U 10'
 
 alias irssi='screen irssi'
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
