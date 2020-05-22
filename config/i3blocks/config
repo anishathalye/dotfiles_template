@@ -80,9 +80,9 @@ interval=1
 label= 
 signal=1
 
-[bluetooth]
-command=~/.config/i3blocks/bluetooth
-label= 
+[backlight]
+command=light
+label= 
 interval=1
 
 [time]

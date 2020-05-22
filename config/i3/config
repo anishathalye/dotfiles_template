@@ -237,8 +237,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/scripts/pactl_vol
 bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/scripts/pactl_volume.sh M
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 5 # decrease screen brightness
 
 # print screen
 bindsym Print exec scrot $HOME/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png
