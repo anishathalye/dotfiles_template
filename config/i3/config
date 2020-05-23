@@ -141,18 +141,6 @@ assign [class="zoom"]    $workspace9
 # Enable float for some windows
 for_window [class="^Pavucontrol$"] floating enable
 for_window [class="^Arandr$"] floating enable
-for_window [class="^Steam$" title="^Friends List$"] floating enable
-for_window [class="^Steam$" title="Steam - News"] floating enable
-for_window [class="^Steam$" title=".* - Chat"] floating enable
-for_window [class="^Steam$" title="^Settings$"] floating enable
-for_window [class="^Steam$" title=".* - event started"] floating enable
-for_window [class="^Steam$" title=".* CD key"] floating enable
-for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
-for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
-for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
-for_window [title="^Steam Keyboard$"] floating enable
-for_window [class="Yad"] floating enable
-
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -161,8 +149,8 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Lock screen
-#bindsym $mod+Shift+x exec betterlockscreen -l dimblur
 bindsym Control+Mod1+l exec ~/.config/i3/scripts/blur_lock.sh
+exec --no-startup-id "xautolock -detectsleep -secure -time 5 -locker '~/.config/i3/scripts/blur_lock.sh' -corners -+01 -cornerdelay 10 -cornerredelay 10 &"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -249,3 +237,4 @@ exec ~/bin/jetbrains-toolbox --minimize
 exec --no-startup-id copyq
 exec --no-startup-id ~/bin/Nextcloud.AppImage&
 exec --no-startup-id ~/bin/Joplin.AppImage&
+exec --no-startup-id blueman-adapters --minimize

@@ -8,10 +8,9 @@
 
 align=center
 separator=true
-#color=#ffffff
+color=#ffffff
 separator_block_width=20
 markup=pango
-
 
 [battery]
 command=~/.config/i3blocks/blocks/battery2/battery2
@@ -22,24 +21,26 @@ color=#ff79c6
 command=~/.config/i3blocks/blocks/bandwidth3/bandwidth3
 interval=1
 markup=pango
-#color=#8be9fd
+color=#8be9fd
 
 [priv-ip]
 command=ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}'
 interval=10
 label=PRIV
-
+color=#bd0202
 
 [public-ip]
 command=dig +short myip.opendns.com @resolver1.opendns.com
 interval=10
 label=PUB
+color=#0b819e
 
 [wifi]
 command=iwgetid -r | tr '\n' ' ' && grep $(iwgetid -m | awk '{ printf "%s", $1 }') /proc/net/wireless | awk '{ printf "%i%\n", int($3 * 100 / 70) }'
 instance=wlp11s0f3u1
 interval=5
 label= 
+color=#bdb637
 
 [bfunk-vpn]
 command=~/.config/i3blocks/blocks/openvpn/openvpn
@@ -50,28 +51,22 @@ label=
 [utas-vpn]
 command=ps aux | grep -qE '^root.*vpnc.*utas_vpnc.conf' && echo up || echo down
 interval=1
-#label=<span color="#8be9fd"> </span>
 label= UTAS
 
-
 [home]
-command=/bin/df -h /home/lbesnard | awk 'FNR==2{print $4}'
+command=/bin/df -h ~/ | awk 'FNR==2{print $4}'
 interval=3
-#label=<span color="#a9e185"> </span>
 label= 
-
 
 [cpu-temperature]
 command=~/.config/i3blocks/blocks/temperature/temperature
 interval=2
-#SENSOR_CHIP="jc42-i2c-0-1a"
-#label=<span color="#8be9fd"> </span>
 label= 
+color=#e65d19
 
 [memory]
 command=free -h --si | awk 'FNR==2{ print $0 }' | awk '{ print $7 }'
 interval=2
-#label=<span color="#a9e185"> </span>
 label= 
 
 [volume]
@@ -79,16 +74,23 @@ command=~/.config/i3blocks/blocks/volume/volume
 interval=1
 label= 
 signal=1
+color=#929596
 
 [backlight]
 command=light
 label= 
 interval=1
+color=#eddd00
+
+[bluetooth]
+command=~/.config/i3blocks/bluetooth
+label= 
+interval=1
+color=#0b90bd
 
 [time]
 command=date '+%H:%M'
 interval=1
-#label=<span color="#ffb86c"> </span>
 label= 
 
 [date]
@@ -100,6 +102,7 @@ label=
 [shutdown_menu]
 full_text=<span color="#a9e185"> </span>
 command=~/.config/i3blocks/blocks/shutdown_menu/shutdown_menu
+#
 #ROFI_TEXT=Menu:
 #ROFI_OPTIONS=-no-config -location 3 -yoffset 29 -width 5 -xoffset 5 -bw 0 -border 0 -theme ~/.config/rofi/menu.rasi
 #ENABLE_CONFIRMATIONS=true

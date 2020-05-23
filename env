@@ -30,6 +30,7 @@ if [ -d $HOME/github_repo ]; then
     export PYTHONPATH=$DATA_SERVICES_DIR/lib/python
 fi
 
+export ANSIBLE_PATH=$GITHUB_DIR/ansible_laptop
 
 ##############################
 # set DOTFILES_PATH env
