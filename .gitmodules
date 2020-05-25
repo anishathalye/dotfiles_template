@@ -22,3 +22,6 @@
 [submodule "config/i3blocks/blocks"]
 	path = config/i3blocks/blocks
 	url = git@github.com:vivien/i3blocks-contrib.git
+[submodule "config/ranger/plugins/ranger-archives"]
+	path = config/ranger/plugins/ranger-archives
+	url = git@github.com:maximtrp/ranger-archives.git
