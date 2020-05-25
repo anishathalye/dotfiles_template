@@ -135,7 +135,7 @@ alias work_workspace='display_docked_work & tmux'
 alias display_docked_home=". $HOME/.screenlayout/i3_work.sh && mouse_setting.sh"
 alias home_workspace='display_docked_home & tmux'
 
-alias display_undocked=_home". $HOME/.screenlayout/i3_laptop_single_screen.sh && mouse_setting.sh"
+alias display_undocked=". $HOME/.screenlayout/i3_laptop_single_screen.sh && mouse_setting.sh"
 
 alias screen_layout='arandr'
 alias brightness_up='sudo light -A 10'
