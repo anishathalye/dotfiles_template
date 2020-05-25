@@ -1,0 +1,237 @@
+#compdef beet
+
+# zsh completion for beets music library manager and MusicBrainz tagger: https://beets.io/
+
+# Default values for BEETS_LIBRARY & BEETS_CONFIG needed for the cache checking function.
+# They will be updated under the assumption that the config file is in the same directory as the library.
+local BEETS_LIBRARY=~/.config/beets/library.db
+local BEETS_CONFIG=~/.config/beets/config.yaml
+# Use separate caches for file locations, command completions, and query completions.
+# This allows the use of different rules for when to update each one.
+zstyle ":completion:${curcontext}:" cache-policy _beet_check_cache
+_beet_check_cache () {
+    local cachefile="$(basename ${1})"
+    if [[ ! -a "${1}" ]] || [[ "${1}" -ot =beet ]]; then
+	# always update the cache if it doesnt exist, or if the beet executable changes
+	return 0
+    fi
+    case cachefile; in
+	(beetslibrary)
+	    if [[ ! -a "${~BEETS_LIBRARY}" ]] || [[ "${1}" -ot "${~BEETS_CONFIG}" ]]; then
+		return 0
+	    fi
+	    ;;
+	(beetscmds)
+	    _retrieve_cache beetslibrary
+	    if [[ "${1}" -ot "${~BEETS_CONFIG}" ]]; then
+		return 0
+	    fi
+	    ;;
+    esac
+    return 1
+}
+
+# useful: argument to _regex_arguments for matching any word
+local matchany=/$'[^\0]##\0'/
+# arguments to _regex_arguments for completing files and directories
+local -a files dirs
+files=("$matchany" ':file:file:_files')
+dirs=("$matchany" ':dir:directory:_dirs')
+
+# Retrieve or update caches
+if ! _retrieve_cache beetslibrary || _cache_invalid beetslibrary; then
+    local BEETS_LIBRARY="${$(beet config|grep library|cut -f 2 -d ' '):-${BEETS_LIBRARY}}"
+    local BEETS_CONFIG="${$(beet config -p):-${BEETS_CONFIG}}"
+    _store_cache beetslibrary BEETS_LIBRARY BEETS_CONFIG
+fi
+
+if ! _retrieve_cache beetscmds || _cache_invalid beetscmds; then
+    local -a subcommands fields beets_regex_words_subcmds beets_regex_words_help query modify
+    local subcmd cmddesc matchquery matchmodify field fieldargs queryelem modifyelem
+    # Useful function for joining grouped lines of output into single lines (taken from _completion_helpers)
+    _join_lines() {
+	awk -v SEP="$1" -v ARG2="$2" -v START="$3" -v END2="$4" 'BEGIN {if(START==""){f=1}{f=0};
+         if(ARG2 ~ "^[0-9]+"){LINE1 = "^[[:space:]]{,"ARG2"}[^[:space:]]"}else{LINE1 = ARG2}}
+         ($0 ~ END2 && f>0 && END2!="") {exit}
+         ($0 ~ START && f<1) {f=1; if(length(START)!=0){next}}
+         ($0 ~ LINE1 && f>0) {if(f<2){f=2; printf("%s",$0)}else{printf("\n%s",$0)}; next}
+         (f>1) {gsub(/^[[:space:]]+|[[:space:]]+$/,"",$0); printf("%s%s",SEP, $0); next}
+         END {print ""}'
+    }
+    # Variables used for completing subcommands and queries
+    subcommands=(${${(f)"$(beet help | _join_lines ' ' 3 'Commands:')"}[@]})
+    fields=($(beet fields | grep -G '^  ' | sort -u | colrm 1 2))
+    for field in "${fields[@]}"
+    do
+	fieldargs="$fieldargs '$field:::{_beet_field_values $field}'"
+    done
+    queryelem="_values -S : 'query field (add an extra : to match by regexp)' '::' $fieldargs"
+    modifyelem="_values -S = 'modify field (replace = with ! to remove field)' $(echo "'${^fields[@]}:: '")"
+    # regexps for matching query and modify terms on the command line
+    matchquery=/"(${(j/|/)fields[@]})"$':[^\0]##\0'/
+    matchmodify=/"(${(j/|/)fields[@]})"$'(=[^\0]##|!)\0'/
+    # create completion function for queries
+    _regex_arguments _beet_query "$matchany" \# \( "$matchquery" ":query:query string:$queryelem" \) \#
+    local "beets_query"="$(which _beet_query)"
+    # arguments for _regex_arguments for completing lists of queries and modifications
+    beets_query_args=( \( "$matchquery" ":query:query string:{_beet_query}" \) \# )
+    beets_modify_args=( \( "$matchmodify" ":modify:modify string:$modifyelem" \) \# )
+    # now build arguments for _beet and _beet_help completion functions
+    beets_regex_words_subcmds=('(')
+    for i in ${subcommands[@]}; do
+	subcmd="${i[(w)1]}"
+	# remove first word and parenthesised alias, replace : with -, [ with (, ] with ), and remove single quotes
+	cmddesc="${${${${${i[(w)2,-1]##\(*\) #}//:/-}//\[/(}//\]/)}//\'/}"
+	# update arguments needed for creating _beet
+	beets_regex_words_subcmds+=(/"${subcmd}"$'\0'/ ":subcmds:subcommands:((${subcmd}:${cmddesc// /\ }))")
+	beets_regex_words_subcmds+=(\( "${matchany}" ":option:option:{_beet_subcmd ${subcmd}}" \) \# \|)
+	# update arguments needed for creating _beet_help
+	beets_regex_words_help+=("${subcmd}:${cmddesc}")
+    done
+    beets_regex_words_subcmds[-1]=')'
+    _store_cache beetscmds beets_regex_words_subcmds beets_regex_words_help beets_query_args beets_modify_args beets_query
+else
+    # Evaluate the variable containing the query completer function
+    eval "${beets_query}"
+fi
+
+# Function for getting unique values for field from database (you may need to change the path to the database).
+_beet_field_values() {
+    local -a output fieldvals
+    local sqlcmd="select distinct $1 from items;"
+    _retrieve_cache beetslibrary
+    case ${1}
+    in
+        lyrics)
+            fieldvals=
+            ;;
+        *)
+	    if [[ "$(sqlite3 ${~BEETS_LIBRARY} ${sqlcmd} 2>&1)" =~ "no such column" ]]; then
+		sqlcmd="select distinct value from item_attributes where key=='$1' and value!='';"
+	    fi
+	    output="$(sqlite3 ${~BEETS_LIBRARY} ${sqlcmd} 2>/dev/null | sed -rn '/^-+$/,${{/^[- ]+$/n};p}')"
+            fieldvals=("${(f)output[@]}")
+            ;;
+    esac
+    compadd -P \" -S \" -M 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' -Q -a fieldvals
+}
+
+# This function takes a beet subcommand as its first argument, and then uses _regex_words to set ${reply[@]}
+# to an array containing arguments for the _regex_arguments function.
+_beet_subcmd_options() {
+    local shortopt optarg optdesc
+    local matchany=/$'[^\0]##\0'/
+    local -a regex_words
+    regex_words=()
+    for i in ${${(f)"$(beet help $1 | awk '/^ +-/{if(x)print x;x=$0;next}/^ *$/{if(x) exit}{if(x) x=x$0}END{print x}')"}[@]}
+    do
+        opt="${i[(w)1]/,/}"
+        optarg="${${${i## #[-a-zA-Z]# }##[- ]##*}%%[, ]*}"
+        optdesc="${${${${${i[(w)2,-1]/[A-Z, ]#--[-a-z]##[=A-Z]# #/}//:/-}//\[/(}//\]/)}//\'/}"
+        case $optarg; in
+            ("")
+                if [[ "$1" == "import" && "$opt" == "-L" ]]; then
+                    regex_words+=("$opt:$optdesc:\${beets_query_args[@]}")
+                else
+                    regex_words+=("$opt:$optdesc")
+                fi
+                ;;
+            (LOG)
+		local -a files
+		files=("$matchany" ':file:file:_files')
+		regex_words+=("$opt:$optdesc:\$files")
+                ;;
+            (CONFIG)
+                local -a configfile
+                configfile=("$matchany" ':file:config file:{_files -g *.yaml}')
+                regex_words+=("$opt:$optdesc:\$configfile")
+                ;;
+            (LIB|LIBRARY)
+                local -a libfile
+                libfile=("$matchany" ':file:database file:{_files -g *.db}')
+                regex_words+=("$opt:$optdesc:\$libfile")
+                ;;
+            (DIR|DIRECTORY)
+		local -a dirs
+		dirs=("$matchany" ':dir:directory:_dirs')
+                regex_words+=("$opt:$optdesc:\$dirs")
+                ;;
+            (SOURCE)
+                if [[ "${1}" -eq lastgenre ]]; then
+                    local -a lastgenresource
+                    lastgenresource=(/$'(artist|album|track)\0'/ ':source:genre source:(artist album track)')
+                    regex_words+=("$opt:$optdesc:\$lastgenresource")
+                else
+                    regex_words+=("$opt:$optdesc:\$matchany")
+                fi
+                ;;
+            (*)
+                regex_words+=("$opt:$optdesc:\$matchany")
+                ;;
+        esac
+    done
+    _regex_words options "$1 options" "${regex_words[@]}"
+}
+
+## Function for completing subcommands. It calls another completion function which is first created if it doesn't already exist.
+_beet_subcmd() {
+    local -a options
+    local subcmd="${1}"
+    if [[ ! $(type _beet_${subcmd} | grep function) =~ function ]]; then
+	if ! _retrieve_cache "beets${subcmd}" || _cache_invalid "beets${subcmd}"; then
+	    local matchany=/$'[^\0]##\0'/
+	    local -a files
+	    files=("$matchany" ':file:file:_files')
+	    # get arguments for completing subcommand options
+	    _beet_subcmd_options "$subcmd"
+	    options=("${reply[@]}" \#)
+	    _retrieve_cache beetscmds
+	    case ${subcmd}; in
+		(import)
+		    _regex_arguments _beet_import "${matchany}" /"${subcmd}"$'\0'/ "${options[@]}" "${files[@]}" \#
+		    ;;
+		(modify)
+		    _regex_arguments _beet_modify "${matchany}" /"${subcmd}"$'\0'/ "${options[@]}" \
+				     "${beets_query_args[@]}" "${beets_modify_args[@]}"
+		    ;;
+		(fields|migrate|version|config)
+		    _regex_arguments _beet_${subcmd} "${matchany}" /"${subcmd}"$'\0'/ "${options[@]}"
+		    ;;
+		(help)
+		    _regex_words subcmds "subcommands" "${beets_regex_words_help[@]}"
+		    _regex_arguments _beet_help "${matchany}" /$'help\0'/ "${options[@]}" "${reply[@]}"
+		    ;;
+		(*) # Other commands have options followed by a query
+		    _regex_arguments _beet_${subcmd} "${matchany}" /"${subcmd}"$'\0'/ "${options[@]}" "${beets_query_args[@]}"
+		    ;;
+	    esac
+	    # Store completion function in a cache file
+	    local "beets_${subcmd}"="$(which _beet_${subcmd})"
+	    _store_cache "beets${subcmd}" "beets_${subcmd}"
+	else
+	    # Evaluate the function which is stored in $beets_${subcmd}
+	    local var="beets_${subcmd}"
+	    eval "${(P)var}"
+	fi
+    fi
+    _beet_${subcmd}
+}
+
+# Global options
+local -a globalopts
+_regex_words options "global options" '-c:path to configuration file:$files' '-v:print debugging information' \
+	     '-l:library database file to use:$files' '-h:show this help message and exit' '-d:destination music directory:$dirs'
+globalopts=("${reply[@]}")
+
+# Create main completion function
+_regex_arguments _beet "$matchany" \( "${globalopts[@]}" \# \) "${beets_regex_words_subcmds[@]}"
+
+# Set tag-order so that options are completed separately from arguments
+zstyle ":completion:${curcontext}:" tag-order '! options'
+
+# Execute the completion function
+_beet "$@"
+
+# Local Variables:
+# mode:shell-script
+# End:

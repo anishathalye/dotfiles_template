@@ -1,8 +1,6 @@
 - shell:
-  - [mkdir -p ~/Downloads, Creating downloads directory]
-    #- [git submodule update --init --recursive "libs", Installing submodules]
-  - clean:
-      ~/: {force: true}
+  - ["[[ -d ~/Downloads ]] && mkdir -p ~/Downloads", Creating downloads directory]
+- clean: ['~']
 - link:
     ~/.alias: {force: true, path: alias, create: true}
     ~/.ansible.cfg: {force: true, path: ansible.cfg, create: true}
@@ -52,7 +50,7 @@
     ~/.vimrc: {create: true, force: true, path: vim/vimrc}
     ~/.whatlastgenre: {create: true, force: false, path: whatlastgenre}
     ~/.xsessionrc: {force: true, path: xsessionrc}
-    ~/.zplug/complete/beet/_beet: {force: true, path: zsh/_beet}
+    ~/.zplug/complete/beet/_beet: {create: true, force: true, path: zsh/_beet}
     ~/.zsh_alias: {force: true, path: zsh_alias}
     ~/.zshrc.zplug.bfunk: {force: true, path: zsh/zshrc.zplug.bfunk}
     ~/.zshrc.zplug.common: {force: true, path: zsh/zshrc.zplug.common}
@@ -62,10 +60,8 @@
     ~/bfunk-docker-compose: {force: true, create: true, path: bfunk/docker-compose/}
     ~/bin: {path: bin, create: true, force: true}
     ~/Mobac/mapsources: {path: mobac/mapsources, create: true, force: true}
-
 - shell:
-    - [chmod -R 0755 ~/.zplug, Making SSH-folder read-only]
+    - [chmod -R 0755 ~/.zplug, Making zplug-folder read-only]
     - [chmod -R 0755 ~/.zsh_alias, Making SSH-folder read-only]
     - [chmod 600 ~/.ssh/config]
     - [chown $USER ~/.ssh/config]
-    - [chmod 0000 ~/.utas_vpnc.conf] #;sudo chown root ~/.utas_vpnc.conf ]
