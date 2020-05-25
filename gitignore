@@ -1,4 +1,5 @@
 *.pyc
+*jetbrains-toolbox
 *jar
 *DS_Store
 *.AppImage
