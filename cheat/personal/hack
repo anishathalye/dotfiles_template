@@ -1,0 +1,68 @@
+#########3
+ping
+sudo arping IP -c 1
+sudo hping3 -2 10.1.1.198 -c 1 -S -p 22 -s 6060
+sudo hping3 -1 10.1.1.198 -a 1
+hping3
+
+
+#################
+nmap -sP
+nmap -sU   [IP] -p 22 # UDP packet to 22 port
+nmap -sV [IP]  # version of services
+
+nmap -A [IP] -oX file.xml # full OS + services 
+xsltproc file.xml -o file.html
+firefox file.html
+
+nmap -O # OS
+
+####################
+unicornscan 
+amap -bq 10.1.1.249 22
+
+amap -bq 10.1.1.249 80 3306
+$amap v5.4 (www.thc.org/thc-amap) started at 2020-05-24 00:21:09 - APPLICATION MAPPING mode
+$
+$Protocol on 10.1.1.249:80/tcp matches http - banner: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">\n<html><head>\n<title>400 Bad Request</title>\n</head><body>\n<h1>Bad Request</h1>\n<p>Your browser sent a request that this server could not understand.<br />\n</p>\n<hr>\n<address>Apache/2.2.8 (Ubuntu)
+$Protocol on 10.1.1.249:80/tcp matches http-apache-2 - banner: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">\n<html><head>\n<title>400 Bad Request</title>\n</head><body>\n<h1>Bad Request</h1>\n<p>Your browser sent a request that this server could not understand.<br />\n</p>\n<hr>\n<address>Apache/2.2.8 (Ubuntu)
+$Protocol on 10.1.1.249:3306/tcp matches mysql - banner: >\n5.0.51a-3ubuntu5\fzyqLf>Aj,s#QNt}77Nb$(Bad handshake
+$
+$amap v5.4 finished at 2020-05-24 00:21:15
+
+####################
+nbtscan 10.1.1.1-249
+Doing NBT name scan for addresses from 10.1.1.1-249
+
+IP address       NetBIOS Name     Server    User             MAC address      
+------------------------------------------------------------------------------
+10.1.1.249       METASPLOITABLE   <server>  METASPLOITABLE   00:00:00:00:00:00
+10.1.1.1         HOME_NETWORK_GA  <server>  HOME_NETWORK_GA  00:00:00:00:00:00
+10.1.1.198       BROWNFUNK        <server>  BROWNFUNK        00:00:00:00:00:00
+
+nbtscan 10.1.1.249 -hv
+Doing NBT name scan for addresses from 10.1.1.249
+
+
+NetBIOS Name Table for Host 10.1.1.249:
+
+Incomplete packet, 281 bytes long.
+Name             Service          Type             
+----------------------------------------
+METASPLOITABLE   Workstation Service
+METASPLOITABLE   Messenger Service
+METASPLOITABLE   File Server Service
+METASPLOITABLE   Workstation Service
+METASPLOITABLE   Messenger Service
+METASPLOITABLE   File Server Service
+WORKGROUP        Domain Name
+WORKGROUP        Browser Service Elections
+WORKGROUP        Domain Name
+WORKGROUP        Browser Service Elections
+
+Adapter address: 00:00:00:00:00:00
+----------------------------------------
+
+
+# find info on server without being noticed, passive way
+p0f -i eth0 -p -o /tmp/poflog.log

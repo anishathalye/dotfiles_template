@@ -12,6 +12,7 @@ color=#ffffff
 separator_block_width=20
 markup=pango
 
+
 [battery]
 command=~/.config/i3blocks/blocks/battery2/battery2
 interval=2
@@ -26,7 +27,7 @@ color=#8be9fd
 [priv-ip]
 command=ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}'
 interval=10
-label=PRIV
+label=PRI
 color=#bd0202
 
 [public-ip]
@@ -77,7 +78,7 @@ signal=1
 color=#929596
 
 [backlight]
-command=light
+command=light | cut -d . -f 1
 label= 
 interval=1
 color=#eddd00
@@ -94,7 +95,7 @@ interval=1
 label= 
 
 [date]
-command=date '+%A %e'
+command=date '+%a %e'
 interval=60
 #label=<span color="#8be9fd"> </span>
 label= 

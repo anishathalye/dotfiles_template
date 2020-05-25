@@ -39,14 +39,8 @@ bindsym $mod+i exec firefox
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# Start rofi
+# Start rofi program launcher
 bindsym $mod+d exec rofi -show combi -columns 3
-# start dmenu (a program launcher)
-#bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+j focus left
@@ -72,10 +66,10 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
+# stack windows horizontaly (not split)
 bindsym $mod+h split h
 
-# split in vertical orientation
+# stack windows verticaly (not split)
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
@@ -144,10 +138,13 @@ for_window [class="^Arandr$"] floating enable
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
 # Lock screen
 bindsym Control+Mod1+l exec ~/.config/i3/scripts/blur_lock.sh
 exec --no-startup-id "xautolock -detectsleep -secure -time 5 -locker '~/.config/i3/scripts/blur_lock.sh' -corners -+01 -cornerdelay 10 -cornerredelay 10 &"
@@ -203,8 +200,8 @@ bar
 {
     position top
 	  status_command i3blocks
-    i3bar_command i3bar
-	  font pango: SpaceMono Nerd Font Regular 11
+      i3bar_command i3bar
+	  font pango: SpaceMono Nerd Font Regular 10
 	  colors
 	  {
         #                   Border Background Text
@@ -220,8 +217,8 @@ bar
 #bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 #bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 #bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/scripts/pactl_volume.sh +1%
-bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/scripts/pactl_volume.sh -1%
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/scripts/pactl_volume.sh +2%
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/scripts/pactl_volume.sh -2%
 bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/scripts/pactl_volume.sh M
 
 # Sreen brightness controls
@@ -232,9 +229,10 @@ bindsym XF86MonBrightnessDown exec light -U 5 # decrease screen brightness
 bindsym Print exec scrot $HOME/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png
 
 #autostart
-exec skypeforlinux --minimize
+#exec skypeforlinux --minimize
 exec ~/bin/jetbrains-toolbox --minimize
 exec --no-startup-id copyq
 exec --no-startup-id ~/bin/Nextcloud.AppImage&
 exec --no-startup-id ~/bin/Joplin.AppImage&
 exec --no-startup-id blueman-adapters --minimize
+exec --no-startup-id ~/bin/mouse_setting.sh

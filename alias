@@ -48,7 +48,7 @@ alias ls_recur="find . -type f -exec ls -l {} \; 2> /dev/null | sort -t' ' -k +6
 
 
 ##########################
-# CHEF cooking
+# CHEF cooking + Ansible provisionning
 ##########################
 alias chef_cd="cd $CHEF_DIR"
 alias talend="chef_cd && ./bin/talend7-pipeline.sh"
@@ -60,6 +60,8 @@ alias chef_provision_laptop_from_local='cd $GITHUB_DIR/chef_laptop; $GITHUB_DIR/
 alias chef_provision_po="chef_cd && vagrant provision po"
 alias chef_sample="chef_cd && rm -f private; ln -s private-sample private"
 
+alias ansible_provision_latop='/usr/bin/ansible-playbook -i hosts $ANSIBLE_PATH/local.yml -K'
+alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.yml'
 
 ##########################
 # IMOS related - pipeline 
@@ -124,6 +126,17 @@ cc_imos() {
     compliance-checker -t=imos $ncf
 }
 
+##########################
+# Display
+##########################
+alias display_docked_work=". $HOME/.screenlayout/work_screen2_thunder.sh && mouse_setting.sh"
+alias work_workspace='display_docked_work & tmux'
+alias display_docked_home=_home". $HOME/.screenlayout/i3_work.sh && mouse_setting.sh"
+alias home_workspace='display_docked_home & tmux'
+alias screen_layout='arandr'
+alias brightness_up='sudo light -A 10'
+alias brightness_down='sudo light -U 10'
+alias brightness_chgrp_sys='/usr/bin/ansible-playbook -i hosts $ANSIBLE_PATH/local.yml -K -t i3'
 
 ##########################
 # Various
@@ -131,8 +144,6 @@ cc_imos() {
 alias project_officer_user='sudo -u projectofficer -s'
 alias rsrc='source ~/.bashrc'
 alias clear_tmp="find /tmp -mtime +1 -and -not -exec fuser -s {} ';' -and -exec rm -Rf {} ';'"
-alias display_docked=". $HOME/.screenlayout/work_screen2_thunder.sh && mouse_setting.sh"
-alias work_workspace='display_docked & tmux'
 alias fzfp="fzf -m --preview 'head -100 {}'"
 alias g='git'
 alias geoserver_cd="cd $CHEF_DIR/src/geoserver"
@@ -144,15 +155,10 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias copy='| xclip -sel clip'
 alias automount='udiskie &'
-alias screen_layout='arandr'
-alias brightness_up='sudo light -A 10'
-alias brightness_down='sudo light -U 10'
-alias brightness_chgrp_sys='/usr/bin/ansible-playbook -i hosts $ANSIBLE_PATH/local.yml -K -t i3'
-alias ansible_provision_latop='/usr/bin/ansible-playbook -i hosts $ANSIBLE_PATH/local.yml -K'
-alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.yml'
 
 alias irssi='screen irssi'
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
+
 function x(){
     if [ -f $1 ] ; then
             case $1 in
@@ -194,13 +200,12 @@ else
     alias myip="curl ifconfig.me"
 fi
 
-# ssh
+# vpn
 alias s='var=$(grep -e "^Host " ~/.ssh/config | sed "s#Host ##" | fzf) && ssh $var' # ssh with fzf to list known hosts from ssh/config
 [ -f ~/.utas_vpnc.conf ] && alias vpn_utas_connect='sudo vpnc ~/.utas_vpnc.conf --local-port 0' && alias vpn_utas_disconnect='sudo vpnc-disconnect'
 
 alias vpn_bfunk_start='sudo openvpn --cd $DOTFILES_PRIVATE_PATH/openvpn/ --writepid /run/openvpn/home.pid --config bfunk.conf'
 alias vpn_evry_start='sudo openvpn --cd $DOTFILES_PRIVATE_PATH/openvpn/ --writepid /run/openvpn/home.pid --config evry.conf'
-
 
 ##########################
 # vim nvim alias
@@ -214,15 +219,12 @@ alias vim_plugin_install='vim +PluginInstall +qall'
 
 if command -v bat > /dev/null; then alias cat="bat -p"; fi
 
-
-
 ##########################
 # timezone
 ##########################
 alias tz_paris='TZ="Europe/Paris" date'
 alias tz_hobart='TZ="Australia/Hobart" date'
 alias tz_utc='TZ="UTC" date'
-
 
 ##########################
 # SYSTEM
@@ -255,8 +257,6 @@ fkill() {
     fi  
 }
 
-
-
 #########################
 # DATABASE
 #########################
@@ -264,20 +264,17 @@ if command -v pgcli > /dev/null; then
     alias psql=pgcli
 fi
 
-DBHOST='2-nec-hob.emii.org.au'
-[ -f $HOME/.pgpass ] && alias psql-dbrc="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
+DBHOST=$DBHOST_RC
+[ -f $HOME/.pgpass ] && alias psql-dbrc="psql -d harvest -h $DBHOST -U `cat $PGPASS_PATH  | grep $DBHOST_RC | cut -d':' -f4`"
 
-DBHOST='dbprod.emii.org.au'
-[ -f $HOME/.pgpass ] && alias psql-dbprod="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
+DBHOST=$DBHOST_PROD
+[ -f $HOME/.pgpass ] && alias psql-dbprod="psql -d harvest -h $DBHOST -U `cat $PGPASS_PATH  | grep $DBHOST_PROD | cut -d':' -f4`"
 
-DBHOST='10.11.12.13'
-[ -f $HOME/.pgpass ] && alias psql-po="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
+DBHOST=$DBHOST_VAGRANT
+[ -f $HOME/.pgpass ] && alias psql-po="psql -d harvest -h $DBHOST -U `cat $PGPASS_PATH  | grep $DBHOST_VAGRANT | cut -d':' -f4`"
 
-DBHOST='harvest-db-aodnstack-lbesnard.dev.aodn.org.au'
-[ -f $HOME/.pgpass ] && alias psql-pipeline-stack="psql -d harvest -h $DBHOST -U `cat $HOME/.pgpass  | grep $DBHOST | cut -d':' -f4`"
-
-
-
+DBHOST=$DBHOST_STACK
+[ -f $HOME/.pgpass ] && alias psql-pipeline-stack="psql -d harvest -h $DBHOST -U `cat $PGPASS_PATH  | grep $DBHOST_STACK | cut -d':' -f4`"
 
 ##########################
 # file handling
@@ -291,15 +288,12 @@ remove_file_extension() {
     mv $file ${file%\.[^.]*}
 }
 
-
-
 ##########################
 # NetCDF
 ##########################
 ncdumph() {
     command ncdump -h "$@" | less;
 }
-
 
 ###########################
 # MUSIC
@@ -311,7 +305,6 @@ alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "
 alias music_player='mp3blaster'
 alias volume='pavulcontrol'
 
-
 ###########################
 # paragliding
 ###########################
@@ -320,7 +313,6 @@ alias igc_viewer='gpligc'
 alias riverHeight='python $GITHUB_DIR/River_Height_Tasmania/riverHeight.py && /usr/bin/elinks ~/Dropbox/Public/RiverStatusTasmania.html'
 alias gpsdump_flymaster='cd $HOME/Downloads; ./gpsdump -gy -ca0 -lflight'
 alias paragliding_create_osm_map='$GITHUB_DIR/OSM_Tile_Download/osm_ogie3d.py'
-
 
 ##############################
 # PYTHON
@@ -449,6 +441,7 @@ function comic_repack_all_corrupt_archive2cbz(){
     done;
 }
 
+
 ##############################
 # docker compose
 ##############################
@@ -481,4 +474,3 @@ alias backup_nextcloud='sudo docker stop nextcloud && tar -cvf "/tmp/nextcloud_$
 
 # when files are copied manually to nextcloud folder
 alias nextcloud_force_rescan='docker exec nextcloud sudo -u abc php /config/www/nextcloud/occ files:scan --all'
-
