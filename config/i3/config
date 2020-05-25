@@ -235,4 +235,4 @@ exec --no-startup-id copyq
 exec --no-startup-id ~/bin/Nextcloud.AppImage&
 exec --no-startup-id ~/bin/Joplin.AppImage&
 exec --no-startup-id blueman-adapters --minimize
-exec --no-startup-id ~/bin/mouse_setting.sh
+exec ~/bin/mouse_setting.sh
