@@ -59,6 +59,7 @@ alias chef_provision_laptop_from_remote='cd $DOTFILES_PATH; git reset-branch-lik
 alias chef_provision_laptop_from_local='cd $GITHUB_DIR/chef_laptop; $GITHUB_DIR/chef_laptop/install.sh'
 alias chef_provision_po="chef_cd && vagrant provision po"
 alias chef_sample="chef_cd && rm -f private; ln -s private-sample private"
+alias vagrant_ssh='var=$(find $CHEF_DIR/nodes/ -type f -name "*\.json" -exec basename {} \; | cut -d . -f 1 | fzf) && cd $CHEF_DIR && vagrant ssh $var'
 
 alias ansible_provision_latop='/usr/bin/ansible-playbook -i hosts $ANSIBLE_PATH/local.yml -K'
 alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.yml'
@@ -268,17 +269,8 @@ if command -v pgcli > /dev/null; then
     alias psql=pgcli
 fi
 
-DBHOST=$DBHOST_RC
-[ -f $HOME/.pgpass ] && alias psql-dbrc="psql -d harvest -h $DBHOST -U `cat $PGPASS_PATH  | grep $DBHOST_RC | cut -d':' -f4`"
-
-DBHOST=$DBHOST_PROD
-[ -f $HOME/.pgpass ] && alias psql-dbprod="psql -d harvest -h $DBHOST -U `cat $PGPASS_PATH  | grep $DBHOST_PROD | cut -d':' -f4`"
-
-DBHOST=$DBHOST_VAGRANT
-[ -f $HOME/.pgpass ] && alias psql-po="psql -d harvest -h $DBHOST -U `cat $PGPASS_PATH  | grep $DBHOST_VAGRANT | cut -d':' -f4`"
-
-DBHOST=$DBHOST_STACK
-[ -f $HOME/.pgpass ] && alias psql-pipeline-stack="psql -d harvest -h $DBHOST -U `cat $PGPASS_PATH  | grep $DBHOST_STACK | cut -d':' -f4`"
+# list hosts with fzf from pgpass file and connect to DB. 
+[ -f $HOME/.pgpass ] && export PGPASS_PATH=$HOME/.pgpass && alias psql-connect='var=$(cat $PGPASS_PATH | cut -d : -f1 | grep -v "^#" | fzf) && psql -d `cat $PGPASS_PATH  | grep $var | cut -d':' -f3 | head -1` -h $var -U `cat $PGPASS_PATH  | grep $var | cut -d':' -f4 | head -1`'
 
 ##########################
 # file handling
@@ -312,9 +304,9 @@ alias volume='pavulcontrol'
 ###########################
 # paragliding
 ###########################
-alias flightrecorder='cd $HOME/paragliding ; sudo flightrecorder && chown $USER:$USER *.IGC; rsync -avc $HOME/paragliding/ $HOME/Dropbox/paragliding_igc'
+alias flightrecorder='cd $HOME/paragliding ; sudo flightrecorder && chown $USER:$USER *.IGC; rsync -avc $HOME/paragliding/ $HOME/Nexctloud/paragliding_igc'
 alias igc_viewer='gpligc'
-alias riverHeight='python $GITHUB_DIR/River_Height_Tasmania/riverHeight.py && /usr/bin/elinks ~/Dropbox/Public/RiverStatusTasmania.html'
+alias riverHeight='python $GITHUB_DIR/River_Height_Tasmania/riverHeight.py && /usr/bin/elinks ~/Nexctloud/Public/RiverStatusTasmania.html'
 alias gpsdump_flymaster='cd $HOME/Downloads; ./gpsdump -gy -ca0 -lflight'
 alias paragliding_create_osm_map='$GITHUB_DIR/OSM_Tile_Download/osm_ogie3d.py'
 
