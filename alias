@@ -68,16 +68,24 @@ alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.y
 # IMOS related - pipeline 
 ##########################
 # pipeline 
-alias pipe_tasklog_tailf='var=$(find /mnt/ebs/log/pipeline/process/ -type f -name "task*.log" | fzf) && tail -f $var'
-alias pipe_alllog_tailf='var=$(find /mnt/ebs/log/pipeline -type f -name "*.log" | fzf) && tail -f $var'
-alias pipe_ls_error='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && ls $var'
-alias pipe_cd_error='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && cd $var'
+export PIPELINE_TASK_LOG_PATH=/mnt/ebs/log/pipeline/process
+alias pipeline_task_log_tailf='var=$(find $PIPELINE_TASK_LOG_PATH -type f -name "task*.log" | fzf) && tail -f $var'
+alias pipeline_all_logs_tailf='var=$(find /mnt/ebs/log/pipeline -type f -name "*.log" | fzf) && tail -f $var'
+alias pipeline_task_ls_file_error='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && ls $var'
+alias pipeline_task_cd_error='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && cd $var'
 
-alias talend_cd='var=$(find /mnt/ebs/talend/jobs -maxdepth 1 -type d | fzf) && cd $var'
+# retrieve all logs for specific uuid definining the pipeline name
+# $1 UUID value
+function pipeline_task_uuid_log(){
+    local uuid=$1;
+
+    local log_file_path=$(find $PIPELINE_TASK_LOG_PATH -type f -name "task*.log" | fzf)
+    grep $uuid $log_file_path
+}
 
 # retrieve specific log output for failed file in pipeline
 # $1 error file path
-pipe_file_error_output(){
+pipeline_task_file_error_log(){
     local file_input=$1;
 
     local uuid
@@ -94,6 +102,8 @@ pipe_file_error_output(){
 
     grep $uuid /mnt/ebs/log/pipeline/process/tasks.$pipeline_name.log
 }
+
+alias talend_cd='var=$(find /mnt/ebs/talend/jobs -maxdepth 1 -type d | fzf) && cd $var'
 
 # compliance checker running the cf check
 # $1 cf version
