@@ -128,6 +128,12 @@ cc_imos() {
 }
 
 ##########################
+## github cli
+##########################
+export GIT_USER=`git config --list | grep user.name| cut -d = -f2`
+alias g_issue_list='gh issue list -a $GIT_USER -R aodn/po-backlog && gh issue list -a $GIT_USER -R aodn/content'
+
+##########################
 # Display
 ##########################
 alias display_docked_work=". $HOME/.screenlayout/work_screen2_thunder.sh && mouse_setting.sh"
