@@ -21,7 +21,8 @@ It uses:
 * [nerds-fonts](https://github.com/ryanoasis/nerd-fonts/blob/master/readme.md#font-installation)
 * [dotbot](https://github.com/anishathalye/dotbot)
 
-[laptop](laptop.png "i3 + i3block + tmux + neovim + ranger...")
+
+![Workspace example](laptop.png "i3 + i3block + tmux + neovim + ranger...")
 
 ## Installation
 
