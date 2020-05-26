@@ -147,7 +147,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # Lock screen
 bindsym Control+Mod1+l exec ~/.config/i3/scripts/blur_lock.sh
-exec --no-startup-id "xautolock -detectsleep -secure -time 5 -locker '~/.config/i3/scripts/blur_lock.sh' -corners -+01 -cornerdelay 10 -cornerredelay 10 &"
+exec --no-startup-id xss-lock -- ~/.config/i3/scripts/blur_lock.sh
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -230,7 +230,7 @@ bindsym Print exec scrot $HOME/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png
 
 #autostart
 #exec skypeforlinux --minimize
-exec ~/bin/jetbrains-toolbox --minimize
+exec ~/bin/jetbrains-toolbox-1.17.6856/jetbrains-toolbox --minimize
 exec --no-startup-id copyq
 exec --no-startup-id ~/bin/Nextcloud.AppImage&
 exec --no-startup-id ~/bin/Joplin.AppImage&
