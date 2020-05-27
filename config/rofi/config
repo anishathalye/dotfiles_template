@@ -7,3 +7,4 @@ rofi.show-icons: true
 rofi.sidebar-mode: true
 rofi.m: -4
 rofi.theme: andrea
+rofi.theme: /usr/share/rofi/themes/android_notification.rasi
