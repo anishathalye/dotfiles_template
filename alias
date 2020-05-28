@@ -72,7 +72,7 @@ alias pipeline_task_log_tailf='var=$(find $PIPELINE_TASK_LOG_PATH -type f -name 
 alias pipeline_task_ls_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && ls $var'
 alias pipeline_task_cd_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && cd $var'
 
-# retrieve all logs for specific uuid definining the pipeline name
+# retrieve all logs for any UUID in a pipeline task log
 # $1 UUID value
 function pipeline_task_uuid_log(){
     local uuid=$1;
