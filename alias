@@ -54,10 +54,8 @@ alias chef_cd="cd $CHEF_DIR"
 alias talend="chef_cd && ./bin/talend7-pipeline.sh"
 alias chef_private_cd="cd $CHEF_DIR/../chef-private"
 alias chef_imos="chef_cd && rm -f private; ln -s ../chef-private private"
-alias chef_po_box_start="chef_sample &&  ./bin/pipeline-box.sh && vagrant ssh po"
-alias chef_provision_laptop_from_remote='cd $DOTFILES_PATH; git reset-branch-like-remote; cd $GITHUB_DIR/chef_laptop; git reset-branch-like-remote; $GITHUB_DIR/chef_laptop/install.sh;'
-alias chef_provision_laptop_from_local='cd $GITHUB_DIR/chef_laptop; $GITHUB_DIR/chef_laptop/install.sh'
-alias chef_provision_po="chef_cd && vagrant provision po"
+alias chef_pipeline_box_start="chef_cd &&  ./bin/pipeline-box.sh"
+alias chef_pipeline_box_provision="chef_cd && vagrant provision pipeline"
 alias chef_sample="chef_cd && rm -f private; ln -s private-sample private"
 alias vagrant_ssh='var=$(find $CHEF_DIR/nodes/ -type f -name "*\.json" -exec basename {} \; | cut -d . -f 1 | fzf) && cd $CHEF_DIR && vagrant ssh $var'
 
@@ -69,10 +67,10 @@ alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.y
 ##########################
 # pipeline 
 export PIPELINE_TASK_LOG_PATH=/mnt/ebs/log/pipeline/process
-alias pipeline_task_log_tailf='var=$(find $PIPELINE_TASK_LOG_PATH -type f -name "task*.log" | fzf) && tail -f $var'
 alias pipeline_all_logs_tailf='var=$(find /mnt/ebs/log/pipeline -type f -name "*.log" | fzf) && tail -f $var'
-alias pipeline_task_ls_file_error='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && ls $var'
-alias pipeline_task_cd_error='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && cd $var'
+alias pipeline_task_log_tailf='var=$(find $PIPELINE_TASK_LOG_PATH -type f -name "task*.log" | fzf) && tail -f $var'
+alias pipeline_task_ls_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && ls $var'
+alias pipeline_task_cd_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && cd $var'
 
 # retrieve all logs for specific uuid definining the pipeline name
 # $1 UUID value
@@ -86,21 +84,22 @@ function pipeline_task_uuid_log(){
 # retrieve specific log output for failed file in pipeline
 # $1 error file path
 pipeline_task_file_error_log(){
-    local file_input=$1;
+    # list files in ALL $ERROR_DIR with a uuid at the end
+    local uuid_regexp='[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+    local list_all_error_files=$(find $ERROR_DIR -type f)
+    local file_input=$(echo $list_all_error_files | grep -E .$uuid_regexp |fzf)
 
-    local uuid
-    uuid=`echo "$file_input" | grep -o -E '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'`
-
-    if [ -z "$uuid" ]
+    if [ -z "$file_input" ]
         then
-        echo "no uuid found in filename"
+        echo "no file selected"
         return 1
     fi
 
-    local pipeline_name
-    pipeline_name=`basename $(dirname $(readlink -f $file_input))`
-
-    grep $uuid /mnt/ebs/log/pipeline/process/tasks.$pipeline_name.log
+    local uuid_file=`echo "$file_input" | grep -o -E $uuid_regexp`
+    local pipeline_name=`basename $(dirname $(readlink -f $file_input))`
+    
+    # find uuid entries in corresponding pipeline task log
+    grep $uuid_file $PIPELINE_TASK_LOG_PATH/tasks.$pipeline_name.log
 }
 
 alias talend_cd='var=$(find /mnt/ebs/talend/jobs -maxdepth 1 -type d | fzf) && cd $var'
