@@ -151,6 +151,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # Lock screen
 bindsym Control+Mod1+l exec ~/.config/i3/scripts/blur_lock.sh
 exec --no-startup-id xss-lock -- ~/.config/i3/scripts/blur_lock.sh
+bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/display.sh
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

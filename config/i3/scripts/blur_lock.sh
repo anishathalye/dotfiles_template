@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
-xset s off dpms 0 10 0  # It sets DPMS so the locker does not stay on forever (avoiding battery drain when just locked).
+xset s off dpms 0 200 0  # It sets DPMS so the locker does not stay on forever (avoiding battery drain when just locked).
 
-rm /tmp/screen_locked.png
+rm -f /tmp/screen_locked.png
 
 scrot /tmp/screen_locked.png
 
