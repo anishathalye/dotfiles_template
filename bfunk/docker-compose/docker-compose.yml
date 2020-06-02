@@ -628,7 +628,6 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=$TZ
-      #- INTERFACE=eth0
       - SERVERURL=${DUCKDNS_DOMAIN}.duckdns.org
       - SERVERPORT=51820 #optional
       - PEERS=1 #optional
@@ -637,7 +636,6 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/wireguard/config:/config
       - /lib/modules:/lib/modules
-      #- /usr/src:/usr/src
     ports:
       - 51820:51820/udp
     #sysctls:
