@@ -637,7 +637,31 @@ services:
       - $DOCKER_CONFIG_PATH/wireguard/config:/config
       - /lib/modules:/lib/modules
     ports:
-      - 53:53/udp
+      - 53:51820/udp
     #sysctls:
       #- net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
+########################
+#### netdata
+  netdata:
+    image: netdata/netdata
+    container_name: netdata
+    hostname: $SERVER_URL # set to fqdn of host
+    ports:
+      - 19999:19999
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+volumes:
+  netdatalib:
+  netdatacache:
