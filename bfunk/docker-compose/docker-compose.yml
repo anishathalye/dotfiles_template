@@ -629,7 +629,7 @@ services:
       - PGID=1000
       - TZ=$TZ
       - SERVERURL=${DUCKDNS_DOMAIN}.duckdns.org
-      - SERVERPORT=51820 #optional
+      - SERVERPORT=53 #optional
       - PEERS=1 #optional
       - PEERDNS=auto #optional
       - INTERNAL_SUBNET=10.13.13.0 #optional
@@ -637,7 +637,7 @@ services:
       - $DOCKER_CONFIG_PATH/wireguard/config:/config
       - /lib/modules:/lib/modules
     ports:
-      - 51820:51820/udp
+      - 53:53/udp
     #sysctls:
       #- net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped

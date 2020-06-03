@@ -24,7 +24,7 @@ Host commandpost
 
 Host *nec* *nsp* *aws* *po* commandpost* 
   PermitLocalCommand yes
-  LocalCommand tar ch -C${HOME} .gitconfig  .initsys.sh | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
+  LocalCommand tar ch -C${HOME} .gitconfig  .initsys.sh .alias | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
 
 Host po
   HostName 127.0.0.1

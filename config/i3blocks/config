@@ -9,7 +9,7 @@
 align=center
 separator=true
 color=#ffffff
-separator_block_width=20
+separator_block_width=10
 markup=pango
 
 
