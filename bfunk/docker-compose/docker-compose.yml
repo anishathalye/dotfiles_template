@@ -123,28 +123,28 @@ services:
       - 1111:80
     restart: unless-stopped
 #####################################
-  fleet:
-    image: linuxserver/fleet
-    container_name: fleet
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - fleet_admin_authentication_type=DATABASE
-      - fleet_database_url=$DB_FLEET_URL
-      - fleet_database_username=$DB_FLEET_USER
-      - fleet_database_password=$DB_FLEET_PASS
-      - fleet_dockerhub_username=$DOCKERHUB_USER
-      - fleet_dockerhub_password=$DOCKERHUB_PASS
-      - fleet_refresh_interval=60 #optional
-      - fleet_admin_secret=$FLEET_ADMIN_SECRET#optional
-      #- fleet_admin_username=admin #optional
-      #- fleet_admin_password=secretpassword #optional
-      - fleet_skip_sync_on_startup=true #optional
-    volumes:
-      - $DOCKER_CONFIG_PATH/fleet:/config
-    ports:
-      - 9999:8080
-    restart: unless-stopped
+#  fleet:
+    #image: linuxserver/fleet
+    #container_name: fleet
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- fleet_admin_authentication_type=DATABASE
+      #- fleet_database_url=$DB_FLEET_URL
+      #- fleet_database_username=$DB_FLEET_USER
+      #- fleet_database_password=$DB_FLEET_PASS
+      #- fleet_dockerhub_username=$DOCKERHUB_USER
+      #- fleet_dockerhub_password=$DOCKERHUB_PASS
+      #- fleet_refresh_interval=60 #optional
+      #- fleet_admin_secret=$FLEET_ADMIN_SECRET#optional
+      ##- fleet_admin_username=admin #optional
+      ##- fleet_admin_password=secretpassword #optional
+      #- fleet_skip_sync_on_startup=true #optional
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/fleet:/config
+    #ports:
+      #- 9999:8080
+#    restart: unless-stopped
 #############################
   nextcloud:
     image: linuxserver/nextcloud
@@ -160,19 +160,19 @@ services:
       - 9393:443
     restart: unless-stopped
 ###################
-  pydio:
-    image: linuxserver/pydio
-    container_name: pydio
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-    volumes:
-      - $DOCKER_CONFIG_PATH/pydio:/config
-      - $SERVER_PATH:/data
-    ports:
-      - 7575:443
-    restart: unless-stopped
+#  pydio:
+    #image: linuxserver/pydio
+    #container_name: pydio
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=$TZ
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/pydio:/config
+      #- $SERVER_PATH:/data
+    #ports:
+      #- 7575:443
+#    restart: unless-stopped
 ##################
   piwigo:
     image: linuxserver/piwigo
@@ -368,49 +368,49 @@ services:
       - $DOCKER_CONFIG_PATH/howto:/usr/local/apache2/htdocs/
     restart: unless-stopped
 ###############
-  diskover:
-    image: linuxserver/diskover
-    container_name: diskover
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-      #- REDIS_HOST=redis
-      #- REDIS_PORT=6379
-      #- ES_HOST=elasticsearch
-      #- ES_PORT=9200
-      #- ES_USER=elastic
-      #- ES_PASS=changeme
-      - RUN_ON_START=true
-      #- USE_CRON=true
-    volumes:
-      - $DOCKER_CONFIG_PATH/diskrover:/config
-      - $SERVER_PATH:/data:ro
-    ports:
-      - 7070:80
-      - 9181:9181
-      - 9988:9999
-    restart: unless-stopped
-    depends_on:
-      - elasticsearch
-      - redis
-  elasticsearch:
-    container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.9
-    volumes:
-      - ${DOCKER_CONFIG_PATH}/elasticsearch/data:/usr/share/elasticsearch/data
-    environment:
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-  redis:
-    container_name: redis
-    image: redis:alpine
-    volumes:
-      - ${DOCKER_CONFIG_PATH}/redis:/data
+#  diskover:
+    #image: linuxserver/diskover
+    #container_name: diskover
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=$TZ
+      ##- REDIS_HOST=redis
+      ##- REDIS_PORT=6379
+      ##- ES_HOST=elasticsearch
+      ##- ES_PORT=9200
+      ##- ES_USER=elastic
+      ##- ES_PASS=changeme
+      #- RUN_ON_START=true
+      ##- USE_CRON=true
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/diskrover:/config
+      #- $SERVER_PATH:/data:ro
+    #ports:
+      #- 7070:80
+      #- 9181:9181
+      #- 9988:9999
+    #restart: unless-stopped
+    #depends_on:
+      #- elasticsearch
+      #- redis
+  #elasticsearch:
+    #container_name: elasticsearch
+    #image: docker.elastic.co/elasticsearch/elasticsearch:5.6.9
+    #volumes:
+      #- ${DOCKER_CONFIG_PATH}/elasticsearch/data:/usr/share/elasticsearch/data
+    #environment:
+      #- bootstrap.memory_lock=true
+      #- "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
+    #ulimits:
+      #memlock:
+        #soft: -1
+        #hard: -1
+  #redis:
+    #container_name: redis
+    #image: redis:alpine
+    #volumes:
+#      - ${DOCKER_CONFIG_PATH}/redis:/data
 #####################
 # tinymediamanager - filebot replacement
   tinymediamanager:
@@ -556,7 +556,6 @@ services:
     ports:
       - 6379:6379
     restart: unless-stopped
-
 ##########
   portainer:
     image: portainer/portainer
