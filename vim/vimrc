@@ -105,6 +105,8 @@ nmap <Leader>f :Files<CR>
 
 Plug 'morhetz/gruvbox'
 
+Plug 'lambdalisue/suda.vim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -556,3 +558,6 @@ hi HighlightedyankRegion cterm=reverse gui=reverse
 " add yaml stuffs
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 autocmd FileType yaml setlocal ts=4 sts=2 sw=2 expandtab
+
+" smart edit, auto sudo on file
+let g:suda_smart_edit = 1

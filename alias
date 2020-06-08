@@ -235,7 +235,7 @@ if command -v nvim > /dev/null; then
     alias vi='nvim'
     alias v='f -e nvim' # replace default fasd alias from zsh plugin
 fi
-alias vim_plugin_install='vim +PluginInstall +qall'
+alias vim_plugin_install="vim +'PlugInstall --sync' +'PlugUpdate' +qa"
 
 if command -v bat > /dev/null; then alias cat="bat -p"; fi
 
