@@ -89,13 +89,13 @@ label=
 interval=1
 color=#0b90bd
 
-[time]
-command=date '+%H:%M'
-interval=1
-label= 
+#[time]
+#command=date '+%H:%M'
+#interval=1
+#label= 
 
 [date]
-command=date '+%a %e'
+command=date '+%a %e/%I:%M'
 interval=60
 #label=<span color="#8be9fd"> </span>
 label= 
