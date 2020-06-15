@@ -58,6 +58,26 @@ services:
     ports:
       - 8080:4040
     restart: unless-stopped
+###############
+#  navidrome:
+    #image: deluan/navidrome:latest
+    #container_name: navidrome
+    ##user: 1000:1000 # should be owner of volumes
+    #ports:
+      #- "4533:4533"
+    #restart: unless-stopped
+    #environment:
+      #PUID: 1000
+      #PGID: 1000
+      #TZ: ${TZ}
+      ## Put your config options customization here
+      #ND_SCANINTERVAL: 1d
+      #ND_LOGLEVEL: info
+      #ND_SESSIONTIMEOUT: 24h
+      #ND_BASEURL: ""
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/navidrome:/data
+#      - $MUSIC_PATH:/music:ro
 ######################################
   calibre:
     image: linuxserver/calibre
@@ -121,6 +141,34 @@ services:
       - $DOCKER_CONFIG_PATH/organizr:/config
     ports:
       - 1111:80
+    restart: unless-stopped
+####################################
+#  heimdall:
+    #image: linuxserver/heimdall
+    #container_name: heimdall
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=${TZ}
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/heimdall:/config
+    #ports:
+      #- 1112:80
+      #- 443:443
+    #restart: unless-stopped
+#####################################
+  homer:
+    image: b4bz/homer:latest
+    container_name: homer
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - $DOCKER_CONFIG_PATH/homer/config.yml:/www/config.yml
+      - $DOCKER_CONFIG_PATH/homer/local/assets/:/www/assets
+    ports:
+      - 1113:8080
     restart: unless-stopped
 #####################################
 #  fleet:
@@ -198,23 +246,23 @@ services:
       - "GLANCES_OPT=-w"
     ports:
       - 61208:61208
-##############
-  lidarr:
-    image: linuxserver/lidarr
-    container_name: lidarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-      - UMASK_SET=022 #optional
-    volumes:
-      - $DOCKER_CONFIG_PATH/lidarr:/config
-      - $MUSIC_PATH:/music:ro
-      - $TORRENT_PATH/LIDARR_DL:/downloads
-      - $TORRENT_PATH/completed:/data/completed
-    ports:
-      - 8686:8686
-    restart: unless-stopped
+###############
+  #lidarr:
+    #image: linuxserver/lidarr
+    #container_name: lidarr
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=$TZ
+      #- UMASK_SET=022 #optional
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/lidarr:/config
+      #- $MUSIC_PATH:/music:ro
+      #- $TORRENT_PATH/LIDARR_DL:/downloads
+      #- $TORRENT_PATH/completed:/data/completed
+    #ports:
+      #- 8686:8686
+#    restart: unless-stopped
 #############
   radarr:
     image: linuxserver/radarr
@@ -265,22 +313,22 @@ services:
       - 9117:9117
     restart: unless-stopped
 ####################
-  booksonic:
-    image: linuxserver/booksonic
-    container_name: booksonic
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-      #- CONTEXT_PATH=url-base
-    volumes:
-      - $DOCKER_CONFIG_PATH/booksonic:/config
-      - $AUDIOBOOKS_PATH:/audiobooks:ro
-      - $PODCASTS_PATH:/podcasts:ro
-      #- /path/to/othermedia:/othermedia
-    ports:
-      - 4040:4040
-    restart: unless-stopped
+#  booksonic:
+    #image: linuxserver/booksonic
+    #container_name: booksonic
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=$TZ
+      ##- CONTEXT_PATH=url-base
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/booksonic:/config
+      #- $AUDIOBOOKS_PATH:/audiobooks:ro
+      #- $PODCASTS_PATH:/podcasts:ro
+      ##- /path/to/othermedia:/othermedia
+    #ports:
+      #- 4040:4040
+#    restart: unless-stopped
 ################
   pyload:
     image: linuxserver/pyload
@@ -464,21 +512,21 @@ services:
       - $DOCKER_CONFIG_PATH/duckdns:/config #optional
     restart: unless-stopped
 ##############
-  lazylibrarian:
-    image: linuxserver/lazylibrarian
-    container_name: lazylibrarian
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-      - DOCKER_MODS=linuxserver/calibre-web:calibre #optional
-    volumes:
-      - $DOCKER_CONFIG_PATH/lazylibrarian:/config
-      - $TORRENT_PATH/EBOOKS:/downloads
-      - $EBOOKS_PATH:/books
-    ports:
-      - 5299:5299
-    restart: unless-stopped
+#  lazylibrarian:
+    #image: linuxserver/lazylibrarian
+    #container_name: lazylibrarian
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=$TZ
+      #- DOCKER_MODS=linuxserver/calibre-web:calibre #optional
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/lazylibrarian:/config
+      #- $TORRENT_PATH/EBOOKS:/downloads
+      #- $EBOOKS_PATH:/books
+    #ports:
+      #- 5299:5299
+#    restart: unless-stopped
 ################
   firefox:
     image: jlesage/firefox
@@ -601,20 +649,20 @@ services:
       - 6768:6767
     restart: unless-stopped
 ########################
-### h5ai - file browser
-  h5ai:
-    image: awesometic/h5ai
-    container_name: h5ai
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-    volumes:
-      - $DOCKER_CONFIG_PATH/h5ai:/config
-      - $SERVER_PATH:/h5ai:ro
-    ports:
-      - 4344:80
-    restart: unless-stopped
+#### h5ai - file browser
+  #h5ai:
+    #image: awesometic/h5ai
+    #container_name: h5ai
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=$TZ
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/h5ai:/config
+      #- $SERVER_PATH:/h5ai:ro
+    #ports:
+      #- 4344:80
+#    restart: unless-stopped
 #########################
 #### wireguard
   wireguard:
@@ -640,7 +688,36 @@ services:
     #sysctls:
       #- net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
-########################
+################3
+##### droppy
+  #droppy:
+    #image: silverwind/droppy
+    #container_name: droppy
+    #ports:
+      #- 9297:8989
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/droppy:/config
+      #- $SERVER_PATH:/files:ro
+#    restart: unless-stopped
+####################
+#### filebrowser
+  filebrowser:
+    image: hurlenko/filebrowser
+    container_name: filebrowser
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - FB_NOAUTH=True
+      - FB_BASEURL=/filebrowser
+      - FB_DATABASE=/config/filebrowser.db
+    ports:
+      - 9294:8080
+    volumes:
+      - $DOCKER_CONFIG_PATH/filebrowser:/config
+      - $SERVER_PATH:/data:ro
+    restart: always
+#######################
 #### netdata
   netdata:
     image: netdata/netdata
@@ -661,6 +738,11 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /etc/os-release:/host/etc/os-release:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - PUID=1000
+      - PGID=996
+      - TZ=$TZ
 volumes:
   netdatalib:
   netdatacache:
