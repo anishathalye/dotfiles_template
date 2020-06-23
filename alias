@@ -441,7 +441,7 @@ function comic_repack_corrupt_archive2cbz(){
       mv -f "${ARCHIVE_FILE_PATH%.*}.zip"  "${ARCHIVE_FILE_PATH%.*}.cbz"
 
     # remove file from archive
-    zip -o -d "${ARCHIVE_FILE_PATH%.*}.cbz" \*crg.gif
+    zip -o -d "${ARCHIVE_FILE_PATH%.*}.cbz" \*crg.gif \*ner0.jpg \*ner0_lee.jpg
 }
 
 
