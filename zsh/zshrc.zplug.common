@@ -29,6 +29,7 @@ elif [[ -d /home/linuxbrew ]]; then
     export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 fi
 
+#export POWERLEVEL9K_COLOR_SCHEME='light'
 # Set up the prompt
 export TERM="xterm-256color"
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
@@ -145,6 +146,13 @@ export HISTSIZE=11000
 export SAVEHIST=10000
 export HISTFILE=$HOME/.zsh_history
 
+# TLDR
+export TLDR_HEADER='magenta bold underline'
+export TLDR_QUOTE='italic'
+export TLDR_DESCRIPTION='green'
+export TLDR_CODE='red'
+export TLDR_PARAM='blue'
+
 #source repos/robbyrussell/oh-my-zsh/lib/spectrum.zsh 
 
 # binkey for HOME END
@@ -181,4 +189,5 @@ echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.p
 
 [ -f ~/.cheat/fzf.bash ] && source ~/.cheat/fzf.bash
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/bin/tldr ] && compctl -k "($( tldr 2>/dev/null --list))" tldr ## tldr completion
 
