@@ -405,6 +405,20 @@ services:
         - '$SERVER_PATH:/usr/local/apache2/htdocs/share/'
     image: apax
     restart: unless-stopped
+###############
+#### ifm
+  ifm:
+    image: ifm
+    container_name: ifm
+    build:
+      context: ifm
+    ports:
+        - 3323:80
+    environment:
+      - IFM_DOCKER_UID=1000
+      - IFM_DOCKER_GID=100
+    volumes:
+      - $SERVER_PATH:/var/www:ro
 #############
 # to store icons for organizr help page
   tecmint-web:

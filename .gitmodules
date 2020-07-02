@@ -25,3 +25,6 @@
 [submodule "config/ranger/plugins/ranger-archives"]
 	path = config/ranger/plugins/ranger-archives
 	url = git@github.com:maximtrp/ranger-archives.git
+[submodule "bfunk/docker-compose/ifm"]
+	path = bfunk/docker-compose/ifm
+	url = git@github.com:misterunknown/ifm.git
