@@ -1,4 +1,4 @@
-version: "3"
+version: "3.3"
 services:
   mariadb:
     image: linuxserver/mariadb
@@ -406,12 +406,13 @@ services:
     image: apax
     restart: unless-stopped
 ###############
-#### ifm
+#### ifm ; run first: docker-compose build ifm
   ifm:
     image: ifm
     container_name: ifm
     build:
       context: ifm
+      dockerfile: docker/Dockerfile
     ports:
         - 3323:80
     environment:
@@ -419,6 +420,17 @@ services:
       - IFM_DOCKER_GID=100
     volumes:
       - $SERVER_PATH:/var/www:ro
+  explorer:
+    image: explorer
+    container_name: explorer
+    build:
+      context: explorer
+      dockerfile: Dockerfile
+    volumes:
+      - $DOCKER_CONFIG_PATH/explorer:/opt/explorer
+      - $SERVER_PATH:/server_data:ro
+    ports:
+      - 4859:4859
 #############
 # to store icons for organizr help page
   tecmint-web:
@@ -714,10 +726,27 @@ services:
       #- $SERVER_PATH:/files:ro
 #    restart: unless-stopped
 ####################
-#### filebrowser
-  filebrowser:
-    image: hurlenko/filebrowser
-    container_name: filebrowser
+##### filebrowser
+  #filebrowser:
+    #image: hurlenko/filebrowser
+    #container_name: filebrowser
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=$TZ
+      #- FB_NOAUTH=True
+      #- FB_BASEURL=/filebrowser
+      #- FB_DATABASE=/config/filebrowser.db
+    #ports:
+      #- 9294:8080
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/filebrowser:/config
+      #- $SERVER_PATH:/data:ro
+#    restart: always
+#######################
+  filebrowser2:
+    image: filebrowser/filebrowser
+    container_name: filebrowser2
     environment:
       - PUID=1000
       - PGID=1000
@@ -726,12 +755,20 @@ services:
       - FB_BASEURL=/filebrowser
       - FB_DATABASE=/config/filebrowser.db
     ports:
-      - 9294:8080
+      - 9295:80
     volumes:
-      - $DOCKER_CONFIG_PATH/filebrowser:/config
-      - $SERVER_PATH:/data:ro
+      - $DOCKER_CONFIG_PATH/filebrowser2/filebrowser.db:/config/filebrowser.db
+      - $DOCKER_CONFIG_PATH/filebrowser2/.filebrowser.json:/.filebrowser.json
+      - $EBOOKS_AUDIOBOOKS_PATH:/srv/ebooks_audiobooks:ro
+      - $MUSIC_PATH:/srv/music:ro
+      - $MOVIES_PATH:/srv/movies:ro
+      - $TORRENT_PATH:/srv/torrent:ro
+      - $SELF_IMPROVEMENT_PATH:/srv/self_improvement:ro
+      - $GAMES_PATH:/srv/games:ro
+      - $SHARE_PATH:/srv/share
     restart: always
 #######################
+#
 #### netdata
   netdata:
     image: netdata/netdata

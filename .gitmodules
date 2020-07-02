@@ -28,3 +28,6 @@
 [submodule "bfunk/docker-compose/ifm"]
 	path = bfunk/docker-compose/ifm
 	url = git@github.com:misterunknown/ifm.git
+[submodule "bfunk/docker-compose/explorer"]
+	path = bfunk/docker-compose/explorer
+	url = git@github.com:soyuka/explorer.git
