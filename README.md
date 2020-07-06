@@ -52,7 +52,6 @@ Dotbot (or this repository) to help other people discover Dotbot.
 [m45t3r_dotfiles]: https://github.com/m45t3r/dotfiles
 [alexwh_dotfiles]: https://github.com/alexwh/dotfiles
 [azd325_dotfiles]: https://github.com/Azd325/dotfiles
-[bluekeys_dotfiles]: https://github.com/bluekeys/.dotfiles
 [wazery_dotfiles]: https://github.com/wazery/dotfiles
 [thirtythreeforty_dotfiles]: https://github.com/thirtythreeforty/dotfiles
 [dotbot-users]: https://github.com/anishathalye/dotbot/wiki/Users
