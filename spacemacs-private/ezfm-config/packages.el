@@ -27,6 +27,8 @@
 ;;   define the functions `ezfm-config/pre-init-PACKAGE' and/or
 ;;   `ezfm-config/post-init-PACKAGE' to customize the package as it is loaded.
 
+;; Further docs on custom private layers: https://www.spacemacs.org/doc/LAYERS.html
+
 ;;; Code:
 
 (defconst ezfm-config-packages
