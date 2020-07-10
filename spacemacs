@@ -63,6 +63,7 @@ This function should only modify configuration layer settings."
      git
      react
      org
+     org-roam ;; Layer wrapping org-raom defined in spacemacs-private dir
      neotree
      (shell :variables
             shell-default-shell 'multi-term
