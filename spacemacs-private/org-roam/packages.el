@@ -1,3 +1,5 @@
+;; Layer wrapping and configuring the org-roam packages
+
 (defconst org-roam-packages
   '(org-roam))
 
