@@ -25,4 +25,11 @@
                                                 "rb" 'org-roam-switch-to-buffer
                                                 "rf" 'org-roam-find-file
                                                 "ri" 'org-roam-insert
-                                                "rg" 'org-roam-graph))))
+                                                "rg" 'org-roam-graph))
+    :config
+    (setq org-roam-capture-templates
+          '(("d" "default" plain (function org-roam--capture-get-point)
+             "%?"
+             :file-name "${slug}_%<%Y%m%d%H%M%S>"
+             :head "#+TITLE: ${title}\n#+ROAM_TAGS:  "
+             :unnarrowed t)))))
