@@ -8,7 +8,7 @@
     :hook
     (after-init . org-roam-mode)
     :custom
-    (org-roam-directory "~/Documents/org")
+    (org-roam-directory "~/Documents/notes-v2")
     :init
     (progn
       (spacemacs/declare-prefix "ar" "org-roam")
