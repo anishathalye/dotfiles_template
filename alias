@@ -104,6 +104,15 @@ function pipeline_log_error_file(){
 
 alias talend_cd='var=$(find /mnt/ebs/talend/jobs -maxdepth 1 -type d | fzf) && cd $var'
 
+
+# wget for imos buck by simply giving the relative path of an object without the full bucket address
+# $1 imos bucket url
+wget_imos_bucket() {
+    local url_suffix=$1; shift;
+    local url_prefix="https://s3-ap-southeast-2.amazonaws.com/imos-data/"
+    wget ${url_prefix}${url_suffix}
+}
+
 # compliance checker running the cf check
 # $1 cf version
 # $2 netcdf file
