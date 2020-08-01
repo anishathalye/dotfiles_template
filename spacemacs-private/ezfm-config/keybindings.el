@@ -8,3 +8,9 @@
 (define-key evil-insert-state-map (kbd "C-;") 'evil-normal-state)
 ;; Hmmm. Haven't been using this much...
 (define-key evil-insert-state-map (kbd "C-c C-g m") 'golden-ratio-mode)
+
+(defun my-org-finder ()
+  (interactive)
+  (ido-find-file-in-dir "~/Documents/org/"))
+
+(global-set-key (kbd "C-c f") 'my-org-finder)
