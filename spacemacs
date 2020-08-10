@@ -37,6 +37,7 @@ This function should only modify configuration layer settings."
      csv
      osx
      ruby
+     ruby-on-rails
      sql
      yaml
      typescript
