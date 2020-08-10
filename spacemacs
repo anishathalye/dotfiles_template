@@ -76,6 +76,7 @@ This function should only modify configuration layer settings."
                       version-control-diff-tool 'git-gutter
                       version-control-diff-side 'left)
      ezfm-config
+     themes-megapack
      )
 
    ;; List of additional packages that will be installed without being
