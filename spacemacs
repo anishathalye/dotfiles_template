@@ -66,7 +66,9 @@ This function should only modify configuration layer settings."
      emacs-lisp
      git
      react
-     (org :variables org-directory "~/Documents/org")
+     (org :variables
+          org-directory "~/Documents/org"
+          org-enable-org-journal-support t)
      org-roam ;; Layer wrapping org-raom defined in spacemacs-private dir
      neotree
      (shell :variables
