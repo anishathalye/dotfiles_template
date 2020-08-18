@@ -43,7 +43,6 @@ This function should only modify configuration layer settings."
      typescript
      javascript
      coffeescript
-     coffee-mode
      markdown
      clojure
      docker
