@@ -22,7 +22,7 @@
 
 
 ;; Org-journal customization
-(setq org-journal-dir "~/Documents/org/journal/")
+(setq org-journal-dir "~/org/journal/")
 (setq org-journal-file-type 'weekly)
 (setq org-journal-file-format "%Y-%m-%d")
 (setq org-journal-time-format "TODO ")
