@@ -9,8 +9,8 @@
 ;; Hmmm. Haven't been using this much...
 (define-key evil-insert-state-map (kbd "C-c C-g m") 'golden-ratio-mode)
 
+;; Shortcut for org files
 (defun my-org-finder ()
   (interactive)
-  (ido-find-file-in-dir "~/Documents/org/"))
-
+  (ido-find-file-in-dir org-directory))
 (global-set-key (kbd "C-c f") 'my-org-finder)
