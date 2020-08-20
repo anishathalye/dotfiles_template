@@ -20,7 +20,6 @@
 ;; ?
 (setq multi-term-program "/usr/local/bin/zsh")
 
-
 ;; Org-journal customization
 (setq org-agenda-file-regexp "\\`\\([^.].*\\.org\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\(\\.gpg\\)?\\)\\'")
 (setq org-journal-dir "~/org/journal/")
@@ -32,7 +31,7 @@
 
 (defun org-journal-date-format-func (time)
   "Custom function to insert journal date header,
-and some custom text on a newly created journal file."
+   and some custom text on a newly created journal file."
   (when (= (buffer-size) 0)
     (insert
      (pcase org-journal-file-type
