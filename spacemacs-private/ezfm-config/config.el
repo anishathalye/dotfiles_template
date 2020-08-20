@@ -26,9 +26,9 @@
 (setq org-journal-dir "~/org/journal/")
 (setq org-journal-file-type 'weekly)
 (setq org-journal-file-format "%Y-%m-%d")
-(setq org-journal-time-format "TODO ")
-(setq org-journal-enable-agenda-integration t)
+(setq org-journal-time-prefix "** ")
 (setq org-journal-date-format "%A, %B %d %Y")
+;; (setq org-journal-enable-agenda-integration t)
 
 (defun org-journal-date-format-func (time)
   "Custom function to insert journal date header,
