@@ -22,6 +22,7 @@
 
 
 ;; Org-journal customization
+(setq org-agenda-file-regexp "\\`\\([^.].*\\.org\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\(\\.gpg\\)?\\)\\'")
 (setq org-journal-dir "~/org/journal/")
 (setq org-journal-file-type 'weekly)
 (setq org-journal-file-format "%Y-%m-%d")
