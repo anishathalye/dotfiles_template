@@ -35,9 +35,9 @@ and some custom text on a newly created journal file."
   (when (= (buffer-size) 0)
     (insert
      (pcase org-journal-file-type
-       (`daily "#+TITLE: Daily Journal\n")
-       (`weekly (concat"#+TITLE: Weekly Journal " (format-time-string "(Wk #%V)" time) "\n"))
-       (`monthly "#+TITLE: Monthly Journal\n")
-       (`yearly "#+TITLE: Yearly Journal"))))
+       (`daily "#+TITLE: Daily Journal\n\n")
+       (`weekly (concat"#+TITLE: Weekly Journal " (format-time-string "(Wk #%V)" time) "\n\n"))
+       (`monthly "#+TITLE: Monthly Journal\n\n")
+       (`yearly "#+TITLE: Yearly Journal\n\n"))))
   (concat org-journal-date-prefix (format-time-string "%A, %x" time)))
 (setq org-journal-date-format 'org-journal-date-format-func)
