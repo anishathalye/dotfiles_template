@@ -20,9 +20,6 @@
 ;; ?
 (setq multi-term-program "/usr/local/bin/zsh")
 
-;; Org-mode customizations
-(setq org-todo-keywords
-      '((sequence "TODO" "STARTED" "|" "DONE")))
 
 ;; Org-journal customization
 (setq org-journal-dir "~/Documents/org/journal/")

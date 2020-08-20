@@ -66,8 +66,10 @@ This function should only modify configuration layer settings."
      git
      react
      (org :variables
-          org-directory "~/Documents/org"
-          org-enable-org-journal-support t)
+          org-enable-org-journal-support t
+          org-directory "~/org"
+          org-startup-indented t
+          org-todo-keywords '((sequence "TODO" "STARTED" "|" "DONE")))
      org-roam ;; Layer wrapping org-raom defined in spacemacs-private dir
      neotree
      (shell :variables
@@ -530,7 +532,7 @@ This function is called at the very end of Spacemacs initialization."
      ("XXXX" . "#dc752f"))))
  '(org-agenda-files
    (quote
-    ("~/Documents/org/job_search.org" "~/Documents/org/primary.org" "~/Documents/org/emacs.org" "~/Documents/org/life.org" "/Users/ethan/Documents/org/journal/2020-08-17")))
+    ("~/org/life.org" "~/org/emacs.org" "~/org/to_read.org" "~/org/brand_refresh.org" "~/org/journal/")))
  '(package-selected-packages
    (quote
     (org-journal window-numbering ido-vertical-mode quelpa package-build reveal-in-osx-finder racket-mode faceup pbcopy osx-trash osx-dictionary launchctl flycheck-pos-tip pos-tip dockerfile-mode docker tablist docker-tramp yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tide typescript-mode flycheck terraform-mode hcl-mode tagedit sql-indent spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode pcre2el paradox orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file neotree multi-term move-text mmm-mode minitest markdown-toc markdown-mode magit-gitflow magit-popup macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haml-mode graphql-mode google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump drupal-mode php-mode diminish diff-hl define-word cython-mode csv-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-anaconda company column-enforce-mode coffee-mode clojure-snippets clj-refactor hydra inflections edn cider multiple-cursors paredit sesman spinner peg lv clean-aindent-mode cider-eval-sexp-fu eval-sexp-fu queue pkg-info parseedn clojure-mode parseclj a epl chruby bundler inf-ruby bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup)))
