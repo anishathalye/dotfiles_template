@@ -38,7 +38,7 @@
 (setq org-agenda-file-regexp "\\`\\([^.].*\\.org\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\(\\.gpg\\)?\\)\\'")
 (setq org-journal-dir "~/org/journal/")
 (setq org-journal-file-type 'weekly)
-(setq org-journal-file-format "%Y-%m-%d")
+(setq org-journal-file-format "%Y-%m-%d.org")
 ;; (setq org-journal-time-format "")
 (setq org-journal-time-prefix "** ")
 (setq org-journal-date-format "%A, %B %d %Y")
