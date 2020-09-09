@@ -44,6 +44,7 @@
 (setq org-journal-date-format "%A, %B %d %Y")
 ;; (setq org-journal-enable-agenda-integration t)
 (setq org-journal-date-format 'org-journal-date-format-func)
+(setq org-journal-carryover-items "TODO=\"TODO\"|TODO=\"STARTED\"")
 
 
 
