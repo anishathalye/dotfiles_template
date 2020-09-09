@@ -475,6 +475,8 @@ DOCKER_CONFIG_DIR=/opt/docker_config
 ##############################
 ## BFUNK
 ##############################
+alias mount_games='mount_point=games;mkdir -p $HOME/bfunk/$mount_point; sudo mount -t nfs 10.1.1.198:/export/$mount_point $HOME/bfunk/$mount_point/'
+alias mount_torrent='mount_point=torrent;mkdir -p $HOME/bfunk/$mount_point; sudo mount -t nfs 10.1.1.198:/export/$mount_point $HOME/bfunk/$mount_point/'
 export dd1=/srv/dev-disk-by-label-media_center/
 export dd2=/srv/dev-disk-by-id-ata-WDC_WD15EADS-00P8B0_WD-WMAVU0549888-part1/
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'

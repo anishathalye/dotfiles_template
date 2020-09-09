@@ -95,8 +95,12 @@ Plug 'garbas/vim-snipmate'
 " Automatically sort python imports
 Plug 'fisadev/vim-isort'
 
+" mardown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'elzr/vim-json'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -458,7 +462,26 @@ let g:flake8_show_in_gutter=1  " show
 " markdown
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_folding_level = 6
-set conceallevel=2
+let g:vim_markdown_emphasis_multiline = 0
+let g:vim_markdown_json_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
+
+" do not use conceal feature, the implementation is not so good
+let g:vim_markdown_conceal = 0
+
+" disable math tex conceal feature
+let g:tex_conceal = ""
+" support front matter of various format
+let g:vim_markdown_frontmatter = 1  " for YAML format
+let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+let g:vim_markdown_json_frontmatter = 1  " for JSON format
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<ctrl>"  " use <Tab> to trigger autocompletion
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsExpandTrigger="<C-J>"
+
 
 " Calendar
 let g:calendar_google_calendar = 1
