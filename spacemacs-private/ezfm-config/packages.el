@@ -32,7 +32,7 @@
 ;;; Code:
 
 (defconst ezfm-config-packages
-  '()
+  '(deft)
   "The list of Lisp packages required by the ezfm-config layer.
 
 Each entry is either:
@@ -59,6 +59,14 @@ Each entry is either:
 
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
+
+(defun ezfm-config/init-deft ()
+  (use-package deft
+    :commands (deft)
+    :init
+    (bind-key "C-c d" 'deft)
+    :config (setq deft-directory "~/org/notes"
+                  deft-extensions '("md" "org"))))
 
 
 ;;; packages.el ends here
