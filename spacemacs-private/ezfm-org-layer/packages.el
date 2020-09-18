@@ -1,6 +1,13 @@
 (defconst ezfm-org-layer-packages
   '(org-roam
-    deft))
+    deft
+    org-ql))
+
+(defun ezfm-org-layer/init-org-ql ()
+  (quelpa
+   '(quelpa-use-package
+     :fetcher github
+     :repo "alphapapa/org-ql")))
 
 ;; Installed initially as a way to search org-roam notes
 (defun ezfm-org-layer/init-deft ()
