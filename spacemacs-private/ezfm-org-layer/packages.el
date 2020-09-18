@@ -1,5 +1,3 @@
-;; Layer wrapping and configuring the org-roam packages
-
 (defconst ezfm-org-layer-packages
   '(org-roam))
 
