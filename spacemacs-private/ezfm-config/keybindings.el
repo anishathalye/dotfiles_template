@@ -14,3 +14,6 @@
   (interactive)
   (ido-find-file-in-dir org-directory))
 (global-set-key (kbd "C-c f") 'my-org-finder)
+
+;; Org-journal
+(global-set-key (kbd "C-c j c") 'org-journal-open-current-journal-file)

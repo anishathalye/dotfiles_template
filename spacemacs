@@ -70,7 +70,6 @@ This function should only modify configuration layer settings."
           org-directory "~/org"
           org-startup-indented t
           org-todo-keywords '((sequence "TODO" "STARTED" "|" "DONE")))
-     org-roam ;; Layer wrapping org-raom defined in spacemacs-private dir
      neotree
      (shell :variables
             shell-default-shell 'multi-term
@@ -83,6 +82,7 @@ This function should only modify configuration layer settings."
                       version-control-diff-side 'left)
      ezfm-config
      themes-megapack
+     ezfm-org-layer ;; Layer contains additional org packages, e.g. org-roam etc.
      )
 
    ;; List of additional packages that will be installed without being

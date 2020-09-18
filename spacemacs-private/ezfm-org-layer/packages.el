@@ -1,9 +1,9 @@
 ;; Layer wrapping and configuring the org-roam packages
 
-(defconst org-roam-packages
+(defconst ezfm-org-layer-packages
   '(org-roam))
 
-(defun org-roam/init-org-roam ()
+(defun ezfm-org-layer/init-org-roam ()
   (use-package org-roam
     :hook
     (after-init . org-roam-mode)
