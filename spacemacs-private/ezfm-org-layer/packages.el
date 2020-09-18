@@ -1,5 +1,15 @@
 (defconst ezfm-org-layer-packages
-  '(org-roam))
+  '(org-roam
+    deft))
+
+;; Installed initially as a way to search org-roam notes
+(defun ezfm-org-layer/init-deft ()
+  (use-package deft
+    :commands (deft)
+    :init
+    (bind-key "C-c d" 'deft)
+    :config (setq deft-directory "~/org/notes"
+                  deft-extensions '("md" "org"))))
 
 (defun ezfm-org-layer/init-org-roam ()
   (use-package org-roam
