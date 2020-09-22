@@ -44,7 +44,11 @@
                                                 "rb" 'org-roam-switch-to-buffer
                                                 "rf" 'org-roam-find-file
                                                 "ri" 'org-roam-insert
-                                                "rg" 'org-roam-graph))
+                                                "rg" 'org-roam-graph)
+
+      ;; Global "emacs-style" bindings (I think). B/c it's annoying to have to exit
+      ;; vim edit mode to get access to the leader key to do an insert when writing a note.
+      (global-set-key (kbd "C-c r i") 'org-roam-insert))
     :config
     (setq org-roam-capture-templates
           '(("d" "default" plain (function org-roam--capture-get-point)
