@@ -20,6 +20,9 @@
 ;; ?
 (setq multi-term-program "/usr/local/bin/zsh")
 
+;; Org customization
+(setq org-log-into-drawer t)
+(setq org-treat-insert-todo-heading-as-state-change t)
 ;; Org-journal customization
 
 ;; custom fns
