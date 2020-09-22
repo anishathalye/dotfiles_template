@@ -26,6 +26,10 @@
     (org-roam-directory "~/org/notes")
     :init
     (progn
+      ;; Define fn to fetch list of org-roam files (using with org-ql)
+      (defun org-roam-files ()
+        (org-ql-search-directories-files :recurse "~/org/notes"))
+
       (spacemacs/declare-prefix "ar" "org-roam")
       (spacemacs/set-leader-keys
        "arl" 'org-roam
