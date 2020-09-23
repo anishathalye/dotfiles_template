@@ -11,7 +11,10 @@ if command -v rbenv 1>/dev/null 2>&1; then
 fi
 
 # For nvm
-export NVM_DIR="$HOME/.nvm"
+# Setting NVM_DIR to the actual dir in dotfiles b/c setting it to the link
+# was causing this prefix error, see solution here:
+# https://stackoverflow.com/a/58559982/1190586
+export NVM_DIR="$HOME/.dotfiles/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # this loads nvm
 
 # For pyenv: https://github.com/pyenv/pyenv
