@@ -28,7 +28,11 @@
          "* %?\n:PROPERTIES:\n:TASTED_ON: %u\n:WINE_TYPE: \n:VARIETY: \n:PRODUCER: \n:COUNTRY: \n:APPELLATION: \n:VINTAGE: \n:SCORE: \n:END:"
          :prepend t)
         ("h" "Habit" entry (file "~/org/habits.org")
-	       "* NEXT %?\nDEADLINE: <%<%Y-%m-%d %a .+1d>>\n:PROPERTIES:\n:CREATED: %U\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:LOGGING: DONE(!)\n:ARCHIVE: %%s_archive::* Habits\n:END:\n%U\n")))
+	       "* NEXT %?\nDEADLINE: <%<%Y-%m-%d %a .+1d>>\n:PROPERTIES:\n:CREATED: %U\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:LOGGING: DONE(!)\n:ARCHIVE: %%s_archive::* Habits\n:END:\n%U\n")
+        ("i" "Idea" entry (file "~/org/ideas.org")
+         "* IDEA %? %(org-set-tags-command)"
+         :created t
+         :prepend t)))
 
 ;; Org-journal customization
 ;;
