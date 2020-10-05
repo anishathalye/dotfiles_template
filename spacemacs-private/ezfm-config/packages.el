@@ -32,7 +32,7 @@
 ;;; Code:
 
 (defconst ezfm-config-packages
-  '()
+  '(exec-path-from-shell)
   "The list of Lisp packages required by the ezfm-config layer.
 
 Each entry is either:
@@ -60,7 +60,10 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
-
-
+(defun ezfm-config/init-exec-path-from-shell ()
+  :init
+  (progn
+    (when (memq window-system '(mac ns x))
+      (exec-path-from-shell-initialize))))
 
 ;;; packages.el ends here

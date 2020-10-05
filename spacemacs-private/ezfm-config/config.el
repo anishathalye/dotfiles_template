@@ -5,7 +5,16 @@
 (setq helm-split-window-default-side 'right)
 
 (setq js-indent-level 2)
-(setq css-indent-offset 2)
+(setq typescript-indent-level 2)
+(setq-default
+ ;; js2-mode
+ js2-basic-offset 2
+ ;; web-mode
+ css-indent-offset 2
+ web-mode-markup-indent-offset 2
+ web-mode-css-indent-offset 2
+ web-mode-code-indent-offset 2
+ web-mode-attr-indent-offset 2)
 
 ;; Disabling for now...
 ;; (add-hook 'js-mode-hook 'prettier-js-mode)
