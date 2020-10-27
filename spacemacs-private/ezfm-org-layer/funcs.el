@@ -1,3 +1,4 @@
+;; From: https://stackoverflow.com/a/31868530/1190586
 (defun my-org-screenshot ()
   "Take a screenshot into a time stamped unique-named file in the
 same directory as the org-buffer and insert a link to this file."
