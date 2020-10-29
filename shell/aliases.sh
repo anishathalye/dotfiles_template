@@ -141,3 +141,4 @@ alias plogs='docker-compose logs --follow rails'
 alias pdb='docker-compose exec dev-db psql -U postgres -h localhost primary_development'
 alias pe="docker-compose exec ${1} ${2}"
 alias preset-sidekiq="docker-compose rm -sf sidekiq && docker-compose up -d sidekiq"
+alias run-pry "docker-compose up -d && docker-compose stop rails && docker-compose run --rm -p3000:3000 rails bash"
