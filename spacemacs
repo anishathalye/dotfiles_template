@@ -71,7 +71,7 @@ This function should only modify configuration layer settings."
           org-enable-org-journal-support t
           org-directory "~/org"
           org-startup-indented t
-          org-todo-keywords '((sequence "TODO" "STARTED" "|" "DONE")))
+          org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "|" "DONE(d!)")))
      neotree
      (shell :variables
             shell-default-shell 'multi-term
