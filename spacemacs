@@ -37,7 +37,7 @@ This function should only modify configuration layer settings."
      csv
      osx
      (lsp :variables
-          lsp-ui-doc-enable f)
+          lsp-ui-doc-enable nil)
      ruby
      ruby-on-rails
      sql
@@ -530,7 +530,6 @@ This function is called at the very end of Spacemacs initialization."
      ("FIXME" . "#dc752f")
      ("XXX" . "#dc752f")
      ("XXXX" . "#dc752f")))
- '(lsp-ui-doc-position 'at-point)
  '(org-agenda-files
    '("~/org/habits.org" "~/org/cookbook.org" "~/org/to_read.org" "~/org/new.org" "~/org/journal"))
  '(package-selected-packages
