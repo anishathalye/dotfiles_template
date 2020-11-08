@@ -36,6 +36,8 @@ This function should only modify configuration layer settings."
    '(racket
      csv
      osx
+     ;; Using lsp with `typescript-languag-server` as that server works best.
+     ;; Installing it to npm global makes it possible for lsp-mode to detect it.
      (lsp :variables
           lsp-ui-doc-enable nil)
      ruby
@@ -511,7 +513,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))
+   '("5a0eee1070a4fc64268f008a4c7abfda32d912118e080e18c3c865ef864d1bea" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))
  '(evil-want-Y-yank-to-eol nil)
  '(hl-todo-keyword-faces
    '(("TODO" . "#dc752f")
