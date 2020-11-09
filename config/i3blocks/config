@@ -89,6 +89,10 @@ label=
 interval=1
 color=#0b90bd
 
+[wifi]
+command=/usr/bin/nm-applet
+interval=1
+
 #[time]
 #command=date '+%H:%M'
 #interval=1
