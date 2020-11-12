@@ -1,5 +1,6 @@
 (defconst ezfm-org-layer-packages
   '(org-roam
+    org-roam-bibtex
     deft
     org-ql))
 
@@ -17,6 +18,11 @@
     (bind-key "C-c d" 'deft)
     :config (setq deft-directory "~/org/notes"
                   deft-extensions '("md" "org"))))
+
+(defun ezfm-org-layer/init-org-roam-bibtex ()
+  (use-package org-roam-bibtex
+    :after org-roam
+    :hook (org-roam-mode . org-roam-bibtex-mode)))
 
 (defun ezfm-org-layer/init-org-roam ()
   (use-package org-roam
