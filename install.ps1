@@ -12,7 +12,9 @@ git submodule update --init --recursive $DOTBOT_DIR
 
 foreach ($PYTHON in ('python', 'python3', 'python2')) {
     # Python redirects to Microsoft Store in Windows 10 when not installed
-    if (Invoke-Expression "![string]::IsNullOrWhiteSpace(`$($PYTHON -V))" 2>&1 -ErrorAction SilentlyContinue) { 
+    if (& { $ErrorActionPreference = "SilentlyContinue"
+            ![string]::IsNullOrEmpty((&$PYTHON -V))
+            $ErrorActionPreference = "Stop" }) { 
         &$PYTHON $(Join-Path $BASEDIR $DOTBOT_DIR $DOTBOT_BIN) -d $BASEDIR -c $CONFIG $Args 
         return
     }
