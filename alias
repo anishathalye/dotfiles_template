@@ -328,7 +328,7 @@ alias split_flac_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name
 alias split_ape_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.ape` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.vw` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias music_player='mp3blaster'
-alias volume='pavulcontrol'
+alias volume='pavucontrol'
 
 ###########################
 # paragliding
