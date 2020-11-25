@@ -184,9 +184,13 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias copy='| xclip -sel clip'
 alias automount='udiskie &'
+alias update_linux='sudo mintupdate-launcher'
 
 alias irssi='screen irssi'
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
+alias cleanup_cache="brew cleanup && conda clean -a"
+
+alias vita_dock="mplayer tv:// -tv driver=v4l2:device=/dev/video2:width=960:height=544"
 
 function x(){
     if [ -f $1 ] ; then
@@ -221,6 +225,7 @@ alias ports='netstat -tulanp' # open ports
 alias ssh-add='ssh-add -t 10h'
 alias wifi_restart='sudo systemctl restart wpa_supplicant.service'
 alias wifi_connect_to='nmtui'
+alias wifi_configure='nm-applet'
 
 if command -v dig > /dev/null; then
     alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -323,7 +328,7 @@ alias split_flac_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name
 alias split_ape_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.ape` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.vw` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias music_player='mp3blaster'
-alias volume='pavulcontrol'
+alias volume='pavucontrol'
 
 ###########################
 # paragliding

@@ -5,7 +5,9 @@
 # | | |_ \| '_ \| |/ _ \ / __| |/ / __|
 # | |___) | |_) | | (_) | (__|   <\__ \
 # |_|____/|_.__/|_|\___/ \___|_|\_\___/
-
+#
+#
+# To reload Mod+Shift+C ; Mod+Shift+R
 align=center
 separator=true
 color=#ffffff
@@ -70,10 +72,17 @@ command=free -h --si | awk 'FNR==2{ print $0 }' | awk '{ print $7 }'
 interval=2
 label= 
 
+[volume_0]
+command=/usr/bin/pasystray
+interval=1
+#label= 
+color=#929596
+separator=false
+
 [volume]
 command=~/.config/i3blocks/blocks/volume/volume
 interval=1
-label= 
+#label= 
 signal=1
 color=#929596
 
@@ -83,11 +92,15 @@ label=
 interval=1
 color=#eddd00
 
-[bluetooth]
-command=~/.config/i3blocks/bluetooth
-label= 
+#[bluetooth]
+#command=~/.config/i3blocks/bluetooth
+#label= 
+#interval=1
+#color=#0b90bd
+
+[wifi]
+command=/usr/bin/nm-applet
 interval=1
-color=#0b90bd
 
 #[time]
 #command=date '+%H:%M'
