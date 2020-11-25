@@ -58,6 +58,24 @@ services:
     ports:
       - 8080:4040
     restart: unless-stopped
+########################
+# airsonic advanced
+  airsonic-advanced:
+    image: airsonicadvanced/airsonic-advanced:latest
+    container_name: airsonic-advanced
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - JAVA_OPTS=-Xmx2g
+    volumes:
+      - $DOCKER_CONFIG_PATH/airsonic-advanced:/var/airsonic
+      - $MUSIC_PATH:/var/music:ro
+      - $PLAYLISTS_AIRSONIC_ADVANCED_PATH:/var/playlists
+      - $PODCASTS_PATH:/var/podcasts
+    ports:
+      - 8081:4040
+    restart: unless-stopped
 ###############
 #  navidrome:
     #image: deluan/navidrome:latest
@@ -402,35 +420,45 @@ services:
     ports:
         - '3321:8080'
     volumes:
-        - '$SERVER_PATH:/usr/local/apache2/htdocs/share/'
+      - $SERVER_PATH:/usr/local/apache2/htdocs/share/:ro
     image: apax
     restart: unless-stopped
 ###############
 #### ifm ; run first: docker-compose build ifm
-  ifm:
-    image: ifm
-    container_name: ifm
-    build:
-      context: ifm
-      dockerfile: docker/Dockerfile
-    ports:
-        - 3323:80
-    environment:
-      - IFM_DOCKER_UID=1000
-      - IFM_DOCKER_GID=100
-    volumes:
-      - $SERVER_PATH:/var/www:ro
-  explorer:
-    image: explorer
-    container_name: explorer
-    build:
-      context: explorer
-      dockerfile: Dockerfile
-    volumes:
-      - $DOCKER_CONFIG_PATH/explorer:/opt/explorer
-      - $SERVER_PATH:/server_data:ro
-    ports:
-      - 4859:4859
+#  ifm:
+    #image: ifm
+    #container_name: ifm
+    #build:
+      #context: ifm
+      #dockerfile: Dockerfile
+    #ports:
+        #- 3323:80
+    #environment:
+      #- IFM_DOCKER_UID=1000
+      #- IFM_DOCKER_GID=100
+      #- IFM_API_CHMOD=0
+      #- IFM_API_COPYMOVE=0
+      #- IFM_API_CREATEDIR=0
+      #- IFM_API_CREATEFILE=0
+      #- IFM_API_EDIT=0
+      #- IFM_API_DELETE=0
+      #- IFM_API_EXTRACT=0
+      #- IFM_API_RENAME=0
+      #- IFM_API_ZIPNLOAD=1
+      #- IFM_API_DOWNLOAD=1
+    #volumes:
+#      - $SERVER_PATH:/var/www:ro
+#  explorer:
+    #image: explorer
+    #container_name: explorer
+    #build:
+      #context: explorer
+      #dockerfile: Dockerfile
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/explorer:/opt/explorer
+      #- $SERVER_PATH:/server_data:ro
+    #ports:
+#      - 4859:4859
 #############
 # to store icons for organizr help page
   tecmint-web:
@@ -703,7 +731,7 @@ services:
       - TZ=$TZ
       - SERVERURL=${DUCKDNS_DOMAIN}.duckdns.org
       - SERVERPORT=53 #optional
-      - PEERS=1 #optional
+      - PEERS=2 #optional
       - PEERDNS=auto #optional
       - INTERNAL_SUBNET=10.13.13.0 #optional
     volumes:
