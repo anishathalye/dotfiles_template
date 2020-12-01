@@ -46,7 +46,8 @@ label=
 color=#bdb637
 
 [bfunk-vpn]
-command=~/.config/i3blocks/blocks/openvpn/openvpn
+#command=~/.config/i3blocks/blocks/openvpn/openvpn
+command=ifconfig |grep -qE bfunk: && echo bfunk up || echo bfunk down
 instance=home
 interval=2
 label= 
@@ -102,16 +103,13 @@ color=#eddd00
 command=/usr/bin/nm-applet
 interval=1
 
-#[time]
-#command=date '+%H:%M'
-#interval=1
-#label= 
 
 [date]
-command=date '+%a %e/%I:%M'
-interval=60
-#label=<span color="#8be9fd"> </span>
+command=date '+%a,%e %I:%M'
+interval=6
+label=<span color="#8be9fd"> </span>
 label= 
+
 
 [shutdown_menu]
 full_text=<span color="#a9e185"> </span>

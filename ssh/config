@@ -17,6 +17,16 @@ Host *-aws
   Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
 
+Host 4-nec-hob
+  Hostname %h.emii.org.au
+  Proxycommand ssh -q jumpbox nc -q0 %h %p
+  ForwardAgent yes
+
+Host 10-aws-syd
+  Hostname %h.emii.org.au
+  Proxycommand ssh -q jumpbox nc -q0 %h %p
+  ForwardAgent yes
+
 Host commandpost
   Hostname %h.aodn.org.au
   Proxycommand ssh -q jumpbox nc -q0 %h %p
