@@ -14,9 +14,9 @@ foreach ($PYTHON in ('python', 'python3', 'python2')) {
     # Python redirects to Microsoft Store in Windows 10 when not installed
     if (& { $ErrorActionPreference = "SilentlyContinue"
             ![string]::IsNullOrEmpty((&$PYTHON -V))
-            $ErrorActionPreference = "Stop" }) { 
-        &$PYTHON $(Join-Path $BASEDIR $DOTBOT_DIR $DOTBOT_BIN) -d $BASEDIR -c $CONFIG $Args 
+            $ErrorActionPreference = "Stop" }) {
+        &$PYTHON $(Join-Path $BASEDIR -ChildPath $DOTBOT_DIR | Join-Path -ChildPath $DOTBOT_BIN) -d $BASEDIR -c $CONFIG $Args
         return
     }
 }
-Write-Error "Error: Cannot find Python." 
+Write-Error "Error: Cannot find Python."
