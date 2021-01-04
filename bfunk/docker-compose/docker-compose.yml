@@ -702,6 +702,28 @@ services:
     ports:
       - 6768:6767
     restart: unless-stopped
+###############
+  komga:
+    image: gotson/komga
+    container_name: komga
+    volumes:
+      - type: bind
+        source: $DOCKER_CONFIG_PATH/komga
+        target: /config
+      - type: bind
+        source: $COMICS_PATH/french/
+        target: /books
+        read_only: true
+      - type: bind
+        source: /etc/timezone
+        target: /etc/timezone
+        read_only: true
+    ports:
+      - 9980:8080
+    user: "1000:1000"
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx2g
+    restart: unless-stopped
 ########################
 #### h5ai - file browser
   #h5ai:
@@ -827,24 +849,4 @@ volumes:
   netdatacache:
 
 ###################
-  komga:
-    image: gotson/komga
-    container_name: komga
-    volumes:
-      - type: bind
-        source: $DOCKER_CONFIG_PATH/komga
-        target: /config
-      - type: bind
-        source: $COMICS_PATH/french/
-        target: /books
-        read_only: true
-      - type: bind
-        source: $TZ
-        target: /etc/timezone
-        read_only: true
-    ports:
-      - 9980:8080
-    user: "1000:1000"
-    environment:
-      - JAVA_TOOL_OPTIONS=-Xmx2g
-    restart: unless-stopped
+
