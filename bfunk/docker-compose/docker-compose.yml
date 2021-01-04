@@ -331,22 +331,22 @@ services:
       - 9117:9117
     restart: unless-stopped
 ####################
-#  booksonic:
-    #image: linuxserver/booksonic
-    #container_name: booksonic
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=$TZ
-      ##- CONTEXT_PATH=url-base
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/booksonic:/config
-      #- $AUDIOBOOKS_PATH:/audiobooks:ro
-      #- $PODCASTS_PATH:/podcasts:ro
-      ##- /path/to/othermedia:/othermedia
-    #ports:
-      #- 4040:4040
-#    restart: unless-stopped
+  booksonic-air:
+    image: ghcr.io/linuxserver/booksonic-air
+    container_name: booksonic-air
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      #- CONTEXT_PATH=url-base
+    volumes:
+      - $DOCKER_CONFIG_PATH/booksonic:/config
+      - $AUDIOBOOKS_PATH:/audiobooks:ro
+      - $PODCASTS_PATH:/podcasts:ro
+      #- /path/to/othermedia:/othermedia
+    ports:
+      - 4040:4040
+    restart: unless-stopped
 ################
   pyload:
     image: linuxserver/pyload
@@ -825,3 +825,26 @@ services:
 volumes:
   netdatalib:
   netdatacache:
+
+###################
+  komga:
+    image: gotson/komga
+    container_name: komga
+    volumes:
+      - type: bind
+        source: $DOCKER_CONFIG_PATH/komga
+        target: /config
+      - type: bind
+        source: $COMICS_PATH/french/
+        target: /books
+        read_only: true
+      - type: bind
+        source: $TZ
+        target: /etc/timezone
+        read_only: true
+    ports:
+      - 9980:8080
+    user: "1000:1000"
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx2g
+    restart: unless-stopped
