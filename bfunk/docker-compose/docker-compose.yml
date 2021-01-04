@@ -711,7 +711,7 @@ services:
         source: $DOCKER_CONFIG_PATH/komga
         target: /config
       - type: bind
-        source: $COMICS_PATH/french/
+        source: $COMICS_PATH/
         target: /books
         read_only: true
       - type: bind
