@@ -455,9 +455,20 @@ function comic_repack_corrupt_archive2cbz(){
         return 1
     fi
 
-    arepack "$ARCHIVE_FILE_PATH" "${ARCHIVE_FILE_PATH%.*}.zip"
-    mv -f "$ARCHIVE_FILE_PATH" "$ARCHIVE_FILE_DIRNAME"/."$ARCHIVE_FILE_NAME" && \
-      mv -f "${ARCHIVE_FILE_PATH%.*}.zip"  "${ARCHIVE_FILE_PATH%.*}.cbz"
+    if [[ "$ARCHIVE_FILE" = *.cbz ]]; then
+        arepack "$ARCHIVE_FILE_PATH" "${ARCHIVE_FILE_PATH%.*}.rar"
+        mv -f "$ARCHIVE_FILE_PATH" "$ARCHIVE_FILE_DIRNAME"/."$ARCHIVE_FILE_NAME" # archive original 
+
+        arepack "${ARCHIVE_FILE_PATH%.*}.rar" "${ARCHIVE_FILE_PATH%.*}.zip" # reconvert to zip
+        rm -f "${ARCHIVE_FILE_PATH%.*}.rar"
+        mv -f "${ARCHIVE_FILE_PATH%.*}.zip"  "${ARCHIVE_FILE_PATH%.*}.cbz"
+    elif [[ "$ARCHIVE_FILE" = *.cbr ]]; then
+        arepack "$ARCHIVE_FILE_PATH" "${ARCHIVE_FILE_PATH%.*}.zip"
+        mv -f "$ARCHIVE_FILE_PATH" "$ARCHIVE_FILE_DIRNAME"/."$ARCHIVE_FILE_NAME" && \
+          mv -f "${ARCHIVE_FILE_PATH%.*}.zip"  "${ARCHIVE_FILE_PATH%.*}.cbz"
+    else
+        echo "unknown extension"
+    fi
 
     # remove file from archive
     zip -o -d "${ARCHIVE_FILE_PATH%.*}.cbz" \*crg.gif \*ner0.jpg \*ner0_lee.jpg
