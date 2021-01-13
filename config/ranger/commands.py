@@ -14,7 +14,19 @@ class rcomics(Command):
             album_dir = os.path.basename(os.path.dirname(os.path.realpath(file)))
             os.rename(file, '{prefix} - {filename}'.format(prefix=album_dir,
                                                            filename=file))
+class mcomics(Command):
+    """
+    :move selected comic to a folder of the same name
+    """
+    def execute(self):
+        import os
+        files = [f.relative_path for f in self.fm.thistab.get_selection()]
 
+        for file in files:
+            album_dir = os.path.splitext(file)[0]
+            os.makedirs(album_dir)
+            os.rename(file, os.path.join(album_dir,
+                                         file))
 
 class fzf_select(Command):
     """

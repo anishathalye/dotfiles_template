@@ -1,6 +1,12 @@
 stackman deploy
 stackman info --show-secrets
 
+# destroy
+stackman destroy -n aodnstack-lbesnard
+stackman info  # status: DELETE_IN_PROGRESS -> then  Stack 'aodnstack-lbesnard' status: NOT_DEPLOYED
+
+
+
 CREATE ROLE test LOGIN
   NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION PASSWORD 'test';
 GRANT harvest_read_group TO test;
