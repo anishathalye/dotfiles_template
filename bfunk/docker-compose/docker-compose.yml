@@ -130,23 +130,23 @@ services:
       - 8083:8083
     restart: unless-stopped
 ##############
-  ubooquity:
-    image: linuxserver/ubooquity
-    container_name: ubooquity
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - MAXMEM=1024
-    volumes:
-      - $DOCKER_CONFIG_PATH/ubooquity:/config
-      - $EBOOKS_PATH:/books:ro
-      - $COMICS_PATH:/comics:ro
-      - $SERVER_PATH:/files:ro
-    ports:
-      - 2202:2202
-      - 2203:2203
-    restart: unless-stopped
+#  ubooquity:
+    #image: linuxserver/ubooquity
+    #container_name: ubooquity
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=${TZ}
+      #- MAXMEM=1024
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/ubooquity:/config
+      #- $EBOOKS_PATH:/books:ro
+      #- $COMICS_PATH:/comics:ro
+      #- $SERVER_PATH:/files:ro
+    #ports:
+      #- 2202:2202
+      #- 2203:2203
+#    restart: unless-stopped
 #####################################
 #  organizr:
     #image: linuxserver/organizr

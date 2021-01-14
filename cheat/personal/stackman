@@ -14,5 +14,5 @@ GRANT harvest_reporting_write_group TO test;
 GRANT harvest_write_group TO TEST;
 
 GRANT test TO imosadmin;
-CREATE SCHEMA test 
+CREATE SCHEMA test
   AUTHORIZATION test;
