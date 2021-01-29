@@ -68,3 +68,7 @@ see https://github.com/gpakosz/.tmux
 # 
 ctrl b  # for remote
 ctrl a  # for local 
+
+
+# fullscreen / zoom
+ctrl a/b z

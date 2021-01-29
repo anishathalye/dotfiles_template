@@ -112,7 +112,7 @@ services:
       - $SERVER_PATH/torrent:/torrent
     ports:
       - 7080:8080
-      - 7081:8081
+      - 8081:8081
     restart: always
 ######################################
   calibre-web:
