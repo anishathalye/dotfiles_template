@@ -715,6 +715,10 @@ services:
         target: /books
         read_only: true
       - type: bind
+        source: $MAGAZINES_PATH/
+        target: /magazines
+        read_only: true
+      - type: bind
         source: /etc/timezone
         target: /etc/timezone
         read_only: true
