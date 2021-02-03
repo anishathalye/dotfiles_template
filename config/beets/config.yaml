@@ -185,6 +185,9 @@ replace:
     '\.$': _
     '\s+$': ''
     '^\s+': ''
+    '[\xe2\x80\x90]': '-'
+    '[\u2010]': '-'
+    '‐': '-'
 
 rewrite:
     artist The Jimi Hendrix Experience: Jimi Hendrix
