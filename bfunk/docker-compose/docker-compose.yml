@@ -531,14 +531,14 @@ services:
     restart: unless-stopped
 ################
 ####### notes
-  codimd:
-    image: linuxserver/codimd:1.5.0-ls27
-    container_name: codimd
+  hedgedoc:
+    image: ghcr.io/linuxserver/hedgedoc:latest
+    container_name: hedgedoc
     restart: always
     depends_on:
       - mariadb
     volumes:
-      - $DOCKER_CONFIG_PATH/codim:/config
+      - $DOCKER_CONFIG_PATH/codimd:/config
     environment:
       - DB_HOST=$DB_HOST
       - DB_USER=$DB_CODIMD_USER
