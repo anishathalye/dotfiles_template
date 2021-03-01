@@ -1,8 +1,10 @@
 (defconst ezfm-org-layer-packages
   '(org-roam
     org-roam-bibtex
+    helm-bibtex
     deft
-    org-ql))
+    org-ql
+    org-ref))
 
 (defun ezfm-org-layer/init-org-ql ()
   (quelpa
@@ -19,10 +21,78 @@
     :config (setq deft-directory "~/org/notes"
                   deft-extensions '("md" "org"))))
 
+(defun ezfm-org-layer/init-helm-bibtex ()
+  :init
+  (progn
+    (setq bibtex-completion-notes-path "~/org/notes/"
+          bibtex-completion-bibliography "~/org/sources/zotero-library.bib"
+          bibtex-completion-pdf-field "file"
+          bibtex-completion-notes-template-multiple-files
+          (concat
+           "#+TITLE: ${title}\n"
+           "#+ROAM_KEY: cite:${=key=}\n"
+           "* TODO Notes\n"
+           ":PROPERTIES:\n"
+           ":Custom_ID: ${=key=}\n"
+           ":NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n"
+           ":AUTHOR: ${author-abbrev}\n"
+           ":JOURNAL: ${journaltitle}\n"
+           ":DATE: ${date}\n"
+           ":YEAR: ${year}\n"
+           ":DOI: ${doi}\n"
+           ":URL: ${url}\n"
+           ":END:\n\n")
+          )))
+
+(defun parse-last-name (citekey)
+  (let* ((entry (bibtex-completion-get-entry citekey))
+         (author-or-editor-abbrev (bibtex-completion-apa-get-value "author-or-editor-abbrev" entry)))
+    (downcase (first (split-string author-or-editor-abbrev ",")))))
+
 (defun ezfm-org-layer/init-org-roam-bibtex ()
   (use-package org-roam-bibtex
     :after org-roam
-    :hook (org-roam-mode . org-roam-bibtex-mode)))
+    :hook (org-roam-mode . org-roam-bibtex-mode)
+    :config
+    (setq orb-slug-source 'title)
+    (setq orb-preformat-keywords
+          '("=key=" "title" "url" "file" "author-or-editor" "keywords" ))
+    (setq orb-templates
+          '(("r" "ref" plain (function org-roam-capture--get-point)
+             ""
+             :file-name "%(parse-last-name \"${=key=}\")_${slug}_%<%Y%m%d%H%M%S>"
+             :head "#+TITLE: ${author-or-editor}: ${title}\n#+ROAM_KEY: ${ref}
+
+- tags ::
+- keywords :: ${keywords}
+
+\n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :END:\n\n"
+             :unnarrowed t)))))
+
+(defun ezfm-org-layer/init-org-ref ()
+  (use-package org-ref-acronym-color
+    :config
+    (setq org-ref-completion-library 'org-ref-ivy-cite
+          org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
+          org-ref-default-bibliography (list "~/org/sources/zotero-library.bib")
+          org-ref-bibliography-notes "~/org/sources/bibliography-notes.org"
+          org-ref-notes-directory "~/org/notes"
+          org-rf-notes-function 'orb-edit-notes
+          org-ref-note-title-format
+          (concat
+           "* TODO %y - %t\n"
+           ":PROPERTIES:\n"
+           ":Custom_ID: %k\n"
+           ":NOTER_DOCUMENT: %F\n"
+           ":ROAM_KEY: cite:%k\n"
+           ":AUTHOR: %9a\n"
+           ":JOURNAL: %j\n"
+           ":YEAR: %y\n"
+           ":VOLUME: %v\n"
+           ":PAGES: %p\n"
+           ":DOI: %D\n"
+           ":URL: %U\n"
+           ":END:\n\n"))))
 
 (defun ezfm-org-layer/init-org-roam ()
   (use-package org-roam
