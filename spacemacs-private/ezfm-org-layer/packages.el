@@ -17,9 +17,13 @@
   (use-package deft
     :commands (deft)
     :init
-    (bind-key "C-c d" 'deft)
-    :config (setq deft-directory "~/org/notes"
-                  deft-extensions '("md" "org"))))
+    (defvar my/deft-dir-list '()
+      "A list of deft directorie to pick from.")
+    (setq my/deft-dir-list '("~/org/notes"
+                             "~/org/journal")
+          deft-directory "~/org/notes"
+          deft-extensions '("md" "org" ))
+    (bind-key "C-c d" 'deft)))
 
 (defun ezfm-org-layer/init-helm-bibtex ()
   :init
