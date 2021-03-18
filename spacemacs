@@ -49,6 +49,7 @@ This function should only modify configuration layer settings."
      coffeescript
      markdown
      clojure
+     notespace-bindings ;; keybindings for using scicloj/notespace
      docker
      (python :variables
              python-test-runner '(pytest nose)
