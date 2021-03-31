@@ -27,6 +27,9 @@ if [ -d $HOME/github_repo ]; then
     export GITHUB_DIR=$HOME/github_repo
     export CHEF_DIR="$GITHUB_DIR/chef"
     export DATA_SERVICES_DIR="$GITHUB_DIR/chef/src/data-services"
+    export WIP_DIR="/tmp/WIP_DIR/"
+    export INCOMING_DIR="/tmp/INCOMING_DIR/"
+    export ERROR_DIR="/tmp/ERROR_DIR/"
     export PYTHONPATH=$DATA_SERVICES_DIR/lib/python
 fi
 

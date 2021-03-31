@@ -80,6 +80,7 @@ Plug 'tell-k/vim-autopep8'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tmhedberg/SimpylFold'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'  " github vim
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'yann2192/vim-colorschemes'
@@ -272,8 +273,6 @@ else
 endif
 
 
-" Paste from clipboard
-map <leader>p "+p
 
 " Quit window on <leader>q
 nnoremap <leader>q :q!<CR>
@@ -584,3 +583,13 @@ autocmd FileType yaml setlocal ts=4 sts=2 sw=2 expandtab
 
 " smart edit, auto sudo on file
 let g:suda_smart_edit = 1
+
+
+" " Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" Paste from clipboard
+map <leader>p "+p
