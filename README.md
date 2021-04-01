@@ -3,8 +3,9 @@ Dotfiles Template
 
 This is a template repository for bootstrapping your dotfiles with [Dotbot][dotbot].
 
-To get started, you can [fork][fork] this repository (and probably delete this
-README and rename your version to something like just `dotfiles`).
+To get started, you can [create a new repository from this template][template]
+(or you can [fork][fork] this repository, if you prefer). You can probably
+delete this README and rename your version to something like just `dotfiles`.
 
 In general, you should be using symbolic links for everything, and using git
 submodules whenever possible.
@@ -47,6 +48,7 @@ Dotbot (or this repository) to help other people discover Dotbot.
 
 [dotbot]: https://github.com/anishathalye/dotbot
 [fork]: https://github.com/anishathalye/dotfiles_template/fork
+[template]: https://github.com/anishathalye/dotfiles_template/generate
 [anishathalye_dotfiles]: https://github.com/anishathalye/dotfiles
 [csivanich_dotfiles]: https://github.com/csivanich/dotfiles
 [m45t3r_dotfiles]: https://github.com/m45t3r/dotfiles
