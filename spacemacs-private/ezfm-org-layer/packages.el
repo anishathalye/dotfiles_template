@@ -3,7 +3,7 @@
     org-roam-bibtex
     helm-bibtex
     deft
-    org-ql
+    ;; org-ql ; disbling for now- not using
     org-ref))
 
 (defun ezfm-org-layer/init-org-ql ()
