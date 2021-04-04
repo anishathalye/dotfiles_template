@@ -1,5 +1,5 @@
 ;; From: https://stackoverflow.com/a/31868530/1190586
-(defun my-org-screenshot ()
+(defun my/org-screenshot ()
   "Take a screenshot into a time stamped unique-named file in the
 same directory as the org-buffer and insert a link to this file."
   (interactive)
@@ -20,3 +20,11 @@ same directory as the org-buffer and insert a link to this file."
                                         ; insert into file if correctly taken
   (if (file-exists-p filename)
       (insert (concat "[[file:" filename "]]"))))
+
+(defun my/pick-deft-dir ()
+  "Select directories from a list"
+  (interactive)
+  (setq deft-directory
+        (ido-completing-read "Select directory: " my/deft-dir-list))
+  (message deft-directory)
+  (deft-refresh))
