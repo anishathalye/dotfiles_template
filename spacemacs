@@ -75,7 +75,16 @@ This function should only modify configuration layer settings."
           org-enable-org-journal-support t
           org-directory "~/org"
           org-startup-indented t
-          org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "|" "DONE(d!)")))
+          org-todo-keywords '((sequence "NEXT(n)"
+                                        "TODO(t)"
+                                        "REVIEW(r)"
+                                        "STARTED(s)" "|" "DONE(d!)"))
+          org-todo-keyword-faces '(("TODO" . "#dc752f")
+                                   ("NEXT" . "#dc752f")
+                                   ("STARTED" . "#7c82ff")
+                                   ("REVIEW" . "#7c82ff")
+                                   ("DONE" . "#86dc2f")
+                                   ("NOTE" . "#b1951d")))
      neotree
      (shell :variables
             shell-default-shell 'multi-term
@@ -520,7 +529,8 @@ This function is called at the very end of Spacemacs initialization."
  '(hl-todo-keyword-faces
    '(("TODO" . "#dc752f")
      ("NEXT" . "#dc752f")
-     ("STARTED" . "#4f97d7")
+     ("STARTED" . "#7c82ff")
+     ("REVIEW" . "#bba79c")
      ("DONE" . "#86dc2f")
      ("NOTE" . "#b1951d")))
  '(org-agenda-files
