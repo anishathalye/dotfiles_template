@@ -51,3 +51,8 @@ case "$chosen" in
     clone) xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --auto --same-as $INTERNAL_OUTPUT ;;
     dual) xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --auto --right-of $INTERNAL_OUTPUT --primary ;;
 esac
+
+
+# reload i3 config to make sure the top bar is reloaded/redrawn properly
+i3-msg reload
+i3-msg restart

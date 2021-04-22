@@ -44,15 +44,13 @@ if [ -x "$path_to_lsd" ] ; then
     alias lt='ls --tree'
 fi
 
-alias ls_recur="find . -type f -exec ls -l {} \; 2> /dev/null | sort -t' ' -k +6,6 -k +7,7"
-
 
 ##########################
 # CHEF cooking + Ansible provisionning
 ##########################
 alias chef_cd="cd $CHEF_DIR"
-alias talend="chef_cd && ./bin/talend7-pipeline.sh"
 alias chef_private_cd="cd $CHEF_DIR/../chef-private"
+alias talend="chef_cd && ./bin/talend7-pipeline.sh"
 alias chef_imos="chef_cd && rm -f private; ln -s ../chef-private private"
 alias chef_pipeline_box_start="chef_cd &&  ./bin/pipeline-box.sh"
 alias chef_pipeline_box_provision="chef_cd && vagrant provision pipeline"

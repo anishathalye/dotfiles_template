@@ -380,6 +380,8 @@ nmap s <Plug>(easymotion-overwin-f2)
 
 " Move to line
 map <Leader>L <Plug>(easymotion-bd-jk)
+" Paste from clipboard
+map <leader>p "+p
 nmap <Leader>L <Plug>(easymotion-overwin-line)
 
 " Move to word
