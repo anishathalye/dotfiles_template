@@ -8,9 +8,9 @@ services:
       - PGID=1000
       - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
       - TZ=$TZ
-      - MYSQL_DATABASE=$DB_PIWIGO_SCHEMA #optional
-      - MYSQL_USER=$DB_PIWIGO_USER #optional
-      - MYSQL_PASSWORD=$DB_PIWIGO_PASS #optional
+      - MYSQL_DATABASE=$DB_PIWIGO_SCHEMA
+      - MYSQL_USER=$DB_PIWIGO_USER
+      - MYSQL_PASSWORD=$DB_PIWIGO_PASS
     volumes:
       - $DOCKER_CONFIG_PATH/mariadb:/config
     ports:
@@ -24,7 +24,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - UMASK_SET=<022> #optional
+      - UMASK=022 #optional
+      - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
     volumes:
       - $DOCKER_CONFIG_PATH/jellyfin:/config
       - ${TV_SHOWS_PATH}:/data/tvshows:ro
@@ -33,69 +34,53 @@ services:
       - $MOVIES_SPORT_PATH:/data/movies_adventure_sports:ro
       - $YOGA_GLO_PATH:/data/yoga_glo:ro
       - $GUITAR_VIDEOS_PATH:/data/guitar:ro
-    #volumes:
-      #- </path for transcoding>:/transcode #optional
+      - /dev/dri:/dev/dri #optional
     ports:
       - 8096:8096
-    #ports:
-    #  - 8920:8920 #optional
+      - 7359:7359/udp #optional
+      - 1900:1900/udp #optional
     devices:
       - /dev/dri:/dev/dri #optional
     restart: unless-stopped
 ###########################################
-  airsonic:
-    image: linuxserver/airsonic:latest
-    container_name: airsonic
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-    volumes:
-      - $DOCKER_CONFIG_PATH/airsonic:/config
-      - $MUSIC_PATH:/music:ro
-      - $PLAYLISTS_PATH:/playlists
-      - $PODCASTS_PATH:/podcasts
-    ports:
-      - 8080:4040
-    restart: unless-stopped
-########################
-# airsonic advanced
-#  airsonic-advanced:
-    #image: airsonicadvanced/airsonic-advanced:latest
-    #container_name: airsonic-advanced
+#  airsonic:
+    #image: linuxserver/airsonic:latest
+    #container_name: airsonic
     #environment:
       #- PUID=1000
       #- PGID=1000
       #- TZ=${TZ}
-      #- JAVA_OPTS=-Xmx2g
     #volumes:
-      #- $DOCKER_CONFIG_PATH/airsonic-advanced:/var/airsonic
-      #- $MUSIC_PATH:/var/music:ro
-      #- $PLAYLISTS_AIRSONIC_ADVANCED_PATH:/var/playlists
-      #- $PODCASTS_PATH:/var/podcasts
+      #- $DOCKER_CONFIG_PATH/airsonic:/config
+      #- $MUSIC_PATH:/music:ro
+      #- $PLAYLISTS_PATH:/playlists
+      #- $PODCASTS_PATH:/podcasts
+    #devices:
+      #- /dev/snd:/dev/snd #optional
     #ports:
-      #- 8081:4040
-    #restart: unless-stopped
-################
-#  navidrome:
-    #image: deluan/navidrome:latest
-    #container_name: navidrome
-    ##user: 1000:1000 # should be owner of volumes
-    #ports:
-      #- "4533:4533"
-    #restart: unless-stopped
-    #environment:
-      #PUID: 1000
-      #PGID: 1000
-      #TZ: ${TZ}
-      ## Put your config options customization here
-      #ND_SCANINTERVAL: 1d
-      #ND_LOGLEVEL: info
-      #ND_SESSIONTIMEOUT: 24h
-      #ND_BASEURL: ""
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/navidrome:/data
-#      - $MUSIC_PATH:/music:ro
+      #- 8080:4040
+#    restart: unless-stopped
+########################
+# airsonic advanced
+  airsonic-advanced:
+    image: airsonicadvanced/airsonic-advanced:latest
+    container_name: airsonic-advanced
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - JAVA_OPTS=-Xmx2g
+    volumes:
+      - $DOCKER_CONFIG_PATH/airsonic-advanced:/var/airsonic
+      - $MUSIC_PATH:/music:ro
+      #- $PLAYLISTS_AIRSONIC_ADVANCED_PATH:/playlists
+      - $PLAYLISTS_PATH:/playlists
+      - $PODCASTS_PATH:/podcasts
+    devices:
+      - /dev/snd:/dev/snd #optional
+    ports:
+      - 8080:4040
+    restart: unless-stopped
 ######################################
   calibre:
     image: linuxserver/calibre
@@ -108,8 +93,8 @@ services:
       #- GUAC_PASS=admin
     volumes:
       - $EBOOKS_PATH:/config
-      - $SERVER_PATH/share:/share
-      - $SERVER_PATH/torrent:/torrent
+      - $SHARE_PATH:/share
+      - $TORRENT_PATH:/torrent
     ports:
       - 7080:8080
       - 8081:8081
@@ -129,51 +114,6 @@ services:
     ports:
       - 8083:8083
     restart: unless-stopped
-##############
-#  ubooquity:
-    #image: linuxserver/ubooquity
-    #container_name: ubooquity
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=${TZ}
-      #- MAXMEM=1024
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/ubooquity:/config
-      #- $EBOOKS_PATH:/books:ro
-      #- $COMICS_PATH:/comics:ro
-      #- $SERVER_PATH:/files:ro
-    #ports:
-      #- 2202:2202
-      #- 2203:2203
-#    restart: unless-stopped
-#####################################
-#  organizr:
-    #image: linuxserver/organizr
-    #container_name: organizr
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=${TZ}
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/organizr:/config
-    #ports:
-      #- 1111:80
-#    restart: unless-stopped
-####################################
-#  heimdall:
-    #image: linuxserver/heimdall
-    #container_name: heimdall
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=${TZ}
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/heimdall:/config
-    #ports:
-      #- 1112:80
-      #- 443:443
-    #restart: unless-stopped
 #####################################
   homer:
     image: b4bz/homer:latest
@@ -189,29 +129,6 @@ services:
       - 1113:8080
     restart: unless-stopped
 #####################################
-#  fleet:
-    #image: linuxserver/fleet
-    #container_name: fleet
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- fleet_admin_authentication_type=DATABASE
-      #- fleet_database_url=$DB_FLEET_URL
-      #- fleet_database_username=$DB_FLEET_USER
-      #- fleet_database_password=$DB_FLEET_PASS
-      #- fleet_dockerhub_username=$DOCKERHUB_USER
-      #- fleet_dockerhub_password=$DOCKERHUB_PASS
-      #- fleet_refresh_interval=60 #optional
-      #- fleet_admin_secret=$FLEET_ADMIN_SECRET#optional
-      ##- fleet_admin_username=admin #optional
-      ##- fleet_admin_password=secretpassword #optional
-      #- fleet_skip_sync_on_startup=true #optional
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/fleet:/config
-    #ports:
-      #- 9999:8080
-#    restart: unless-stopped
-#############################
   nextcloud:
     image: linuxserver/nextcloud
     container_name: nextcloud
@@ -225,20 +142,6 @@ services:
     ports:
       - 9393:443
     restart: unless-stopped
-###################
-#  pydio:
-    #image: linuxserver/pydio
-    #container_name: pydio
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=$TZ
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/pydio:/config
-      #- $SERVER_PATH:/data
-    #ports:
-      #- 7575:443
-#    restart: unless-stopped
 ##################
   piwigo:
     image: linuxserver/piwigo
@@ -265,22 +168,22 @@ services:
     ports:
       - 61208:61208
 ###############
-  #lidarr:
-    #image: linuxserver/lidarr
-    #container_name: lidarr
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=$TZ
-      #- UMASK_SET=022 #optional
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/lidarr:/config
-      #- $MUSIC_PATH:/music:ro
-      #- $TORRENT_PATH/LIDARR_DL:/downloads
-      #- $TORRENT_PATH/completed:/data/completed
-    #ports:
-      #- 8686:8686
-#    restart: unless-stopped
+  lidarr:
+    image: linuxserver/lidarr
+    container_name: lidarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - UMASK_SET=022 #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/lidarr:/config
+      - $MUSIC_PATH:/music
+      - $TORRENT_PATH:/data
+      - $TORRENT_PATH/LIDARR_DL:/data/LIDARR_DL
+    ports:
+      - 8686:8686
+    restart: unless-stopped
 #############
   radarr:
     image: linuxserver/radarr
@@ -289,7 +192,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=$TZ
-      - UMASK_SET=022 #optional
+      - UMASK=022 #optional
     volumes:
       - $DOCKER_CONFIG_PATH/radarr:/config
       - $MOVIES_ENG_PATH:/movies
@@ -297,6 +200,23 @@ services:
       - $TORRENT_PATH/completed:/data/completed
     ports:
       - 7878:7878
+    restart: unless-stopped
+#######################
+  radarr_fr:
+    image: linuxserver/radarr
+    container_name: radarr_fr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - UMASK=022 #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/radarr_fr:/config
+      - $MOVIES_FR_PATH:/movies
+      - $TORRENT_PATH/completed:/downloads
+      - $TORRENT_PATH/completed:/data/completed
+    ports:
+      - 7879:7878
     restart: unless-stopped
 ##########################
   sonarr:
@@ -306,7 +226,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=$TZ
-      - UMASK_SET=022 #optional
+      - UMASK=022 #optional
     volumes:
       - $DOCKER_CONFIG_PATH/sonarr:/config
       - ${TV_SHOWS_PATH}:/tv
@@ -323,7 +243,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=$TZ
-      - RUN_OPTS=run options here #optional
+      - AUTO_UPDATE=true #optional
+      #- RUN_OPTS=run options here #optional
     volumes:
       - $DOCKER_CONFIG_PATH/jackett:/config
       - $TORRENT_PATH:/downloads
@@ -331,6 +252,18 @@ services:
       - 9117:9117
     restart: unless-stopped
 ####################
+  flaresolverr:
+    # DockerHub mirror flaresolverr/flaresolverr:latest
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+    ports:
+      - 8191:8191
+    restart: unless-stopped
+    ############################
   booksonic-air:
     image: ghcr.io/linuxserver/booksonic-air
     container_name: booksonic-air
@@ -343,7 +276,6 @@ services:
       - $DOCKER_CONFIG_PATH/booksonic:/config
       - $AUDIOBOOKS_PATH:/audiobooks:ro
       - $PODCASTS_PATH:/podcasts:ro
-      #- /path/to/othermedia:/othermedia
     ports:
       - 4040:4040
     restart: unless-stopped
@@ -361,21 +293,6 @@ services:
     ports:
       - 8000:8000
       - 7227:7227 #optional
-    restart: unless-stopped
-######################
-  headphones:
-    image: linuxserver/headphones
-    container_name: headphones
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-    volumes:
-      - $DOCKER_CONFIG_PATH/headphones:/config
-      - $TORRENT_PATH/MUSIC:/downloads
-      - $MUSIC_PATH:/music:ro
-    ports:
-      - 8181:8181
     restart: unless-stopped
 #######################
   transmission:
@@ -423,42 +340,6 @@ services:
       - $SERVER_PATH:/usr/local/apache2/htdocs/share/:ro
     image: apax
     restart: unless-stopped
-###############
-#### ifm ; run first: docker-compose build ifm
-#  ifm:
-    #image: ifm
-    #container_name: ifm
-    #build:
-      #context: ifm
-      #dockerfile: Dockerfile
-    #ports:
-        #- 3323:80
-    #environment:
-      #- IFM_DOCKER_UID=1000
-      #- IFM_DOCKER_GID=100
-      #- IFM_API_CHMOD=0
-      #- IFM_API_COPYMOVE=0
-      #- IFM_API_CREATEDIR=0
-      #- IFM_API_CREATEFILE=0
-      #- IFM_API_EDIT=0
-      #- IFM_API_DELETE=0
-      #- IFM_API_EXTRACT=0
-      #- IFM_API_RENAME=0
-      #- IFM_API_ZIPNLOAD=1
-      #- IFM_API_DOWNLOAD=1
-    #volumes:
-#      - $SERVER_PATH:/var/www:ro
-#  explorer:
-    #image: explorer
-    #container_name: explorer
-    #build:
-      #context: explorer
-      #dockerfile: Dockerfile
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/explorer:/opt/explorer
-      #- $SERVER_PATH:/server_data:ro
-    #ports:
-#      - 4859:4859
 #############
 # to store icons for organizr help page
   tecmint-web:
@@ -469,50 +350,6 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/howto:/usr/local/apache2/htdocs/
     restart: unless-stopped
-###############
-#  diskover:
-    #image: linuxserver/diskover
-    #container_name: diskover
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=$TZ
-      ##- REDIS_HOST=redis
-      ##- REDIS_PORT=6379
-      ##- ES_HOST=elasticsearch
-      ##- ES_PORT=9200
-      ##- ES_USER=elastic
-      ##- ES_PASS=changeme
-      #- RUN_ON_START=true
-      ##- USE_CRON=true
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/diskrover:/config
-      #- $SERVER_PATH:/data:ro
-    #ports:
-      #- 7070:80
-      #- 9181:9181
-      #- 9988:9999
-    #restart: unless-stopped
-    #depends_on:
-      #- elasticsearch
-      #- redis
-  #elasticsearch:
-    #container_name: elasticsearch
-    #image: docker.elastic.co/elasticsearch/elasticsearch:5.6.9
-    #volumes:
-      #- ${DOCKER_CONFIG_PATH}/elasticsearch/data:/usr/share/elasticsearch/data
-    #environment:
-      #- bootstrap.memory_lock=true
-      #- "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
-    #ulimits:
-      #memlock:
-        #soft: -1
-        #hard: -1
-  #redis:
-    #container_name: redis
-    #image: redis:alpine
-    #volumes:
-#      - ${DOCKER_CONFIG_PATH}/redis:/data
 #####################
 # tinymediamanager - filebot replacement
   tinymediamanager:
@@ -555,6 +392,7 @@ services:
   duckdns:
     image: linuxserver/duckdns
     container_name: duckdns
+    dns: 1.1.1.1
     environment:
       - PUID=1000 #optional
       - PGID=1000 #optional
@@ -565,77 +403,6 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/duckdns:/config #optional
     restart: unless-stopped
-##############
-#  lazylibrarian:
-    #image: linuxserver/lazylibrarian
-    #container_name: lazylibrarian
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=$TZ
-      #- DOCKER_MODS=linuxserver/calibre-web:calibre #optional
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/lazylibrarian:/config
-      #- $TORRENT_PATH/EBOOKS:/downloads
-      #- $EBOOKS_PATH:/books
-    #ports:
-      #- 5299:5299
-#    restart: unless-stopped
-################
-#  firefox:
-    #image: jlesage/firefox
-    #container_name: firefox
-    #ports:
-      #- 5800:5800
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/firefox:/config:rw
-    #restart: always
-###########################
-# Grafana influx telegraf
-##########################
-#  influxdb:
-    #image: influxdb:latest
-    #container_name: influxdb
-    #ports:
-      #- 8084:8083
-      #- 8086:8086
-      #- 8090:8090
-    #environment:
-      #- TZ=$TZ
-      #- INFLUXDB_DATA_ENGINE=tsm1
-      #- INFLUXDB_REPORTING_DISABLED=false
-      #- INFLUXDB_DB=$INFLUXDB_DB
-      #- INFLUXDB_USER=$INFLUXDB_USER
-      #- INFLUXDB_USER_PASSWORD=$INFLUXDB_USER_PASSWORD
-      #- INFLUXDB_ADMIN_PASSWORD=$INFLUXDB_ADMIN_PASSWORD
-      #- INFLUXDB_ADMIN_USER=$INFLUXDB_ADMIN_USER
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/influxdb/data:/var/lib/influxdb
-
-  #telegraf:
-    #image: telegraf:latest
-    #container_name: telegraf
-    #links:
-      #- influxdb
-    #volumes:
-      #- ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
-
-  #grafana:
-    #image: grafana/grafana
-    #container_name: grafana
-    #ports:
-      #- 3001:3000
-    #environment:
-      #- TZ=$TZ
-      #- GF_SERVER_ROOT_URL=$SERVER_URL
-      #- GF_SECURITY_ADMIN_PASSWORD=$GF_PASS
-      #- GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
-    #user: '0'
-    #links:
-      #- influxdb
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/grafana:/var/lib/grafana
-    #restart: unless-stopped
 #####################
 ### Wallabag
   wallabag:
@@ -685,6 +452,23 @@ services:
       WORDPRESS_DB_NAME: $DB_WP_SCHEMA
     volumes:
        - $DOCKER_CONFIG_PATH/wordpress:/var/www/html
+###########
+  wordpress_diary:
+    image: wordpress:latest
+    container_name: wordpress_diary
+    ports:
+       - 5556:80
+    restart: always
+    depends_on:
+      - mariadb
+    environment:
+      WORDPRESS_DB_HOST: $DB_WP_URL
+      WORDPRESS_DB_USER: $DB_WP_USER
+      WORDPRESS_DB_PASSWORD: $DB_WP_PASS
+      WORDPRESS_DB_NAME: $DB_WP_DIARY_SCHEMA
+    volumes:
+       - $DOCKER_CONFIG_PATH/wordpress_diary:/var/www/html
+
 #########################
 ### bazarr
   bazarr:
@@ -728,21 +512,6 @@ services:
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx2g
     restart: unless-stopped
-########################
-#### h5ai - file browser
-  #h5ai:
-    #image: awesometic/h5ai
-    #container_name: h5ai
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=$TZ
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/h5ai:/config
-      #- $SERVER_PATH:/h5ai:ro
-    #ports:
-      #- 4344:80
-#    restart: unless-stopped
 #########################
 #### wireguard
   wireguard:
@@ -756,47 +525,31 @@ services:
       - PGID=1000
       - TZ=$TZ
       - SERVERURL=${DUCKDNS_DOMAIN}.duckdns.org
-      - SERVERPORT=53 #optional
-      - PEERS=2 #optional
+      - SERVERPORT=51820 #optional
+      - PEERS=bfunk #optional
       - PEERDNS=auto #optional
       - INTERNAL_SUBNET=10.13.13.0 #optional
     volumes:
       - $DOCKER_CONFIG_PATH/wireguard/config:/config
       - /lib/modules:/lib/modules
+      - /usr/src/:/usr/src
     ports:
-      - 53:51820/udp
+      - 51820:51820/udp
     #sysctls:
       #- net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
-################3
-##### droppy
-  #droppy:
-    #image: silverwind/droppy
-    #container_name: droppy
-    #ports:
-      #- 9297:8989
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/droppy:/config
-      #- $SERVER_PATH:/files:ro
-#    restart: unless-stopped
-####################
-##### filebrowser
-  #filebrowser:
-    #image: hurlenko/filebrowser
-    #container_name: filebrowser
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=$TZ
-      #- FB_NOAUTH=True
-      #- FB_BASEURL=/filebrowser
-      #- FB_DATABASE=/config/filebrowser.db
-    #ports:
-      #- 9294:8080
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/filebrowser:/config
-      #- $SERVER_PATH:/data:ro
-#    restart: always
+############################
+  openvpn:
+    cap_add:
+     - NET_ADMIN
+    image: kylemanna/openvpn
+    container_name: openvpn
+    ports:
+     - "1194:1194/udp"
+    restart: always
+    volumes:
+     - $DOCKER_CONFIG_PATH/openvpn-data/conf:/etc/openvpn
+#######################
 #######################
   filebrowser2:
     image: filebrowser/filebrowser
@@ -821,8 +574,52 @@ services:
       - $GAMES_PATH:/srv/games:ro
       - $SHARE_PATH:/srv/share
     restart: always
+###################3
+#  h5ai:
+    #image: awesometic/h5ai
+    #container_name: h5ai
+    #volumes:
+      #- $SELF_IMPROVEMENT_PATH:/h5ai:ro
+      #- $DOCKER_CONFIG_PATH/h5ai:/config
+    #environment:
+      #- TZ=$TZ
+    #ports:
+      #- 9296:80
+#    restart: unless-stopped
+#####################
+  diun:
+    image: crazymax/diun:latest
+    container_name: diun
+    volumes:
+      - $DOCKER_CONFIG_PATH/diun/data:/data
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - TZ=$TZ
+      - "LOG_LEVEL=info"
+      - "LOG_JSON=false"
+      - "DIUN_WATCH_WORKERS=20"
+      - "DIUN_WATCH_SCHEDULE=0 */6 * * *"
+      - "DIUN_PROVIDERS_DOCKER=true"
+      - "DIUN_PROVIDERS_DOCKER_WATCHSTOPPED=true"
+    labels:
+      - "diun.enable=true"
+      - "diun.watch_repo=true"
+    restart: always
 #######################
-#
+### nuts - tinfoiil server switch
+  nut-server:
+    image: ramdockerapp/nut-server:latest
+    container_name: nut-server
+    volumes:
+      - $SWITCH_PATH:/games:ro
+    ports:
+      - 9000:9000
+    environment:
+      - ID=guest
+      - PASSWORD=guest
+      - TZ=$TZ
+    restart: always
+#######################
 #### netdata
   netdata:
     image: netdata/netdata
@@ -851,6 +648,5 @@ services:
 volumes:
   netdatalib:
   netdatacache:
-
 ###################
 

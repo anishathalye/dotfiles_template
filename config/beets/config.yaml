@@ -188,6 +188,8 @@ replace:
     '[\xe2\x80\x90]': '-'
     '[\u2010]': '-'
     '‐': '-'
+    '’': "'"
+    '’': "'"
 
 rewrite:
     artist The Jimi Hendrix Experience: Jimi Hendrix
@@ -196,6 +198,7 @@ rewrite:
     albumartist .*Grateful Dead.*: Grateful Dead
     artist .*Bill Monroe.*: Bill Monroe
     albumartist .*Bill Monroe.*: Bill Monroe
+    albumartist Alt-j: "Alt-J"
     albumartist Alt-j: "Alt-J"
 
 path_sep_replace: _
