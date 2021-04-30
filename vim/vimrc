@@ -588,10 +588,14 @@ let g:suda_smart_edit = 1
 
 
 " " Copy to clipboard
-vnoremap  <leader>y  "+y
-nnoremap  <leader>Y  "+yg_
-nnoremap  <leader>y  "+y
+"vnoremap  <leader>y  "+y
+"nnoremap  <leader>Y  "+yg_
+"nnoremap  <leader>y  "+y
+" copy selected to clipboard
 nnoremap  <leader>yy  "+yy
+
+" copy ALL to clipboard
+nnoremap  <leader>YY  ggVG"+yy
 
 " Paste from clipboard
 map <leader>p "+p
