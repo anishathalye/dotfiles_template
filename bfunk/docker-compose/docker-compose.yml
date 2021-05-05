@@ -58,28 +58,71 @@ services:
     #devices:
       #- /dev/snd:/dev/snd #optional
     #ports:
-      #- 8080:4040
+      #- 8082:4040
 #    restart: unless-stopped
 ########################
 # airsonic advanced
-  airsonic-advanced:
-    image: airsonicadvanced/airsonic-advanced:latest
-    container_name: airsonic-advanced
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - JAVA_OPTS=-Xmx2g
-    volumes:
-      - $DOCKER_CONFIG_PATH/airsonic-advanced:/var/airsonic
-      - $MUSIC_PATH:/music:ro
-      #- $PLAYLISTS_AIRSONIC_ADVANCED_PATH:/playlists
-      - $PLAYLISTS_PATH:/playlists
-      - $PODCASTS_PATH:/podcasts
-    devices:
-      - /dev/snd:/dev/snd #optional
+#  airsonic-advanced:
+    #image: airsonicadvanced/airsonic-advanced:latest
+    #container_name: airsonic-advanced
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=${TZ}
+      #- JAVA_OPTS=-Xmx2g
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/airsonic-advanced:/var/airsonic
+      #- $MUSIC_PATH:/music:ro
+      ##- $PLAYLISTS_AIRSONIC_ADVANCED_PATH:/playlists
+      #- $PLAYLISTS_PATH:/playlists
+      #- $PODCASTS_PATH:/podcasts
+    #devices:
+      #- /dev/snd:/dev/snd #optional
+    #ports:
+      #- 8080:4040
+#    restart: unless-stopped
+#############################
+#  sonic for music and audiobooks in go using less RAM
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    user: 1000:1000 # should be owner of volumes
     ports:
-      - 8080:4040
+      - "8080:4533"
+    restart: unless-stopped
+    environment:
+      # Optional: put your config options customization here. Examples:
+      ND_SCANINTERVAL: 1h
+      ND_LOGLEVEL: info
+      ND_SESSIONTIMEOUT: 24h
+      ND_BASEURL: ""
+      ND_AUTOIMPORTPLAYLISTS: "true"
+      ND_LOGLEVEL: "trace"
+      ND_RECENTLYADDEDBYMODTIME: "true"
+      ND_LASTFM_APIKEY: $LASTFM_API
+      ND_LASTFM_SECRET: $LASTFM_SECRET
+      ND_SPOTIFY_ID: $SPOTIFY_ID
+      ND_SPOTIFY_SECRET: $SPOTIFY_SECRET
+      ND_ENABLETRANSCODINGCONFIG: "true"
+      ND_ENABLEGRAVATAR: "true"
+    volumes:
+      - $DOCKER_CONFIG_PATH/navidrome:/data
+      - $MUSIC_PATH:/music:ro
+
+  gonic:
+    image: sentriz/gonic:latest
+    container_name: gonic
+    environment:
+    - TZ
+    # optionally, see more env vars below
+    expose:
+    - 80
+    ports:
+      - "4040:80"
+    volumes:
+    - $DOCKER_CONFIG_PATH/gonic:/data                # gonic db etc
+    - $AUDIOBOOKS_PATH:/music:ro    # your music
+    - $DOCKER_CONFIG_PATH/gonic/cache:/cache       # transcode / covers / etc cache dir
     restart: unless-stopped
 ######################################
   calibre:
@@ -263,23 +306,7 @@ services:
     ports:
       - 8191:8191
     restart: unless-stopped
-    ############################
-  booksonic-air:
-    image: ghcr.io/linuxserver/booksonic-air
-    container_name: booksonic-air
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-      #- CONTEXT_PATH=url-base
-    volumes:
-      - $DOCKER_CONFIG_PATH/booksonic:/config
-      - $AUDIOBOOKS_PATH:/audiobooks:ro
-      - $PODCASTS_PATH:/podcasts:ro
-    ports:
-      - 4040:4040
-    restart: unless-stopped
-################
+###############
   pyload:
     image: linuxserver/pyload
     container_name: pyload

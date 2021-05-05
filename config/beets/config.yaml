@@ -144,7 +144,7 @@ pluginpath:
 # recreated at each run monthly import playlists
 smartplaylist:
     relative_to: /export/music/beet_library# as setup on docker container
-    playlist_dir: /export/music/beet_library/playlists
+    playlist_dir: /export/music/playlists
     playlists:
         - name: 'New_%time{$added,%Y-%m}_$genre_no_space.m3u'
           query: 'added:2018-10..' # first month of using beet. monthly playlists will be created afterwards
@@ -153,15 +153,22 @@ hook:
   hooks:
     # renaming the "relative_to" part of the playlist created in smartplaylist so this can be used in the airsonic docker container automatically
     - event: cli_exit
-      command: "sh -c 'for f in `find /export/music/beet_library/playlists -type f`; do sed -i \"s#../beet_library#/music#g\" \"$f\"; done'"
+      command: "sh -c 'for f in `find /export/music/playlists -type f`; do sed -i \"s#../beet_library#/music#g\" \"$f\"; done'"
     - event: import
-      command: "sh -c 'for f in `find /export/music/beet_library/playlists -type f`; do sed -i \"s#../beet_library#/music#g\" \"$f\"; done'"
+      command: "sh -c 'for f in `find /export/music/playlists -type f`; do sed -i \"s#../beet_library#/music#g\" \"$f\"; done'"
 
     # same as above but for airsonic-advanced
     - event: cli_exit
-      command: "sh -c 'cp /export/music/beet_library/playlists/* /export/music/beet_library/playlists_airsonic_advanced/; for f in `find /export/music/beet_library/playlists_airsonic_advanced -type f`; do sed -i \"s#^/music#/var/music#g\" \"$f\"; done'"
+      command: "sh -c 'cp /export/music/playlists/* /export/music/playlists_airsonic_advanced/; for f in `find /export/music/playlists_airsonic_advanced -type f`; do sed -i \"s#^/music#/var/music#g\" \"$f\"; done'"
     - event: import
-      command: "sh -c 'cp /export/music/beet_library/playlists/* /export/music/beet_library/playlists_airsonic_advanced/; for f in `find /export/music/beet_library/playlists_airsonic_advanced -type f`; do sed -i \"s#^/music#/var/music#g\" \"$f\"; done'"
+      command: "sh -c 'cp /export/music/playlists/* /export/music/playlists_airsonic_advanced/; for f in `find /export/music/playlists_airsonic_advanced -type f`; do sed -i \"s#^/music#/var/music#g\" \"$f\"; done'"
+
+    # same as above but for navidrome
+    - event: cli_exit
+      command: "sh -c 'cp /export/music/playlists/* /export/music/beet_library/playlists_navidrome/; for f in `find /export/music/beet_library/playlists_navidrome -type f`; do sed -i \"s#^/music#/music#g\" \"$f\"; done'"
+    - event: import
+      command: "sh -c 'cp /export/music/playlists/* /export/music/beet_library/playlists_navidrome/; for f in `find /export/music/beet_library/playlists_navidrome -type f`; do sed -i \"s#^/music#/music#g\" \"$f\"; done'"
+
 
     - event: import
       command: "sh -c 'sh /home/lbesnard/bin/airsonic_update_lib.sh'"
