@@ -62,6 +62,8 @@ alias chef_pipeline_restore_json='cp $CHEF_DIR/private-sample/nodes/pipeline.jso
 alias ansible_provision_latop='/usr/bin/ansible-playbook -i hosts $ANSIBLE_PATH/local.yml -K'
 alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.yml'
 
+[[ $HOSTNAME == "9-aws-syd" ]] && . /opt/stackman/virtualenv__usr_bin_python4/bin/activate; 
+
 ##########################
 # IMOS related - pipeline 
 ##########################
@@ -243,6 +245,7 @@ alias vpn_evry_start='sudo openvpn --cd $DOTFILES_PRIVATE_PATH/openvpn/ --writep
 alias wg_bfunk_up='wg-quick up bfunk'
 alias wg_bfunk_down='wg-quick down bfunk'
 alias wg_bfunk_restart='wg_bfunk_down && wg_bfunk_up'
+alias wg_bfunk_route_force_start='sudo route add 10.1.1.198 dev bfunk'
 
 ##########################
 # vim nvim alias

@@ -12,6 +12,13 @@ function start_agent {
     /usr/bin/ssh-add;
 }
 
+# rename ssh tmux panel to hostname
+function ssh() {
+    tmux rename-window "$*"
+    command ssh "$@"
+    exit
+}
+
 # Source SSH settings, if applicable
 if [ -f "${SSH_ENV}" ]; then
     . "${SSH_ENV}" > /dev/null
