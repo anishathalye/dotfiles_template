@@ -7,6 +7,7 @@ source  /etc/profile.d/*  # specific to PO's vm
 if [ ! -z ${SSH_TTY} ] && [ ! -z $DATA_SERVICES_DIR ]; then
     [ -d $DATA_SERVICES_DIR/profile.d/ ] && source $DATA_SERVICES_DIR/profile.d/* &>/dev/null;
     [ -d $DATA_SERVICES_DIR/lib/common/ ] && source $DATA_SERVICES_DIR/lib/common/* &>/dev/null &&  compinit $DATA_SERVICES_DIR/profile.d/*;
+    [ -f $HOME/bin/_imos_talend.sh ] && source $HOME/bin/_imos_talend.sh &>/dev/null;
     alias sudo_project_officer='PATH=$(getconf PATH):/usr/local/bin; sudo -u projectofficer -i'
 fi
 
