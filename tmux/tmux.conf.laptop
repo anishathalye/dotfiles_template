@@ -299,3 +299,11 @@ bind C-a send-prefix
 
 # move status line to top
 #set -g status-position top
+
+# Quickly view system & process info in htop. p for process
+bind-key p split-window -h "htop"
+
+# Quickly edit todo list
+bind-key t split-window -h "nvim ~/todo.md"
+
+bind-key C-j choose-tree

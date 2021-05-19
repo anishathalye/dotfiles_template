@@ -301,3 +301,11 @@ bind C-b send-prefix
 #set -g status-position top
 #
 set-option -g default-shell ${SHELL}
+
+# Quickly view system & process info in htop. p for process
+bind-key p split-window -h "htop"
+
+# Quickly edit todo list
+bind-key t split-window -h "nvim ~/todo.md"
+
+bind-key C-j choose-tree
