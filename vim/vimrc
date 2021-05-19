@@ -312,6 +312,9 @@ let g:acp_completeoptPreview=1
 autocmd VimEnter * ino <tab> <c-r>=snipMate#TriggerSnippet()<cr>
 snor <tab> <esc>i<right><c-r>=snipMate#TriggerSnippet()<cr>
 
+" use new version
+let g:snipMate = { 'snippet_version' : 1 }
+
 " ===========================================================
 " FileType specific changes
 " ============================================================
