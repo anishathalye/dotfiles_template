@@ -191,3 +191,7 @@ echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.p
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/bin/tldr ] && compctl -k "($( tldr 2>/dev/null --list))" tldr ## tldr completion
 
+# create autocompletion fzf for conda envs
+function conda_activate () {
+  conda activate "$(conda info --envs | fzf | awk '{print $1}')"
+}
