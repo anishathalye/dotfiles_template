@@ -11,6 +11,8 @@ if [ ! -z ${SSH_TTY} ] && [ ! -z $DATA_SERVICES_DIR ]; then
     alias sudo_project_officer='PATH=$(getconf PATH):/usr/local/bin; sudo -u projectofficer -i'
 fi
 
+[[ $HOSTNAME == "9-aws-syd" ]] && . /opt/stackman/virtualenv__usr_bin_python3/bin/activate; 
+
 _cmpl_inputlog() {
     reply=($(ls -d $ERROR_DIR/* | sed 's@.*/@@')) 
     reply=($(echo $reply | tr -s " " "\012"))

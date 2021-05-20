@@ -62,7 +62,6 @@ alias chef_pipeline_restore_json='cp $CHEF_DIR/private-sample/nodes/pipeline.jso
 alias ansible_provision_latop='/usr/bin/ansible-playbook -i hosts $ANSIBLE_PATH/local.yml -K'
 alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.yml'
 
-[[ $HOSTNAME == "9-aws-syd" ]] && . /opt/stackman/virtualenv__usr_bin_python3/bin/activate; 
 
 ##########################
 # IMOS related - pipeline 
