@@ -309,3 +309,6 @@ bind-key p split-window -h "htop"
 bind-key t split-window -h "nvim ~/todo.md"
 
 bind-key C-j choose-tree
+
+# fix ssh agent when tmux is detached
+setenv -g SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock

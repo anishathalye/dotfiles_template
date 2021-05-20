@@ -42,6 +42,7 @@
     ~/.ssh/config: {force: true, path: ssh/config, create: true}
     ~/.ssh/id_rsa.pub.pem: {create: true, force: true, path: ssh/id_rsa.pub.pem}
     ~/.ssh/id_rsa.pub: {create: true, force: true, path: ssh/id_rsa.pub}
+    ~/.ssh/rc: {create: true, force: true, path: ssh/rc}
     ~/.tmux.conf.laptop: {force: true, path: tmux/tmux.conf.laptop}
     ~/.tmux.conf.ssh: {force: true, path: tmux/tmux.conf.ssh}
     ~/.tmux.conf: {force: true, path: tmux/tmux.conf}
