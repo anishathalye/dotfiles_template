@@ -16,7 +16,7 @@ function start_agent {
 function ssh() {
     tmux rename-window "$*"
     command ssh "$@"
-    exit
+    #exit
 }
 
 # Source SSH settings, if applicable
@@ -41,3 +41,6 @@ fi
 MCR_ROOT="/opt/MATLAB/MATLAB_Runtime/v95"
 MCR_APPS="$MCR_ROOT/bin:$MCR_ROOT/glnxa64"
 export PATH="$PATH:$MCR_APPS"1
+
+MATLAB_PATH=/opt/MATLAB/R2018b/bin
+export PATH="$PATH:$MATLAB_PATH"

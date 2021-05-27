@@ -104,11 +104,33 @@ command=/usr/bin/nm-applet
 interval=1
 
 
-[date]
-command=date '+%a,%e %I:%M'
-interval=6
-label=<span color="#8be9fd"> </span>
-label= 
+#[date]
+#command=date '+%a,%e %I:%M'
+#interval=6
+#label=<span color="#8be9fd"> </span>
+#label= 
+[rofi-calendar]
+command=~/.config/i3blocks/blocks/rofi-calendar/rofi-calendar
+interval=3600
+BAR_POSITION=top
+WEEK_START=monday
+DATEFMT=+%d/%m %H:%M:%S
+#DATEFTM=+%a %d %b %Y
+#SHORTFMT=+%d/%m/%Y
+LABEL= 
+FONT=Monospace 10
+#LEFTCLICK_PREV_MONTH=false
+PREV_MONTH_TEXT=« previous month «
+NEXT_MONTH_TEXT=» next month »
+#ROFI_CONFIG_FILE=/dev/null
+
+#[calendar]
+#command=~/.config/i3blocks/blocks/calendar/calendar
+#interval=10
+#LABEL= 
+#DATEFMT=+%d/%m %H:%M:%S
+#HEIGHT=180
+#WIDTH=220
 
 
 [shutdown_menu]

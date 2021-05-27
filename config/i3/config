@@ -248,3 +248,6 @@ exec --no-startup-id ~/bin/Joplin.AppImage&
 exec --no-startup-id blueman-adapters --minimize
 exec ~/bin/mouse_setting.sh
 exec megasync
+
+# floating calendar
+for_window [class="Yad"] floating enable

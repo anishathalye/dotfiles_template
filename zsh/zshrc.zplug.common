@@ -174,18 +174,9 @@ if zplug check zsh-users/zsh-history-substring-search; then
     bindkey "$terminfo[kcud1]" history-substring-search-down
 fi
 
-
 test -d $HOMEBREW_PREFIX && PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
 test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.bash_profile
 echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.profile
-
-#j() {
-    #if [[ "$#" -ne 0 ]]; then
-        #cd $(autojump $@)
-        #return
-    #fi
-    #cd "$(autojump -s | sort -k1gr | awk '$1 ~ /[0-9]:/ && $2 ~ /^\// { for (i=2; i<=NF; i++) { print $(i) } }' |  fzf --height 40% --reverse --inline-info)" 
-#}
 
 [ -f ~/.cheat/fzf.bash ] && source ~/.cheat/fzf.bash
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
