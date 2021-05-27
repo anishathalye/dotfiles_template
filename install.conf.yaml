@@ -16,6 +16,7 @@
     ~/.config/Nextcloud: {create: true, force: true, path: config/Nextcloud/}
     ~/.config/ranger: {create: true, force: true, path: config/ranger/}
     ~/.config/sublime-text-2: {create: true, force: true, path: config/sublime-text-2/}
+    ~/.config/terminator: {create: true, force: true, path: config/terminator/}
     ~/.config/tilda: {create: true, force: true, path: config/tilda/}
     ~/.config/i3: {create: true, force: true, path: config/i3/}
     ~/.config/i3blocks: {create: true, force: true, path: config/i3blocks/}
