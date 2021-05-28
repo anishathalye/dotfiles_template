@@ -249,5 +249,8 @@ exec --no-startup-id blueman-adapters --minimize
 exec ~/bin/mouse_setting.sh
 exec megasync
 
+# volume control
+exec --no-startup-id /usr/bin/pasystray
+
 # floating calendar
 for_window [class="Yad"] floating enable

@@ -113,6 +113,7 @@ zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'wfxr/forgit'
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug "jeebak/fzf-docker"
 
 if [ ! -n "${SSH_TTY+1}" ]; then
     zplug "plugins/tmux",   from:oh-my-zsh

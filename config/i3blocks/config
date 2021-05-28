@@ -83,7 +83,7 @@ separator=false
 [volume]
 command=~/.config/i3blocks/blocks/volume/volume
 interval=1
-#label= 
+label= 
 signal=1
 color=#929596
 
