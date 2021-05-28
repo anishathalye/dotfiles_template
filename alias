@@ -487,10 +487,11 @@ function comic_repack_all_corrupt_archive2cbz(){
 ##############################
 # docker compose
 ##############################
-alias dcp='docker-compose -f /opt/docker-compose.yml '
-alias dcpull='docker-compose -f /opt/docker-compose.yml pull --parallel'
-alias dclogs='docker-compose -f /opt/docker-compose.yml logs -tf --tail="50" '
-alias dtail='docker logs -tf --tail="50" "$@"'
+#alias dcp='docker-compose -f /opt/docker-compose.yml '
+#alias dcpull='docker-compose -f /opt/docker-compose.yml pull --parallel'
+#alias dclogs='docker-compose -f /opt/docker-compose.yml logs -tf --tail="50" '
+#alias dtail='docker logs -tf --tail="50" "$@"'
+# replaced by fzf-docker
 DOCKER_CONFIG_DIR=/opt/docker_config
 
 
