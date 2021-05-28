@@ -84,7 +84,8 @@ services:
 #############################
 #  sonic for music and audiobooks in go using less RAM
   navidrome:
-    image: deluan/navidrome:latest
+    #image: deluan/navidrome:latest
+    image: deluan/navidrome:pr-1138
     container_name: navidrome
     user: 1000:1000 # should be owner of volumes
     ports:
@@ -635,8 +636,9 @@ services:
 #######################
 ### nuts - tinfoiil server switch
   nut-server:
-    image: ramdockerapp/nut-server:latest
     container_name: nut-server
+    image: ramdockerapp/nut-server:latest
+    #build: https://github.com/eskay993/nut-server.git
     volumes:
       - $SWITCH_PATH:/games:ro
     ports:

@@ -10,6 +10,16 @@ badfiles:
 chroma:
     auto: yes
 
+convert:
+    auto: no
+    never_convert_lossy_files: yes
+    quiet: false
+    dest: /tmp/convert
+    formats:
+      alac:
+        command: ffmpeg -i $source -y -vn -aq 2 $dest
+        extension: flac
+
 directory: /export/music/beet_library/
 
 duplicates:
@@ -205,8 +215,8 @@ rewrite:
     albumartist .*Grateful Dead.*: Grateful Dead
     artist .*Bill Monroe.*: Bill Monroe
     albumartist .*Bill Monroe.*: Bill Monroe
-    albumartist Alt-j: "Alt-J"
-    albumartist Alt-j: "Alt-J"
+    #albumartist Alt-j: "alt-J"
+    #albumartist Alt-j: "alt-J"
 
 path_sep_replace: _
 
