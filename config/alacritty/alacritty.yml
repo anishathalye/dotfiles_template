@@ -25,3 +25,6 @@ font:
 
 selection:
   save_to_clipboard: true
+
+url_launcher:
+  program: /usr/bin/firefox

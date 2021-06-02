@@ -59,7 +59,7 @@ alias vagrant_ssh='var=$(find $CHEF_DIR/nodes/ -type f -name "*\.json" -exec bas
 alias chef_pipeline_bckp_json='cp $CHEF_DIR/private-sample/nodes/pipeline.json $CHEF_DIR/private-sample/nodes/pipeline.json.bckp'
 alias chef_pipeline_restore_json='cp $CHEF_DIR/private-sample/nodes/pipeline.json.bckp  $CHEF_DIR/private-sample/nodes/pipeline.json'
 
-alias ansible_provision_latop='/usr/bin/ansible-playbook -i hosts $ANSIBLE_PATH/local.yml -K'
+alias ansible_provision_latop='ansible-playbook -i hosts $ANSIBLE_PATH/local.yml -K'
 alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.yml'
 [[ `hostname` == "9-aws-syd" ]] && alias stackman="source /opt/stackman/virtualenv__usr_bin_python3/bin/activate;stackman";
 
