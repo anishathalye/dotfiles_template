@@ -33,9 +33,6 @@ fi
 # Set up the prompt
 export TERM="xterm-256color"
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
-export PATH="/opt/MATLAB/R2014b/bin:$PATH"
-export MANPATH="$HOMEBREW_PREFIX/share/man:$MANPATH"
-export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
 export SHELL=$HOMEBREW_PREFIX/bin/zsh
 export DEFAULT_USER=loz
 export DISPLAY=:0.0

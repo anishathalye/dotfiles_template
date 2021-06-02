@@ -1,0 +1,27 @@
+# Font configuration (changes require restart)
+font:
+  # Normal (roman) font face
+  normal:
+    family: SauceCodePro Nerd Font Mono
+    style: Regular
+
+  # Bold font face
+  bold:
+    family: SauceCodePro Nerd Font Mono
+    style: Bold
+
+  # Italic font face
+  italic:
+    family: SauceCodePro Nerd Font Mono
+    style: Italic
+
+  # Bold italic font face
+  bold_italic:
+    family: SauceCodePro Nerd Font Mono
+    style: Bold Italic
+
+  # Point size
+  size: 6
+
+selection:
+  save_to_clipboard: true

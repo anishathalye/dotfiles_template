@@ -29,7 +29,8 @@ font pango: SpaceMono Nerd Font Mono Medium 11
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec "if ! command -v alacritty > /dev/null; then i3-sensible-terminal; else alacritty; fi"
+#bindsym $mod+Return exec i3-sensible-terminal
 
 # start window manager pcmanfm
 bindsym $mod+q exec pcmanfm

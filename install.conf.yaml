@@ -9,6 +9,7 @@
     ~/.cmus/cmus-tmux-statusbar.sh: {create: true, path: cmus/cmus-tmux-statusbar.sh, force: true}
     ~/.cmus/cmus_add_similar.py: {create: true, path: cmus/cmus_add_similar.py, force: true}
     ~/.complete: {force: true, path: complete, create: true}
+    ~/.config/alacritty: {create: true, force: true, path: config/alacritty/}
     ~/.config/beets: {create: true, force: false, path: config/beets/}
     ~/.config/cheat/conf.yml: {create: true, force: true, path: cheat.yml}
     ~/.config/cmus/autosave: {create: true, force: true, path: cmus/autosave}

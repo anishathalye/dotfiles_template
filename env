@@ -1,6 +1,6 @@
 # JAVA
-export JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export JRE_HOME=/usr/lib/jvm/java-11-openjdk-amd64/jre/bin/java
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export PATH=$JAVA_HOME/bin:$PATH
 export CATALINA_HOME="/usr/share/tomcat7"
 export CATALINA_BASE="/var/lib/tomcat7"
@@ -8,9 +8,16 @@ export CATALINA_BASE="/var/lib/tomcat7"
 ##############################
 # MATLAB
 ##############################
-export LD_LIBRARY_PATH=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/os/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64/native_threads:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64/server:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64
+#export LD_LIBRARY_PATH=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/os/glnxa64:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64/native_threads:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64/server:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/sys/java/jre/glnxa64/jre/lib/amd64
 #MCR matlab library path
-export XAPPLRESDIR=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/X11/app-defaults
+#export XAPPLRESDIR=/usr/local/MATLAB/MATLAB_Compiler_Runtime/v716/X11/app-defaults
+MCR_ROOT="/opt/MATLAB/MATLAB_Runtime/v95"
+MCR_APPS="$MCR_ROOT/bin:$MCR_ROOT/glnxa64"
+export PATH="$PATH:$MCR_APPS"1
+
+MATLAB_PATH=/opt/MATLAB/R2018b/bin
+export PATH="$PATH:$MATLAB_PATH"
+export MESA_LOADER_DRIVER_OVERRIDE=i965
 
 
 ##############################
@@ -59,3 +66,10 @@ export PATH="/snap/bin:$PATH"
 # add jetbrains
 JETBRAINS_PATH=`find $HOME/bin/ -maxdepth 2 -type d -name 'jetbrains-toolbox*'`
 export PATH=$JETBRAINS_PATH:$PATH
+
+# Terminal
+if ! command -v alacritty &> /dev/null; 
+   then TERMINAL=''; 
+else 
+    export TERMINAL=alacritty; 
+fi 
