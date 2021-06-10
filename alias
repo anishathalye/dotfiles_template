@@ -332,6 +332,8 @@ alias beet_genre_uniq_update="beet ls -f '\$genre' | sort -u > ~/.beets_genre"
 alias split_flac_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.flac` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias split_ape_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.ape` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.vw` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
+alias split_flac_subfolders='IFS=$(echo -en "\n\b"); for f in `fd -a .cue`; do cd ```dirname $f```; split_flac_album ;done'
+
 #alias music_player='mp3blaster'
 alias music_player='flatpak run app.sublimemusic.SublimeMusic'
 alias volume='pavucontrol'

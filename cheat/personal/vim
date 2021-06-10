@@ -218,3 +218,7 @@ gg"+yG – copy the entire buffer into + (normal mode)
 "*dd – cut the current line into * (normal mode)
 "+p – paste from + after the cursor (works in both normal and visual modes)
 :%y * – copy the entire buffer into * (this one is an ex command) 
+
+
+# swap buffer visible
+ctrl w w

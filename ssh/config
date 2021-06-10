@@ -36,14 +36,14 @@ Host *nec* *nsp* *aws* *po* commandpost*
   PermitLocalCommand yes
   LocalCommand tar ch -C${HOME} .gitconfig  .initsys.sh .alias .pgpass | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
 
-Host po
+Host pipeline
   HostName 127.0.0.1
   User vagrant
   Port 2222
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
   PasswordAuthentication no
-  IdentityFile $CHEF_DIR/.vagrant/machines/po/virtualbox/private_key
+  IdentityFile $CHEF_DIR/.vagrant/machines/pipeline/virtualbox/private_key
   IdentitiesOnly yes
   LogLevel FATAL
   ForwardAgent yes
