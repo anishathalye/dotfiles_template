@@ -294,6 +294,11 @@ nnoremap <c-w><Right> :vertical resize -5<cr>
 nnoremap <c-w><Up> :resize +5<cr>
 nnoremap <c-w><Down> :resize -5<cr>
 
+nnoremap <c-w>h :vertical resize +5<cr>
+nnoremap <c-w>l :vertical resize -5<cr>
+nnoremap <c-w>k :resize +5<cr>
+nnoremap <c-w>j :resize -5<cr>
+
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
