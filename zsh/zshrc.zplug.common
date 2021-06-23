@@ -93,6 +93,7 @@ zplug "plugins/heroku",  from:oh-my-zsh
 zplug "plugins/httpie",  from:oh-my-zsh
 zplug "plugins/pip",  from:oh-my-zsh
 zplug "plugins/sublime",  from:oh-my-zsh
+zplug "b4b4r07/enhancd"
 zplug "plugins/sudo",  from:oh-my-zsh
 zplug "plugins/systemd",   from:oh-my-zsh
 zplug "plugins/taskwarrior",   from:oh-my-zsh
@@ -185,3 +186,8 @@ echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.p
 function conda_activate () {
   conda activate "$(conda info --envs | fzf | awk '{print $1}')"
 }
+
+function conda_destroy () {
+  conda env remove -n "$(conda info --envs | fzf | awk '{print $1}')"
+}
+alias conda_remove=conda_destroy
