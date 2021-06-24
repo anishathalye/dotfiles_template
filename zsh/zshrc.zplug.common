@@ -184,10 +184,10 @@ echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.p
 
 # create autocompletion fzf for conda envs
 function conda_activate () {
-  conda activate "$(conda info --envs | fzf | awk '{print $1}')"
+  conda activate "$(conda info --envs | grep envs | fzf | awk '{print $1}')"
 }
 
 function conda_destroy () {
-  conda env remove -n "$(conda info --envs | fzf | awk '{print $1}')"
+  conda env remove -n "$(conda info --envs | grep envs |fzf | awk '{print $1}')"
 }
 alias conda_remove=conda_destroy
