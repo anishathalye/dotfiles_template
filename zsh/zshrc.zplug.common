@@ -22,7 +22,7 @@ else
     compinit -C;
 fi;
 
-# check where is installed linuxbrew
+# check where is linuxbrew installed
 if [[ -d $HOME/.linuxbrew ]]; then
     export HOMEBREW_PREFIX=$HOME/.linuxbrew
 elif [[ -d /home/linuxbrew ]]; then
@@ -67,13 +67,13 @@ COMPLETION_WAITING_DOTS="true"
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init --path)"
 
 # pip venv
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
+#export WORKON_HOME=$HOME/.virtualenvs
+#export PROJECT_HOME=$HOME/Devel
 #[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
 setopt prompt_subst # Make sure prompt is able to be generated properly.
@@ -153,8 +153,6 @@ export TLDR_DESCRIPTION='green'
 export TLDR_CODE='red'
 export TLDR_PARAM='blue'
 
-#source repos/robbyrussell/oh-my-zsh/lib/spectrum.zsh 
-
 # binkey for HOME END
 bindkey "\033[1~" beginning-of-line
 bindkey "\033[4~" end-of-line
@@ -181,13 +179,3 @@ echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.p
 [ -f ~/.cheat/fzf.bash ] && source ~/.cheat/fzf.bash
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/bin/tldr ] && compctl -k "($( tldr 2>/dev/null --list))" tldr ## tldr completion
-
-# create autocompletion fzf for conda envs
-function conda_activate () {
-  conda activate "$(conda info --envs | grep envs | fzf | awk '{print $1}')"
-}
-
-function conda_destroy () {
-  conda env remove -n "$(conda info --envs | grep envs |fzf | awk '{print $1}')"
-}
-alias conda_remove=conda_destroy

@@ -152,6 +152,19 @@ cc_imos() {
 export GIT_USER=`git config --list | grep user.name| cut -d = -f2`
 alias g_issue_list='gh issue list -a $GIT_USER -R aodn/po-backlog && gh issue list -a $GIT_USER -R aodn/content'
 
+#########################
+## conda
+#########################
+# create autocompletion fzf for conda envs
+function conda_activate () {
+  conda activate "$(conda info --envs | grep envs | fzf | awk '{print $1}')"
+}
+
+function conda_destroy () {
+  conda env remove -n "$(conda info --envs | grep envs |fzf | awk '{print $1}')"
+}
+alias conda_remove=conda_destroy
+
 ##########################
 # Display
 ##########################

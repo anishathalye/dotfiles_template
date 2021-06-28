@@ -606,7 +606,9 @@ vnoremap <C-c> "+y
 " copy ALL to clipboard
 nnoremap  <leader>YY  ggVG"+yy
 
-
-
 " Paste from clipboard
 map <leader>p "+p
+
+" split long line with gq - https://stackoverflow.com/questions/1272173/in-vim-how-do-i-break-one-really-long-line-into-multiple-lines 
+set tw=80
+set fo+=t
