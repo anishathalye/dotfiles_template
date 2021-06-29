@@ -44,7 +44,6 @@ if [ -x "$path_to_lsd" ] ; then
     alias lt='ls --tree'
 fi
 
-
 ##########################
 # CHEF cooking + Ansible provisionning
 ##########################
@@ -66,6 +65,8 @@ alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.y
 ##########################
 # IMOS related - pipeline 
 ##########################
+alias project_officer_user='sudo -u projectofficer -s'
+
 # pipeline
 export PIPELINE_TASK_LOG_PATH=/mnt/ebs/log/pipeline/process
 alias pipeline_log_tailf='var=$(find /mnt/ebs/log/pipeline -type f -name "*.log" | fzf) && tail -f $var'
@@ -75,7 +76,7 @@ alias pipeline_cd_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) &&
 
 # retrieve all logs for any UUID in a pipeline task log
 # $1 UUID value
-function pipeline_log_uuid(){
+function pipeline_log_uuid() {
     local uuid=$1;
 
     local log_file_path=$(find $PIPELINE_TASK_LOG_PATH -type f -name "task*.log" | fzf)
@@ -84,7 +85,7 @@ function pipeline_log_uuid(){
 
 # retrieve specific log output for failed file in pipeline
 # $1 error file path
-function pipeline_log_error_file(){
+function pipeline_log_error_file() {
     # list files in ALL $ERROR_DIR with a uuid at the end
     local uuid_regexp='[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
     local list_all_error_files=$(find $ERROR_DIR -type f)
@@ -112,38 +113,6 @@ wget_imos_bucket() {
     local url_suffix=$1; shift;
     local url_prefix="https://s3-ap-southeast-2.amazonaws.com/imos-data/"
     wget ${url_prefix}${url_suffix}
-}
-
-# compliance checker running the cf check
-# $1 cf version
-# $2 netcdf file
-cc_cf() {
-    local cf_version=$1; shift
-    local ncf=$1; shift
-    [ -f /mnt/ebs/pipeline/bin/activate ] && . /mnt/ebs/pipeline/bin/activate
-    compliance-checker -t=cf:$cf_version $ncf
-}
-
-# compliance checker running the cf 1.6 check
-# $1 netcdf file
-cc_cf_1.6() {
-    local ncf=$1; shift
-    cc_cf 1.6 $ncf
-}
-
-# compliance checker running the latest cf check
-# $1 netcdf file
-cc_cf_latest() {
-    local ncf=$1; shift
-    cc_cf latest $ncf
-}
-
-# compliance checker running the imos check
-# $1 netcdf file
-cc_imos() {
-    local ncf=$1; shift
-    [ -f /mnt/ebs/pipeline/bin/activate ] && . /mnt/ebs/pipeline/bin/activate
-    compliance-checker -t=imos $ncf
 }
 
 ##########################
@@ -184,13 +153,10 @@ alias brightness_chgrp_sys='/usr/bin/ansible-playbook -i hosts $ANSIBLE_PATH/loc
 ##########################
 # Various
 ##########################
-alias project_officer_user='sudo -u projectofficer -s'
 alias rsrc='source ~/.bashrc'
 alias clear_tmp="find /tmp -mtime +1 -and -not -exec fuser -s {} ';' -and -exec rm -Rf {} ';'"
 alias fzfp="fzf -m --preview 'head -100 {}'"
 alias g='git'
-alias geoserver_cd="cd $CHEF_DIR/src/geoserver"
-alias github_cd="cd $GITHUB_DIR"
 alias sublime='subl'
 alias grep='grep --color=auto'
 alias trim="sed 's/^ *//;s/ *$//'"
@@ -200,6 +166,8 @@ alias copy='| xclip -sel clip'
 alias automount='udiskie &'
 alias update_linux='sudo mintupdate-launcher'
 alias linux_version='neofetch'
+alias show_path_var="echo $PATH | tr ':' '\n' | fzf"
+alias V=" | vim"
 
 alias irssi='screen irssi'
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
@@ -258,7 +226,7 @@ alias vpn_evry_start='sudo openvpn --cd $DOTFILES_PRIVATE_PATH/openvpn/ --writep
 alias wg_bfunk_up='wg-quick up bfunk'
 alias wg_bfunk_down='wg-quick down bfunk'
 alias wg_bfunk_restart='wg_bfunk_down && wg_bfunk_up'
-alias wg_bfunk_route_force_start='sudo route add 10.1.1.198 dev bfunk'
+alias wg_bfunk_route_force_start='sudo route add 10.1.1.198 via 10.13.13.4 dev bfunk'
 
 ##########################
 # vim nvim alias
@@ -296,19 +264,21 @@ alias latest_installed_pckg='cat /var/log/apt/history.log | grep "\ install\ "'
 alias killall='killall -SIGUSR1'
 alias lock_screen='gnome-screensaver-command --lock || xscreensaver-command -lock'
 
-fkill() {
-    local pid 
-    if [ "$UID" != "0" ]; then
-        pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
-    else
-        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-    fi  
 
-    if [ "x$pid" != "x" ]
-    then
-        echo $pid | xargs kill -${1:-9}
-    fi  
-}
+# should be replaced by kp
+#fkill() {
+    #local pid 
+    #if [ "$UID" != "0" ]; then
+        #pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+    #else
+        #pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    #fi  
+
+    #if [ "x$pid" != "x" ]
+    #then
+        #echo $pid | xargs kill -${1:-9}
+    #fi  
+#}
 
 #########################
 # DATABASE
@@ -338,6 +308,24 @@ remove_file_extension() {
 ncdumph() {
     command ncdump -h "$@" | less;
 }
+
+# compliance checker with fzf
+_cc() {
+    local test=$1;shift
+    [ -f /mnt/ebs/pipeline/bin/activate ] && . /mnt/ebs/pipeline/bin/activate || conda activate python-aodndata-conda
+    compliance-checker $test $(fd -HI -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})") 
+    [ -f /mnt/ebs/pipeline/bin/activate ] && deactivate || conda deactivate
+}
+
+cc_cf() {
+    _cc -t=cf:latest
+}
+
+# compliance checker running the imos1.4 check
+cc_imos_1.4() {
+    _cc -t=imos:1.4
+}
+
 
 ###########################
 # MUSIC
@@ -515,10 +503,6 @@ DOCKER_CONFIG_DIR=/opt/docker_config
 ## BFUNK
 ##############################
 alias mount_games='mount_point=games;mkdir -p $HOME/bfunk/$mount_point; sudo mount -t nfs 10.1.1.198:/export/$mount_point $HOME/bfunk/$mount_point/'
-alias mount_torrent='mount_point=torrent;mkdir -p $HOME/bfunk/$mount_point; sudo mount -t nfs 10.1.1.198:/export/$mount_point $HOME/bfunk/$mount_point/'
-export dd1=/srv/dev-disk-by-label-media_center/
-export dd2=/srv/dev-disk-by-id-ata-WDC_WD15EADS-00P8B0_WD-WMAVU0549888-part1/
-alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 #alias start_vpn_torrent='sudo systemctl start vpn_access.service; sudo service transmission-daemon start; myip'
 #alias stop_vpn_torrent='sudo service transmission-daemon stop; sudo systemctl stop vpn_access.service; myip'
 #alias nginx_maintenance='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/omv_maintenance /etc/nginx/sites-enabled/omv_maintenance && sudo service nginx restart;'
@@ -528,9 +512,9 @@ alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 #alias filebot_tvshows_rename_dryrun='filebot -rename -r -non-strict . --db TheTVDB --format "/export/torrent/{plex}" --action test'
 #alias filebot_tvshows_rename_move='filebot -rename -r -non-strict . --db TheTVDB --format "/export/torrent/{plex}" --action move'
 
-AIRSONIC_DATA_DIR=$DOCKER_CONFIG_DIR/airsonic
+#AIRSONIC_DATA_DIR=$DOCKER_CONFIG_DIR/airsonic
 NEXCTLOUD_DATA_DIR=/export/nexctloud
-alias backup_airsonic='sudo service airsonic stop && tar -cvf "/tmp/airsonic_$(date +%F_%R).tar" /var/airsonic && sudo service airsonic restart'
+#alias backup_airsonic='sudo service airsonic stop && tar -cvf "/tmp/airsonic_$(date +%F_%R).tar" /var/airsonic && sudo service airsonic restart'
 alias backup_nextcloud='sudo docker stop nextcloud && tar -cvf "/tmp/nextcloud_$(date +%F_%R).tar" $NEXCTLOUD_DATA_DIR &&; sudo docker start service nextcloud'
 
 # when files are copied manually to nextcloud folder

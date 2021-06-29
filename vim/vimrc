@@ -612,3 +612,7 @@ map <leader>p "+p
 " split long line with gq - https://stackoverflow.com/questions/1272173/in-vim-how-do-i-break-one-really-long-line-into-multiple-lines 
 set tw=80
 set fo+=t
+
+
+" netcdf
+nnoremap <leader>nc :vnew<Bar>0r!ncdump -c <C-R>+<CR>

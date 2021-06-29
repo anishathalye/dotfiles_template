@@ -37,13 +37,6 @@ export SHELL=$HOMEBREW_PREFIX/bin/zsh
 export DEFAULT_USER=loz
 export DISPLAY=:0.0
 
-export FZF_DEFAULT_OPTS="\
-  --bind ctrl-f:page-down,ctrl-b:page-up\
-  --color=fg:#a8a8a8,bg:#1c1c1c,hl:#5f8700\
-  --color=fg+:#afaf5f,bg+:#1c1c1c,hl+:#d78700\
-  --color=info:#87afd7,prompt:#87afd7,pointer:#d78700\
-  --color=marker:#d78700,spinner:#875f87,header:#875f87"
-
 setopt nosharehistory
 setopt interactivecomments
 
@@ -158,9 +151,49 @@ bindkey "\033[1~" beginning-of-line
 bindkey "\033[4~" end-of-line
 bindkey "^[[3~" delete-char
 
-# open vim with fzf; type ctrl e
-bindkey -s '^e' 'vim $(fzf -m --preview "head -100 {}")\n'
+#FZF
+#export FZF_DEFAULT_OPTS="\
+  #--bind ctrl-f:page-down,ctrl-b:page-up\
+  #--color=fg:#a8a8a8,bg:#1c1c1c,hl:#5f8700\
+  #--color=fg+:#afaf5f,bg+:#1c1c1c,hl+:#d78700\
+  #--color=info:#87afd7,prompt:#87afd7,pointer:#d78700\
+  #--color=marker:#d78700,spinner:#875f87,header:#875f87"
+# fzf's command
+if command -v fd > /dev/null; then
+    export FZF_DEFAULT_COMMAND="fd" # CTRL-T's command
+    # for more info see fzf/shell/completion.zsh
+    _fzf_compgen_path() {
+        fd . "$1"
+    }
+    _fzf_compgen_dir() {
+        fd --type d . "$1"
+    }
+fi
 
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --type f" # ALT-C's command
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+export FZF_CTRL_T_OPTS="--select-1 --exit-0"
+export FZF_DEFAULT_OPTS="
+--info=inline
+--height=80%
+--multi
+--preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+--color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
+--prompt='∼ ' --pointer='▶' --marker='✓'
+--bind '?:toggle-preview'
+--bind 'ctrl-a:select-all'
+--bind 'ctrl-y:execute-silent(echo {+} | pbcopy)'
+--bind 'ctrl-e:execute(echo {+} | xargs -o vim)'
+--bind 'ctrl-v:execute(code {+})'
+"
+# open vim with fzf; type ctrl e
+#bindkey -s '^e' 'vim $(fd --type f | fzf -m --preview "head -200 {}")\n'
+bindkey -s '^e' 'vim $(fd --type f | fzf -m --preview "([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {}))")\n'
+#bindkey -s '^e' 'fd --type f | vim $(fzf  --preview "([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200")\n'
+bindkey -s '^n' 'vim $(fd -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})"\n'
+bindkey -s '^n' 'ncdump -t $(fd -HI -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})") | less\n ' # ctrl n -> ncdump 
+
+#####################
 fpath=(~/.zsh_alias "${fpath[@]}")
 autoload -Uz history-search-end cani vmc vmi lps kp fp cani bip bup bcp tmuxify utils ll lx
 typeset -U PATH fpath
