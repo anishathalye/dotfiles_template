@@ -12,6 +12,7 @@
     ~/.clojure:
     ~/.direnvrc:
     ~/.emacs.d:
+      path: new-emacs.d
     ~/.gitconfig:
     ~/.gitignore_global:
     ~/.irbrc:
