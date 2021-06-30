@@ -1,7 +1,6 @@
 env:
   WINIT_X11_SCALE_FACTOR: "1.55"
 
-
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
@@ -40,4 +39,5 @@ selection:
   save_to_clipboard: true
 
 url_launcher:
-  program: /usr/bin/firefox
+  program: firefox
+  args:  -P default-release -no-remote --new-tab

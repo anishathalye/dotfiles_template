@@ -16,3 +16,5 @@
 *gconf/apps/guake/general/%gconf.xml
 *gconf/apps/guake/style/%gconf.xml
 bin/cache/*
+"zsh_alias/_gh"
+"config/gh/hosts.yml"

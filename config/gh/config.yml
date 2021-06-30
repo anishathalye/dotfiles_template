@@ -1,0 +1,46 @@
+# What protocol to use when performing git operations. Supported values: ssh, https
+git_protocol: https
+# What editor gh should run when creating issues, pull requests, etc. If blank, will refer to environment.
+editor:
+# When to interactively prompt. This is a global config that cannot be overridden by hostname. Supported values: enabled, disabled
+prompt: enabled
+# A pager program to send command output to, e.g. "less". Set the value to "cat" to disable the pager.
+pager:
+# Aliases allow you to create nicknames for gh commands
+aliases:
+    co: '!id="$(gh pr list -L100 | fzf --no-preview --reverse | cut -f1)"; [ -n "$id" ] && gh pr checkout "$id"'
+    issues: |-
+        !(case $1 in
+         content)
+            id=$(gh issue list -a $GIT_USER -R aodn/content | fzf-tmux --reverse --no-preview | cut -f1)
+            [ -n "$id" ] && gh issue -R aodn/content view "$id"
+            ;;
+
+         issues)
+            id=$(gh issue list -a $GIT_USER -R aodn/issues | fzf-tmux --reverse --no-preview | cut -f1)
+            [ -n "$id" ] && gh issue -R aodn/issues view "$id"
+            ;;
+
+         po_backlog_milestone)
+            shift;
+            milestone="$1"
+            id=$(gh issue list -a $GIT_USER -R aodn/po-backlog --milestone "Iteration $milestone"| fzf --no-preview --reverse | cut -f1)
+            [ -n "$id" ] && gh issue -R aodn/po-backlog view "$id"
+            ;;
+
+         po_backlog)
+            id=$(gh issue list -a $GIT_USER -R aodn/po-backlog | fzf-tmux --reverse --no-preview | cut -f1)
+            [ -n "$id" ] && gh issue -R aodn/po-backlog view "$id"
+            ;;
+
+         *)
+
+            echo The following commands are supported from '\e[1;31m'gh issues'\e[0m':
+            echo '\t\e[1;32m'content'\e[0m' '\t list all issues for user from content repo'
+            echo '\t\e[1;32m'issues'\e[0m' '\t list all issues for user from issues repo'
+            echo '\t\e[1;32m'po_backlog'\e[0m' '\t list all issues for user from po_backlop repo'
+            echo '\t\e[1;32m'po_backlog_milestone [VALUE]'\e[0m' '\t list all issues for user from po_backlop repo for specific milestone number'
+
+            ;;
+          esac)
+    issues_milestone: '!milestone="$1";id="$(gh issue list -a $GIT_USER -R aodn/po-backlog --milestone "Iteration $milestone"| fzf --no-preview --reverse | cut -f1)";  [ -n "$id" ] && gh issue -R aodn/po-backlog view "$id" '

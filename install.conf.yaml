@@ -13,6 +13,7 @@
     ~/.config/beets: {create: true, force: false, path: config/beets/}
     ~/.config/cheat/conf.yml: {create: true, force: true, path: cheat.yml}
     ~/.config/cmus/autosave: {create: true, force: true, path: cmus/autosave}
+    ~/.config/gh: {create: true, force: true, path: config/gh/}
     ~/.config/nvim/init.vim: {create: true, force: true, path: vim/nvim.init.vim}
     ~/.config/Nextcloud: {create: true, force: true, path: config/Nextcloud/}
     ~/.config/ranger: {create: true, force: true, path: config/ranger/}

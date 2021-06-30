@@ -187,8 +187,8 @@ export FZF_DEFAULT_OPTS="
 --bind 'ctrl-v:execute(code {+})'
 "
 # open vim with fzf; type ctrl e
+bindkey -s '^e' 'vim $(fd -LIH --type f | fzf -m --preview "([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {}))")\n'
 #bindkey -s '^e' 'vim $(fd --type f | fzf -m --preview "head -200 {}")\n'
-bindkey -s '^e' 'vim $(fd --type f | fzf -m --preview "([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {}))")\n'
 #bindkey -s '^e' 'fd --type f | vim $(fzf  --preview "([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200")\n'
 bindkey -s '^n' 'vim $(fd -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})"\n'
 bindkey -s '^n' 'ncdump -t $(fd -HI -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})") | less\n ' # ctrl n -> ncdump 
@@ -212,3 +212,5 @@ echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.p
 [ -f ~/.cheat/fzf.bash ] && source ~/.cheat/fzf.bash
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/bin/tldr ] && compctl -k "($( tldr 2>/dev/null --list))" tldr ## tldr completion
+
+gh completion -s zsh > ~/.zsh_alias/_gh && chmod +x ~/.zsh_alias/_gh

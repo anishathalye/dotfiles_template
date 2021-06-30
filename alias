@@ -118,8 +118,13 @@ wget_imos_bucket() {
 ##########################
 ## github cli
 ##########################
-export GIT_USER=`git config --list | grep user.name| cut -d = -f2`
-alias g_issue_list='gh issue list -a $GIT_USER -R aodn/po-backlog && gh issue list -a $GIT_USER -R aodn/content'
+export GIT_USER=`git config --list | grep user.name | cut -d = -f2`
+#alias g_issue_list='gh issue list -a $GIT_USER -R aodn/po-backlog && gh issue list -a $GIT_USER -R aodn/content'
+
+# create gh aliases
+for al in $(gh alias list | grep -o -e '^[a-z].*:' | cut -d : -f1); do
+    alias gh_$al="gh $al"
+done
 
 #########################
 ## conda
@@ -313,7 +318,10 @@ ncdumph() {
 _cc() {
     local test=$1;shift
     [ -f /mnt/ebs/pipeline/bin/activate ] && . /mnt/ebs/pipeline/bin/activate || conda activate python-aodndata-conda
-    compliance-checker $test $(fd -HI -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})") 
+    filepath=$(fd -LHI -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})")
+    #compliance-checker $test $(fd -LHI -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})") 
+    compliance-checker $test $filepath
+    tmux split-window -h "ncdump -h $filepath | less"
     [ -f /mnt/ebs/pipeline/bin/activate ] && deactivate || conda deactivate
 }
 
@@ -324,6 +332,11 @@ cc_cf() {
 # compliance checker running the imos1.4 check
 cc_imos_1.4() {
     _cc -t=imos:1.4
+}
+
+# compliance checker running the ghrsst check
+cc_ghrsst() {
+    _cc -t=ghrsst
 }
 
 
