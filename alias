@@ -229,7 +229,9 @@ alias s='var=$(grep -e "^Host " ~/.ssh/config | sed "s#Host ##" | fzf) && ssh $v
 alias vpn_bfunk_start='sudo openvpn --cd $DOTFILES_PRIVATE_PATH/openvpn/ --writepid /run/openvpn/home.pid --config lbesnard.ovpn'
 alias vpn_evry_start='sudo openvpn --cd $DOTFILES_PRIVATE_PATH/openvpn/ --writepid /run/openvpn/home.pid --config evry.conf'
 alias wg_bfunk_up='wg-quick up bfunk'
+alias wg_bfunk_start='wg_bfunk_up'
 alias wg_bfunk_down='wg-quick down bfunk'
+alias wg_bfunk_stop='wg_bfunk_down'
 alias wg_bfunk_restart='wg_bfunk_down && wg_bfunk_up'
 alias wg_bfunk_route_force_start='sudo route add 10.1.1.198 via 10.13.13.4 dev bfunk'
 
