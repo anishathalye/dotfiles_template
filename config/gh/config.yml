@@ -10,28 +10,58 @@ pager:
 # Aliases allow you to create nicknames for gh commands
 aliases:
     co: '!id="$(gh pr list -L100 | fzf --no-preview --reverse | cut -f1)"; [ -n "$id" ] && gh pr checkout "$id"'
+    #issues_milestone: '!milestone="$1";id="$(gh issue list -a $GIT_USER -R aodn/po-backlog --milestone "Iteration $milestone"| fzf --no-preview --reverse | cut -f1)";  [ -n "$id" ] && gh issue -R aodn/po-backlog view "$id" '
+    issue_user_repo_view: |-
+        !(
+        user=$1; shift
+        repo=$1; shift
+        milestone=$1;
+        if [ -z "$milestone" ]
+        then
+            id="$(gh issue list -a $user -R $repo | fzf --no-preview --reverse | cut -f1)"
+        else
+            id="$(gh issue list -a $user -R $repo --milestone "Iteration $milestone" | fzf --no-preview --reverse | cut -f1)"
+        fi
+
+        [ -n "$id" ] && gh issue -R $repo view "$id"
+        )
     issues: |-
         !(case $1 in
          content)
-            id=$(gh issue list -a $GIT_USER -R aodn/content | fzf-tmux --reverse --no-preview | cut -f1)
-            [ -n "$id" ] && gh issue -R aodn/content view "$id"
+            user="$GIT_USER"
+            repo=aodn/content
+            gh issue_user_repo_view $user $repo
             ;;
 
          issues)
-            id=$(gh issue list -a $GIT_USER -R aodn/issues | fzf-tmux --reverse --no-preview | cut -f1)
-            [ -n "$id" ] && gh issue -R aodn/issues view "$id"
+            user="$GIT_USER"
+            repo=aodn/issues
+            gh issue_user_repo_view $user $repo
             ;;
 
          po_backlog_milestone)
-            shift;
-            milestone="$1"
-            id=$(gh issue list -a $GIT_USER -R aodn/po-backlog --milestone "Iteration $milestone"| fzf --no-preview --reverse | cut -f1)
-            [ -n "$id" ] && gh issue -R aodn/po-backlog view "$id"
+            user="$GIT_USER"
+            repo=aodn/po-backlog
+            shift; milestone="$1"
+            gh issue_user_repo_view $user $repo $milestone
             ;;
 
          po_backlog)
-            id=$(gh issue list -a $GIT_USER -R aodn/po-backlog | fzf-tmux --reverse --no-preview | cut -f1)
-            [ -n "$id" ] && gh issue -R aodn/po-backlog view "$id"
+            user="$GIT_USER"
+            repo=aodn/po-backlog
+            gh issue_user_repo_view $user $repo
+            ;;
+
+         aodndata)
+            user="$GIT_USER"
+            repo=aodn/python-aodndata
+            gh issue_user_repo_view $user $repo
+            ;;
+
+         data_services)
+            user="$GIT_USER"
+            repo=aodn/data-services
+            gh issue_user_repo_view $user $repo
             ;;
 
          *)
@@ -40,8 +70,9 @@ aliases:
             echo '\t\e[1;32m'content'\e[0m' '\t list all issues for user from content repo'
             echo '\t\e[1;32m'issues'\e[0m' '\t list all issues for user from issues repo'
             echo '\t\e[1;32m'po_backlog'\e[0m' '\t list all issues for user from po_backlop repo'
+            echo '\t\e[1;32m'aodndata'\e[0m' '\t list all issues for user from aodndata repo'
+            echo '\t\e[1;32m'data_services'\e[0m' '\t list all issues for user from data-services repo'
             echo '\t\e[1;32m'po_backlog_milestone [VALUE]'\e[0m' '\t list all issues for user from po_backlop repo for specific milestone number'
 
             ;;
           esac)
-    issues_milestone: '!milestone="$1";id="$(gh issue list -a $GIT_USER -R aodn/po-backlog --milestone "Iteration $milestone"| fzf --no-preview --reverse | cut -f1)";  [ -n "$id" ] && gh issue -R aodn/po-backlog view "$id" '
