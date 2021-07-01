@@ -49,3 +49,4 @@
     rbenv/plugins/
     shell/plugins/
     zsh/plugins/
+  - brew bundle
