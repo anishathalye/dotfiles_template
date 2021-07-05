@@ -2,6 +2,9 @@
 conda env list
 conda info --envs
 
+# create
+conda create --name test python=3.6
+
 # activate
 conda activate py2.7
 
