@@ -72,9 +72,14 @@ export HISTFILESIZE=$HISTSIZE;
 setopt prompt_subst # Make sure prompt is able to be generated properly.
 
 #zplug "plugins/git",  from:oh-my-zsh
+
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+zplug "b4b4r07/enhancd"
 zplug "chrissicool/zsh-256color"
 zplug "esc/conda-zsh-completion"
 zplug "hchbaw/auto-fu.zsh"
+zplug "jeebak/fzf-docker", at:"sub-commands"
 zplug "plugins/autojump",  from:oh-my-zsh
 zplug "plugins/command-not-found",  from:oh-my-zsh
 zplug "plugins/docker",  from:oh-my-zsh
@@ -86,7 +91,6 @@ zplug "plugins/heroku",  from:oh-my-zsh
 zplug "plugins/httpie",  from:oh-my-zsh
 zplug "plugins/pip",  from:oh-my-zsh
 zplug "plugins/sublime",  from:oh-my-zsh
-zplug "b4b4r07/enhancd"
 zplug "plugins/sudo",  from:oh-my-zsh
 zplug "plugins/systemd",   from:oh-my-zsh
 zplug "plugins/taskwarrior",   from:oh-my-zsh
@@ -98,13 +102,12 @@ zplug "plugins/zsh-navigation-tools",  from:oh-my-zsh
 zplug "romkatv/powerlevel10k", as:theme, depth:1
 zplug "rummik/zsh-tailf"
 zplug "soimort/translate-shell"
+#zplug "unixorn/fzf-zsh-plugin"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'wfxr/forgit'
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug "jeebak/fzf-docker", at:"sub-commands"
 
 if [ ! -n "${SSH_TTY+1}" ]; then
     zplug "plugins/tmux",   from:oh-my-zsh
@@ -150,6 +153,9 @@ export TLDR_PARAM='blue'
 bindkey "\033[1~" beginning-of-line
 bindkey "\033[4~" end-of-line
 bindkey "^[[3~" delete-char
+
+# GRC colorisation
+[[ -s "$HOMEBREW_PREFIX/etc/grc.zsh" ]] && source $HOMEBREW_PREFIX/etc/grc.zsh
 
 #FZF
 #export FZF_DEFAULT_OPTS="\
@@ -222,3 +228,6 @@ echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.p
 [ -f ~/bin/tldr ] && compctl -k "($( tldr 2>/dev/null --list))" tldr ## tldr completion
 
 gh completion -s zsh > ~/.zsh_alias/_gh && chmod +x ~/.zsh_alias/_gh
+
+
+

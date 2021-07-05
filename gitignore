@@ -21,3 +21,5 @@ bin/cache/*
 *.AppImage
 bin/tldr
 mobac/mapsources/*.jar
+aws/cli/cache/*
+aws/credentials
