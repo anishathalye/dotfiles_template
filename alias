@@ -173,6 +173,7 @@ alias update_linux='sudo mintupdate-launcher'
 alias linux_version='neofetch'
 alias show_path_var="echo $PATH | tr ':' '\n' | fzf"
 alias V=" | vim"
+[[ -s "$HOMEBREW_PREFIX/etc/grc.zsh" ]] && alias tail='grc tail'
 
 alias irssi='screen irssi'
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
