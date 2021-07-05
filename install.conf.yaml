@@ -17,6 +17,7 @@
     ~/.config/gh: {create: true, force: true, path: config/gh/}
     ~/.config/nvim/init.vim: {create: true, force: true, path: vim/nvim.init.vim}
     ~/.config/Nextcloud: {create: true, force: true, path: config/Nextcloud/}
+    ~/.config/pgcli: {create: true, force: true, path: config/pgcli/}
     ~/.config/ranger: {create: true, force: true, path: config/ranger/}
     ~/.config/sublime-text-2: {create: true, force: true, path: config/sublime-text-2/}
     ~/.config/terminator: {create: true, force: true, path: config/terminator/}
