@@ -430,6 +430,10 @@
 ;; Indent contents along with tree/bullet depth
 (add-hook 'org-mode-hook 'org-indent-mode)
 
+;; Set files that org-agenda should check for todos
+(setq org-agenda-files
+      '("~/org/habits.org" "~/org/cookbook.org" "~/org/to_read.org" "~/org/new.org" "~/org/journal"))
+
 ;; Setup status tags
 (setq org-todo-keywords
       '((sequence "TODO" "STARTED" "INREVIEW" "|" "BLOCKED" "DONE" "CANCELED")))
