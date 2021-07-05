@@ -170,6 +170,14 @@ if command -v fd > /dev/null; then
     }
 fi
 
+export FORGIT_FZF_DEFAULT_OPTS="
+--exact
+--border
+--cycle
+--reverse
+--height '80%'
+"
+
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --type f" # ALT-C's command
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0"
