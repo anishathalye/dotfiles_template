@@ -16,11 +16,13 @@ aliases:
         user=$1; shift
         repo=$1; shift
         milestone=$1;
+        fzf_default_opts="--no-preview --reverse --multi=1"
+
         if [ -z "$milestone" ]
         then
-            id="$(gh issue list -a $user -R $repo | fzf --no-preview --reverse | cut -f1)"
+            id="$(gh issue list -a $user -R $repo | fzf $fzf_default_opts | cut -f1)"
         else
-            id="$(gh issue list -a $user -R $repo --milestone "Iteration $milestone" | fzf --no-preview --reverse | cut -f1)"
+            id="$(gh issue list -a $user -R $repo --milestone "Iteration $milestone" | fzf $fzf_default_opts | cut -f1)"
         fi
 
         [ -n "$id" ] && gh issue -R $repo view "$id"
