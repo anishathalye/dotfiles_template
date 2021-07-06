@@ -54,7 +54,12 @@ alias chef_imos="chef_cd && rm -f private; ln -s ../chef-private private"
 alias chef_pipeline_box_start="chef_cd &&  ./bin/pipeline-box.sh"
 alias chef_pipeline_box_provision="chef_cd && vagrant provision pipeline"
 alias chef_sample="chef_cd && rm -f private; ln -s private-sample private"
-alias vagrant_ssh='var=$(find $CHEF_DIR/nodes/ -type f -name "*\.json" -exec basename {} \; | cut -d . -f 1 | fzf) && cd $CHEF_DIR && vagrant ssh $var'
+#alias vagrant_ssh='var=$(find $CHEF_DIR/nodes/ -type f -name "*\.json" -exec basename {} \; | cut -d . -f 1 | fzf) && cd $CHEF_DIR && vagrant ssh $var'
+function vs(){
+  #List all vagrant boxes available in the system including its status, and try to access the selected one via ssh
+  cd $(cat ~/.vagrant.d/data/machine-index/index | jq '.machines[] | {name, vagrantfile_path, state}' | jq '.name + "," + .state  + "," + .vagrantfile_path'| sed 's/^"\(.*\)"$/\1/'| column -s, -t | sort -rk 2 | fzf | awk '{print $3}'); vagrant ssh
+}
+alias vagrant_ssh=vs
 alias chef_pipeline_bckp_json='cp $CHEF_DIR/private-sample/nodes/pipeline.json $CHEF_DIR/private-sample/nodes/pipeline.json.bckp'
 alias chef_pipeline_restore_json='cp $CHEF_DIR/private-sample/nodes/pipeline.json.bckp  $CHEF_DIR/private-sample/nodes/pipeline.json'
 
@@ -202,7 +207,17 @@ function x(){
     fi
 }
 
+# file edit function in nvim/vim
+function fe(){ 
+    nvim $(fd -LIH --type f | fzf -m --preview "([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {}))")
+    }
 
+#https://github.com/junegunn/fzf/wiki/Examples
+fman() {
+    man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man | col -bx | bat -l man -p --color always' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
+}
+# Get the colors in the opened man page itself
+export MANPAGER="sh -c 'col -bx | bat -l man -p --paging always'"
 ##########################
 # NETWORK
 ##########################

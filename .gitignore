@@ -1,1 +1,25 @@
-gitignore
+*.pyc
+*jetbrains-toolbox
+*jar
+*DS_Store
+*.AppImage
+*.pyo
+*.pyc
+.svn
+*.swp
+*.cache
+*/ftp_elcamino_riverTas_upload.sh
+*/sheryl.sh
+*DS_Store
+*/jenkins-trigger
+"config/sublime-text-2/Settings/Auto Save Session.sublime_session"
+*gconf/apps/guake/general/%gconf.xml
+*gconf/apps/guake/style/%gconf.xml
+bin/cache/*
+zsh_alias/_gh
+config/gh/hosts.yml
+*.AppImage
+bin/tldr
+mobac/mapsources/*.jar
+aws/cli/cache/*
+aws/credentials

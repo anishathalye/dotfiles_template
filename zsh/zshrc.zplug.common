@@ -158,13 +158,6 @@ bindkey "^[[3~" delete-char
 [[ -s "$HOMEBREW_PREFIX/etc/grc.zsh" ]] && source $HOMEBREW_PREFIX/etc/grc.zsh
 
 #FZF
-#export FZF_DEFAULT_OPTS="\
-  #--bind ctrl-f:page-down,ctrl-b:page-up\
-  #--color=fg:#a8a8a8,bg:#1c1c1c,hl:#5f8700\
-  #--color=fg+:#afaf5f,bg+:#1c1c1c,hl+:#d78700\
-  #--color=info:#87afd7,prompt:#87afd7,pointer:#d78700\
-  #--color=marker:#d78700,spinner:#875f87,header:#875f87"
-# fzf's command
 if command -v fd > /dev/null; then
     export FZF_DEFAULT_COMMAND="fd" # CTRL-T's command
     # for more info see fzf/shell/completion.zsh
@@ -189,10 +182,12 @@ export FZF_DEFAULT_OPTS="
 --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
 --prompt='∼ ' --pointer='▶' --marker='✓'
 --bind '?:toggle-preview'
---bind 'ctrl-a:select-all'
---bind 'ctrl-y:execute-silent(echo {+} | xclip)'
---bind 'ctrl-e:execute(echo {+} | xargs -o vim)'
---bind 'ctrl-v:execute(code {+})'
+--bind 'alt-a:select-all'
+--bind 'alt-d:deselect-all'
+--bind 'alt-t:toggle-all'
+--bind 'alt-y:execute-silent(echo {+} | xclip)'
+--bind 'alt-e:execute(nvim {+}  > /dev/tty)'
+--bind 'alt-v:execute(code {+})'
 "
 
 #export FORGIT_FZF_DEFAULT_OPTS="
@@ -203,7 +198,7 @@ export FZF_DEFAULT_OPTS="
 #--height '80%'
 #"
 
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --type f" # ALT-C's command
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --type f -LHI" # ALT-C's command
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0"
 # open vim with fzf; type ctrl e
@@ -217,7 +212,6 @@ bindkey -s '^n' 'ncdump -t $(fd -HI -e nc | fzf -m --preview "([[ -f {} ]] && nc
 fpath=(~/.zsh_alias "${fpath[@]}")
 autoload -Uz history-search-end cani vmc vmi lps kp fp cani bip bup bcp tmuxify utils ll lx
 typeset -U PATH fpath
-
 
 if zplug check zsh-users/zsh-history-substring-search; then
     zmodload zsh/terminfo
@@ -234,6 +228,3 @@ echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.p
 [ -f ~/bin/tldr ] && compctl -k "($( tldr 2>/dev/null --list))" tldr ## tldr completion
 
 gh completion -s zsh > ~/.zsh_alias/_gh && chmod +x ~/.zsh_alias/_gh
-
-
-

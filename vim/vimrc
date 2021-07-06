@@ -83,6 +83,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'  " github vim
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/indentpython.vim'
+Plug 'mechatroner/rainbow_csv'
 Plug 'yann2192/vim-colorschemes'
 Plug 'yann2192/vim-vitamins'
 
@@ -539,8 +540,8 @@ hi Cursor ctermbg=15 ctermfg=8
 " pep8 fix only these
 let g:autopep8_select="W293,E261,E302,F405,E225,E203,E231,E305,E502,E124,E303,E266,E226,E201,E128,E111,E271,E202,E251,E211,E127,E116,E114,E122"
 
-"Remove all trailing whitespace by pressing F5
-nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+"Remove all trailing whitespace by pressing F8
+nnoremap <F8> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " the silver searcher integration
 let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -616,3 +617,7 @@ set fo+=t
 
 " netcdf
 nnoremap <leader>nc :vnew<Bar>0r!ncdump -c <C-R>+<CR>
+
+" rainbow csv
+"autocmd BufNewFile,BufRead *.csv   set filetype=csv_semicolon
+"autocmd BufNewFile,BufRead *.dat   set filetype=csv_pipe
