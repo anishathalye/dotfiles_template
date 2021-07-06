@@ -127,9 +127,11 @@ export GIT_USER=`git config --list | grep user.name | cut -d = -f2`
 #alias g_issue_list='gh issue list -a $GIT_USER -R aodn/po-backlog && gh issue list -a $GIT_USER -R aodn/content'
 
 # create gh aliases
-for al in $(gh alias list | grep -o -e '^[a-z].*:' | cut -d : -f1); do
-    alias gh_$al="gh $al"
-done
+if command -v gh > /dev/null; then
+    for al in $(gh alias list | grep -o -e '^[a-z].*:' | cut -d : -f1); do
+        alias gh_$al="gh $al"
+    done
+fi
 
 #########################
 ## conda
