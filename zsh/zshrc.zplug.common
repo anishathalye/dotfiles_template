@@ -170,12 +170,14 @@ if command -v fd > /dev/null; then
     }
 fi
 
+export FZF_NETCDF_UUID_REGEXP='[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
 export FZF_DEFAULT_OPTS="
 --info=inline
 --height=80%
 --multi
 --preview '\
     ([[ {} == *.nc ]] && ncdump -h {}) || \
+    ( echo {} | grep -q -E "*.nc.$FZF_NETCDF_UUID_REGEXP" && ncdump -h {}) || \
     ([[ {} == *.zip ]] && zip -sf {}) || \
     ([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || \
     ([[ -d {} ]] && (tree -C {} | less)) || \

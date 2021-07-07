@@ -8,31 +8,37 @@ AddKeysToAgent yes
 Host jumpbox
   Hostname %h.emii.org.au
   ForwardAgent yes
+  ForwardX11 yes
 
 Host *-nec
   Hostname %h-hob.emii.org.au
   Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
+  ForwardX11 yes
 
 Host *-aws
   Hostname %h-syd.emii.org.au
   Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
+  ForwardX11 yes
 
 Host 4-nec-hob
   Hostname %h.emii.org.au
   Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
+  ForwardX11 yes
 
 Host 10-aws-syd
   Hostname %h.emii.org.au
   Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
+  ForwardX11 yes
 
 Host commandpost
   Hostname %h.aodn.org.au
   Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
+  ForwardX11 yes
 
 Host *nec* *nsp* *aws* *po* commandpost* 
   PermitLocalCommand yes
