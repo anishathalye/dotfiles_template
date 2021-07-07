@@ -84,7 +84,7 @@ alias pipeline_cd_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) &&
 function pipeline_log_uuid() {
     local uuid=$1;
 
-    local log_file_path=$(find $PIPELINE_TASK_LOG_PATH -type f -name "task*.log" | fzf)
+    local log_file_path=$(find $PIPELINE_TASK_LOG_PATH -type f -name "task*.log" | fzf --multi=1)
     grep $uuid $log_file_path
 }
 
@@ -94,7 +94,19 @@ function pipeline_log_error_file() {
     # list files in ALL $ERROR_DIR with a uuid at the end
     local uuid_regexp='[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
     local list_all_error_files=$(find $ERROR_DIR -type f)
-    local file_input=$(echo $list_all_error_files | grep -E .$uuid_regexp |fzf)
+    local file_input=$(echo $list_all_error_files | grep -E .$uuid_regexp | \
+    fzf --multi=1 \
+    --preview \
+    '( echo {} | grep -q -E "*.nc.$uuid_regexp" && ncdump -h {}) || \
+    ( echo {} | grep -q -E "*.nc" && ncdump -h {}) || \
+    ( echo {} | grep -q -E "*.zip.$uuid_regexp" && zip -sf {}) || \
+    ( echo {} | grep -q -E "*.zip" && zip -sf {}) || \
+    ( echo {} | grep -q -E "*.manifest.$uuid_regexp" && bat {}) || \
+    ( echo {} | grep -q -E "*.manifest" && bat {}) || \
+    ( echo {} | grep -q -E "*.(log|xml|txt).$uuid_regexp" && bat {}) || \
+    ( echo {} | grep -q -E "*.log" && bat {}) || \
+    ' 
+    )
 
     if [ -z "$file_input" ]
         then
@@ -109,7 +121,7 @@ function pipeline_log_error_file() {
     sed -E "0,/$uuid_file/d;/IncomingFileStateManager.*FILE_(SUCCESS|IN_ERROR)/q" $PIPELINE_TASK_LOG_PATH/tasks.$pipeline_name.log
 }
 
-alias talend_cd='var=$(find /mnt/ebs/talend/jobs -maxdepth 1 -type d | fzf) && cd $var'
+alias talend_cd='var=$(find /mnt/ebs/talend/jobs -maxdepth 1 -type d | fzf --multi=1) && cd $var'
 
 
 # wget for imos buck by simply giving the relative path of an object without the full bucket address
@@ -174,12 +186,12 @@ alias grep='grep --color=auto'
 alias trim="sed 's/^ *//;s/ *$//'"
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias copy='| xclip -sel clip'
+alias copy='xclip -sel clip'
+alias cc='copy' && alias yy='copy'
 alias automount='udiskie &'
 alias update_linux='sudo mintupdate-launcher'
 alias linux_version='neofetch'
-alias show_path_var="echo $PATH | tr ':' '\n' | fzf"
-alias V=" | vim"
+alias path_env_path="echo $PATH | tr ':' '\n' | fzf"
 [[ -s "$HOMEBREW_PREFIX/etc/grc.zsh" ]] && alias tail='grc tail'
 
 alias irssi='screen irssi'
@@ -338,7 +350,9 @@ ncdumph() {
 _cc() {
     local test=$1;shift
     [ -f /mnt/ebs/pipeline/bin/activate ] && . /mnt/ebs/pipeline/bin/activate || conda activate python-aodndata-conda
-    filepath=$(fd -LHI -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})")
+    local uuid_regexp='[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+    filepath=$( (fd -LHI nc.$uuid_regexp ; fd -LHI -e nc) | fzf -m --preview "([[ -f {} ]] && ncdump -h {})")
+
     if [ ! -z "$filepath" ]
         then
             #compliance-checker $test $(fd -LHI -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})") 

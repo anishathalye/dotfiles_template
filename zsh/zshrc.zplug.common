@@ -108,6 +108,7 @@ zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'wfxr/forgit'
+zplug "eastokes/aws-plugin-zsh"
 
 if [ ! -n "${SSH_TTY+1}" ]; then
     zplug "plugins/tmux",   from:oh-my-zsh
@@ -185,7 +186,7 @@ export FZF_DEFAULT_OPTS="
 --bind 'alt-a:select-all'
 --bind 'alt-d:deselect-all'
 --bind 'alt-t:toggle-all'
---bind 'alt-y:execute-silent(echo {+} | xclip)'
+--bind 'alt-y:execute-silent(echo {+} | xclip -sel clip)'
 --bind 'alt-e:execute(nvim {+}  > /dev/tty)'
 --bind 'alt-v:execute(code {+})'
 "
@@ -230,3 +231,8 @@ echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >>~/.p
 if command -v gh > /dev/null; then
     gh completion -s zsh > ~/.zsh_alias/_gh && chmod +x ~/.zsh_alias/_gh
 fi
+
+
+# inherit aliases completion
+# https://unix.stackexchange.com/questions/177902/zsh-completion-on-the-second-command-or-after-an-alias/178054#178054
+unsetopt complete_aliases
