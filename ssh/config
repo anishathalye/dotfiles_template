@@ -1,6 +1,7 @@
 # MAIN OPTIONS
 Host *
 VisualHostKey no
+AddKeysToAgent yes  # if ssh agent is not run prior to ask for passphrase (git for example), agent is kept
 #ForwardX11 no
 
 Host jumpbox
