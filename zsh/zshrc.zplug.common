@@ -170,17 +170,20 @@ if command -v fd > /dev/null; then
     }
 fi
 
-export FZF_NETCDF_UUID_REGEXP='[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+export FZF_NETCDF_UUID_REGEXP="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
 export FZF_DEFAULT_OPTS="
 --info=inline
 --height=80%
 --multi
 --preview '\
-    ([[ {} == *.nc ]] && ncdump -h {}) || \
-    ( echo {} | grep -q -E "*.nc.$FZF_NETCDF_UUID_REGEXP" && ncdump -h {}) || \
-    ([[ {} == *.zip ]] && zip -sf {}) || \
-    ([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || \
-    ([[ -d {} ]] && (tree -C {} | less)) || \
+    ( (echo {} | grep -q -E \"*\.nc$\") && ncdump -h {}) || \
+    ( (echo {} | grep -q -E \"*\.nc\..*\") && ncdump -h {}) || \
+    ( (echo {} | grep -q -E \"*\.zip$\") && zip -sf {}) || \
+    ( (echo {} | grep -q -E \"*\.zip\.$FZF_NETCDF_UUID_REGEX\") && zip -sf {}) || \
+    ( (echo {} | grep -q -E \"*\.(log|xml|txt)$\") && bat {}) || \
+    ( (echo {} | grep -q -E \"*\.(log|xml|txt)\..*\") && bat {}) || \
+    ( [[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || \
+    ( [[ -d {} ]] && (tree -C {} | less)) || \
     echo {} 2> /dev/null | head -200'
 --color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
 --prompt='∼ ' --pointer='▶' --marker='✓'

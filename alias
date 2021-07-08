@@ -97,14 +97,14 @@ function pipeline_log_error_file() {
     local file_input=$(echo $list_all_error_files | grep -E .$uuid_regexp | \
     fzf --multi=1 \
     --preview \
-    '( echo {} | grep -q -E "*.nc.$uuid_regexp" && ncdump -h {}) || \
-    ( echo {} | grep -q -E "*.nc" && ncdump -h {}) || \
-    ( echo {} | grep -q -E "*.zip.$uuid_regexp" && zip -sf {}) || \
-    ( echo {} | grep -q -E "*.zip" && zip -sf {}) || \
-    ( echo {} | grep -q -E "*.manifest.$uuid_regexp" && bat {}) || \
-    ( echo {} | grep -q -E "*.manifest" && bat {}) || \
-    ( echo {} | grep -q -E "*.(log|xml|txt).$uuid_regexp" && bat {}) || \
-    ( echo {} | grep -q -E "*.log" && bat {}) || \
+    '( (echo {} | grep -q -E "*.nc.$uuid_regexp") && ncdump -h {}) || \
+    ( (echo {} | grep -q -E "*.nc") && ncdump -h {}) || \
+    ( (echo {} | grep -q -E "*.zip.$uuid_regexp") && zip -sf {}) || \
+    ( (echo {} | grep -q -E "*.zip") && zip -sf {}) || \
+    ( (echo {} | grep -q -E "*.manifest.$uuid_regexp") && bat {}) || \
+    ( (echo {} | grep -q -E "*.manifest") && bat {}) || \
+    ( (echo {} | grep -q -E "*.(log|xml|txt).$uuid_regexp") && bat {}) || \
+    ( (echo {} | grep -q -E "*.(log|xml|txt)") && bat {}) || \
     ' 
     )
 
