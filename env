@@ -67,6 +67,7 @@ export PATH="/snap/bin:$PATH"
 JETBRAINS_PATH=`find $HOME/bin/ -maxdepth 2 -type d -name 'jetbrains-toolbox*'`
 export PATH=$JETBRAINS_PATH:$PATH
 
+unalias  fd >/dev/null 2>/dev/null # in order to use https://github.com/sharkdp/fd
 PYCHARM_BIN_PATH=`fd -aHL --type f pycharm.sh ~/.local/`
 [[ ! -z $PYCHARM_BIN_PATH ]] && PYCHARM_PATH=$(dirname $PYCHARM_BIN_PATH) && export PATH=$PYCHARM_PATH:$PATH
 
