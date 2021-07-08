@@ -67,6 +67,9 @@ export PATH="/snap/bin:$PATH"
 JETBRAINS_PATH=`find $HOME/bin/ -maxdepth 2 -type d -name 'jetbrains-toolbox*'`
 export PATH=$JETBRAINS_PATH:$PATH
 
+PYCHARM_PATH=$(dirname `fd -aHL --type f pycharm.sh ~/.local/`)
+export PATH=$PYCHARM_PATH:$PATH
+
 # Terminal
 if ! command -v alacritty &> /dev/null; 
    then TERMINAL=''; 

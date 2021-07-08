@@ -351,7 +351,7 @@ _cc() {
     local test=$1;shift
     [ -f /mnt/ebs/pipeline/bin/activate ] && . /mnt/ebs/pipeline/bin/activate || conda activate python-aodndata-conda
     local uuid_regexp='[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
-    filepath=$( (fd -LHI nc.$uuid_regexp ; fd -LHI -e nc) | fzf -m --preview "([[ -f {} ]] && ncdump -h {})")
+    filepath=$( (fd -LHI nc.$uuid_regexp ; fd -LHI -e nc) | fzf --multi=1 --preview "([[ -f {} ]] && ncdump -h {})")
 
     if [ ! -z "$filepath" ]
         then

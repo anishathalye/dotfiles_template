@@ -10,13 +10,32 @@ pager:
 # Aliases allow you to create nicknames for gh commands
 aliases:
     co: '!id="$(gh pr list -L100 | fzf --no-preview --reverse | cut -f1)"; [ -n "$id" ] && gh pr checkout "$id"'
-    #issues_milestone: '!milestone="$1";id="$(gh issue list -a $GIT_USER -R aodn/po-backlog --milestone "Iteration $milestone"| fzf --no-preview --reverse | cut -f1)";  [ -n "$id" ] && gh issue -R aodn/po-backlog view "$id" '
-    issue_user_repo_view: |-
+    _issue_user_repo_view: |-
         !(
-        user=$1; shift
-        repo=$1; shift
-        milestone=$1;
+        # parse the options
+        tmp_getops=`getopt -o u:r:m:c: --long user,repo,milestone,comment -- "$@"`
+        eval set -- "$tmp_getops"
+
+        while true ; do
+            case "$1" in
+                -u|--user) user="$2"; shift 2;;
+                -r|--repo) repo="$2"; shift 2;;
+                -m|--milestone) milestone="$2"; shift 2;;
+                -c|--comment) comment=true ; shift 1;;
+                --) shift; break;;
+                *) ;;
+            esac
+        done
+
         fzf_default_opts="--no-preview --reverse --multi=1"
+
+        # option -c to comment an issue or view
+        if [ -z "$comment" ]
+        then
+            command=view
+        else
+            command=comment
+        fi
 
         if [ -z "$milestone" ]
         then
@@ -25,45 +44,116 @@ aliases:
             id="$(gh issue list -a $user -R $repo --milestone "Iteration $milestone" | fzf $fzf_default_opts | cut -f1)"
         fi
 
-        [ -n "$id" ] && gh issue -R $repo view "$id"
+        [ -n "$id" ] && gh issue -R $repo $command "$id"
         )
     issues: |-
         !(case $1 in
          content)
+            tmp_getops=`getopt -o c: --long comment -- "$@"`
+            eval set -- "$tmp_getops"
+
+            while true ; do
+                case "$1" in
+                    -c|--comment) comment="$1"; shift 1;;
+                    --) shift; break;;
+                    *) ;;
+                esac
+            done
+
             user="$GIT_USER"
             repo=aodn/content
-            gh issue_user_repo_view $user $repo
+            gh _issue_user_repo_view -u $user -r $repo $comment
             ;;
 
          issues)
+            tmp_getops=`getopt -o c: --long comment -- "$@"`
+            eval set -- "$tmp_getops"
+
+            while true ; do
+                case "$1" in
+                    -c|--comment) comment="$1"; shift 1;;
+                    --) shift; break;;
+                    *) ;;
+                esac
+            done
+
+
             user="$GIT_USER"
             repo=aodn/issues
-            gh issue_user_repo_view $user $repo
+            gh _issue_user_repo_view -u $user -r $repo $comment
             ;;
 
          po_backlog_milestone)
+            tmp_getops=`getopt -o c: --long comment -- "$@"`
+            eval set -- "$tmp_getops"
+
+            while true ; do
+                case "$1" in
+                    -c|--comment) comment="$1"; shift 1;;
+                    --) shift; break;;
+                    *) ;;
+                esac
+            done
+
+
             user="$GIT_USER"
             repo=aodn/po-backlog
             shift; milestone="$1"
-            gh issue_user_repo_view $user $repo $milestone
+            gh _issue_user_repo_view -u $user -r $repo -m $milestone $comment
             ;;
 
          po_backlog)
+            tmp_getops=`getopt -o c: --long comment -- "$@"`
+            eval set -- "$tmp_getops"
+
+            while true ; do
+                case "$1" in
+                    -c|--comment) comment="$1"; shift 1;;
+                    --) shift; break;;
+                    *) ;;
+                esac
+            done
+
+
             user="$GIT_USER"
             repo=aodn/po-backlog
-            gh issue_user_repo_view $user $repo
+            gh _issue_user_repo_view -u $user -r $repo $comment
             ;;
 
          aodndata)
+            tmp_getops=`getopt -o c: --long comment -- "$@"`
+            eval set -- "$tmp_getops"
+
+            while true ; do
+                case "$1" in
+                    -c|--comment) comment="$1"; shift 1;;
+                    --) shift; break;;
+                    *) ;;
+                esac
+            done
+
+
             user="$GIT_USER"
             repo=aodn/python-aodndata
-            gh issue_user_repo_view $user $repo
+            gh _issue_user_repo_view $user -r $repo $comment
             ;;
 
          data_services)
+            tmp_getops=`getopt -o c: --long comment -- "$@"`
+            eval set -- "$tmp_getops"
+
+            while true ; do
+                case "$1" in
+                    -c|--comment) comment="$1"; shift 1;;
+                    --) shift; break;;
+                    *) ;;
+                esac
+            done
+
+
             user="$GIT_USER"
             repo=aodn/data-services
-            gh issue_user_repo_view $user $repo
+            gh _issue_user_repo_view -u $user -r $repo $comment
             ;;
 
          *)
