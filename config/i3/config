@@ -242,7 +242,7 @@ bindsym Print exec scrot $HOME/Pictures/`date +%Y-%m-%d_%H:%M:%S`.png
 
 #autostart
 #exec skypeforlinux --minimize
-exec $(find $HOME/bin/ -maxdepth 2 -type d -name 'jetbrains-toolbox*') --minimize
+exec --no-startup-id "$(fd -t x -LHI jetbrains $HOME/bin) --minimize"
 exec --no-startup-id copyq
 exec --no-startup-id ~/bin/Nextcloud.AppImage&
 exec --no-startup-id ~/bin/Joplin.AppImage&
