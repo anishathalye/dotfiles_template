@@ -199,6 +199,13 @@ alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach
 alias cleanup_cache="brew cleanup && conda clean -a"
 
 alias vita_dock="mplayer tv:// -tv driver=v4l2:device=/dev/video2:width=960:height=544"
+function vita_update_all_games() { 
+    local vita_path=/export/games/emulation/Playstation/PSVITA
+    for id in `fd -e zip -t f . --full-path $vita_path  | grep -o -E "P[A-Z]{3}[0-9]{5}" | uniq | sort`; do
+        echo updating  $(basename "$(fd -e zip -t f $id --full-path $vita_path --max-depth 1)")
+        $HOME/nopaystation_scripts/nps_update.sh $id
+    done
+}
 
 function x(){
     if [ -f $1 ] ; then
