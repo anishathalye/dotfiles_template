@@ -619,5 +619,5 @@ set fo+=t
 nnoremap <leader>nc :vnew<Bar>0r!ncdump -c <C-R>+<CR>
 
 " rainbow csv
-"autocmd BufNewFile,BufRead *.csv   set filetype=csv_semicolon
+autocmd BufNewFile,BufRead *.csv   set filetype=csv
 "autocmd BufNewFile,BufRead *.dat   set filetype=csv_pipe

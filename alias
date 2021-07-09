@@ -226,6 +226,15 @@ function fe(){
     nvim $(fd -LIH --type f | fzf -m --preview "([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {}))")
     }
 
+function csv_viewer() {
+    local input_file=$1;
+    cat $input_file | column -t -s, | less -S
+}
+
+function cheat_fzf(){
+    cheat -l | tail -n +2 | fzf --preview '(cheat $(echo {} | cut -d " " -f1 ))' | awk -v vars="$*" '{ print "cheat " $1 " -t " $3, vars }'
+}
+
 #https://github.com/junegunn/fzf/wiki/Examples
 fman() {
     man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man | col -bx | bat -l man -p --color always' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
