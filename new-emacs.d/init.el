@@ -71,12 +71,6 @@
     (cider-load-buffer)
     (cider-test-run-test))
 
-;;; Theme using `doom-themes`
-  (use-package doom-themes
-    :config
-    (load-theme 'doom-molokai t)
-    ;; (load-theme 'doom-snazzy t)
-    )
 
 ;;; Package management
   (require 'package)
@@ -94,6 +88,13 @@
 
   ;; ensure everything is installed, use `:ensure nil` to override
   (setq use-package-always-ensure t)
+
+;;; Theme using `doom-themes`
+  (use-package doom-themes
+    :config
+    (load-theme 'doom-molokai t)
+    ;; (load-theme 'doom-snazzy t)
+    )
 
 ;;; Initialize `general` for keybindings
   (use-package general
