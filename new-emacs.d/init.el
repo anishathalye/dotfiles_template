@@ -437,7 +437,7 @@
 
 ;; Setup status tags
 (setq org-todo-keywords
-      '((sequence "TODO" "STARTED" "INREVIEW" "|" "BLOCKED" "DONE" "CANCELED")))
+      '((sequence "NEXT(n) TODO(t)" "STARTED(s)" "INREVIEW(r)" "|" "BLOCKED(b!)" "DONE(d!)" "CANCELED(c!)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" . (:foreground "#ff39a3" :weight bold))
