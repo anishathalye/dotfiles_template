@@ -74,10 +74,28 @@ alias project_officer_user='sudo -u projectofficer -s'
 
 # pipeline
 export PIPELINE_TASK_LOG_PATH=/mnt/ebs/log/pipeline/process
-alias pipeline_log_tailf='var=$(find /mnt/ebs/log/pipeline -type f -name "*.log" | fzf) && tail -f $var'
-alias pipeline_log_tailf_task='var=$(find $PIPELINE_TASK_LOG_PATH -type f -name "task*.log" | fzf) && tail -f $var'
-alias pipeline_ls_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && ls $var'
-alias pipeline_cd_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | fzf) && cd $var'
+
+alias pipeline_log_tailf='var=$(find /mnt/ebs/log/pipeline -type f -name "*.log" | \
+    fzf --preview "( [[ -f {} ]] && (bat --style=numbers --color=always {} || cat {}))" ) && \
+    (grc tail -f $var || tail -f $var)'
+
+alias pipeline_log_tailf_task='var=$(find $PIPELINE_TASK_LOG_PATH -type f -name "task*.log" | \
+    fzf --preview "( [[ -f {} ]] && (bat --style=numbers --color=always {} || cat {}))" ) && \
+    (grc tail -f $var || tail -f $var)'
+
+alias pipeline_ls_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | \
+    fzf --preview "\
+    ( [[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || \
+    ( [[ -d {} ]] && (tree -C {} | less)) || \
+    echo {} 2> /dev/null | head -200") \
+    && ls $var'
+
+alias pipeline_cd_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | \
+    fzf --preview "\
+    ( [[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || \
+    ( [[ -d {} ]] && (tree -C {} | less)) || \
+    echo {} 2> /dev/null | head -200") \
+    && cd $var'
 
 # retrieve all logs for any UUID in a pipeline task log
 # $1 UUID value
@@ -97,14 +115,16 @@ function pipeline_log_error_file() {
     local file_input=$(echo $list_all_error_files | grep -E .$uuid_regexp | \
     fzf --multi=1 \
     --preview \
-    '( (echo {} | grep -q -E "*.nc.$uuid_regexp") && ncdump -h {}) || \
-    ( (echo {} | grep -q -E "*.nc") && ncdump -h {}) || \
+    '
+    ( (echo {} | grep -q -E "*\.nc$") && ncdump -h {}) || \
+    ( (echo {} | grep -q -E "*\.nc\..*") && ncdump -h {}) || \
     ( (echo {} | grep -q -E "*.zip.$uuid_regexp") && zip -sf {}) || \
-    ( (echo {} | grep -q -E "*.zip") && zip -sf {}) || \
+    ( (echo {} | grep -q -E "*.zip$") && zip -sf {}) || \
     ( (echo {} | grep -q -E "*.manifest.$uuid_regexp") && bat {}) || \
-    ( (echo {} | grep -q -E "*.manifest") && bat {}) || \
+    ( (echo {} | grep -q -E "*.manifest$") && bat {}) || \
     ( (echo {} | grep -q -E "*.(log|xml|txt).$uuid_regexp") && bat {}) || \
-    ( (echo {} | grep -q -E "*.(log|xml|txt)") && bat {}) || \
+    ( (echo {} | grep -q -E "*.(log|xml|txt)$") && bat {}) || \
+    ( [[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || \
     ' 
     )
 
@@ -201,6 +221,7 @@ alias cleanup_cache="brew cleanup && conda clean -a"
 alias vita_dock="mplayer tv:// -tv driver=v4l2:device=/dev/video2:width=960:height=544"
 function vita_update_all_games() { 
     local vita_path=/export/games/emulation/Playstation/PSVITA
+    cd $vita_path
     for id in `fd -e zip -t f . --full-path $vita_path  | grep -o -E "P[A-Z]{3}[0-9]{5}" | uniq | sort`; do
         echo updating  $(basename "$(fd -e zip -t f $id --full-path $vita_path --max-depth 1)")
         $HOME/nopaystation_scripts/nps_update.sh $id
@@ -361,6 +382,19 @@ remove_file_extension() {
 ncdumph() {
     command ncdump -h "$@" | less;
 }
+
+ncbrowse() {
+    local uuid_regexp='[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+    filepath=$( (fd -LHI nc.$uuid_regexp ; fd -LHI -e nc) | fzf --multi=1 --preview "([[ -f {} ]] && ncdump -h {})")
+
+    if [ ! -z "$filepath" ]
+        then
+        [ -f /mnt/ebs/pipeline/bin/activate ] && . /mnt/ebs/pipeline/bin/activate || conda activate ncvue
+        ncvue "$filepath"
+        [ -f /mnt/ebs/pipeline/bin/activate ] && deactivate || conda deactivate
+    fi
+}
+alias ncvue_plot=ncbrowse
 
 # compliance checker with fzf
 _cc() {

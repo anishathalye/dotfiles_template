@@ -76,7 +76,6 @@ Host github.com
 # bfunk
 Host bfunk
   Hostname 10.1.1.198
-  User lbesnard
   Port 22
   ForwardAgent yes
   ForwardX11 yes
