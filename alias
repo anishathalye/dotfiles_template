@@ -97,6 +97,13 @@ alias pipeline_cd_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | \
     echo {} 2> /dev/null | head -200") \
     && cd $var'
 
+alias pipeline_cd_incoming_dir='var=$(find $INCOMING_DIR -maxdepth 3 -type d | \
+    fzf --preview "\
+    ( [[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || \
+    ( [[ -d {} ]] && (tree -C {} | less)) || \
+    echo {} 2> /dev/null | head -200") \
+    && cd $var'
+
 # retrieve all logs for any UUID in a pipeline task log
 # $1 UUID value
 function pipeline_log_uuid() {
