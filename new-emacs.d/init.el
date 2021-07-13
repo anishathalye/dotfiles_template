@@ -431,10 +431,6 @@
 ;; Indent contents along with tree/bullet depth
 (add-hook 'org-mode-hook 'org-indent-mode)
 
-;; Set files that org-agenda should check for todos
-(setq org-agenda-files
-      '("~/org/habits.org" "~/org/cookbook.org" "~/org/to_read.org" "~/org/new.org" "~/org/journal"))
-
 ;; Setup status tags
 (setq org-todo-keywords
       '((sequence "NEXT(n) TODO(t)" "STARTED(s)" "INREVIEW(r)" "|" "BLOCKED(b!)" "DONE(d!)" "CANCELED(c!)")))
@@ -587,6 +583,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("~/org/habits.org" "/Users/emiller/org/journal/2020-08-17.org" "/Users/emiller/org/journal/2020-08-24.org" "/Users/emiller/org/journal/2020-08-31.org" "/Users/emiller/org/journal/2020-09-07.org" "/Users/emiller/org/journal/2020-09-14.org" "/Users/emiller/org/journal/2020-09-21.org" "/Users/emiller/org/journal/2020-09-28.org" "/Users/emiller/org/journal/2020-10-05.org" "/Users/emiller/org/journal/2020-10-12.org" "/Users/emiller/org/journal/2020-10-19.org" "/Users/emiller/org/journal/2020-10-26.org" "/Users/emiller/org/journal/2020-11-02.org" "/Users/emiller/org/journal/2020-11-09.org" "/Users/emiller/org/journal/2020-11-16.org" "/Users/emiller/org/journal/2020-11-23.org" "/Users/emiller/org/journal/2020-11-30.org" "/Users/emiller/org/journal/2020-12-07.org" "/Users/emiller/org/journal/2020-12-14.org" "/Users/emiller/org/journal/2020-12-21.org" "/Users/emiller/org/journal/2020-12-28.org" "/Users/emiller/org/journal/2021-01-04.org" "/Users/emiller/org/journal/2021-01-11.org" "/Users/emiller/org/journal/2021-01-18.org" "/Users/emiller/org/journal/2021-01-25.org" "/Users/emiller/org/journal/2021-02-01.org" "/Users/emiller/org/journal/2021-02-08.org" "/Users/emiller/org/journal/2021-02-15.org" "/Users/emiller/org/journal/2021-02-22.org" "/Users/emiller/org/journal/2021-03-01.org" "/Users/emiller/org/journal/2021-03-08.org" "/Users/emiller/org/journal/2021-03-15.org" "/Users/emiller/org/journal/2021-03-22.org" "/Users/emiller/org/journal/2021-03-29.org" "/Users/emiller/org/journal/2021-04-05.org" "/Users/emiller/org/journal/2021-04-12.org" "/Users/emiller/org/journal/2021-04-19.org" "/Users/emiller/org/journal/2021-04-26.org" "/Users/emiller/org/journal/2021-05-03.org" "/Users/emiller/org/journal/2021-05-10.org" "/Users/emiller/org/journal/2021-05-17.org" "/Users/emiller/org/journal/2021-05-24.org" "/Users/emiller/org/journal/2021-05-31.org" "/Users/emiller/org/journal/2021-06-07.org" "/Users/emiller/org/journal/2021-06-14.org" "/Users/emiller/org/journal/2021-06-21.org" "/Users/emiller/org/journal/2021-06-28.org" "/Users/emiller/org/journal/2021-07-05.org" "/Users/emiller/org/journal/2021-07-12.org"))
  '(package-selected-packages
    '(transpose-frame org-ref treemacs-persp treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs outshine company-go add-node-modules-path web-mode typescript-mode org-superstar org-bullets ace-window dashboard writeroom-mode which-key use-package selectrum-prescient restart-emacs projectile magit general exec-path-from-shell evil-nerd-commenter evil-lisp-state evil-collection doom-themes consult cider)))
 (custom-set-faces
