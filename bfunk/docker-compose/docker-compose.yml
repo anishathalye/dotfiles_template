@@ -85,7 +85,7 @@ services:
 #  sonic for music and audiobooks in go using less RAM
   navidrome:
     #image: deluan/navidrome:latest
-    image: deluan/navidrome:pr-1138
+    image: deluan/navidrome
     container_name: navidrome
     user: 1000:1000 # should be owner of volumes
     ports:
