@@ -43,7 +43,7 @@ setopt interactivecomments
 # Essential
 source ~/.zplug/init.zsh
 
-# completion
+# completion for cheat
 _cmpl_cheat() {
 reply=($(cheat -l | cut -d' ' -f1))
 }

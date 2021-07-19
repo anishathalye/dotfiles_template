@@ -29,7 +29,6 @@ export CHEATPATH='$HOME/.cheat'
 
 if command -v nvim > /dev/null; then export EDITOR=nvim; else export EDITOR='vim'; fi
 
-
 if [ -d $HOME/github_repo ]; then
     export GITHUB_DIR=$HOME/github_repo
     export CHEF_DIR="$GITHUB_DIR/chef"
@@ -77,3 +76,6 @@ if ! command -v alacritty &> /dev/null;
 else 
     export TERMINAL=alacritty; 
 fi 
+
+
+export DOCKER_CONFIG_DIR=/opt/docker_config

@@ -6,9 +6,7 @@ unalias  fd >/dev/null 2>/dev/null # in order to use https://github.com/sharkdp/
 ##########################
 # DOTFILES UPDATE
 ##########################
-alias dotfiles="cd $DOTFILES_PATH"
-# update dotfiles
-alias dotf_update='dotfiles && git pull && bash install; cd -'
+alias dotfiles_update='cd $DOTFILES_PATH && git pull && bash install; cd -'
 
 ##########################
 # UPDATE AppImages
@@ -153,19 +151,21 @@ alias talend_cd='var=$(find /mnt/ebs/talend/jobs -maxdepth 1 -type d | fzf --mul
 
 # wget for imos buck by simply giving the relative path of an object without the full bucket address
 # $1 imos bucket url
+# $2 output_folder (optional)
 wget_imos_bucket() {
     local url_suffix=$1; shift;
     local url_prefix="https://s3-ap-southeast-2.amazonaws.com/imos-data/"
-    wget ${url_prefix}${url_suffix}
+    local output_folder=$1;
+    [ ! -z $output_folder ] && wget ${url_prefix}${url_suffix} || \
+        wget -P $output_folder ${url_prefix}${url_suffix} 
 }
 
 ##########################
 ## github cli
 ##########################
 export GIT_USER=`git config --list | grep user.name | cut -d = -f2`
-#alias g_issue_list='gh issue list -a $GIT_USER -R aodn/po-backlog && gh issue list -a $GIT_USER -R aodn/content'
 
-# create gh aliases
+# create gh aliases completion
 if command -v gh > /dev/null; then
     for al in $(gh alias list | grep -o -e '^[a-z].*:' | cut -d : -f1); do
         alias gh_$al="gh $al"
@@ -218,6 +218,7 @@ alias cc='copy' && alias yy='copy'
 alias automount='udiskie &'
 alias update_linux='sudo mintupdate-launcher'
 alias linux_version='neofetch'
+alias musescore_dl='npx msdl'
 alias path_env_path="echo $PATH | tr ':' '\n' | fzf"
 [[ -s "$HOMEBREW_PREFIX/etc/grc.zsh" ]] && alias tail='grc tail'
 
@@ -267,15 +268,16 @@ function csv_viewer() {
 }
 
 function cheat_fzf(){
-    cheat -l | tail -n +2 | fzf --preview '(cheat $(echo {} | cut -d " " -f1 ))' | awk -v vars="$*" '{ print "cheat " $1 " -t " $3, vars }'
+    eval `cheat -l | tail -n +2 | fzf --reverse --preview '(cheat $(echo {} | cut -d " " -f1 ))' | awk -v vars="$*" '{ print "cheat " $1 " -t " $3, vars }'`
 }
 
 #https://github.com/junegunn/fzf/wiki/Examples
 fman() {
-    man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man | col -bx | bat -l man -p --color always' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
+    man -k . | fzf -q "$1" --prompt='man> ' --reverse --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man | col -bx | bat -l man -p --color always' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
 }
 # Get the colors in the opened man page itself
 export MANPAGER="sh -c 'col -bx | bat -l man -p --paging always'"
+
 ##########################
 # NETWORK
 ##########################
@@ -301,13 +303,12 @@ alias s='var=$(grep -e "^Host " ~/.ssh/config | sed "s#Host ##" | fzf) && ssh $v
 [ -f ~/.utas_vpnc.conf ] && alias vpn_utas_connect='sudo vpnc ~/.utas_vpnc.conf --local-port 0' && alias vpn_utas_disconnect='sudo vpnc-disconnect'
 
 alias vpn_bfunk_start='sudo openvpn --cd $DOTFILES_PRIVATE_PATH/openvpn/ --writepid /run/openvpn/home.pid --config lbesnard.ovpn'
-alias vpn_evry_start='sudo openvpn --cd $DOTFILES_PRIVATE_PATH/openvpn/ --writepid /run/openvpn/home.pid --config evry.conf'
 alias wg_bfunk_up='wg-quick up bfunk'
 alias wg_bfunk_start='wg_bfunk_up'
 alias wg_bfunk_down='wg-quick down bfunk'
 alias wg_bfunk_stop='wg_bfunk_down'
 alias wg_bfunk_restart='wg_bfunk_down && wg_bfunk_up'
-alias wg_bfunk_route_force_start='sudo route add 10.1.1.198 via 10.13.13.4 dev bfunk'
+alias wg_bfunk_route_force_start='sudo route add $SERVER_LOCAL_IP via 10.13.13.4 dev bfunk'
 
 ##########################
 # vim nvim alias
@@ -346,20 +347,20 @@ alias killall='killall -SIGUSR1'
 alias lock_screen='gnome-screensaver-command --lock || xscreensaver-command -lock'
 
 
-# should be replaced by kp
-#fkill() {
-    #local pid 
-    #if [ "$UID" != "0" ]; then
-        #pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
-    #else
-        #pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-    #fi  
+# should be replaced by kp but kp has some issues on the fzf preview
+fkill() {
+    local pid 
+    if [ "$UID" != "0" ]; then
+        pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+    else
+        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    fi  
 
-    #if [ "x$pid" != "x" ]
-    #then
-        #echo $pid | xargs kill -${1:-9}
-    #fi  
-#}
+    if [ "x$pid" != "x" ]
+    then
+        echo $pid | xargs kill -${1:-9}
+    fi  
+}
 
 #########################
 # DATABASE
@@ -603,13 +604,12 @@ function comic_repack_all_corrupt_archive2cbz(){
 #alias dclogs='docker-compose -f /opt/docker-compose.yml logs -tf --tail="50" '
 #alias dtail='docker logs -tf --tail="50" "$@"'
 # replaced by fzf-docker
-DOCKER_CONFIG_DIR=/opt/docker_config
 
 
 ##############################
 ## BFUNK
 ##############################
-alias mount_games='mount_point=games;mkdir -p $HOME/bfunk/$mount_point; sudo mount -t nfs 10.1.1.198:/export/$mount_point $HOME/bfunk/$mount_point/'
+alias mount_games='mount_point=games;mkdir -p $HOME/bfunk/$mount_point; sudo mount -t nfs $SERVER_LOCAL_IP:/export/$mount_point $HOME/bfunk/$mount_point/'
 #alias start_vpn_torrent='sudo systemctl start vpn_access.service; sudo service transmission-daemon start; myip'
 #alias stop_vpn_torrent='sudo service transmission-daemon stop; sudo systemctl stop vpn_access.service; myip'
 #alias nginx_maintenance='sudo rm -f /etc/nginx/sites-enabled/* && sudo ln -s /etc/nginx/sites-available/omv_maintenance /etc/nginx/sites-enabled/omv_maintenance && sudo service nginx restart;'
