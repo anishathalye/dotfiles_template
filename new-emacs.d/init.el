@@ -454,7 +454,7 @@
   (setq org-journal-file-format "%Y-%m-%d.org")
   (setq org-journal-time-prefix "** ")
   (setq org-journal-date-format "%A, %B %d %Y")
-  (setq org-journal-carryover-items "TODO=\"TODO\"|TODO=\"STARTED\"")
+  (setq org-journal-carryover-items "TODO=\"TODO\"|TODO=\"STARTED\"|TODO=\"REVIEW\"")
   (setq org-journal-find-file #'find-file-other-window)
   (defun org-journal-date-format-func (time)
     "Custom function to insert journal date header,
