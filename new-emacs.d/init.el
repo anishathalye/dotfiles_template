@@ -475,9 +475,10 @@
   (org-super-agenda-mode)
   (setq org-super-agenda-groups
     '(;; Each group has an implicit Boolean OR operator between its selectors.
+      (:name "Life" :tag "life")
       (:name "PrimaryKids" :tag "primarykids")
       (:name "SciCloj" :tag "scicloj")
-      (:name "Done today" :todo "DONE")))
+      (:name "✨ Finished ✨" :todo "DONE")))
   (org-agenda nil "a"))
 
 (use-package org-roam
