@@ -433,12 +433,12 @@
 
 ;; Setup status tags
 (setq org-todo-keywords
-      '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "INREVIEW(r)" "|" "BLOCKED(b!)" "DONE(d!)" "CANCELED(c!)")))
+      '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "REVIEW(r)" "|" "BLOCKED(b!)" "DONE(d!)" "CANCELED(c!)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" . (:foreground "#ff39a3" :weight bold))
 	("STARTED" . "#E35DBF")
-	("INREVIEW" . "lightblue")
+	("REVIEW" . "lightblue")
 	("BLOCKED" . "pink")
 	("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
 	("DONE" . "#008080")))
