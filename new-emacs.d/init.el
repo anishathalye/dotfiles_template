@@ -431,6 +431,12 @@
 ;; Indent contents along with tree/bullet depth
 (add-hook 'org-mode-hook 'org-indent-mode)
 
+;; Set some keybindings for org-agenda
+(general-define-key
+ :keymaps 'org-agenda-keymap
+ "j" 'org-agenda-next-item
+ "k" 'org-agenda-previous-item)
+
 ;; Setup status tags
 (setq org-todo-keywords
       '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "REVIEW(r)" "|" "BLOCKED(b!)" "DONE(d!)" "CANCELED(c!)")))
