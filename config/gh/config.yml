@@ -27,7 +27,8 @@ aliases:
             esac
         done
 
-        fzf_default_opts="--no-preview --reverse --multi=1"
+        #fzf_default_opts="--no-preview --reverse --multi=1"
+        #        fzf_default_opts="--preview '(gh issue -R \'$repo\' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1"
 
         # option -c to comment an issue or view
         if [ -z "$comment" ]
@@ -41,11 +42,20 @@ aliases:
 
         if [ -z "$milestone" ]
         then
-            id="$(gh issue list -a $user -R $repo | fzf $fzf_default_opts | cut -f1)"
+            id="$(gh issue list -a $user -R $repo | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1)"
         else
+
+        #           echo "$milestone" | grep -q -E "$re_number"  && \
+                                           #id=$(gh issue list -a $user -R $repo --milestone "Iteration $milestone" | fzf $fzf_default_opts | cut -f1) || \
+        #                                           id="$(gh issue list -a $user -R $repo --milestone "$milestone" | fzf "$fzf_default_opts" | cut -f1)"
+
            echo "$milestone" | grep -q -E "$re_number"  && \
-                                           id="$(gh issue list -a $user -R $repo --milestone "Iteration $milestone" | fzf $fzf_default_opts | cut -f1)" || \
-                                           id="$(gh issue list -a $user -R $repo --milestone "$milestone" | fzf $fzf_default_opts | cut -f1)"
+                                                      # issue with following command because of git # change, replaced by --search. this will be fixed in the near future https://github.com/cli/cli/issues/4040#issuecomment-887190179
+                                                      #id=$(gh issue list -a $user -R $repo --milestone "Iteration $milestone" | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1) || \
+                                                      id=$(gh issue list -a $user -R $repo --search "milestone:\"Iteration $milestone\"" | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1) || \
+                                                      # issue with following command because of git # change, replaced by --search. this will be fixed in the near future https://github.com/cli/cli/issues/4040#issuecomment-887190179
+                                                      #id=$(gh issue list -a $user -R $repo --milestone "$milestone" | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1)
+                                                      id=$(gh issue list -a $user -R $repo --search "milestone:\"$milestone\"" | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1)
         fi
 
         [ -n "$id" ] && gh issue -R $repo $command "$id"
