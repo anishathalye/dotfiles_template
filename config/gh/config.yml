@@ -14,7 +14,7 @@ aliases:
         !(
         # parse the options
         # ":" -> requires an argument. if no ":" no need for it
-        echo "$@"
+        #echo "$@"
         tmp_getops=`getopt -o a:r:m:c,s: --long assignee:,repo:,milestone:,comment,state: -- "$@"`
         eval set -- "$tmp_getops"
 
