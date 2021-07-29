@@ -1,5 +1,5 @@
 # What protocol to use when performing git operations. Supported values: ssh, https
-git_protocol: https
+git_protocol: ssh
 # What editor gh should run when creating issues, pull requests, etc. If blank, will refer to environment.
 editor:
 # When to interactively prompt. This is a global config that cannot be overridden by hostname. Supported values: enabled, disabled
@@ -13,191 +13,87 @@ aliases:
     _issue_user_repo_view: |-
         !(
         # parse the options
-        tmp_getops=`getopt -o u:r:m:c: --long user,repo,milestone,comment -- "$@"`
+        # ":" -> requires an argument. if no ":" no need for it
+        echo "$@"
+        tmp_getops=`getopt -o a:r:m:c,s: --long assignee:,repo:,milestone:,comment,state: -- "$@"`
         eval set -- "$tmp_getops"
 
         while true ; do
             case "$1" in
-                -u|--user) user="$2"; shift 2;;
+                -a|--assignee) user="-a $2"; shift 2;;
                 -r|--repo) repo="$2"; shift 2;;
                 -m|--milestone) milestone="$2"; shift 2;;
-                -c|--comment) comment=true ; shift 1;;
+                -c|--comment) comment=true; shift 1;;
+                -s|--state) state="-s $2"; shift 2;;
                 --) shift; break;;
                 *) ;;
             esac
         done
 
-        #fzf_default_opts="--no-preview --reverse --multi=1"
-        #        fzf_default_opts="--preview '(gh issue -R \'$repo\' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1"
-
         # option -c to comment an issue or view
-        if [ -z "$comment" ]
-        then
-            command=view
-        else
-            command=comment
-        fi
+        [ -z "$comment" ] && command=view || command=comment
 
-        re_number="^[0-9]+$"
+        # check if iteration is top of po-backlog
+        [ ! -z "$milestone" ] && (echo "$milestone" | grep -q -i top) && milestone="Top of PO Backlog"
 
+        # milestone values specific to AODN organisation
         if [ -z "$milestone" ]
         then
-            id="$(gh issue list -a $user -R $repo | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1)"
+            id="$(gh issue list -L100 $state $user -R $repo | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1)"
         else
-
-        #           echo "$milestone" | grep -q -E "$re_number"  && \
-                                           #id=$(gh issue list -a $user -R $repo --milestone "Iteration $milestone" | fzf $fzf_default_opts | cut -f1) || \
-        #                                           id="$(gh issue list -a $user -R $repo --milestone "$milestone" | fzf "$fzf_default_opts" | cut -f1)"
-
+           re_number="^[0-9]+$"
            echo "$milestone" | grep -q -E "$re_number"  && \
                                                       # issue with following command because of git # change, replaced by --search. this will be fixed in the near future https://github.com/cli/cli/issues/4040#issuecomment-887190179
                                                       #id=$(gh issue list -a $user -R $repo --milestone "Iteration $milestone" | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1) || \
-                                                      id=$(gh issue list -a $user -R $repo --search "milestone:\"Iteration $milestone\"" | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1) || \
+                                                      id=$(gh issue list -L100 $user -R $repo $state --search "milestone:\"Iteration $milestone\"" | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1) || \
                                                       # issue with following command because of git # change, replaced by --search. this will be fixed in the near future https://github.com/cli/cli/issues/4040#issuecomment-887190179
                                                       #id=$(gh issue list -a $user -R $repo --milestone "$milestone" | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1)
-                                                      id=$(gh issue list -a $user -R $repo --search "milestone:\"$milestone\"" | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1)
+                                                      id=$(gh issue list -L100 $user -R $repo $state --search "milestone:\"$milestone\"" | fzf --preview '(gh issue -R '$repo' view $(echo {} | awk '"'"'{print $1;}'"'"') | mdcat)' --reverse --multi=1 | cut -f1)
         fi
 
+        # show or comment selected issue
         [ -n "$id" ] && gh issue -R $repo $command "$id"
         )
+
     issues: |-
         !(case $1 in
-         content)
-            tmp_getops=`getopt -o c: --long comment -- "$@"`
+         content|issues|backlog|po-backlog|data-services|python-aodntools|python-aodncore|python-aodndata)
+
+            organisation=aodn
+            repo="$organisation/$1";
+
+            # re-initiate $ argument "order"
+            tmp_getops=`getopt -o c,a,m: --long comment,all,milestone:,closed -- "$@"`
             eval set -- "$tmp_getops"
 
             while true ; do
                 case "$1" in
                     -c|--comment) comment="$1"; shift 1;;
+                    -a|--all) all_users=True; shift 1;;
+                    -m|--milestone) milestone="-m $2"; shift 2;;
+                    --closed) state="-s closed"; shift 1;;
                     --) shift; break;;
                     *) ;;
                 esac
             done
 
-            user="$GIT_USER"
-            repo=aodn/content
-            gh _issue_user_repo_view -u $user -r $repo $comment
-            ;;
+            if [ -z "$all_users" ]
+            then
+                user="$GIT_USER"
+                gh _issue_user_repo_view -a $user -r $repo $comment $milestone $state
+            else
+                gh _issue_user_repo_view -r $repo $comment $milestone $state
+            fi
 
-         issues)
-            tmp_getops=`getopt -o c: --long comment -- "$@"`
-            eval set -- "$tmp_getops"
-
-            while true ; do
-                case "$1" in
-                    -c|--comment) comment="$1"; shift 1;;
-                    --) shift; break;;
-                    *) ;;
-                esac
-            done
-
-            user="$GIT_USER"
-            repo=aodn/issues
-            gh _issue_user_repo_view -u $user -r $repo $comment
-            ;;
-
-         po_backlog_milestone)
-            tmp_getops=`getopt -o c: --long comment -- "$@"`
-            eval set -- "$tmp_getops"
-
-            while true ; do
-                case "$1" in
-                    -c|--comment) comment="$1"; shift 1;;
-                    --) shift; break;;
-                    *) ;;
-                esac
-            done
-
-            user="$GIT_USER"
-            repo=aodn/po-backlog
-            shift; milestone="$1"
-            gh _issue_user_repo_view -u $user -r $repo -m $milestone $comment
-            ;;
-
-         po_backlog_top)
-            tmp_getops=`getopt -o c: --long comment -- "$@"`
-            eval set -- "$tmp_getops"
-
-            while true ; do
-                case "$1" in
-                    -c|--comment) comment="$1"; shift 1;;
-                    --) shift; break;;
-                    *) ;;
-                esac
-            done
-
-
-            user="$GIT_USER"
-            repo=aodn/po-backlog
-            milestone="Top of PO Backlog"
-            gh _issue_user_repo_view -u $user -r $repo -m "$milestone" $comment
-            ;;
-
-
-         po_backlog)
-            tmp_getops=`getopt -o c: --long comment -- "$@"`
-            eval set -- "$tmp_getops"
-
-            while true ; do
-                case "$1" in
-                    -c|--comment) comment="$1"; shift 1;;
-                    --) shift; break;;
-                    *) ;;
-                esac
-            done
-
-
-            user="$GIT_USER"
-            repo=aodn/po-backlog
-            gh _issue_user_repo_view -u $user -r $repo $comment
-            ;;
-
-         aodndata)
-            tmp_getops=`getopt -o c: --long comment -- "$@"`
-            eval set -- "$tmp_getops"
-
-            while true ; do
-                case "$1" in
-                    -c|--comment) comment="$1"; shift 1;;
-                    --) shift; break;;
-                    *) ;;
-                esac
-            done
-
-
-            user="$GIT_USER"
-            repo=aodn/python-aodndata
-            gh _issue_user_repo_view $user -r $repo $comment
-            ;;
-
-         data_services)
-            tmp_getops=`getopt -o c: --long comment -- "$@"`
-            eval set -- "$tmp_getops"
-
-            while true ; do
-                case "$1" in
-                    -c|--comment) comment="$1"; shift 1;;
-                    --) shift; break;;
-                    *) ;;
-                esac
-            done
-
-
-            user="$GIT_USER"
-            repo=aodn/data-services
-            gh _issue_user_repo_view -u $user -r $repo $comment
             ;;
 
          *)
 
             echo The following commands are supported from '\e[1;31m'gh issues'\e[0m':
-            echo '\t\e[1;32m'content'\e[0m' '\t list all issues for user from content repo'
-            echo '\t\e[1;32m'issues'\e[0m' '\t list all issues for user from issues repo'
-            echo '\t\e[1;32m'po_backlog'\e[0m' '\t list all issues for user from po_backlop repo'
-            echo '\t\e[1;32m'aodndata'\e[0m' '\t list all issues for user from aodndata repo'
-            echo '\t\e[1;32m'data_services'\e[0m' '\t list all issues for user from data-services repo'
-            echo '\t\e[1;32m'po_backlog_milestone [VALUE]'\e[0m' '\t list all issues for user from po_backlop repo for specific milestone number'
-            echo '\t\e[1;32m'po_backlog_top '\e[0m' '\t list all issues for user from po_backlop repo for top of backlog'
+            echo '\t\e[1;32m'content,po-backlog,data-services...'\e[0m' '\t list all issues for user from content repo'
+            echo '\t\e[1;32m'-m [223, Iteration 223, top]'\e[0m' '\t list all issues for specific milestone'
+            echo '\t\e[1;32m'-a --all'\e[0m' '\t list all issues for all users'
+            echo '\t\e[1;32m'--closed'\e[0m' '\t list closed issues'
 
             ;;
           esac)

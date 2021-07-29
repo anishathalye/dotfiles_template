@@ -39,7 +39,10 @@ https://gist.github.com/Kartones/dd3ff5ec5ea238d4c546
 SELECT * FROM pg_stat_activity where usename = 'USERNAME'
 
 # list tables
-select * from pg_catalog.pg_views where tablename not like 'pg%'
+select * from pg_catalog.pg_tables where tablename not like 'pg%'
+
+# list views
+select * from pg_catalog.pg_views where viewname not like 'pg%'
 
 # table definition
 select * from pg_catalog.pg_views where schemaname like '%name%' and viewname = 'name'
