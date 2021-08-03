@@ -374,26 +374,26 @@ services:
     container_name: web-server
     image: httpd:2.4
     ports:
-      - 9090:80
+      - 1021:80
     volumes:
       - $DOCKER_CONFIG_PATH/howto:/usr/local/apache2/htdocs/
     restart: unless-stopped
 #####################
-# tinymediamanager - filebot replacement
-  tinymediamanager:
-    image: romancin/tinymediamanager:latest
-    container_name: tinymediamanager
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-    volumes:
-      - $DOCKER_CONFIG_PATH/tmm:/config
-      - $TORRENT_PATH/completed:/media
-    ports:
-      - 5700:5800
-      - 5900:5900
-    restart: unless-stopped
+## tinymediamanager - filebot replacement
+ # tinymediamanager:
+    #image: romancin/tinymediamanager:latest
+    #container_name: tinymediamanager
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=$TZ
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/tmm:/config
+      #- $TORRENT_PATH/completed:/media
+    #ports:
+      #- 5700:5800
+      #- 5900:5900
+ #   restart: unless-stopped
 ################
 ####### notes
   hedgedoc:
@@ -649,6 +649,22 @@ services:
       - PASSWORD=guest
       - TZ=$TZ
     restart: always
+
+#######################
+#  webtop:
+    #image: ghcr.io/linuxserver/webtop:alpine-mate
+    #container_name: webtop
+    #environment:
+       #- PUID=1000
+       #- PGID=1000
+       #- TZ=Asia/India
+    #privileged: true
+    #volumes:
+       #- $DOCKER_CONFIG_PATH/webtop:/config
+    #ports:
+       #- 4000:3000
+    #shm_size: "1gb"
+#    restart: unless-stopped
 #######################
 #### netdata
   netdata:
