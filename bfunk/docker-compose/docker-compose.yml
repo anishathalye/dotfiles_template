@@ -374,26 +374,26 @@ services:
     container_name: web-server
     image: httpd:2.4
     ports:
-      - 9090:80
+      - 1021:80
     volumes:
       - $DOCKER_CONFIG_PATH/howto:/usr/local/apache2/htdocs/
     restart: unless-stopped
 #####################
-# tinymediamanager - filebot replacement
-  tinymediamanager:
-    image: romancin/tinymediamanager:latest
-    container_name: tinymediamanager
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=$TZ
-    volumes:
-      - $DOCKER_CONFIG_PATH/tmm:/config
-      - $TORRENT_PATH/completed:/media
-    ports:
-      - 5700:5800
-      - 5900:5900
-    restart: unless-stopped
+## tinymediamanager - filebot replacement
+ # tinymediamanager:
+    #image: romancin/tinymediamanager:latest
+    #container_name: tinymediamanager
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=$TZ
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/tmm:/config
+      #- $TORRENT_PATH/completed:/media
+    #ports:
+      #- 5700:5800
+      #- 5900:5900
+ #   restart: unless-stopped
 ################
 ####### notes
   hedgedoc:
@@ -579,6 +579,64 @@ services:
     volumes:
      - $DOCKER_CONFIG_PATH/openvpn-data/conf:/etc/openvpn
 #######################
+# rsync serve
+  rsync-server:
+    image: axiom/rsync-server
+    container_name: rsync-server
+    volumes:
+      - $HOME/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
+      - $SERVER_PATH:/data:ro
+    #environment:
+      #- USERNAME=nouser
+      #- PASSWORD=nopass
+    ports:
+      #- "873:873" #uncomment if want to use rsyncd
+      - "9000:22"
+#######################
+# Samba
+  samba:
+    image: dperson/samba
+    container_name: samba
+    environment:
+      TZ: $TZ
+      PUID: 1000
+      PGID: 1000
+    ports:
+      #- "137:137/udp"
+      #- "138:138/udp"
+      - "139:139/tcp"
+      - "445:445/tcp"
+    read_only: true
+    tmpfs:
+      - /tmp
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    volumes:
+      - $EBOOKS_AUDIOBOOKS_PATH:/share1:ro
+      - $GAMES_PATH:/share2:ro
+      - $MOVIES_PATH:/share3:ro
+      - $MUSIC_PATH:/share4:ro
+      - $PICTURES_PATH:/share5
+      - $SHARE_PATH:/share6
+      - $TORRENT_PATH:/share7:ro
+      - $SELF_IMPROVEMENT_PATH:/share8:ro
+      - $PODCASTS_PATH:/share9:ro
+    command: |
+      -s "Ebooks;/share1;yes;yes;yes;all;none;$USER;ebooks share ro"
+      -s "Games;/share2;yes;yes;yes;all;none;$USER;games share ro"
+      -s "Movies;/share3;yes;yes;yes;all;none;$USER;movies share ro"
+      -s "Music;/share4;yes;yes;yes;all;none;$USER;music share ro"
+      -s "Pictures;/share5;yes;no;no;$USER;$USER;$USER;pictures ro except user"
+      -s "Shared;/share6;yes;no;yes;guest,$USER;guest,$USER;guest,$USER;shared rw"
+      -s "Torrent;/share7;yes;yes;yes;all;none;$USER;torrent share ro"
+      -s "Self Improvement;/share8;yes;yes;yes;all;none;$USER;Self Improvement share ro"
+      -s "Podcasts;/share9;yes;yes;yes;all;none;$USER;Podcasts share ro"
+      -u "$USER;$SAMBA_PASSWORD"
+      -u "guest;guest"
+      -g "map to guest = Bad User"
+      -g "guest account = nobody"
+
 #######################
   filebrowser2:
     image: filebrowser/filebrowser
@@ -649,6 +707,22 @@ services:
       - PASSWORD=guest
       - TZ=$TZ
     restart: always
+
+#######################
+#  webtop:
+    #image: ghcr.io/linuxserver/webtop:alpine-mate
+    #container_name: webtop
+    #environment:
+       #- PUID=1000
+       #- PGID=1000
+       #- TZ=Asia/India
+    #privileged: true
+    #volumes:
+       #- $DOCKER_CONFIG_PATH/webtop:/config
+    #ports:
+       #- 4000:3000
+    #shm_size: "1gb"
+#    restart: unless-stopped
 #######################
 #### netdata
   netdata:
