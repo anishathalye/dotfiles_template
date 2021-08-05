@@ -49,8 +49,8 @@ alias chef_cd="cd $CHEF_DIR"
 alias chef_private_cd="cd $CHEF_DIR/../chef-private"
 alias talend="chef_cd && ./bin/talend7-pipeline.sh"
 alias chef_imos="chef_cd && rm -f private; ln -s ../chef-private private"
-alias chef_pipeline_box_start="chef_cd &&  ./bin/pipeline-box.sh"
-alias chef_pipeline_box_provision="chef_cd && vagrant provision pipeline"
+alias chef_pipeline_box_start="chef_cd && ./bin/write_pipeline_stack_secrets.sh -p nodes/pipeline.json; ./bin/pipeline-box.sh"
+alias chef_pipeline_box_provision="chef_cd && ./bin/write_pipeline_stack_secrets.sh -p nodes/pipeline.json; vagrant provision pipeline"
 alias chef_sample="chef_cd && rm -f private; ln -s private-sample private"
 #alias vagrant_ssh='var=$(find $CHEF_DIR/nodes/ -type f -name "*\.json" -exec basename {} \; | cut -d . -f 1 | fzf) && cd $CHEF_DIR && vagrant ssh $var'
 function vs(){
@@ -291,6 +291,17 @@ alias wifi_restart='sudo systemctl restart wpa_supplicant.service'
 alias wifi_connect_to='nmtui'
 alias wifi_configure='nm-applet'
 
+function host_via_which_route() {
+    local host=$1
+    # get the ip of that host (works with dns and /etc/hosts. In case we get  
+    # multiple IP addresses, we just want one of them
+    host_ip=$(getent ahosts "$host" | awk '{print $1; exit}')
+
+    # only list the interface used to reach a specific host/IP. We only want the
+    # part between dev and src (use grep for that)
+    ip route get "$host_ip" | grep -Po '(?<=(dev )).*(?= src| proto)'
+}
+
 if command -v dig > /dev/null; then
     alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
     alias mygeo="curl -w \"\\n\" http://api.hackertarget.com/geoip/\?q=\`myip\`"
@@ -308,7 +319,9 @@ alias wg_bfunk_start='wg_bfunk_up'
 alias wg_bfunk_down='wg-quick down bfunk'
 alias wg_bfunk_stop='wg_bfunk_down'
 alias wg_bfunk_restart='wg_bfunk_down && wg_bfunk_up'
-alias wg_bfunk_route_force_start='sudo route add $SERVER_LOCAL_IP via 10.13.13.4 dev bfunk'
+alias wg_bfunk_route_force_start='sudo ip route del default; sudo ip route add default via 131.217.38.1 dev eth1; sudo ip route add $SERVER_LOCAL_IP via 11.13.13.4 dev bfunk' # could be useful if wifi network has same network as vpn
+
+#
 
 ##########################
 # vim nvim alias
