@@ -400,6 +400,9 @@
     :defer t
     :mode ("\\.jsx?\\'" "\\.tsx?\\'")
     :config
+    (define-key rjsx-mode-map "<" nil)
+    (define-key rjsx-mode-map (kbd "C-d") nil)
+    (define-key rjsx-mode-map ">" nil)
     (setq js2-mode-show-parse-errors nil
 	  js2-mode-show-strict-warnings nil))
 
