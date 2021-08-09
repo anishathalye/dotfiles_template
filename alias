@@ -58,8 +58,8 @@ function vs(){
   cd $(cat ~/.vagrant.d/data/machine-index/index | jq '.machines[] | {name, vagrantfile_path, state}' | jq '.name + "," + .state  + "," + .vagrantfile_path'| sed 's/^"\(.*\)"$/\1/'| column -s, -t | sort -rk 2 | fzf | awk '{print $3}'); vagrant ssh
 }
 alias vagrant_ssh=vs
-alias chef_pipeline_bckp_json='cp $CHEF_DIR/private-sample/nodes/pipeline.json $CHEF_DIR/private-sample/nodes/pipeline.json.bckp'
-alias chef_pipeline_restore_json='cp $CHEF_DIR/private-sample/nodes/pipeline.json.bckp  $CHEF_DIR/private-sample/nodes/pipeline.json'
+#alias chef_pipeline_bckp_json='cp $CHEF_DIR/private-sample/nodes/pipeline.json $CHEF_DIR/private-sample/nodes/pipeline.json.bckp'
+#alias chef_pipeline_restore_json='cp $CHEF_DIR/private-sample/nodes/pipeline.json.bckp  $CHEF_DIR/private-sample/nodes/pipeline.json'
 
 alias ansible_provision_latop='ansible-playbook -i hosts $ANSIBLE_PATH/local.yml -K'
 alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.yml'
@@ -639,3 +639,16 @@ alias backup_nextcloud='sudo docker stop nextcloud && tar -cvf "/tmp/nextcloud_$
 
 # when files are copied manually to nextcloud folder
 alias nextcloud_force_rescan='docker exec nextcloud sudo -u abc php /config/www/nextcloud/occ files:scan --all'
+
+function bfunk_rsync() {
+    local folder_to_bckp="$1"; shift
+    local src="/data/$folder_to_bckp"
+    local dest="$1/$folder_to_bckp"; shift
+    local extra_rsync_command="$1";
+
+    [ -d $dest ] && rsync -av -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $SERVER_LOCAL_IP:$src/ $dest/ --progress $extra_rsync_command || $dest does not exist
+}
+
+alias bfunk_bckp_ebooks='bfunk_rsync ebooks_audiobooks /media/lbesnard/bckp_2tb'
+alias bfunk_bckp_music='bfunk_rsync music /media/lbesnard/media_center'
+alias bfunk_bckp_self_improvement='bfunk_rsync self_improvement /media/lbesnard/media_center'

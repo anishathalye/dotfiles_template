@@ -623,3 +623,6 @@ nnoremap <leader>nc :vnew<Bar>0r!ncdump -c <C-R>+<CR>
 " rainbow csv
 autocmd BufNewFile,BufRead *.csv   set filetype=csv
 "autocmd BufNewFile,BufRead *.dat   set filetype=csv_pipe
+
+"Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
