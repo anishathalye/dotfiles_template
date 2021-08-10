@@ -411,18 +411,19 @@
     :diminish prettier-js-mode
     :hook (((js2-mode rjsx-mode) . prettier-js-mode)))
 ;;; Clojure Configuration
-  (show-paren-mode 1)
-  (use-package clojure-mode :defer t)
-  (use-package cider :defer t)
-  (use-package rainbow-delimiters
-    :defer t
-    :init
-    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-  (use-package company
-    :config
-    (progn
-      (add-hook 'cider-repl-mode-hook #'company-mode)
-      (add-hook 'cider-mode-hook #'company-mode)))
+(show-paren-mode 1)
+(use-package clojure-mode :defer t)
+(use-package cider
+  :defer t)
+(use-package rainbow-delimiters
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+(use-package company
+  :config
+  (progn
+    (add-hook 'cider-repl-mode-hook #'company-mode)
+    (add-hook 'cider-mode-hook #'company-mode)))
 
 ;;; Org-mode configuation
 (setq org-directory "~/org")
