@@ -319,7 +319,7 @@ alias wg_bfunk_start='wg_bfunk_up'
 alias wg_bfunk_down='wg-quick down bfunk'
 alias wg_bfunk_stop='wg_bfunk_down'
 alias wg_bfunk_restart='wg_bfunk_down && wg_bfunk_up'
-alias wg_bfunk_route_force_start='sudo ip route del default; sudo ip route add default via 131.217.38.1 dev eth1; sudo ip route add $SERVER_LOCAL_IP via 11.13.13.4 dev bfunk' # could be useful if wifi network has same network as vpn
+alias wg_bfunk_route_force_start='sudo ip route del default; sudo ip route add default via 131.217.38.1 dev eth1; sudo ip route add $SERVER_LOCAL_IP via 11.13.13.4 dev bfunk; sudo ip route add 10.1.1.0/24 via 10.13.13.4 dev bfunk' # could be useful if wifi network has same network as vpn
 
 #
 
@@ -646,9 +646,15 @@ function bfunk_rsync() {
     local dest="$1/$folder_to_bckp"; shift
     local extra_rsync_command="$1";
 
-    [ -d $dest ] && rsync -av -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $SERVER_LOCAL_IP:$src/ $dest/ --progress $extra_rsync_command || $dest does not exist
+    [ -d $dest ] && rsync -auv -P  --delete --delete-excluded -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $SERVER_LOCAL_IP:$src/ $dest/ \
+        --stats --progress --exclude ".*lrprev" --exclude jellyfin/ \
+        --exclude "uploaded_piwigo" --exclude "piwigo" --exclude='*.tmp' \
+        --exclude=.deleted $extra_rsync_command || $dest does not exist
 }
 
 alias bfunk_bckp_ebooks='bfunk_rsync ebooks_audiobooks /media/lbesnard/bckp_2tb'
 alias bfunk_bckp_music='bfunk_rsync music /media/lbesnard/media_center'
 alias bfunk_bckp_self_improvement='bfunk_rsync self_improvement /media/lbesnard/media_center'
+alias bfunk_bckp_movies='bfunk_rsync movies /media/lbesnard/media_bckp'
+alias bfunk_bckp_nextcloud='bfunk_rsync nextcloud /media/lbesnard/media_bckp'
+alias bfunk_bckp_pictures='bfunk_rsync pictures /media/lbesnard/media_bckp'
