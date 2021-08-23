@@ -428,7 +428,9 @@
 (show-paren-mode 1)
 (use-package clojure-mode :defer t)
 (use-package cider
-  :defer t)
+  :defer t
+  :config
+  (setq cider-repl-pop-to-buffer-on-connect nil))
 (use-package rainbow-delimiters
   :defer t
   :init
