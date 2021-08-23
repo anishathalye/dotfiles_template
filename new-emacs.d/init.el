@@ -96,6 +96,14 @@
     ;; (load-theme 'doom-snazzy t)
     )
 
+;;; Golden Ratio
+(use-package golden-ratio
+  :after ace-window
+  :init
+  (golden-ratio-mode 1)
+  :config
+  (add-to-list 'golden-ratio-extra-commands 'ace-window))
+
 ;;; Initialize `general` for keybindings
   (use-package general
     :config
