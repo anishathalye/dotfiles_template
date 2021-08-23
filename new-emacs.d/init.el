@@ -105,24 +105,30 @@
   (add-to-list 'golden-ratio-extra-commands 'ace-window))
 
 ;;; Initialize `general` for keybindings
-  (use-package general
-    :config
-    (general-create-definer spc-key-definer
-      :states '(normal visual insert motion emacs)
-      :prefix "SPC"
-      :non-normal-prefix "C-SPC"
-      :prefix-map 'dominant-prefix-map))
+(use-package general
+  :config
+  (general-create-definer spc-key-definer
+    :states '(normal visual insert motion emacs)
+    :prefix "SPC"
+    :non-normal-prefix "C-SPC"
+    :prefix-map 'dominant-prefix-map))
 
-;;; Global keybindings
-  (with-eval-after-load 'evil
-    (spc-key-definer
-      "TAB" 'my/toggle-buffers
-      "pp"  'projectile-switch-project
-      "pf"  'my/consult-find-fd
-      "/"   'consult-ripgrep
-      "bb"  'consult-buffer
-      "rr"  'consult-recent-file
-      "u"   'universal-argument))
+;;; Keybindings
+(with-eval-after-load 'evil
+  (spc-key-definer
+    "TAB" 'my/toggle-buffers
+    "pp"  'projectile-switch-project
+    "pf"  'my/consult-find-fd
+    "/"   'consult-ripgrep
+    "bb"  'consult-buffer
+    "rr"  'consult-recent-file
+    "u"   'universal-argument))
+
+(with-eval-after-load 'evil
+  (general-define-key
+   :states 'normal
+   :keymaps 'process-menu-mode-map
+   "d" 'process-menu-delete-process))
 
 ;;; Initialize Evil
   ;; Allow C-u/d for page up/down
