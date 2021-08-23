@@ -443,6 +443,7 @@
 
 ;;; Org-mode configuation
 (setq org-directory "~/org")
+(setq org-log-into-drawer t)
 
 ;; Sets the column width to 80 columns and enables line breaking, ie. auto-fill.
 (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
