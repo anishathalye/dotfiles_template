@@ -75,7 +75,7 @@ wlg:
 library: /opt/beets/musiclibrary2.blb
 
 replaygain:
-    backend: bs1770gain
+    backend: ffmpeg
 
 sort_item: albumartist+ album+ disc+ track+
 
@@ -175,9 +175,9 @@ hook:
 
     # same as above but for navidrome
     - event: cli_exit
-      command: "sh -c 'cp /export/music/playlists/* /export/music/beet_library/playlists_navidrome/; for f in `find /export/music/beet_library/playlists_navidrome -type f`; do sed -i \"s#^/music#/music#g\" \"$f\"; done'"
+      command: "sh -c 'cp /export/music/playlists/* /export/music/beet_library/playlists_navidrome/; IFS=$(echo -en \"\n\b\"); for f in `find /export/music/beet_library/playlists_navidrome -type f`; do sed -i \"s#^/music#/music#g\" \"$f\"; done'"
     - event: import
-      command: "sh -c 'cp /export/music/playlists/* /export/music/beet_library/playlists_navidrome/; for f in `find /export/music/beet_library/playlists_navidrome -type f`; do sed -i \"s#^/music#/music#g\" \"$f\"; done'"
+      command: "sh -c 'cp /export/music/playlists/* /export/music/beet_library/playlists_navidrome/; IFS=$(echo -en \"\n\b\"); for f in `find /export/music/beet_library/playlists_navidrome -type f`; do sed -i \"s#^/music#/music#g\" \"$f\"; done'"
 
 
     - event: import

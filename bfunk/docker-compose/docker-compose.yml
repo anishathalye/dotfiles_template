@@ -109,7 +109,8 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/navidrome:/data
       - $MUSIC_PATH:/music:ro
-
+##################
+# Audiobooks
   gonic:
     image: sentriz/gonic:latest
     container_name: gonic
@@ -280,6 +281,16 @@ services:
       - 8989:8989
     restart: unless-stopped
 #####################
+# Handbrake
+  handbrake:
+    image: jlesage/handbrake
+    container_name: handbrake
+    volumes:
+      - $DOCKER_CONFIG_PATH/handbrake:/config:rw
+      - $GUITAR_VIDEOS_PATH:/videos:rw
+    ports:
+      - "5800:5800"
+#
   jackett:
     image: linuxserver/jackett
     container_name: jackett
@@ -308,6 +319,39 @@ services:
       - 8191:8191
     restart: unless-stopped
 ###############
+# flexget
+ # flexget:
+    #image: wiserain/flexget
+    #container_name: flexget
+    #environment:
+      #- PUID=1000
+      #- GUID=1000
+      #- TZ=$TZ
+      #- FG_WEBUI_PASSWD=dontstealthepwd
+    #ports:
+      #- 5050:5050
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/flexget:/config
+#################
+  #syncthing:
+    #image: ghcr.io/linuxserver/syncthing
+    #container_name: syncthing
+    #hostname: syncthing #optional
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=Europe/London
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/syncthing:/config
+      #- /export/share/share:/data1
+    #ports:
+      #- 8384:8384
+      #- 22000:22000/tcp
+      #- 22000:22000/udp
+      #- 21027:21027/udp
+    #restart: unless-stopped
+##
+#
   pyload:
     image: linuxserver/pyload
     container_name: pyload
@@ -538,7 +582,7 @@ services:
       - 9980:8080
     user: "1000:1000"
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx2g
+      - JAVA_TOOL_OPTIONS=-Xmx4g
     restart: unless-stopped
 #########################
 #### wireguard
