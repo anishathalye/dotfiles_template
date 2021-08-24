@@ -457,6 +457,16 @@ alias split_ape_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name 
 alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.vw` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias split_flac_subfolders='IFS=$(echo -en "\n\b"); for f in `fd -a .cue`; do cd ```dirname $f```; split_flac_album ;done'
 
+function spotify_pl_ls_missing () {
+
+    # download playlists
+    IFS=$(echo -en "\n\b");
+    local pl_path=/export/music/beet_library/playlists_navidrome
+    local pl_val=`ls $pl_path | fzf  --multi=1`
+
+    cat "$pl_path/$pl_val" | grep -o '#.*' | cut -d : -f2,4 | sort | uniq | sed  "s/\"title\":/album:/g" | sed  "s/, \"length\"//g"
+}
+
 #alias music_player='mp3blaster'
 alias music_player='flatpak run app.sublimemusic.SublimeMusic'
 alias volume='pavucontrol'

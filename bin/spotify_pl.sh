@@ -4,7 +4,7 @@ main() {
     # download playlists
     IFS=$(echo -en "\n\b");
     local SCRIPT_DIR=$(dirname "$(realpath $0)" )
-    local pl_vals=`cat $SCRIPT_DIR/spotify_pl.list| fzf --no-preview | cut -d , -f1`
+    local pl_vals=`cat $SCRIPT_DIR/.spotify_pl.list| fzf --no-preview | cut -d , -f1`
     local pl_path=/export/music/beet_library/playlists_navidrome
 
     for pl_val in $pl_vals; do
