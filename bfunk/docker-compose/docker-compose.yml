@@ -745,7 +745,7 @@ services:
     volumes:
       - $SWITCH_PATH:/games:ro
     ports:
-      - 9000:9000
+      - 9001:9000
     environment:
       - ID=guest
       - PASSWORD=guest

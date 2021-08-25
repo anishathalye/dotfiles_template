@@ -72,7 +72,7 @@ wlg:
     separator: ', '
     whitelist: ~/.config/beets/beets_genre
 
-library: /opt/beets/musiclibrary2.blb
+library: /export/music/musiclibrary2.blb
 
 replaygain:
     backend: ffmpeg
@@ -163,21 +163,9 @@ hook:
   hooks:
     # renaming the "relative_to" part of the playlist created in smartplaylist so this can be used in the airsonic docker container automatically
     - event: cli_exit
-      command: "sh -c 'for f in `find /export/music/playlists -type f`; do sed -i \"s#../beet_library#/music#g\" \"$f\"; done'"
+      command: "sh -c 'sh /home/lbesnard/bin/beet_playlist_management.sh'"
     - event: import
-      command: "sh -c 'for f in `find /export/music/playlists -type f`; do sed -i \"s#../beet_library#/music#g\" \"$f\"; done'"
-
-    # same as above but for airsonic-advanced
-    - event: cli_exit
-      command: "sh -c 'cp /export/music/playlists/* /export/music/playlists_airsonic_advanced/; for f in `find /export/music/playlists_airsonic_advanced -type f`; do sed -i \"s#^/music#/var/music#g\" \"$f\"; done'"
-    - event: import
-      command: "sh -c 'cp /export/music/playlists/* /export/music/playlists_airsonic_advanced/; for f in `find /export/music/playlists_airsonic_advanced -type f`; do sed -i \"s#^/music#/var/music#g\" \"$f\"; done'"
-
-    # same as above but for navidrome
-    - event: cli_exit
-      command: "sh -c 'cp /export/music/playlists/* /export/music/beet_library/playlists_navidrome/; IFS=$(echo -en \"\n\b\"); for f in `find /export/music/beet_library/playlists_navidrome -type f`; do sed -i \"s#^/music#/music#g\" \"$f\"; done'"
-    - event: import
-      command: "sh -c 'cp /export/music/playlists/* /export/music/beet_library/playlists_navidrome/; IFS=$(echo -en \"\n\b\"); for f in `find /export/music/beet_library/playlists_navidrome -type f`; do sed -i \"s#^/music#/music#g\" \"$f\"; done'"
+      command: "sh -c 'sh /home/lbesnard/bin/beet_playlist_management.sh'"
 
 
     - event: import
