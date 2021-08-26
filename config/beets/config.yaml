@@ -163,9 +163,9 @@ hook:
   hooks:
     # renaming the "relative_to" part of the playlist created in smartplaylist so this can be used in the airsonic docker container automatically
     - event: cli_exit
-      command: "sh -c 'sh /home/lbesnard/bin/beet_playlist_management.sh'"
+      command: "sh -c 'bash /home/lbesnard/bin/beet_playlist_management.sh'"
     - event: import
-      command: "sh -c 'sh /home/lbesnard/bin/beet_playlist_management.sh'"
+      command: "sh -c 'bash /home/lbesnard/bin/beet_playlist_management.sh'"
 
 
     - event: import
