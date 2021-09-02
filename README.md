@@ -28,7 +28,6 @@ Dotbot.
 * [m45t3r's dotfiles][m45t3r_dotfiles]
 * [alexwh's dotfiles][alexwh_dotfiles]
 * [azd325's dotfiles][azd325_dotfiles]
-* [bluekeys' dotfiles][bluekeys_dotfiles]
 * [wazery's dotfiles][wazery_dotfiles]
 * [thirtythreeforty's dotfiles][thirtythreeforty_dotfiles]
 
