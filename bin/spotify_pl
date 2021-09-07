@@ -8,7 +8,7 @@ main() {
     local pl_path=/export/music/beet_library/playlists_navidrome
 
     for pl_val in $pl_vals; do
-        redlist https://open.spotify.com/playlist/$pl_val
+        redlist -y https://open.spotify.com/playlist/$pl_val
 
         ## replace values for navidrome in docker
         last_m3u=`ls -Art $pl_path`

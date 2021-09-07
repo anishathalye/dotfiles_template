@@ -627,6 +627,7 @@ function comic_repack_all_corrupt_archive2cbz(){
 #alias dclogs='docker-compose -f /opt/docker-compose.yml logs -tf --tail="50" '
 #alias dtail='docker logs -tf --tail="50" "$@"'
 # replaced by fzf-docker
+docker_logs_truncate='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"' # can save 50Gb of logs easily!!
 
 
 ##############################

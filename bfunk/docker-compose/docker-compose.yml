@@ -1,4 +1,9 @@
 version: "3.3"
+networks:
+  frontend:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
 services:
   mariadb:
     image: linuxserver/mariadb
@@ -15,6 +20,9 @@ services:
       - $DOCKER_CONFIG_PATH/mariadb:/config
     ports:
       - 3306:3306
+    networks:
+        frontend:
+            ipv4_address: 172.20.0.17
     restart: unless-stopped
 ##################
   jellyfin:
@@ -186,10 +194,14 @@ services:
       - $NEXTCLOUD_DATA_PATH:/data
     ports:
       - 9393:443
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
     restart: unless-stopped
 ##################
   piwigo:
     image: linuxserver/piwigo
+    # conf of DB in www/gallery/local/config/database.inc.php. using static IP
+    # helps to make sure piwigo is always pointing to the right db
     container_name: piwigo
     environment:
       - PUID=1000
@@ -199,7 +211,22 @@ services:
       - $PIWIGO_CONFIG_PATH/piwigo:/config
     ports:
       - 8282:80
+    #networks:
+        #frontend:
+    #        ipv4_address: 172.20.0.18
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
     restart: unless-stopped
+###################
+  php_piwigo_slideshow:
+    container_name: php_piwigo_slideshow
+    image: php:7.4-apache
+    ports:
+      - 5671:80
+    volumes:
+      - $DOCKER_CONFIG_PATH/php_piwigo_slideshow:/var/www/html/
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
 ####################
   glance:
     image: nicolargo/glances:latest-alpine
@@ -228,6 +255,8 @@ services:
       - $TORRENT_PATH/LIDARR_DL:/data/LIDARR_DL
     ports:
       - 8686:8686
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
     restart: unless-stopped
 #############
   radarr:
@@ -245,6 +274,8 @@ services:
       - $TORRENT_PATH/completed:/data/completed
     ports:
       - 7878:7878
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
     restart: unless-stopped
 #######################
   radarr_fr:
@@ -262,6 +293,8 @@ services:
       - $TORRENT_PATH/completed:/data/completed
     ports:
       - 7879:7878
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
     restart: unless-stopped
 ##########################
   sonarr:
@@ -279,6 +312,8 @@ services:
       - $TORRENT_PATH/completed:/data/completed
     ports:
       - 8989:8989
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
     restart: unless-stopped
 #####################
 # Handbrake
@@ -305,6 +340,8 @@ services:
       - $TORRENT_PATH:/downloads
     ports:
       - 9117:9117
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
     restart: unless-stopped
 ####################
   flaresolverr:
@@ -450,6 +487,7 @@ services:
       - $DOCKER_CONFIG_PATH/codimd:/config
     environment:
       - DB_HOST=$DB_HOST
+      #- DB_HOST=172.20.0.17
       - DB_USER=$DB_CODIMD_USER
       - DB_PASS=$DB_CODIMD_PASS
       - DB_NAME=$DB_CODIMD_SCHEMA
@@ -457,6 +495,15 @@ services:
       - PGID=1000
       - PUID=1000
       - TZ=$TZ
+        # the following part is commented out. since we use the pihole DNS to
+        # resolve the hostname, we don't need to be on the same sub network as
+        # mariadb
+#    networks:
+        #frontend:
+#            ipv4_address: 172.20.0.15
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    restart: unless-stopped
     ports:
       - "3000:3000"
 ################
@@ -480,6 +527,8 @@ services:
   wallabag:
     image: wallabag/wallabag
     container_name: wallabag
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
     ports:
       - 3637:80
     volumes:
@@ -488,6 +537,7 @@ services:
     environment:
       - TZ=$TZ
       - SYMFONY__ENV__DOMAIN_NAME=$SERVER_URL:3637
+      - SYMFONY__ENV__DATABASE_HOST=172.20.0.17
     restart: unless-stopped
     links:
       - redis
@@ -522,6 +572,12 @@ services:
       WORDPRESS_DB_USER: $DB_WP_USER
       WORDPRESS_DB_PASSWORD: $DB_WP_PASS
       WORDPRESS_DB_NAME: $DB_WP_SCHEMA
+  #  networks:
+        #frontend:
+  #          ipv4_address: 172.20.0.5
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    restart: unless-stopped
     volumes:
        - $DOCKER_CONFIG_PATH/wordpress:/var/www/html
 ###########
@@ -538,6 +594,10 @@ services:
       WORDPRESS_DB_USER: $DB_WP_USER
       WORDPRESS_DB_PASSWORD: $DB_WP_PASS
       WORDPRESS_DB_NAME: $DB_WP_DIARY_SCHEMA
+    networks:
+        frontend:
+            ipv4_address: 172.20.0.6
+    restart: unless-stopped
     volumes:
        - $DOCKER_CONFIG_PATH/wordpress_diary:/var/www/html
 
@@ -598,7 +658,7 @@ services:
       - TZ=$TZ
       - SERVERURL=${DUCKDNS_DOMAIN}.duckdns.org
       - SERVERPORT=51820 #optional
-      - PEERS=bfunk #optional
+      - PEERS=moto_loz,bfunk #optional
       - PEERDNS=auto #optional
       - INTERNAL_SUBNET=10.13.13.0 #optional
     volumes:
@@ -610,6 +670,33 @@ services:
     #sysctls:
       #- net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
+
+#### wireguard
+  wireguard2:
+    image: linuxserver/wireguard
+    container_name: wireguard2
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - SERVERURL=${DUCKDNS_DOMAIN}.duckdns.org
+      - SERVERPORT=51821 #optional
+      - PEERS=$WG2_PEERS #optional
+      - PEERDNS=$PIHOLE_DOCKER_SUB_IP_DNS #using pihole docker, default port is 53, which is dsn by default # docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' pihole
+      - INTERNAL_SUBNET=10.13.13.0 #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/wireguard2/config:/config
+      - /lib/modules:/lib/modules
+      - /usr/src/:/usr/src
+    ports:
+      - 51821:51820/udp
+    #sysctls:
+      #- net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+
 ############################
 # doc on https://github.com/kylemanna/docker-openvpn/blob/master/docs/docker-compose.md
   openvpn:
@@ -622,6 +709,30 @@ services:
     restart: always
     volumes:
      - $DOCKER_CONFIG_PATH/openvpn-data/conf:/etc/openvpn
+######################
+### pihole
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "455:80/tcp"
+    environment:
+      TZ: $TZ
+      WEBPASSWORD: $PIHOLE_PWD
+    # Volumes store your data between container upgrades
+    volumes:
+      #- './etc-pihole/:/etc/pihole/'
+      #- './etc-dnsmasq.d/:/etc/dnsmasq.d/'
+      - $DOCKER_CONFIG_PATH/pihole/etc/pihole/:/etc/pihole/
+      - $DOCKER_CONFIG_PATH/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
 #######################
 # rsync serve
   rsync-server:
@@ -738,20 +849,31 @@ services:
     restart: always
 #######################
 ### nuts - tinfoiil server switch
-  nut-server:
-    container_name: nut-server
-    image: ramdockerapp/nut-server:latest
-    #build: https://github.com/eskay993/nut-server.git
-    volumes:
-      - $SWITCH_PATH:/games:ro
-    ports:
-      - 9001:9000
-    environment:
-      - ID=guest
-      - PASSWORD=guest
-      - TZ=$TZ
-    restart: always
+#  nut-server:
+    #container_name: nut-server
+    #image: ramdockerapp/nut-server:latest
+    ##build: https://github.com/eskay993/nut-server.git
+    #volumes:
+      #- $SWITCH_PATH:/games:ro
+    #ports:
+      #- 9001:9000
+    #environment:
+      #- ID=guest
+      #- PASSWORD=guest
+      #- TZ=$TZ
+#    restart: always
 
+  ownfoil:
+    container_name: ownfoil
+    image: a1ex4/ownfoil
+    volumes:
+      - $SWITCH_PATH:/games
+      # Uncomment if you want to edit and persist the app configuration
+      #- $DOCKER_CONFIG_PATH/ownfoil/app:/app
+      # Uncomment to setup basic auth
+      # - ./nginx:/etc/nginx
+    ports:
+      - "8001:80"
 #######################
 #  webtop:
     #image: ghcr.io/linuxserver/webtop:alpine-mate
