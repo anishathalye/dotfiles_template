@@ -361,43 +361,43 @@
   :config
   (global-evil-surround-mode 1))
 
- ;; Structural editing with smartparens
-  ;; Structural editing - For keybinding reference: https://github.com/syl20bnr/evil-lisp-state
-  (use-package smartparens
-    :config
-    ;; Taken from: https://github.com/syl20bnr/evil-lisp-state/blob/master/evil-lisp-state.el#L313-L335
-    (defun my-lisp/insert-sexp-after ()
-      "Insert sexp after the current one." (interactive)
-      (let ((sp-navigate-consider-symbols nil))
-	(if (char-equal (char-after) ?\() (forward-char))
-	(sp-up-sexp)
-	(evil-insert-state)
-	(sp-newline)
-	(sp-insert-pair "(")))
+;; Structural editing with smartparens
+;; Structural editing - For keybinding reference: https://github.com/syl20bnr/evil-lisp-state
+(use-package smartparens
+  :config
+  ;; Taken from: https://github.com/syl20bnr/evil-lisp-state/blob/master/evil-lisp-state.el#L313-L335
+  (defun my-lisp/insert-sexp-after ()
+    "Insert sexp after the current one." (interactive)
+    (let ((sp-navigate-consider-symbols nil))
+      (if (char-equal (char-after) ?\() (forward-char))
+      (sp-up-sexp)
+      (evil-insert-state)
+      (sp-newline)
+      (sp-insert-pair "(")))
 
-    (defun my-lisp/insert-sexp-before ()
-      "Insert sexp before the current one."
-      (interactive)
-      (let ((sp-navigate-consider-symbols nil))
-	(if (char-equal (char-after) ?\() (forward-char))
-	(sp-backward-sexp)
-	(evil-insert-state)
-	(sp-newline)
-	(evil-previous-visual-line)
-	(evil-end-of-line)
-	(insert " ")
-	(sp-insert-pair "(")
-	(indent-for-tab-command)))
-    ;; structural editing keybindings
-    (general-define-key
-    :states 'normal
-    :prefix "SPC k"
-    "y"  'sp-copy-sexp
-    "dx" 'sp-kill-sexp
-    "s" 'sp-forward-slurp-sexp
-    "b" 'sp-forward-barf-sexp
-    ")" 'my-lisp/insert-sexp-after
-    "(" 'my-lisp/insert-sexp-before))
+  (defun my-lisp/insert-sexp-before ()
+    "Insert sexp before the current one."
+    (interactive)
+    (let ((sp-navigate-consider-symbols nil))
+      (if (char-equal (char-after) ?\() (forward-char))
+      (sp-backward-sexp)
+      (evil-insert-state)
+      (sp-newline)
+      (evil-previous-visual-line)
+      (evil-end-of-line)
+      (insert " ")
+      (sp-insert-pair "(")
+      (indent-for-tab-command)))
+  ;; structural editing keybindings
+  (general-define-key
+  :states 'normal
+  :prefix "SPC k"
+  "y"  'sp-copy-sexp
+  "dx" 'sp-kill-sexp
+  "s" 'sp-forward-slurp-sexp
+  "b" 'sp-forward-barf-sexp
+  ")" 'my-lisp/insert-sexp-after
+  "(" 'my-lisp/insert-sexp-before))
 
 ;;; Code completion
   (use-package lsp-mode
@@ -409,7 +409,7 @@
 	  lsp-auto-guess-root t
 	  lsp-diagnostic-package :none))
   (use-package company
-    :defer t
+
     :init
     (add-hook 'after-init-hook 'global-company-mode))
 
