@@ -353,7 +353,15 @@
     :config
     (spc-key-definer "gs" 'magit-status))
 
-;;; Structural editing with smartparens
+;;; Code editing tools
+
+;; like lets you surround texts with symbols easily
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
+
+ ;; Structural editing with smartparens
   ;; Structural editing - For keybinding reference: https://github.com/syl20bnr/evil-lisp-state
   (use-package smartparens
     :config
