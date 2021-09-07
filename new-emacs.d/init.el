@@ -555,6 +555,16 @@
   :init
   (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
 
+(use-package org-jira
+  :defer t
+  :config
+  (setq jiralib-url "https://primary.atlassian.net")
+  (setq org-jira-custom-jqls
+        '((:jql "project IN (EPD) AND sprint in openSprints() AND assignee = currentUser()"
+           :filename "current-sprint")
+          (:jql "project IN (PW) AND filter = \"11478\""
+           :filename "helpdesk"))))
+
 ;;; YAML support
   (use-package yaml-mode
       :mode (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
