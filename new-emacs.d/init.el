@@ -9,38 +9,39 @@
   ;;   - Other options for org-outline-minor-mode: `C-c @`
 
 ;;; Initial setup
-  ;; Setup outline-minor-mode for emacs-lisp, useful for this file
-  ;; See: https://emacs.stackexchange.com/questions/3143/can-i-use-org-mode-to-structure-my-emacs-or-other-el-configuration-file
-  (add-hook 'emacs-lisp-mode-hook
-	    (lambda ()
-	      (make-local-variable 'outline-regexp)
-	      (setq outline-regexp "^;;; ")
-	      (make-local-variable 'outline-heading-end-regexp)
-	      ;; (setq outline-heading-end-regexp ":\n")
-	      (outline-minor-mode 1)))
 
-  (setq delete-old-versions -1)
-  (setq inhibit-startup-screen t)
-  (setq ring-bell-function 'ignore)
-  (setq coding-system-for-read 'utf-8)
-  (setq coding-system-for-write 'utf-8)
-  (setq sentence-end-double-space nil)
-  (setq default-fill-column 80)
-  (setq initial-scratch-message "")
-  (setq-default mode-line-format nil)
-  (global-auto-revert-mode t)
-  (electric-pair-mode 1)
+;; Setup outline-minor-mode for emacs-lisp, useful for this file
+;; See: https://emacs.stackexchange.com/questions/3143/can-i-use-org-mode-to-structure-my-emacs-or-other-el-configuration-file
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (make-local-variable 'outline-regexp)
+            (setq outline-regexp "^;;; ")
+            (make-local-variable 'outline-heading-end-regexp)
+            ;; (setq outline-heading-end-regexp ":\n")
+            (outline-minor-mode 1)))
+
+(setq delete-old-versions -1)
+(setq inhibit-startup-screen t)
+(setq ring-bell-function 'ignore)
+(setq coding-system-for-read 'utf-8)
+(setq coding-system-for-write 'utf-8)
+(setq sentence-end-double-space nil)
+(setq default-fill-column 80)
+(setq initial-scratch-message "")
+(setq-default mode-line-format nil)
+(global-auto-revert-mode t)
+(electric-pair-mode 1)
 
 
-  ;; Enables ligatures in the emacs macport
-  (if (fboundp 'mac-auto-operator-composition-mode)
-      (mac-auto-operator-composition-mode))
+;; Enables ligatures in the emacs macport
+(if (fboundp 'mac-auto-operator-composition-mode)
+    (mac-auto-operator-composition-mode))
 
-  ;;; Minimal UI
-  (scroll-bar-mode -2)
-  (tool-bar-mode   -1)
-  (tooltip-mode    -1)
-  (menu-bar-mode   -1)
+;; Minimal UI
+(scroll-bar-mode -2)
+(tool-bar-mode   -1)
+(tooltip-mode    -1)
+(menu-bar-mode   -1)
 
 ;; Prevent scratch window from opening on startup
 (add-hook 'emacs-startup-hook (lambda ()
