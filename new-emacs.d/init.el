@@ -42,6 +42,11 @@
   (tooltip-mode    -1)
   (menu-bar-mode   -1)
 
+;; Prevent scratch window from opening on startup
+(add-hook 'emacs-startup-hook (lambda ()
+                                (when (get-buffer-window "*scratch*")
+                                    (delete-windows-on "*scratch*"))))
+
 
 ;;; Font
   ;;- font needs to be installed in the Mac Font Book
