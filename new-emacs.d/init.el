@@ -43,6 +43,10 @@
 (tooltip-mode    -1)
 (menu-bar-mode   -1)
 
+;; Ensure that emacs window is focused when switching desktops
+;; See: https://emacs.stackexchange.com/questions/28121/osx-switching-to-virtual-desktop-doesnt-focus-emacs
+(menu-bar-mode t) 
+
 ;; Prevent scratch window from opening on startup
 (add-hook 'emacs-startup-hook (lambda ()
                                 (when (get-buffer-window "*scratch*")
@@ -50,57 +54,58 @@
 
 
 ;;; Font
-  ;;- font needs to be installed in the Mac Font Book
-  (add-to-list 'default-frame-alist '(font . "Fira Code-16"))
-  (set-face-attribute 'default t :font "Fira Code-16")
+
+;; Font needs to be installed in the Mac Font Book
+(add-to-list 'default-frame-alist '(font . "Fira Code-16"))
+(set-face-attribute 'default t :font "Fira Code-16")
 
 ;;; Global Functions
-  (defun my/toggle-buffers ()
-    (interactive)
-    (switch-to-buffer nil))
+(defun my/toggle-buffers ()
+  (interactive)
+  (switch-to-buffer nil))
 
-  (defun my/evil-shift-right ()
-    (interactive)
-    (evil-shift-right evil-visual-beginning evil-visual-end)
-    (evil-normal-state)
-    (evil-visual-restore))
+(defun my/evil-shift-right ()
+  (interactive)
+  (evil-shift-right evil-visual-beginning evil-visual-end)
+  (evil-normal-state)
+  (evil-visual-restore))
 
-  (defun my/evil-shift-left ()
-    (interactive)
-    (evil-shift-left evil-visual-beginning evil-visual-end)
-    (evil-normal-state)
-    (evil-visual-restore))
+(defun my/evil-shift-left ()
+  (interactive)
+  (evil-shift-left evil-visual-beginning evil-visual-end)
+  (evil-normal-state)
+  (evil-visual-restore))
 
-  (defun my/cider-test-run-focused-test ()
-    "Run test around point."
-    (interactive)
-    (cider-load-buffer)
-    (cider-test-run-test))
+(defun my/cider-test-run-focused-test ()
+  "Run test around point."
+  (interactive)
+  (cider-load-buffer)
+  (cider-test-run-test))
 
 
 ;;; Package management
-  (require 'package)
-  (setq package-enable-at-startup nil)
-  (setq package-archives '(("org"       . "http://orgmode.org/elpa/")
-			  ("gnu"       . "http://elpa.gnu.org/packages/")
-			  ("melpa"     . "https://melpa.org/packages/")))
-  (package-initialize)
+(require 'package)
+(setq package-enable-at-startup nil)
+(setq package-archives '(("org"       . "http://orgmode.org/elpa/")
+                        ("gnu"       . "http://elpa.gnu.org/packages/")
+                        ("melpa"     . "https://melpa.org/packages/")))
+(package-initialize)
 
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-  (require 'use-package)
+(require 'use-package)
 
-  ;; ensure everything is installed, use `:ensure nil` to override
-  (setq use-package-always-ensure t)
+;; ensure everything is installed, use `:ensure nil` to override
+(setq use-package-always-ensure t)
 
 ;;; Theme using `doom-themes`
-  (use-package doom-themes
-    :config
-    (load-theme 'doom-molokai t)
-    ;; (load-theme 'doom-snazzy t)
-    )
+(use-package doom-themes
+  :config
+  (load-theme 'doom-molokai t)
+  ;; (load-theme 'doom-snazzy t)
+  )
 
 ;;; Golden Ratio
 (use-package golden-ratio
@@ -137,57 +142,58 @@
    "d" 'process-menu-delete-process))
 
 ;;; Initialize Evil
-  ;; Allow C-u/d for page up/down
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-C-d-scroll t)
 
-  ;; Set this to match clojure indent style
-  ;; May need to be set per mode at some point?
-  (setq evil-shift-width 2)
+;; Allow C-u/d for page up/down
+(setq evil-want-C-u-scroll t)
+(setq evil-want-C-d-scroll t)
 
-  (use-package evil
-    :init
-    ;; These needs to be set when using evil-collection
-    (setq evil-want-integration t)
-    (setq evil-want-keybinding nil)
-    :config
-    (evil-mode 1)
-    (setq-default evil-escape-delay 0.2)
-    (general-define-key
-    :states 'visual
-    ">" 'my/evil-shift-right
-    "<" 'my/evil-shift-left)
-    )
+;; Set this to match clojure indent style
+;; May need to be set per mode at some point?
+(setq evil-shift-width 2)
 
-  (use-package evil-collection
-    :after evil
-    :config
-    (setq evil-collection-mode-list nil) ;; disable all evil bindings as default
-    (evil-collection-init '(magit dired)))
+(use-package evil
+  :init
+  ;; These needs to be set when using evil-collection
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1)
+  (setq-default evil-escape-delay 0.2)
+  (general-define-key
+  :states 'visual
+  ">" 'my/evil-shift-right
+  "<" 'my/evil-shift-left)
+  )
 
-  (use-package evil-nerd-commenter
-    :config
-    (general-define-key
-    "M-;" 'evilnc-comment-or-uncomment-lines))
+(use-package evil-collection
+  :after evil
+  :config
+  (setq evil-collection-mode-list nil) ;; disable all evil bindings as default
+  (evil-collection-init '(magit dired)))
+
+(use-package evil-nerd-commenter
+  :config
+  (general-define-key
+  "M-;" 'evilnc-comment-or-uncomment-lines))
 
 ;;; Initialize `which-key` for dynamic key binding menus
-  (use-package which-key
-    :init
-    (setq which-key-separator " ")
-    (setq which-key-prefix-prefix "+")
-    :config
-    (which-key-mode))
+(use-package which-key
+  :init
+  (setq which-key-separator " ")
+  (setq which-key-prefix-prefix "+")
+  :config
+  (which-key-mode))
 
 ;;; Path management
-  (use-package exec-path-from-shell
-    :config
-    (when (memq window-system '(mac ns x))
-      (exec-path-from-shell-initialize)))
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
 
 ;;; Restart-emacs package
-  (use-package restart-emacs
-    :config
-    (general-def "C-c R" 'restart-emacs))
+(use-package restart-emacs
+  :config
+  (general-def "C-c R" 'restart-emacs))
 
 ;;; Treemacs
 (use-package treemacs
@@ -279,79 +285,79 @@
 ;;   :config (treemacs-set-scope-type 'Perspectives))
 
 ;;; Projectile project management
-  (use-package projectile
-    :diminish projectile-mode
-    :config
-    (progn
-      (general-def "C-c p" 'projectile-command-map)
-      (projectile-mode +1)
-      (setq projectile-completion-system 'auto)
-      (setq projectile-enable-caching t)
-      (setq projectile-indexing-method 'alien)
-      (add-to-list 'projectile-globally-ignored-files "node-modules")
-      (autoload 'projectile-project-root "projectile")
-      (setq consult-project-root-function #'projectile-project-root)))
+(use-package projectile
+  :diminish projectile-mode
+  :config
+  (progn
+    (general-def "C-c p" 'projectile-command-map)
+    (projectile-mode +1)
+    (setq projectile-completion-system 'auto)
+    (setq projectile-enable-caching t)
+    (setq projectile-indexing-method 'alien)
+    (add-to-list 'projectile-globally-ignored-files "node-modules")
+    (autoload 'projectile-project-root "projectile")
+    (setq consult-project-root-function #'projectile-project-root)))
 
 ;;; Dashboard on boot
-  (use-package dashboard
-    :config
-    (dashboard-setup-startup-hook))
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook))
 
 ;;; Window management with `ace-window`
-  (use-package ace-window
-    :init
-    (ace-window-display-mode 1)
-    :config
-    (general-define-key
-    "M-o" 'ace-window))
+(use-package ace-window
+  :init
+  (ace-window-display-mode 1)
+  :config
+  (general-define-key
+  "M-o" 'ace-window))
 
 ;;; Doom-modeline for status bar
-  (use-package all-the-icons)
-  (use-package doom-modeline
-    :requires all-the-icons
-    :init
-    (doom-modeline-mode 1)
-    :config
-    (progn
-      (setq doom-modeline-height 15)
-      (setq column-number-mode t
-	    line-number-mode t)))
+(use-package all-the-icons)
+(use-package doom-modeline
+  :requires all-the-icons
+  :init
+  (doom-modeline-mode 1)
+  :config
+  (progn
+    (setq doom-modeline-height 15)
+    (setq column-number-mode t
+          line-number-mode t)))
 
 ;;; Selectrum, etc.
-  (use-package selectrum
-    :config
-    (selectrum-mode +1))
-  (use-package prescient :config (prescient-persist-mode +1))
-  (use-package selectrum-prescient :init (selectrum-prescient-mode +1) :after selectrum)
+(use-package selectrum
+  :config
+  (selectrum-mode +1))
+(use-package prescient :config (prescient-persist-mode +1))
+(use-package selectrum-prescient :init (selectrum-prescient-mode +1) :after selectrum)
 
-  ;; alternate to consult-find that uses fd which respects .gitignore
-  (defun my/consult-find-fd (&optional dir initial)
-    (interactive "P")
-    (let ((consult-find-command "fd --color=never --full-path ARG OPTS"))
-      (consult-find dir initial)))
+;; alternate to consult-find that uses fd which respects .gitignore
+(defun my/consult-find-fd (&optional dir initial)
+  (interactive "P")
+  (let ((consult-find-command "fd --color=never --full-path ARG OPTS"))
+    (consult-find dir initial)))
 
-  (use-package consult :after projectile)
+(use-package consult :after projectile)
 
-  ;; Richer annotations using the Marginalia package
-  (use-package marginalia
-    ;; Either bind `marginalia-cycle` globally or only in the minibuffer
-    :bind (("M-A" . marginalia-cycle)
-	  :map minibuffer-local-map
-	  ("M-A" . marginalia-cycle))
-    :init
-    (marginalia-mode)
-    ;; Prefer richer, more heavy, annotations over the lighter default variant.
-    ;; E.g. M-x will show the documentation string additional to the keybinding.
-    ;; By default only the keybinding is shown as annotation.
-    ;; Note that there is the command `marginalia-cycle' to
-    ;; switch between the annotators.
-    ;; (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
-  )
+;; Richer annotations using the Marginalia package
+(use-package marginalia
+  ;; Either bind `marginalia-cycle` globally or only in the minibuffer
+  :bind (("M-A" . marginalia-cycle)
+        :map minibuffer-local-map
+        ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode)
+  ;; Prefer richer, more heavy, annotations over the lighter default variant.
+  ;; E.g. M-x will show the documentation string additional to the keybinding.
+  ;; By default only the keybinding is shown as annotation.
+  ;; Note that there is the command `marginalia-cycle' to
+  ;; switch between the annotators.
+  ;; (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+)
 
 ;;; Version management
-  (use-package magit
-    :config
-    (spc-key-definer "gs" 'magit-status))
+(use-package magit
+  :config
+  (spc-key-definer "gs" 'magit-status))
 
 ;;; Code editing tools
 
@@ -400,44 +406,44 @@
   "(" 'my-lisp/insert-sexp-before))
 
 ;;; Code completion
-  (use-package lsp-mode
-    :defer t
-    :diminish lsp-mode
-    :commands lsp
-    :config
-    (setq lsp-auto-configure t
-	  lsp-auto-guess-root t
-	  lsp-diagnostic-package :none))
-  (use-package company
-
-    :init
-    (add-hook 'after-init-hook 'global-company-mode))
+(use-package lsp-mode
+  :defer t
+  :diminish lsp-mode
+  :commands lsp
+  :config
+  (setq lsp-auto-configure t
+        lsp-auto-guess-root t
+        lsp-diagnostic-package :none))
+(use-package company
+  :init
+  (add-hook 'after-init-hook 'global-company-mode))
 
 ;;; Javascript
-  (setq js-indent-level 2)
-  
-  ;; (use-package js2-mode
-  ;;   :defer t
-  ;;   :mode (("\\.m?js\\'"  . js2-mode)))
-  (use-package add-node-modules-path
-    :defer t
-    :hook (((js2-mode rjsx-mode) . add-node-modules-path)))
+(setq js-indent-level 2)
 
-  ;; rjsx-mode extends js2-mode, so it provides js2-mode plus functionality for jsx
-  (use-package rjsx-mode
-    :defer t
-    :mode ("\\.jsx?\\'" "\\.tsx?\\'")
-    :config
-    (define-key rjsx-mode-map "<" nil)
-    (define-key rjsx-mode-map (kbd "C-d") nil)
-    (define-key rjsx-mode-map ">" nil)
-    (setq js2-mode-show-parse-errors nil
-	  js2-mode-show-strict-warnings nil))
+;; (use-package js2-mode
+;;   :defer t
+;;   :mode (("\\.m?js\\'"  . js2-mode)))
+(use-package add-node-modules-path
+  :defer t
+  :hook (((js2-mode rjsx-mode) . add-node-modules-path)))
 
-  (use-package prettier-js
-    :defer t
-    :diminish prettier-js-mode
-    :hook (((js2-mode rjsx-mode) . prettier-js-mode)))
+;; rjsx-mode extends js2-mode, so it provides js2-mode plus functionality for jsx
+(use-package rjsx-mode
+  :defer t
+  :mode ("\\.jsx?\\'" "\\.tsx?\\'")
+  :config
+  (define-key rjsx-mode-map "<" nil)
+  (define-key rjsx-mode-map (kbd "C-d") nil)
+  (define-key rjsx-mode-map ">" nil)
+  (setq js2-mode-show-parse-errors nil
+        js2-mode-show-strict-warnings nil))
+
+(use-package prettier-js
+  :defer t
+  :diminish prettier-js-mode
+  :hook (((js2-mode rjsx-mode) . prettier-js-mode)))
+
 ;;; Clojure Configuration
 (show-paren-mode 1)
 (use-package clojure-mode :defer t)
@@ -458,6 +464,9 @@
 ;;; Org-mode configuation
 (setq org-directory "~/org")
 (setq org-log-into-drawer t)
+
+;; ignore journal files in recent files
+;; (setq recentf-exclude '("/org/journal"))
 
 ;; Sets the column width to 80 columns and enables line breaking, ie. auto-fill.
 (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
@@ -566,12 +575,12 @@
            :filename "helpdesk"))))
 
 ;;; YAML support
-  (use-package yaml-mode
-      :mode (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
-	    ("Procfile\\'" . yaml-mode))
-      :config (add-hook 'yaml-mode-hook
-			#'(lambda ()
-			  (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
+(use-package yaml-mode
+    :mode (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
+          ("Procfile\\'" . yaml-mode))
+    :config (add-hook 'yaml-mode-hook
+                      #'(lambda ()
+                        (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 
 ;;; Notespace
 (defun cider-interactive-notify-and-eval (code)
@@ -634,9 +643,6 @@
   (cider-interactive-notify-and-eval
    "(notespace.api/render-static-html)"))
 
-;;; Ensure that emacs window is focused when switching desktops
-  ;; See: https://emacs.stackexchange.com/questions/28121/osx-switching-to-virtual-desktop-doesnt-focus-emacs
-  (menu-bar-mode t) 
 
 ;;; Custom-set-variables - do not edit (autogenerated)
 
