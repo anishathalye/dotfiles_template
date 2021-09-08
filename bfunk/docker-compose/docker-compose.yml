@@ -862,18 +862,30 @@ services:
       #- PASSWORD=guest
       #- TZ=$TZ
 #    restart: always
-
+###############
+# tinfoil shop
+#  ownfoil:
+    #container_name: ownfoil
+    #image: a1ex4/ownfoil
+    #volumes:
+      #- $SWITCH_PATH:/games
+      ## Uncomment if you want to edit and persist the app configuration
+      ##- $DOCKER_CONFIG_PATH/ownfoil/app:/app
+      ## Uncomment to setup basic auth
+      ## - ./nginx:/etc/nginx
+    #ports:
+#      - "8001:80"
   ownfoil:
+    image: ownfoil
     container_name: ownfoil
-    image: a1ex4/ownfoil
+    build: https://github.com/lbesnard/ownfoil.git#FeatAppendHostUrl
+    ports:
+      - '8001:80'
+    environment:
+      - HOST_URL=http://$SERVER_IP:8001
     volumes:
       - $SWITCH_PATH:/games
-      # Uncomment if you want to edit and persist the app configuration
-      #- $DOCKER_CONFIG_PATH/ownfoil/app:/app
-      # Uncomment to setup basic auth
-      # - ./nginx:/etc/nginx
-    ports:
-      - "8001:80"
+    restart: unless-stopped
 #######################
 #  webtop:
     #image: ghcr.io/linuxserver/webtop:alpine-mate
