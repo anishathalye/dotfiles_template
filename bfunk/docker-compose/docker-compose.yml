@@ -3,8 +3,32 @@ networks:
   frontend:
     ipam:
       config:
-        - subnet: 172.20.0.0/24
+        - subnet: $DOCKER_SUBNET_1
 services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    hostname: brownfunk
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "455:80/tcp"
+    environment:
+      TZ: $TZ
+      WEBPASSWORD: $PIHOLE_PWD
+    volumes:
+      - $DOCKER_CONFIG_PATH/pihole/etc/pihole/:/etc/pihole/
+      - $DOCKER_CONFIG_PATH/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    networks:
+      frontend:
+        ipv4_address: $PIHOLE_DOCKER_SUB_IP_DNS
+    restart: always
+###################
   mariadb:
     image: linuxserver/mariadb
     container_name: mariadb
@@ -20,10 +44,8 @@ services:
       - $DOCKER_CONFIG_PATH/mariadb:/config
     ports:
       - 3306:3306
-    networks:
-        frontend:
-            ipv4_address: 172.20.0.17
-    restart: unless-stopped
+    restart: always
+######################
 ##################
   jellyfin:
     image: linuxserver/jellyfin
@@ -92,7 +114,6 @@ services:
 #############################
 #  sonic for music and audiobooks in go using less RAM
   navidrome:
-    #image: deluan/navidrome:latest
     image: deluan/navidrome
     container_name: navidrome
     user: 1000:1000 # should be owner of volumes
@@ -124,7 +145,6 @@ services:
     container_name: gonic
     environment:
     - TZ
-    # optionally, see more env vars below
     expose:
     - 80
     ports:
@@ -151,7 +171,7 @@ services:
     ports:
       - 7080:8080
       - 8081:8081
-    restart: always
+    restart: unless-stopped
 ######################################
   calibre-web:
     image: linuxserver/calibre-web
@@ -196,11 +216,16 @@ services:
       - 9393:443
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
     restart: unless-stopped
 ##################
   piwigo:
     image: linuxserver/piwigo
-    # conf of DB in www/gallery/local/config/database.inc.php. using static IP
+    # conf of DB in www/gallery/local/config/database.inc.php
+    # using pihole dns. DB is setup as hostname.domain
     # helps to make sure piwigo is always pointing to the right db
     container_name: piwigo
     environment:
@@ -211,11 +236,10 @@ services:
       - $PIWIGO_CONFIG_PATH/piwigo:/config
     ports:
       - 8282:80
-    #networks:
-        #frontend:
-    #        ipv4_address: 172.20.0.18
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
     restart: unless-stopped
 ###################
   php_piwigo_slideshow:
@@ -227,11 +251,15 @@ services:
       - $DOCKER_CONFIG_PATH/php_piwigo_slideshow:/var/www/html/
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
 ####################
   glance:
     image: nicolargo/glances:latest-alpine
     container_name: glances
-    restart: always
+    restart: unless-stopped
     pid: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -257,6 +285,10 @@ services:
       - 8686:8686
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
     restart: unless-stopped
 #############
   radarr:
@@ -276,6 +308,10 @@ services:
       - 7878:7878
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
     restart: unless-stopped
 #######################
   radarr_fr:
@@ -295,6 +331,10 @@ services:
       - 7879:7878
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
     restart: unless-stopped
 ##########################
   sonarr:
@@ -314,6 +354,10 @@ services:
       - 8989:8989
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
     restart: unless-stopped
 #####################
 # Handbrake
@@ -325,7 +369,7 @@ services:
       - $GUITAR_VIDEOS_PATH:/videos:rw
     ports:
       - "5800:5800"
-#
+######################
   jackett:
     image: linuxserver/jackett
     container_name: jackett
@@ -342,6 +386,11 @@ services:
       - 9117:9117
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
+      - flaresolverr
     restart: unless-stopped
 ####################
   flaresolverr:
@@ -352,6 +401,10 @@ services:
       - LOG_LEVEL=${LOG_LEVEL:-info}
       - LOG_HTML=${LOG_HTML:-false}
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+    dns:
+      - 172.19.0.3
+    depends_on:
+      - pihole
     ports:
       - 8191:8191
     restart: unless-stopped
@@ -436,19 +489,18 @@ services:
      - LOCAL_NETWORK=$LOCAL_NETWORK
    restart: unless-stopped
 #########
-  apaxy:
-    image: apaxy
-    container_name: apaxy
-    build:
-      context: apaxy
-      args:
-        apaxyPath: ''
-    ports:
-        - '3321:8080'
-    volumes:
-      - $SERVER_PATH:/usr/local/apache2/htdocs/share/:ro
-    image: apax
-    restart: unless-stopped
+#  apaxy:
+    #image: apaxy
+    #container_name: apaxy
+    #build:
+      #context: apaxy
+      #args:
+        #apaxyPath: ''
+    #ports:
+        #- '3321:8080'
+    #volumes:
+      #- $SERVER_PATH:/usr/local/apache2/htdocs/share/:ro
+#    restart: unless-stopped
 #############
 # to store icons for organizr help page
   tecmint-web:
@@ -487,7 +539,6 @@ services:
       - $DOCKER_CONFIG_PATH/codimd:/config
     environment:
       - DB_HOST=$DB_HOST
-      #- DB_HOST=172.20.0.17
       - DB_USER=$DB_CODIMD_USER
       - DB_PASS=$DB_CODIMD_PASS
       - DB_NAME=$DB_CODIMD_SCHEMA
@@ -495,14 +546,12 @@ services:
       - PGID=1000
       - PUID=1000
       - TZ=$TZ
-        # the following part is commented out. since we use the pihole DNS to
-        # resolve the hostname, we don't need to be on the same sub network as
-        # mariadb
-#    networks:
-        #frontend:
-#            ipv4_address: 172.20.0.15
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -521,7 +570,7 @@ services:
       - LOG_FILE=false #optional
     volumes:
       - $DOCKER_CONFIG_PATH/duckdns:/config #optional
-    restart: unless-stopped
+    restart: always
 #####################
 ### Wallabag
   wallabag:
@@ -529,6 +578,10 @@ services:
     container_name: wallabag
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
     ports:
       - 3637:80
     volumes:
@@ -572,11 +625,13 @@ services:
       WORDPRESS_DB_USER: $DB_WP_USER
       WORDPRESS_DB_PASSWORD: $DB_WP_PASS
       WORDPRESS_DB_NAME: $DB_WP_SCHEMA
-  #  networks:
-        #frontend:
-  #          ipv4_address: 172.20.0.5
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
+      - mariadb
     restart: unless-stopped
     volumes:
        - $DOCKER_CONFIG_PATH/wordpress:/var/www/html
@@ -589,6 +644,7 @@ services:
     restart: always
     depends_on:
       - mariadb
+      - pihole
     environment:
       WORDPRESS_DB_HOST: $DB_WP_URL
       WORDPRESS_DB_USER: $DB_WP_USER
@@ -596,11 +652,9 @@ services:
       WORDPRESS_DB_NAME: $DB_WP_DIARY_SCHEMA
     networks:
         frontend:
-            ipv4_address: 172.20.0.6
     restart: unless-stopped
     volumes:
        - $DOCKER_CONFIG_PATH/wordpress_diary:/var/www/html
-
 #########################
 ### bazarr
   bazarr:
@@ -658,7 +712,7 @@ services:
       - TZ=$TZ
       - SERVERURL=${DUCKDNS_DOMAIN}.duckdns.org
       - SERVERPORT=51820 #optional
-      - PEERS=moto_loz,bfunk #optional
+      - PEERS=$WG2_PEERS #optional
       - PEERDNS=auto #optional
       - INTERNAL_SUBNET=10.13.13.0 #optional
     volumes:
@@ -669,8 +723,7 @@ services:
       - 51820:51820/udp
     #sysctls:
       #- net.ipv4.conf.all.src_valid_mark=1
-    restart: unless-stopped
-
+    restart: always
 #### wireguard
   wireguard2:
     image: linuxserver/wireguard
@@ -691,12 +744,15 @@ services:
       - $DOCKER_CONFIG_PATH/wireguard2/config:/config
       - /lib/modules:/lib/modules
       - /usr/src/:/usr/src
+    depends_on:
+      - pihole
     ports:
       - 51821:51820/udp
+    networks:
+      - frontend
     #sysctls:
       #- net.ipv4.conf.all.src_valid_mark=1
-    restart: unless-stopped
-
+    restart: always
 ############################
 # doc on https://github.com/kylemanna/docker-openvpn/blob/master/docs/docker-compose.md
   openvpn:
@@ -710,30 +766,6 @@ services:
     volumes:
      - $DOCKER_CONFIG_PATH/openvpn-data/conf:/etc/openvpn
 ######################
-### pihole
-  pihole:
-    container_name: pihole
-    image: pihole/pihole:latest
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "67:67/udp"
-      - "455:80/tcp"
-    environment:
-      TZ: $TZ
-      WEBPASSWORD: $PIHOLE_PWD
-    # Volumes store your data between container upgrades
-    volumes:
-      #- './etc-pihole/:/etc/pihole/'
-      #- './etc-dnsmasq.d/:/etc/dnsmasq.d/'
-      - $DOCKER_CONFIG_PATH/pihole/etc/pihole/:/etc/pihole/
-      - $DOCKER_CONFIG_PATH/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/
-    # Recommended but not required (DHCP needs NET_ADMIN)
-    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
-    cap_add:
-      - NET_ADMIN
-    restart: unless-stopped
-#######################
 # rsync serve
   rsync-server:
     image: axiom/rsync-server
@@ -747,6 +779,7 @@ services:
     ports:
       #- "873:873" #uncomment if want to use rsyncd
       - "9000:22"
+    restart: always
 #######################
 # Samba
   samba:
@@ -757,14 +790,12 @@ services:
       PUID: 1000
       PGID: 1000
     ports:
-      #- "137:137/udp"
-      #- "138:138/udp"
       - "139:139/tcp"
       - "445:445/tcp"
     read_only: true
     tmpfs:
       - /tmp
-    restart: unless-stopped
+    restart: always
     stdin_open: true
     tty: true
     volumes:
@@ -791,7 +822,6 @@ services:
       -u "guest;guest"
       -g "map to guest = Bad User"
       -g "guest account = nobody"
-
 #######################
   filebrowser2:
     image: filebrowser/filebrowser
@@ -815,7 +845,7 @@ services:
       - $SELF_IMPROVEMENT_PATH:/srv/self_improvement:ro
       - $GAMES_PATH:/srv/games:ro
       - $SHARE_PATH:/srv/share
-    restart: always
+    restart: unless-stopped
 ###################3
 #  h5ai:
     #image: awesometic/h5ai
@@ -863,18 +893,6 @@ services:
       #- TZ=$TZ
 #    restart: always
 ###############
-# tinfoil shop
-#  ownfoil:
-    #container_name: ownfoil
-    #image: a1ex4/ownfoil
-    #volumes:
-      #- $SWITCH_PATH:/games
-      ## Uncomment if you want to edit and persist the app configuration
-      ##- $DOCKER_CONFIG_PATH/ownfoil/app:/app
-      ## Uncomment to setup basic auth
-      ## - ./nginx:/etc/nginx
-    #ports:
-#      - "8001:80"
   ownfoil:
     image: ownfoil
     container_name: ownfoil
@@ -931,4 +949,3 @@ volumes:
   netdatalib:
   netdatacache:
 ###################
-
