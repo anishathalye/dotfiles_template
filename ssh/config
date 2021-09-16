@@ -9,6 +9,9 @@ Host jumpbox
   Hostname %h.emii.org.au
   ForwardAgent yes
   ForwardX11 yes
+  ControlMaster auto
+  ControlPath ~/.ssh/jumpbox-%r@%h:%p
+  ControlPersist 5m
 
 Host *-nec
   Hostname %h-hob.emii.org.au
@@ -39,6 +42,9 @@ Host commandpost
   Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
   ForwardX11 yes
+  ControlMaster auto
+  ControlPath ~/.ssh/jumpbox-%r@%h:%p
+  ControlPersist 5m
 
 Host *nec* *nsp* *aws* *po* commandpost* 
   PermitLocalCommand yes
@@ -75,15 +81,10 @@ Host github.com
 
 # bfunk
 Host bfunk
-  Hostname 10.1.1.198
+  Hostname brownfunk.lan
   Port 22
   ForwardAgent yes
   ForwardX11 yes
-
-host pihole
-  Hostname 10.1.1.183
-  user pi
-  ForwardAgent yes
 
 # gcw0
 Host gcw0_wlan

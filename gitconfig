@@ -37,7 +37,8 @@
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     ss = stash save
     sp = stash pop
-    s = status -uno
+    #s = status -uno
+    s = status -u
     a = add
     p = pull
     b = branch

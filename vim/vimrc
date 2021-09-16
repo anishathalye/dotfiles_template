@@ -626,3 +626,11 @@ autocmd BufNewFile,BufRead *.csv   set filetype=csv
 
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+" ctags
+" Ctrl+\ - Open the definition in a new tab
+" Alt+] - Open the definition in a vertical split
+"Ctrl+Left MouseClick - Go to definition
+"Ctrl+Right MouseClick - Jump back from definition 
+map <C-b> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
