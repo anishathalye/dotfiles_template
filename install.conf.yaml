@@ -19,6 +19,7 @@
     ~/.config/Nextcloud: {create: true, force: true, path: config/Nextcloud/}
     ~/.config/pgcli: {create: true, force: true, path: config/pgcli/}
     ~/.config/ranger: {create: true, force: true, path: config/ranger/}
+    ~/.config/redlist: {create: true, force: true, path: config/redlist/}
     ~/.config/sublime-text-2: {create: true, force: true, path: config/sublime-text-2/}
     ~/.config/terminator: {create: true, force: true, path: config/terminator/}
     ~/.config/tilda: {create: true, force: true, path: config/tilda/}

@@ -1,0 +1,33 @@
+# Configuration file at "/home/lbesnard/.config/redlist/config.yaml"
+
+beets_library: /export/music/beet_lib_copy_redlist.blb
+beets_match_threshold: 0.3   # maximum difference between tracks to match (lower is stricter)
+torrent_directory: .
+m3u_directory: /export/music/beet_library/playlists_navidrome
+pinentry: yes
+enable_deluge: no
+restrict_album: no
+overwrite_m3u: yes
+missing_track_playlist:
+
+redacted:
+    disable: yes
+    api_key: REDACTED
+    username: REDACTED
+    password: REDACTED
+    save_cookies: yes
+    use_fl_tokens: no
+    format_preferences:
+    - MP3 V0
+    - MP3 320
+    - FLAC .*
+    - MP3 .*
+    - .*
+
+deluge:
+    host: localhost
+    port: 58846
+    username: REDACTED
+    password: REDACTED
+    add_paused: no
+

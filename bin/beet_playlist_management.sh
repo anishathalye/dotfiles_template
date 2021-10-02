@@ -17,7 +17,8 @@ for f in `find /export/music/playlists_airsonic_advanced -type f`; do
 done
 
 # for navidrome
-cp /export/music/playlists/* /export/music/beet_library/playlists_navidrome/;
-for f in `find /export/music/beet_library/playlists_navidrome -type f`; do
-    sed -i "s#^/music#/music#g" "$f";
-done
+# disabling this for now. I prefer to use the spotify pl. commenting
+#cp /export/music/playlists/* /export/music/beet_library/playlists_navidrome/;
+#for f in `find /export/music/beet_library/playlists_navidrome -type f`; do
+    #sed -i "s#^/music#/music#g" "$f";
+#done

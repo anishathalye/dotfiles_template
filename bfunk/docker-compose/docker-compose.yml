@@ -45,6 +45,8 @@ services:
     ports:
       - 3306:3306
     restart: always
+    networks:
+      frontend:
 ######################
 ##################
   jellyfin:
@@ -607,9 +609,10 @@ services:
     ports:
       - 6767:8000
       - 6263:9000
+      - 9443:9433
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - $DOCKER_CONFIG_PATH/portainer:/data portainer/portainer
+      - $DOCKER_CONFIG_PATH/portainer:/data
     restart: unless-stopped
 ###########
   wordpress:
@@ -893,17 +896,33 @@ services:
       #- TZ=$TZ
 #    restart: always
 ###############
-  ownfoil:
-    image: ownfoil
-    container_name: ownfoil
-    build: https://github.com/lbesnard/ownfoil.git#FeatAppendHostUrl
-    ports:
-      - '8001:80'
-    environment:
-      - HOST_URL=http://$SERVER_IP:8001
+#  ownfoil:
+    #image: ownfoil
+    #container_name: ownfoil
+    #build: https://github.com/lbesnard/ownfoil.git#FeatAppendHostUrl
+    #ports:
+      #- '8001:80'
+    #environment:
+      #- HOST_URL=http://$SERVER_IP:8001
+    #volumes:
+      #- $SWITCH_PATH:/games
+      ##- $DOCKER_CONFIG_PATH/ownfoil/nginx:/etc/nginx
+      ##- $DOCKER_CONFIG_PATH/ownfoil/app:/app
+    #restart: unless-stopped
+
+  ownfoil2:
+    container_name: ownfoil2
+    image: a1ex4/ownfoil
     volumes:
       - $SWITCH_PATH:/games
-    restart: unless-stopped
+      # Uncomment if you want to edit and persist the app configuration
+      #- $DOCKER_CONFIG_PATH/ownfoil2/app:/app
+      #- $DOCKER_CONFIG_PATH/ownfoil2/nginx:/etc/nginx
+      # - ./app:/app
+      # Uncomment to setup basic auth
+      # - ./nginx:/etc/nginx
+    ports:
+      - "8001:80"
 #######################
 #  webtop:
     #image: ghcr.io/linuxserver/webtop:alpine-mate

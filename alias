@@ -464,8 +464,23 @@ function spotify_pl_ls_missing () {
     local pl_path=/export/music/beet_library/playlists_navidrome
     local pl_val=`ls $pl_path | fzf  --multi=1`
 
-    cat "$pl_path/$pl_val" | grep -o '#.*' | cut -d : -f2,4 | sort | uniq | sed  "s/\"title\":/album:/g" | sed  "s/, \"length\"//g"
+    cat "$pl_path/$pl_val" | while read line; do
+        if [[ $line = \#* ]] 
+            then
+            local albumartist=`echo "$line" | grep -o '#.*' | cut -d : -f2,4 | sort | uniq | sed "s/\"title\":/album:/g" | cut -d ',' -f1 | sed "s/\"//g" | sed "s/^ //g"`
+            local album=`echo "$line" | grep -o '#.*' | cut -d : -f2,4 | sort | uniq | sed "s/\"title\":/album:/g" | sed "s/, \"length\"//g" | cut -d ',' -f2 | sed "s/\"//g" | sed "s/^ //g" | sed "s/album: //g"`
+            local albumartist_replace=`echo "${albumartist}" | sed "s/ /+/g"`
+            
+            local url="http://brownfunk.lan:9117/UI/Dashboard#search=$albumartist_replace&tracker=rutracker&category=3000&filter=all" 
+
+            local str_line=`printf "albumartist: %s, album: %s, url: %s\n" "${albumartist}" "${album}" "$url"`
+            local str="$str\n$str_line"
+        fi
+    done
+
+    echo "$str" | sort | uniq 
 }
+
 
 #alias music_player='mp3blaster'
 alias music_player='flatpak run app.sublimemusic.SublimeMusic'
@@ -627,7 +642,7 @@ function comic_repack_all_corrupt_archive2cbz(){
 #alias dclogs='docker-compose -f /opt/docker-compose.yml logs -tf --tail="50" '
 #alias dtail='docker logs -tf --tail="50" "$@"'
 # replaced by fzf-docker
-docker_logs_truncate='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"' # can save 50Gb of logs easily!!
+alias docker_logs_truncate='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"' # can save 50Gb of logs easily!!
 
 
 ##############################
