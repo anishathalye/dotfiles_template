@@ -290,7 +290,7 @@ tmux_conf_copy_to_os_clipboard=false
 #set -g status-keys vi
 #set -g mode-keys vi
 
-# replace C-1 by C-a instead of using both prefixes
+# replace C-a by C-1 instead of using both prefixes
  set -gu prefix2
 unbind C-a
 unbind C-1
