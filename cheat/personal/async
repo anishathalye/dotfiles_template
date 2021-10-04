@@ -1,0 +1,1 @@
+find . -type f | cut -c3- | awk -v pwd=$PWD '{print pwd"/"$1",IMOS/eMII/test_files/DWM/"$1}' | head -1  > $INCOMING_DIR/ASYNC_UPLOAD/dta.map_manifest
