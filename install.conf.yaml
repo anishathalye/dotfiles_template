@@ -58,7 +58,7 @@
     ~/.vimrc: {create: true, force: true, path: vim/vimrc}
     ~/.whatlastgenre: {create: true, force: false, path: whatlastgenre}
     ~/.xsessionrc: {force: true, path: xsessionrc}
-    ~/.zplug/complete/beet/_beet: {create: true, force: true, path: zsh/_beet}
+    ~/.zplug/complete/beet/_beet: {create: true, force: false, path: zsh/_beet}
     ~/.zsh_alias: {force: true, path: zsh_alias}
     ~/.zshrc.zplug.bfunk: {force: true, path: zsh/zshrc.zplug.bfunk}
     ~/.zshrc.zplug.common: {force: true, path: zsh/zshrc.zplug.common}

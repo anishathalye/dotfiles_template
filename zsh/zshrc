@@ -26,7 +26,7 @@ elif [[ $HOSTNAME == *"brownfunk"* ]]; then
 elif [[ $HOSTNAME == *"-X202EP"* ]]; then
     source $HOME/.zshrc.zplug.bfunk
     ln -sf ~/.tmux.conf.ssh_laptop ~/.tmux.conf.local
-elif [[ $USER == "ubuntu"* ]]; then
+elif [[ $USER == "ubuntu" ]]; then
     source $HOME/.zshrc.zplug.bfunk
     ln -sf ~/.tmux.conf.ssh_laptop ~/.tmux.conf.local
 else
