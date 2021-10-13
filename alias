@@ -669,15 +669,15 @@ alias nextcloud_force_rescan='docker exec nextcloud sudo -u abc php /config/www/
 function bfunk_rsync() {
     local folder_to_bckp="$1"; shift
     local src="/data/$folder_to_bckp"
-    local dest="$1/$folder_to_bckp"; shift
+    local dest="$1/$folder_to_bckp";shift
     local extra_rsync_command="$*";
-
-    echo "$extra_rsync_command"
+    mkdir -p $dest
 
     [ -d $dest ] && rsync -auv -P  --delete --delete-excluded -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $SERVER_LOCAL_IP:$src/ $dest/ \
         --stats --progress --exclude ".*lrprev" --exclude jellyfin/ \
         --exclude "uploaded_piwigo" --exclude "piwigo" --exclude='*.tmp' \
-        --exclude=.deleted "$extra_rsync_command" || $dest does not exist
+        --exclude=.deleted $extra_rsync_command \
+        || $dest does not exist
 }
 
 alias bfunk_bckp_ebooks="bfunk_rsync ebooks_audiobooks /media/$USER/bckp_2tb"
