@@ -28,7 +28,7 @@ elif [[ $HOSTNAME == *"-X202EP"* ]]; then
     ln -sf ~/.tmux.conf.ssh_laptop ~/.tmux.conf.local
 elif [[ $USER == "ubuntu" ]]; then
     source $HOME/.zshrc.zplug.bfunk
-    ln -sf ~/.tmux.conf.ssh_laptop ~/.tmux.conf.local
+    ln -sf ~/.tmux.conf.ssh ~/.tmux.conf.local
 else
     source $HOME/.zshrc.zplug.local
     ln -sf ~/.tmux.conf.laptop ~/.tmux.conf.local
