@@ -681,8 +681,9 @@ function bfunk_rsync() {
 }
 
 alias bfunk_bckp_ebooks="bfunk_rsync ebooks_audiobooks /media/$USER/bckp_2tb"
-alias bfunk_bckp_games_1="bfunk_rsync games /media/$USER/media_4tb --exclude=Switch/"  ## don't backup switch folder
+alias bfunk_bckp_games_1="bfunk_rsync games /media/$USER/media_4tb --exclude=Switch/ --exclude=Wii/ --exclude=WiiU/ --exclude=Gamecube/"  ## don't backup switch folder
 alias bfunk_bckp_games_2_switch="bfunk_rsync games/emulation/Nintendo/Switch /media/$USER/games"
+alias bfunk_bckp_games_3_wii_u_gc="bfunk_rsync games/emulation/Nintendo/Gamecube /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/Wii /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/WiiU /media/$USER/wii_gc;"
 alias bfunk_bckp_movies="bfunk_rsync movies /media/$USER/media_bckp"
 alias bfunk_bckp_music="bfunk_rsync music /media/$USER/media_center"
 alias bfunk_bckp_nextcloud="bfunk_rsync nextcloud /media/$USER/media_bckp"
