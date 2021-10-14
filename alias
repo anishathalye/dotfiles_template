@@ -676,6 +676,7 @@ function bfunk_rsync() {
     [ -d $dest ] && rsync -auv -P  --delete --delete-excluded -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $SERVER_LOCAL_IP:$src/ $dest/ \
         --stats --progress --exclude ".*lrprev" --exclude jellyfin/ \
         --exclude "uploaded_piwigo" --exclude "piwigo" --exclude='*.tmp' \
+        --exclude=".*" \
         --exclude=.deleted $extra_rsync_command \
         || $dest does not exist
 }
@@ -686,6 +687,7 @@ alias bfunk_bckp_games_2_switch="bfunk_rsync games/emulation/Nintendo/Switch /me
 alias bfunk_bckp_games_3_wii_u_gc="bfunk_rsync games/emulation/Nintendo/Gamecube /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/Wii /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/WiiU /media/$USER/wii_gc;"
 alias bfunk_bckp_movies="bfunk_rsync movies /media/$USER/media_bckp"
 alias bfunk_bckp_music="bfunk_rsync music /media/$USER/media_center"
+alias bfunk_bckp_music_no_beet="bfunk_rsync music /media/$USER/media_center --exclude='*.blb'"
 alias bfunk_bckp_nextcloud="bfunk_rsync nextcloud /media/$USER/media_bckp"
 alias bfunk_bckp_pictures="bfunk_rsync pictures /media/$USER/media_bckp"
 alias bfunk_bckp_self_improvement="bfunk_rsync self_improvement /media/$USER/media_center"
