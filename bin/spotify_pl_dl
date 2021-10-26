@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# download YT music from spotify playlist and push to navidrome library
+# without interfering with beet library content
+
+
+main() {
+    # download playlists
+    IFS=$(echo -en "\n\b");
+    local SCRIPT_DIR=$(dirname "$(realpath $0)" )
+
+    # extensive list of playlists 
+    local pl_vals=`cat $SCRIPT_DIR/.spotify_pl.list| fzf --no-preview | cut -d , -f1`
+
+    local pl_m3u_path=/export/music/beet_library/playlists_navidrome
+    local pl_spotify_path=/export/music/beet_library/spotify_music
+
+    for pl_val in $pl_vals; do
+        local tempdir=`mktemp -d --tmpdir=/export/torrent/tmp`
+        spotdl https://open.spotify.com/playlist/$pl_val --m3u -o $tempdir
+        
+        pl_filepath=`fd .m3u $tempdir`
+
+        pl_name=$(basename "$pl_filepath")
+        # append last 5 char of pl value in case we have pl with similar name
+        pl_name="${pl_name%.*}_${pl_val:16:21}"
+
+        # move m3u and append spotify string to it to differentiate pl with
+        # pl matching tunes from the Beet library
+        #pl_new_path="$pl_m3u_path/${pl_name}_spotify.m3u"
+        #cp -f "$pl_filepath"  "$pl_new_path"
+
+        # rm folder if already exists
+        [[ ! -z "$pl_name" ]] && [[ ! -z "$pl_spotify_path" ]] && [ -d "$pl_spotify_path/${pl_name}" ] && rm -Rf "$pl_spotify_path/${pl_name}"
+        # move temp folder containing music
+        mv $tempdir "$pl_spotify_path/${pl_name}"
+        #rm -Rf $tempdir
+
+        ## replace values for navidrome in docker
+        #sed -i "s#^#/music/spotify_music/$pl_name/#g" "$pl_new_path";
+    done
+}
+
+main "$@"

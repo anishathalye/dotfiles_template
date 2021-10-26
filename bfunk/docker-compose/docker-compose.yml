@@ -30,7 +30,7 @@ services:
     restart: always
 ###################
   mariadb:
-    image: linuxserver/mariadb
+    image:  lscr.io/linuxserver/mariadb
     container_name: mariadb
     environment:
       - PUID=1000
@@ -74,47 +74,8 @@ services:
     devices:
       - /dev/dri:/dev/dri #optional
     restart: unless-stopped
-###########################################
-#  airsonic:
-    #image: linuxserver/airsonic:latest
-    #container_name: airsonic
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=${TZ}
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/airsonic:/config
-      #- $MUSIC_PATH:/music:ro
-      #- $PLAYLISTS_PATH:/playlists
-      #- $PODCASTS_PATH:/podcasts
-    #devices:
-      #- /dev/snd:/dev/snd #optional
-    #ports:
-      #- 8082:4040
-#    restart: unless-stopped
-########################
-# airsonic advanced
-#  airsonic-advanced:
-    #image: airsonicadvanced/airsonic-advanced:latest
-    #container_name: airsonic-advanced
-    #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #- TZ=${TZ}
-      #- JAVA_OPTS=-Xmx2g
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/airsonic-advanced:/var/airsonic
-      #- $MUSIC_PATH:/music:ro
-      ##- $PLAYLISTS_AIRSONIC_ADVANCED_PATH:/playlists
-      #- $PLAYLISTS_PATH:/playlists
-      #- $PODCASTS_PATH:/podcasts
-    #devices:
-      #- /dev/snd:/dev/snd #optional
-    #ports:
-      #- 8080:4040
-#    restart: unless-stopped
-#############################
-#  sonic for music and audiobooks in go using less RAM
+###########################
+#
   navidrome:
     image: deluan/navidrome
     container_name: navidrome
@@ -140,6 +101,10 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/navidrome:/data
       - $MUSIC_PATH:/music:ro
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
 ##################
 # Audiobooks
   gonic:
@@ -224,6 +189,27 @@ services:
       - pihole
     restart: unless-stopped
 ##################
+#  gitea:
+    #image: gitea/gitea:1.15.5
+    #container_name: gitea
+    #environment:
+      #- USER_UID=1000
+      #- USER_GID=1000
+    #restart: always
+    ##networks:
+      #- gitea
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/gitea:/data
+      #- /etc/timezone:/etc/timezone:ro
+      #- /etc/localtime:/etc/localtime:ro
+    #ports:
+      #- "3400:3000"
+      #- "222:22"
+    #dns:
+      #- $PIHOLE_DOCKER_SUB_IP_DNS
+    #networks:
+#      - frontend
+##################
   piwigo:
     image: linuxserver/piwigo
     # conf of DB in www/gallery/local/config/database.inc.php
@@ -258,6 +244,81 @@ services:
     depends_on:
       - pihole
 ####################
+  photoprism:
+    image: photoprism/photoprism:latest
+    container_name: photoprism
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    # Run as a specific, non-root user (see https://docs.docker.com/engine/reference/run/#user):
+    user: "1000:1000"
+    ports:
+      - "2342:2342" # [server]:[container]
+    environment:
+      PHOTOPRISM_ADMIN_PASSWORD: "insecure"          # PLEASE CHANGE: Your initial admin password (min 4 characters)
+      PHOTOPRISM_SITE_URL: "http://$DB_HOST:2342/"  # Public URL incl http:// or https:// and /path, :port is optional
+      PHOTOPRISM_ORIGINALS_LIMIT: 5000               # File size limit for originals in MB (increase for high-res video)
+      PHOTOPRISM_HTTP_COMPRESSION: "gzip"            # Improves transfer speed and bandwidth utilization (none or gzip)
+      PHOTOPRISM_DEBUG: "false"                      # Run in debug mode (shows additional log messages)
+      PHOTOPRISM_PUBLIC: "false"                     # No authentication required (disables password protection)
+      PHOTOPRISM_READONLY: "true"                   # Don't modify originals directory (reduced functionality)
+      PHOTOPRISM_EXPERIMENTAL: "false"               # Enables experimental features
+      PHOTOPRISM_DISABLE_CHOWN: "true"              # Disables storage permission updates on startup
+      PHOTOPRISM_DISABLE_WEBDAV: "false"             # Disables built-in WebDAV server
+      PHOTOPRISM_DISABLE_SETTINGS: "false"           # Disables Settings in Web UI
+      PHOTOPRISM_DISABLE_TENSORFLOW: "false"         # Disables all features depending on TensorFlow
+      PHOTOPRISM_DISABLE_FACES: "false"              # Disables facial recognition
+      PHOTOPRISM_DISABLE_CLASSIFICATION: "false"     # Disables image classification
+      PHOTOPRISM_DARKTABLE_PRESETS: "false"          # Enables Darktable presets and disables concurrent RAW conversion
+      PHOTOPRISM_DETECT_NSFW: "false"                # Flag photos as private that MAY be offensive (requires TensorFlow)
+      PHOTOPRISM_UPLOAD_NSFW: "true"                 # Allow uploads that MAY be offensive
+      # PHOTOPRISM_DATABASE_DRIVER: "sqlite"         # SQLite is an embedded database that doesn't require a server
+      PHOTOPRISM_DATABASE_DRIVER: "mysql"            # Use MariaDB 10.5+ or MySQL 8+ instead of SQLite for improved performance
+      PHOTOPRISM_DATABASE_SERVER: "$DB_HOST:$DB_PORT"     # MariaDB or MySQL database server (hostname:port)
+      PHOTOPRISM_DATABASE_NAME: "$DB_PHOTOPRISM_SCHEMA"         # MariaDB or MySQL database schema name
+      PHOTOPRISM_DATABASE_USER: "$DB_PHOTOPRISM_USER"         # MariaDB or MySQL database user name
+      PHOTOPRISM_DATABASE_PASSWORD: "$DB_PHOTOPRISM_PWD"      # MariaDB or MySQL database user password
+      PHOTOPRISM_SITE_TITLE: "PhotoPrism"
+      PHOTOPRISM_SITE_CAPTION: "Browse Your Life"
+      PHOTOPRISM_SITE_DESCRIPTION: ""
+      PHOTOPRISM_SITE_AUTHOR: "Loz"
+      # Set a non-root user, group, or custom umask if your Docker environment doesn't support this natively:
+      # PHOTOPRISM_UID: 1000
+      # PHOTOPRISM_GID: 1000
+      # PHOTOPRISM_UMASK: 0000
+      # Enable TensorFlow AVX2 support for modern Intel CPUs (requires starting the container as root):
+      # PHOTOPRISM_INIT: "tensorflow-amd64-avx2"
+      # Hardware video transcoding options:
+      # PHOTOPRISM_FFMPEG_BUFFERS: "64"              # FFmpeg capture buffers (default: 32)
+      # PHOTOPRISM_FFMPEG_BITRATE: "32"              # FFmpeg encoding bitrate limit in Mbit/s (default: 50)
+      # PHOTOPRISM_FFMPEG_ENCODER: "h264_v4l2m2m"    # Use Video4Linux for AVC transcoding (default: libx264)
+      # PHOTOPRISM_FFMPEG_ENCODER: "h264_qsv"        # Use Intel Quick Sync Video for AVC transcoding (default: libx264)
+      # PHOTOPRISM_INIT: "intel-graphics tensorflow-amd64-avx2" # Enable TensorFlow AVX2 & Intel Graphics support
+      HOME: "/photoprism"
+    # Optional hardware devices for video transcoding and machine learning:
+    devices:
+    #  - "/dev/video11:/dev/video11" # Video4Linux (h264_v4l2m2m)
+      - "/dev/dri/renderD128:/dev/dri/renderD128" # Intel GPU
+    #  - "/dev/dri/card0:/dev/dri/card0"
+    working_dir: "/photoprism"
+    volumes:
+      # The *originals* folder contains your original photo and video files (- "[host folder]:/photoprism/originals"):
+      - "$PICTURES_PATH/photoprism:/photoprism/originals"
+      # Multiple folders can be made accessible by mounting them as subfolders of /photoprism/originals:
+      # - "/mnt/Family:/photoprism/originals/Family"    # [folder 1]:/photoprism/originals/[folder 1]
+      # - "/mnt/Friends:/photoprism/originals/Friends"  # [folder 2]:/photoprism/originals/[folder 2]
+      # You may mount an *import* folder from which files can be transferred to *originals* (optional):
+      # - "~/Import:/photoprism/import"
+      # Cache, session, thumbnail, and sidecar files will be created in the *storage* folder (never remove):
+      - "$PICTURES_PATH/docker_photoprism/storage:/photoprism/storage"
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+##########################
   glance:
     image: nicolargo/glances:latest-alpine
     container_name: glances
@@ -574,6 +635,51 @@ services:
       - $DOCKER_CONFIG_PATH/duckdns:/config #optional
     restart: always
 #####################
+# SWAG from duckdns
+####################
+  swag:
+   image: ghcr.io/linuxserver/swag
+   container_name: swag
+   cap_add:
+     - NET_ADMIN
+   dns:
+     - $PIHOLE_DOCKER_SUB_IP_DNS
+   networks:
+     - frontend
+   environment:
+     - PUID=1000
+     - PGID=1000
+     - TZ=Europe/Brussels
+     - URL=$DUCKDNS_DOMAIN.duckdns.org
+     - SUBDOMAINS=wildcard
+     - VALIDATION=duckdns
+     #- DNSPLUGIN=cloudflare
+     #- CERTPROVIDER= #optional
+     #- DNSPLUGIN= #optional
+     - DUCKDNSTOKEN=$DUCKDNS_TOKEN
+     #- EMAIL=<e-mail> #optional
+     - ONLY_SUBDOMAINS=false #optional
+     #- EXTRA_DOMAINS=brownfunk.lan #optional
+     - STAGING=false #optional
+   volumes:
+     - $DOCKER_CONFIG_PATH/swag:/config
+   ports:
+     - 443:443
+   restart: unless-stopped
+################3
+  ldap-auth:
+    image: lscr.io/linuxserver/ldap-auth
+    container_name: ldap-auth
+    environment:
+      - TZ=$TZ
+      #- F#ERNETKEY= #optional
+      #- CERTFILE= #optional
+      #- KEYFILE= #optional
+    ports:
+      - 8899:8888
+      - 9900:9000
+    restart: unless-stopped
+####################
 ### Wallabag
   wallabag:
     image: wallabag/wallabag
@@ -701,6 +807,8 @@ services:
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx4g
     restart: unless-stopped
+    networks:
+      - frontend
 #########################
 #### wireguard
   wireguard:
@@ -769,13 +877,22 @@ services:
     volumes:
      - $DOCKER_CONFIG_PATH/openvpn-data/conf:/etc/openvpn
 ######################
-# rsync serve
+# rsync server
   rsync-server:
     image: axiom/rsync-server
     container_name: rsync-server
     volumes:
       - $HOME/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
-      - $SERVER_PATH:/data:ro
+      - $EBOOKS_AUDIOBOOKS_PATH:/data/ebooks_audiobooks:ro
+      - $GAMES_PATH:/data/games:ro
+      - $MOVIES_PATH:/data/movies:ro
+      - $MUSIC_ROOT_PATH:/data/music:ro
+      - $PICTURES_PATH:/data/pictures:ro
+      - $SHARE_PATH:/data/share:ro
+      - $TORRENT_PATH:/data/torrent:ro
+      - $SELF_IMPROVEMENT_PATH:/data/self_improvement:ro
+      - $PODCASTS_PATH:/data/podcasts:ro
+   #- $SERVER_PATH:/data:ro
     #environment:
       #- USERNAME=nouser
       #- PASSWORD=nopass
@@ -862,24 +979,24 @@ services:
       #- 9296:80
 #    restart: unless-stopped
 #####################
-  diun:
-    image: crazymax/diun:latest
-    container_name: diun
-    volumes:
-      - $DOCKER_CONFIG_PATH/diun/data:/data
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    environment:
-      - TZ=$TZ
-      - "LOG_LEVEL=info"
-      - "LOG_JSON=false"
-      - "DIUN_WATCH_WORKERS=20"
-      - "DIUN_WATCH_SCHEDULE=0 */6 * * *"
-      - "DIUN_PROVIDERS_DOCKER=true"
-      - "DIUN_PROVIDERS_DOCKER_WATCHSTOPPED=true"
-    labels:
-      - "diun.enable=true"
-      - "diun.watch_repo=true"
-    restart: always
+#  diun:
+    #image: crazymax/diun:latest
+    #container_name: diun
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/diun/data:/data
+      #- "/var/run/docker.sock:/var/run/docker.sock"
+    #environment:
+      #- TZ=$TZ
+      #- "LOG_LEVEL=info"
+      #- "LOG_JSON=false"
+      #- "DIUN_WATCH_WORKERS=20"
+      #- "DIUN_WATCH_SCHEDULE=0 */6 * * *"
+      #- "DIUN_PROVIDERS_DOCKER=true"
+      #- "DIUN_PROVIDERS_DOCKER_WATCHSTOPPED=true"
+    #labels:
+      #- "diun.enable=true"
+      #- "diun.watch_repo=true"
+#    restart: always
 #######################
 ### nuts - tinfoiil server switch
 #  nut-server:
@@ -896,20 +1013,6 @@ services:
       #- TZ=$TZ
 #    restart: always
 ###############
-#  ownfoil:
-    #image: ownfoil
-    #container_name: ownfoil
-    #build: https://github.com/lbesnard/ownfoil.git#FeatAppendHostUrl
-    #ports:
-      #- '8001:80'
-    #environment:
-      #- HOST_URL=http://$SERVER_IP:8001
-    #volumes:
-      #- $SWITCH_PATH:/games
-      ##- $DOCKER_CONFIG_PATH/ownfoil/nginx:/etc/nginx
-      ##- $DOCKER_CONFIG_PATH/ownfoil/app:/app
-    #restart: unless-stopped
-
   ownfoil2:
     container_name: ownfoil2
     image: a1ex4/ownfoil
@@ -920,7 +1023,7 @@ services:
       #- $DOCKER_CONFIG_PATH/ownfoil2/nginx:/etc/nginx
       # - ./app:/app
       # Uncomment to setup basic auth
-      # - ./nginx:/etc/nginx
+      #- ./nginx:/etc/nginx
     ports:
       - "8001:80"
 #######################

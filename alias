@@ -454,7 +454,7 @@ cc_ghrsst() {
 alias beet_genre_uniq_update="beet ls -f '\$genre' | sort -u > ~/.beets_genre"
 alias split_flac_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.flac` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias split_ape_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.ape` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
-alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.vw` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
+alias split_wv_album='IFS=$(echo -en "\n\b"); for CUE in `find . -type f -name "*.cue"`; do FILE_TO_CONVERT=`basename ${CUE%.*}.wv` && shnsplit -f "$CUE" -t %n-%t -o flac "$FILE_TO_CONVERT" && rm -f "$FILE_TO_CONVERT";done'
 alias split_flac_subfolders='IFS=$(echo -en "\n\b"); for f in `fd -a .cue`; do cd ```dirname $f```; split_flac_album ;done'
 
 function spotify_pl_ls_missing () {
@@ -675,6 +675,7 @@ function bfunk_rsync() {
     [ -d $dest ] && rsync -auv -P  --delete --delete-excluded -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $SERVER_LOCAL_IP:$src/ $dest/ \
         --stats --progress --exclude ".*lrprev" --exclude jellyfin/ \
         --exclude "uploaded_piwigo" --exclude "piwigo" --exclude='*.tmp' \
+        --exclude="*.jpg_original*" \
         --exclude=.deleted $extra_rsync_command || $dest does not exist
 }
 
