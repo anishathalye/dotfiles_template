@@ -51,6 +51,7 @@
     ~/.ssh/rc: {create: true, force: true, path: ssh/rc}
     ~/.tmux.conf.laptop: {force: true, path: tmux/tmux.conf.laptop}
     ~/.tmux.conf.ssh: {force: true, path: tmux/tmux.conf.ssh}
+    ~/.tmux.conf.ssh_laptop: {force: true, path: tmux/tmux.conf.ssh_laptop}
     ~/.tmux.conf: {force: true, path: tmux/tmux.conf}
     ~/.utas_vpnc.conf: {force: true, path: utas/utas_vpnc.conf}
     ~/.utas_vpnc.sh: {force: true, path: utas/utas_vpnc.sh}

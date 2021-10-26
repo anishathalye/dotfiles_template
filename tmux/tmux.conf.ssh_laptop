@@ -290,12 +290,12 @@ tmux_conf_copy_to_os_clipboard=false
 #set -g status-keys vi
 #set -g mode-keys vi
 
-# replace C-a by C-b instead of using both prefixes
+# replace C-a by C-s instead of using both prefixes
  set -gu prefix2
 unbind C-a
-unbind C-b
-set -g prefix C-b
-bind C-b send-prefix
+unbind C-s
+set -g prefix C-s
+bind C-s send-prefix
 
 # move status line to top
 #set -g status-position top

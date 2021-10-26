@@ -669,19 +669,25 @@ alias nextcloud_force_rescan='docker exec nextcloud sudo -u abc php /config/www/
 function bfunk_rsync() {
     local folder_to_bckp="$1"; shift
     local src="/data/$folder_to_bckp"
-    local dest="$1/$folder_to_bckp"; shift
-    local extra_rsync_command="$1";
+    local dest="$1/$folder_to_bckp";shift
+    local extra_rsync_command="$*";
+    mkdir -p $dest
 
     [ -d $dest ] && rsync -auv -P  --delete --delete-excluded -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $SERVER_LOCAL_IP:$src/ $dest/ \
         --stats --progress --exclude ".*lrprev" --exclude jellyfin/ \
         --exclude "uploaded_piwigo" --exclude "piwigo" --exclude='*.tmp' \
         --exclude="*.jpg_original*" \
+        --exclude=".*" \
         --exclude=.deleted $extra_rsync_command || $dest does not exist
 }
 
-alias bfunk_bckp_ebooks='bfunk_rsync ebooks_audiobooks /media/lbesnard/bckp_2tb'
-alias bfunk_bckp_music='bfunk_rsync music /media/lbesnard/media_center'
-alias bfunk_bckp_self_improvement='bfunk_rsync self_improvement /media/lbesnard/media_center'
-alias bfunk_bckp_movies='bfunk_rsync movies /media/lbesnard/media_bckp'
-alias bfunk_bckp_nextcloud='bfunk_rsync nextcloud /media/lbesnard/media_bckp'
-alias bfunk_bckp_pictures='bfunk_rsync pictures /media/lbesnard/media_bckp'
+alias bfunk_bckp_ebooks="bfunk_rsync ebooks_audiobooks /media/$USER/bckp_2tb"
+alias bfunk_bckp_games_1="bfunk_rsync games /media/$USER/media_4tb --exclude=Switch/ --exclude=Wii/ --exclude=WiiU/ --exclude=Gamecube/"  ## don't backup switch folder
+alias bfunk_bckp_games_2_switch="bfunk_rsync games/emulation/Nintendo/Switch /media/$USER/games"
+alias bfunk_bckp_games_3_wii_u_gc="bfunk_rsync games/emulation/Nintendo/Gamecube /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/Wii /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/WiiU /media/$USER/wii_gc;"
+alias bfunk_bckp_movies="bfunk_rsync movies /media/$USER/media_bckp"
+alias bfunk_bckp_music="bfunk_rsync music /media/$USER/media_center"
+alias bfunk_bckp_music_no_beet="bfunk_rsync music /media/$USER/media_center --exclude='*.blb'"
+alias bfunk_bckp_nextcloud="bfunk_rsync nextcloud /media/$USER/media_bckp"
+alias bfunk_bckp_pictures="bfunk_rsync pictures /media/$USER/2tb_bckp"
+alias bfunk_bckp_self_improvement="bfunk_rsync self_improvement /media/$USER/2tb_bckp"
