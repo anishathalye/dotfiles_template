@@ -428,7 +428,7 @@ _cc() {
         then
             #compliance-checker $test $(fd -LHI -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})") 
             compliance-checker $test $filepath
-            tmux split-window -h "ncdump -h $filepath | less"
+            tmux split-window -h "ncdump -h \"$filepath\" | less"
             [ -f /mnt/ebs/pipeline/bin/activate ] && deactivate || conda deactivate
     fi
 }
@@ -661,7 +661,7 @@ alias mount_games='mount_point=games;mkdir -p $HOME/bfunk/$mount_point; sudo mou
 #AIRSONIC_DATA_DIR=$DOCKER_CONFIG_DIR/airsonic
 NEXCTLOUD_DATA_DIR=/export/nexctloud
 #alias backup_airsonic='sudo service airsonic stop && tar -cvf "/tmp/airsonic_$(date +%F_%R).tar" /var/airsonic && sudo service airsonic restart'
-alias backup_nextcloud='sudo docker stop nextcloud && tar -cvf "/tmp/nextcloud_$(date +%F_%R).tar" $NEXCTLOUD_DATA_DIR &&; sudo docker start service nextcloud'
+#alias backup_nextcloud='sudo docker stop nextcloud && tar -cvf "/tmp/nextcloud_$(date +%F_%R).tar" $NEXCTLOUD_DATA_DIR &&; sudo docker start service nextcloud'
 
 # when files are copied manually to nextcloud folder
 alias nextcloud_force_rescan='docker exec nextcloud sudo -u abc php /config/www/nextcloud/occ files:scan --all'
@@ -678,6 +678,8 @@ function bfunk_rsync() {
         --exclude "uploaded_piwigo" --exclude "piwigo" --exclude='*.tmp' \
         --exclude="*.jpg_original*" \
         --exclude=".*" \
+        --exclude="*.log" --exclude="*.log\..*\.gz" \
+        --exclude="*.page" --exclude="*.amq" \
         --exclude=.deleted $extra_rsync_command || $dest does not exist
 }
 
@@ -691,3 +693,4 @@ alias bfunk_bckp_music_no_beet="bfunk_rsync music /media/$USER/media_center --ex
 alias bfunk_bckp_nextcloud="bfunk_rsync nextcloud /media/$USER/media_bckp"
 alias bfunk_bckp_pictures="bfunk_rsync pictures /media/$USER/2tb_bckp"
 alias bfunk_bckp_self_improvement="bfunk_rsync self_improvement /media/$USER/2tb_bckp"
+alias bfunk_bckp_docker="bfunk_rsync docker /media/$USER/media_bckp"
