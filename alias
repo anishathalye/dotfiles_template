@@ -677,6 +677,7 @@ function bfunk_rsync() {
         --stats --progress --exclude ".*lrprev" --exclude jellyfin/ \
         --exclude "uploaded_piwigo" --exclude "piwigo" --exclude='*.tmp' \
         --exclude="*.jpg_original*" \
+        --exclude="docker_photoprism" \
         --exclude=".*" \
         --exclude="*.log" --exclude="*.log\..*\.gz" \
         --exclude="*.page" --exclude="*.amq" \
