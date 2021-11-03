@@ -55,7 +55,6 @@ services:
       WATCHTOWER_LABEL_ENABLE: 1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      #- ~/.docker/config.json:/config.json:ro
     restart: unless-stopped
     command: --interval 3600
     labels:
@@ -201,6 +200,8 @@ services:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
     volumes:
       - $DOCKER_CONFIG_PATH/nextcloud:/config
       - $NEXTCLOUD_DATA_PATH:/data
@@ -770,6 +771,7 @@ services:
     environment:
       - TZ=$TZ
       - SYMFONY__ENV__DOMAIN_NAME=$SERVER_URL:3637
+      #- SYMFONY__ENV__DOMAIN_NAME=https://wallabag.${DUCKDNS_DOMAIN}.duckdns.org
       - SYMFONY__ENV__DATABASE_HOST=172.20.0.17
     restart: unless-stopped
     environment:
@@ -912,8 +914,9 @@ services:
       - 9980:8080
     user: "$PUID_USER:$PGID_USER"
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx6g
-      - KOMGA_LIBRARIES_SCAN_CRON=0 */4 * * * ?
+      - JAVA_TOOL_OPTIONS=-Xmx4g
+      - KOMGA_LIBRARIES_SCAN_STARTUP=false
+      - KOMGA_LIBRARIES_SCAN_CRON=0 0 */4 * * ?
     restart: unless-stopped
     labels:
       - com.centurylinklabs.watchtower.enable=true
