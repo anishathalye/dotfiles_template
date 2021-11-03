@@ -47,6 +47,9 @@
 ;; See: https://emacs.stackexchange.com/questions/28121/osx-switching-to-virtual-desktop-doesnt-focus-emacs
 (menu-bar-mode t) 
 
+;; Make links clickable in comments
+(goto-address-mode 1)
+
 ;; Prevent scratch window from opening on startup
 (add-hook 'emacs-startup-hook (lambda ()
                                 (when (get-buffer-window "*scratch*")
