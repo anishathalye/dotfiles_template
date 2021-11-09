@@ -260,7 +260,8 @@
       (`(t . t)
        (treemacs-git-mode 'deferred))
       (`(t . _)
-       (treemacs-git-mode 'simple))))
+       (treemacs-git-mode 'simple)))
+    (add-hook 'projectile-after-switch-project-hook 'treemacs-display-current-project-exclusively))
   :bind
   (:map global-map
         ("M-0"       . treemacs-select-window)
