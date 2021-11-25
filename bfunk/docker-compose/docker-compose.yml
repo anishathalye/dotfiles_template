@@ -53,6 +53,7 @@ services:
     container_name: watchtower
     environment:
       WATCHTOWER_LABEL_ENABLE: 1
+      WATCHTOWER_CLEANUP: "true"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
@@ -69,6 +70,7 @@ services:
       - TZ=${TZ}
       - UMASK=022 #optional
       - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
+      - WATCHTOWER_CLEANUP=true
     volumes:
       - $DOCKER_CONFIG_PATH/jellyfin:/config
       - ${TV_SHOWS_PATH}:/data/tvshows:ro
@@ -110,6 +112,7 @@ services:
       ND_SPOTIFY_SECRET: $SPOTIFY_SECRET
       ND_ENABLETRANSCODINGCONFIG: "true"
       ND_ENABLEGRAVATAR: "true"
+      WATCHTOWER_CLEANUP: "true"
     volumes:
       - $DOCKER_CONFIG_PATH/navidrome:/data
       - $MUSIC_PATH:/music:ro
@@ -128,6 +131,7 @@ services:
       - TZ
       - PUID=$PUID_USER
       - PGID=$PGID_USER
+      - WATCHTOWER_CLEANUP=true
     expose:
       - 80
     ports:
@@ -140,6 +144,23 @@ services:
     labels:
       com.centurylinklabs.watchtower.enable: true
 ######################################
+  tubesync:
+    image: ghcr.io/meeb/tubesync:latest
+    container_name: tubesync
+    restart: unless-stopped
+    ports:
+      - 4848:4848
+    volumes:
+      - $DOCKER_CONFIG_PATH/tubesync-config:/config
+      - $TV_SHOWS_PATH/tubesync-downloads:/downloads
+    environment:
+      - TZ=$TZ
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - WATCHTOWER_CLEANUP=true
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+###
   calibre:
     image: linuxserver/calibre
     container_name: calibre
@@ -147,6 +168,7 @@ services:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=${TZ}
+      - WATCHTOWER_CLEANUP=true
       #- GUAC_USER=admin
       #- GUAC_PASS=admin
     volumes:
@@ -168,6 +190,7 @@ services:
       - PGID=$PGID_USER
       - TZ=${TZ}
       - DOCKER_MODS=linuxserver/calibre-web:calibre
+      - WATCHTOWER_CLEANUP=true
     volumes:
       - $DOCKER_CONFIG_PATH/calibre-web:/config
       - $EBOOKS_PATH:/books:ro
@@ -184,6 +207,7 @@ services:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=${TZ}
+      - WATCHTOWER_CLEANUP=true
     volumes:
       - $DOCKER_CONFIG_PATH/homer/config.yml:/www/config.yml
       - $DOCKER_CONFIG_PATH/homer/local/assets/:/www/assets
@@ -192,11 +216,32 @@ services:
     restart: unless-stopped
     labels:
       com.centurylinklabs.watchtower.enable: true
+      #traefik.enable: true
+      #traefik.http.routers.home.rule: Host(`home.brownfunk.lan`)
+      #traefik.http.routers.home.entrypoints: web
+      #traefik.http.services.home.loadbalancer.server.port: 80
+    depends_on:
+      - pihole
+##################
+  flame:
+    image: pawelmalak/flame:latest
+    container_name: flame
+    environment:
+      - WATCHTOWER_CLEANUP=true
+    volumes:
+      - $DOCKER_CONFIG_PATH/flame:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock # optional but required for Docker integration feature
+    ports:
+      - 5005:5005
+    restart: unless-stopped
+    labels:
+      com.centurylinklabs.watchtower.enable: true
 #####################################
   nextcloud:
     image: linuxserver/nextcloud
     container_name: nextcloud
     environment:
+      - WATCHTOWER_CLEANUP=true
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
@@ -243,6 +288,7 @@ services:
     # helps to make sure piwigo is always pointing to the right db
     container_name: piwigo
     environment:
+      - WATCHTOWER_CLEANUP=true
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
@@ -264,6 +310,7 @@ services:
     ports:
       - 5671:80
     environment:
+      - WATCHTOWER_CLEANUP=true
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
@@ -291,6 +338,7 @@ services:
     ports:
       - "2342:2342" # [server]:[container]
     environment:
+      WATCHTOWER_CLEANUP: "true"
       PHOTOPRISM_ADMIN_PASSWORD: "insecure"          # PLEASE CHANGE: Your initial admin password (min 4 characters)
       PHOTOPRISM_SITE_URL: "http://$DB_HOST:2342/"  # Public URL incl http:// or https:// and /path, :port is optional
       PHOTOPRISM_ORIGINALS_LIMIT: 5000               # File size limit for originals in MB (increase for high-res video)
@@ -362,6 +410,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
+      - WATCHTOWER_CLEANUP=true
       - "GLANCES_OPT=-w"
     ports:
       - 61208:61208
@@ -376,6 +425,7 @@ services:
       - PGID=$PGID_USER
       - TZ=$TZ
       - UMASK_SET=022 #optional
+      - WATCHTOWER_CLEANUP=true
     volumes:
       - $DOCKER_CONFIG_PATH/lidarr:/config
       - $MUSIC_PATH:/music
@@ -401,6 +451,7 @@ services:
       - PGID=$PGID_USER
       - TZ=$TZ
       - UMASK=022 #optional
+      - WATCHTOWER_CLEANUP=true
     volumes:
       - $DOCKER_CONFIG_PATH/radarr:/config
       - $MOVIES_ENG_PATH:/movies
@@ -426,6 +477,7 @@ services:
       - PGID=$PGID_USER
       - TZ=$TZ
       - UMASK=022 #optional
+      - WATCHTOWER_CLEANUP=true
     volumes:
       - $DOCKER_CONFIG_PATH/radarr_fr:/config
       - $MOVIES_FR_PATH:/movies
@@ -451,6 +503,7 @@ services:
       - PGID=$PGID_USER
       - TZ=$TZ
       - UMASK=022 #optional
+      - WATCHTOWER_CLEANUP=true
     volumes:
       - $DOCKER_CONFIG_PATH/sonarr:/config
       - ${TV_SHOWS_PATH}:/tv
@@ -486,6 +539,7 @@ services:
       - PGID=$PGID_USER
       - TZ=$TZ
       - AUTO_UPDATE=true #optional
+      - WATCHTOWER_CLEANUP=true
       #- RUN_OPTS=run options here #optional
     volumes:
       - $DOCKER_CONFIG_PATH/jackett:/config
@@ -511,6 +565,9 @@ services:
       - LOG_LEVEL=${LOG_LEVEL:-info}
       - LOG_HTML=${LOG_HTML:-false}
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - WATCHTOWER_CLEANUP=true
     dns:
       - 172.19.0.3
     depends_on:
@@ -561,6 +618,8 @@ services:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
+      - WATCHTOWER_CLEANUP=true
+    container_name: jackett
     volumes:
       - $DOCKER_CONFIG_PATH/pyload:/config
       - $TORRENT_PATH/PYLOAD:/downloads
@@ -583,11 +642,16 @@ services:
      - "9091:9091"
      - "8888:8888"
    dns:
+     - $PIHOLE_DOCKER_SUB_IP_DNS
      - 8.8.8.8
      - 8.8.4.4
    volumes:
      - /etc/localtime:/etc/localtime:ro
      - $TORRENT_PATH:/data
+   logging:
+     driver: json-file
+     options:
+       max-size: 10m
    environment:
      - CREATE_TUN_DEVICE=true
      - WEBPROXY_ENABLED=false
@@ -596,7 +660,9 @@ services:
      - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
      - TRANSMISSION_BLOCKLIST_ENABLED=true
      - TRANSMISSION_BLOCKLIST_URL=$TRANSMISSION_BLOCKLIST_URL
+     - DISABLE_PORT_UPDATER=true
      - OPENVPN_PROVIDER=PIA
+     - OPENVPN_CONFIG=australia
      - OPENVPN_USERNAME=$PIA_USERNAME
      - OPENVPN_PASSWORD=$PIA_PASSWORD
      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
@@ -721,23 +787,33 @@ services:
      - 555:80
    restart: unless-stopped
 ##############
-#  reverse-proxy:
-    ## The official v2 Traefik docker image
-    #image: traefik:latest
-    ## Enables the web UI and tells Traefik to listen to docker
-    #hostname: brownfunk
-    #domainname: brownfunk.lan
-    #command:
-      #- "--api.insecure=true"
-      #- "--providers.docker=true"
-    #ports:
-      ## The HTTP port
-      #- "80:80"
-      ## The Web UI (enabled by --api.insecure=true)
-      #- "8087:8080"
-    #volumes:
-      ## So that Traefik can listen to the Docker events
-      #- /var/run/docker.sock:/var/run/docker.sock
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:latest
+    container_name: traefik
+    # Enables the web UI and tells Traefik to listen to docker
+    hostname: brownfunk
+    domainname: brownfunk.lan
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+    ports:
+      # The HTTP port
+      - "81:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8087:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=web
+      - traefik.http.routers.traefik.rule=Host(`traefik.brownfunk.lan`)
+      - traefik.http.routers.traefik.entrypoints=http
+      - traefik.http.services.traefik.loadbalancer.server.port=8087
 
 ################3
   ldap-auth:
@@ -778,6 +854,7 @@ services:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
+      - WATCHTOWER_CLEANUP=true
     links:
       - redis
     labels:
@@ -791,6 +868,7 @@ services:
     environment:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
+      - WATCHTOWER_CLEANUP=true
       - TZ=$TZ
     labels:
       com.centurylinklabs.watchtower.enable: true
@@ -798,6 +876,8 @@ services:
   portainer:
     image: portainer/portainer-ce
     container_name: portainer
+    environment:
+      - WATCHTOWER_CLEANUP=true
     ports:
       - 6767:8000
       - 6263:9000
@@ -847,6 +927,7 @@ services:
       WORDPRESS_DB_USER: $DB_WP_USER
       WORDPRESS_DB_PASSWORD: $DB_WP_PASS
       WORDPRESS_DB_NAME: $DB_WP_DIARY_SCHEMA
+      WATCHTOWER_CLEANUP: "true"
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
     networks:
@@ -885,6 +966,7 @@ services:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
+      - WATCHTOWER_CLEANUP=true
     restart: unless-stopped
     labels:
       com.centurylinklabs.watchtower.enable: true
@@ -917,9 +999,8 @@ services:
       - JAVA_TOOL_OPTIONS=-Xmx4g
       - KOMGA_LIBRARIES_SCAN_STARTUP=false
       - KOMGA_LIBRARIES_SCAN_CRON=0 0 */4 * * ?
+      - WATCHTOWER_CLEANUP=true
     restart: unless-stopped
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
     networks:
       - frontend
     labels:
@@ -1072,6 +1153,7 @@ services:
       - FB_NOAUTH=True
       - FB_BASEURL=/filebrowser
       - FB_DATABASE=/config/filebrowser.db
+      - WATCHTOWER_CLEANUP=true
     ports:
       - 9295:80
     volumes:
@@ -1163,6 +1245,7 @@ services:
       - SCRUTINY_API_ENDPOINT=http://localhost:8080
       - SCRUTINY_WEB=true
       - SCRUTINY_COLLECTOR=true
+      - WATCHTOWER_CLEANUP=true
     volumes:
       - $DOCKER_CONFIG_PATH/scrutiny:/config
       - /run/udev:/run/udev:ro
@@ -1202,6 +1285,7 @@ services:
       - PUID=$PUID_USER
       - PGID=996
       - TZ=$TZ
+      - WATCHTOWER_CLEANUP=true
     labels:
       com.centurylinklabs.watchtower.enable: true
 volumes:
