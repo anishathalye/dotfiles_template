@@ -14,6 +14,9 @@ or
 # In a particular schema:
 \dt public.*
 
+# list functions
+\df public.*
+
 # Iterate over an array field and use the records for another query
 select url from indexed_file where id = ANY(select distinct file_id from measurements where "LONGITUDE" < 146.7 )
 

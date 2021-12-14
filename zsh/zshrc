@@ -20,7 +20,7 @@ HOSTNAME=$(hostname)
 if [[ $HOSTNAME == *"aws"* ]] || [[ $HOSTNAME == *"nec"* ]] || [[ $USER == "ec2-user" ]] ; then
     source $HOME/.zshrc.zplug.ssh
     ln -sf ~/.tmux.conf.ssh ~/.tmux.conf.local
-elif [[ $HOSTNAME == *"brownfunk"* ]]; then
+elif [[ $HOSTNAME == *"funk"* ]]; then
     source $HOME/.zshrc.zplug.bfunk
     ln -sf ~/.tmux.conf.ssh ~/.tmux.conf.local
 elif [[ $HOSTNAME == *"-X202EP"* ]]; then
