@@ -353,7 +353,7 @@ services:
       PHOTOPRISM_DISABLE_TENSORFLOW: "false"         # Disables all features depending on TensorFlow
       PHOTOPRISM_DISABLE_FACES: "false"              # Disables facial recognition
       PHOTOPRISM_DISABLE_CLASSIFICATION: "false"     # Disables image classification
-      PHOTOPRISM_DARKTABLE_PRESETS: "false"          # Enables Darktable presets and disables concurrent RAW conversion
+      PHOTOPRISM_DARKTABLE_PRESETS: "true"          # Enables Darktable presets and disables concurrent RAW conversion
       PHOTOPRISM_DETECT_NSFW: "false"                # Flag photos as private that MAY be offensive (requires TensorFlow)
       PHOTOPRISM_UPLOAD_NSFW: "true"                 # Allow uploads that MAY be offensive
       # PHOTOPRISM_DATABASE_DRIVER: "sqlite"         # SQLite is an embedded database that doesn't require a server
@@ -399,6 +399,22 @@ services:
       - $PIHOLE_DOCKER_SUB_IP_DNS
     networks:
       - frontend
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+##########################
+  darktable:
+    image: lscr.io/linuxserver/darktable
+    container_name: darktable
+    environment:
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - TZ=$TZ
+    volumes:
+      - $DOCKER_CONFIG_PATH/darktable:/config
+      - $PICTURES_PATH:/pictures
+    ports:
+      - 3030:3000
+    restart: unless-stopped
     labels:
       com.centurylinklabs.watchtower.enable: true
 ##########################
@@ -619,7 +635,6 @@ services:
       - PGID=$PGID_USER
       - TZ=$TZ
       - WATCHTOWER_CLEANUP=true
-    container_name: jackett
     volumes:
       - $DOCKER_CONFIG_PATH/pyload:/config
       - $TORRENT_PATH/PYLOAD:/downloads
@@ -662,7 +677,7 @@ services:
      - TRANSMISSION_BLOCKLIST_URL=$TRANSMISSION_BLOCKLIST_URL
      - DISABLE_PORT_UPDATER=true
      - OPENVPN_PROVIDER=PIA
-     - OPENVPN_CONFIG=australia
+     - OPENVPN_CONFIG=au_melbourne
      - OPENVPN_USERNAME=$PIA_USERNAME
      - OPENVPN_PASSWORD=$PIA_PASSWORD
      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
@@ -1075,7 +1090,7 @@ services:
 ######################
 # rsync server
   rsync-server:
-    image: axiom/rsync-server
+    image: quentintin/rsync-server
     container_name: rsync-server
     volumes:
       - $HOME/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
@@ -1252,10 +1267,12 @@ services:
     ports:
       - 8033:8080
     devices:
+      #- /dev:/dev
       - /dev/sda:/dev/sda
       - /dev/sdb:/dev/sdb
       - /dev/sdc:/dev/sdc
       - /dev/sdd:/dev/sdd
+      - /dev/sde:/dev/sde
     restart: unless-stopped
     labels:
       com.centurylinklabs.watchtower.enable: true

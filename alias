@@ -473,7 +473,7 @@ function spotify_pl_ls_missing () {
             local album=`echo "$line" | grep -o '#.*' | cut -d : -f2,4 | sort | uniq | sed "s/\"title\":/album:/g" | sed "s/, \"length\"//g" | cut -d ',' -f2 | sed "s/\"//g" | sed "s/^ //g" | sed "s/album: //g"`
             local albumartist_replace=`echo "${albumartist}" | sed "s/ /+/g"`
             
-            local url="http://brownfunk.lan:9117/UI/Dashboard#search=$albumartist_replace&tracker=rutracker&category=3000&filter=all" 
+            local url="https://jackett.funkybrownfunk.duckdns.org/UI/Dashboard#search=$albumartist_replace&tracker=rutracker&category=3000&filter=all"
 
             local str_line=`printf "albumartist: %s, album: %s, url: %s\n" "${albumartist}" "${album}" "$url"`
             local str="$str\n$str_line"
