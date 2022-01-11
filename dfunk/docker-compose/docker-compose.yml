@@ -290,7 +290,7 @@ services:
 ######################
 # rsync server
   rsync-server:
-    image: axiom/rsync-server
+    image: quentintin/rsync-server
     container_name: rsync-server
     volumes:
       - $HOME/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
