@@ -281,8 +281,7 @@ same directory as the org-buffer and insert a link to this file."
       (`(t . t)
        (treemacs-git-mode 'deferred))
       (`(t . _)
-       (treemacs-git-mode 'simple)))
-    (add-hook 'projectile-after-switch-project-hook 'treemacs-display-current-project-exclusively))
+       (treemacs-git-mode 'simple))))
   :bind
   (:map global-map
         ("M-0"       . treemacs-select-window)
