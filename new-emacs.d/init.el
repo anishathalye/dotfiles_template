@@ -432,8 +432,8 @@ same directory as the org-buffer and insert a link to this file."
 ;;; Code completion
 (use-package lsp-mode
   :defer t
-  :diminish lsp-mode
-  :commands lsp
+  :hook ((lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp-deferred
   :config
   (setq lsp-auto-configure t
         lsp-auto-guess-root t
