@@ -457,6 +457,7 @@ same directory as the org-buffer and insert a link to this file."
 (use-package rjsx-mode
   :defer t
   :mode ("\\.jsx?\\'" "\\.tsx?\\'")
+  :hook (((js2-mode rjsx-mode) . lsp-deferred)) ;; enable lsp-mode
   :config
   (define-key rjsx-mode-map "<" nil)
   (define-key rjsx-mode-map (kbd "C-d") nil)
