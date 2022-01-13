@@ -438,10 +438,23 @@ same directory as the org-buffer and insert a link to this file."
   :config
   (setq lsp-auto-configure t
         lsp-auto-guess-root t
-        lsp-diagnostic-package :none))
+        lsp-diagnostic-package :none
+        lsp-log-io nil ;; speed
+        lsp-restart t ;; b/c server dies
+        lsp-ui-sideline-enable t
+        lsp-ui-sideline-show-hover t
+        lsp-ui-sideline-show-code-actions t
+        lsp-ui-sideline-show-diagnostics t
+        ))
+
+(use-package lsp-ui)
+
 (use-package company
   :init
-  (add-hook 'after-init-hook 'global-company-mode))
+  (add-hook 'after-init-hook 'global-company-mode)
+  :config
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.0))
 
 ;;; Javascript
 (setq js-indent-level 2)
