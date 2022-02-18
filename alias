@@ -668,17 +668,18 @@ NEXCTLOUD_DATA_DIR=/export/nexctloud
 # when files are copied manually to nextcloud folder
 alias nextcloud_force_rescan='docker exec nextcloud sudo -u abc php /config/www/nextcloud/occ files:scan --all'
 
-# delete function without --delete-after . can be added manually in optional
+# delete function without. can be added manually in optional
 # arguments. This removes the risks of deleting files if I/O error
 function funk_rsync() {
     local server_ip="$1"; shift
     local folder_to_bckp="$1"; shift
     local src="/data/$folder_to_bckp"
     local dest="$1/$folder_to_bckp";shift
-    local extra_rsync_command="$*";
+    local extra_rsync_command=("${@:1}")
+    echo "${extra_rsync_command[@]}"
     mkdir -p $dest
 
-    [ -d $dest ] && rsync -auv -P --delete-excluded -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $server_ip:$src/ $dest/ \
+    [ -d $dest ] && rsync -auv -P  --delete-after --delete-excluded -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $server_ip:$src/ $dest/ \
         --stats --progress --exclude ".*lrprev" --exclude jellyfin/ \
         --exclude "uploaded_piwigo" --exclude "piwigo" --exclude='*.tmp' \
         --exclude="*.jpg_original*" \
@@ -696,23 +697,22 @@ function funk_rsync() {
         --exclude='Navidrome/cache/.*' \
         --exclude="*.log" --exclude="*.log\..*\.gz" \
         --exclude="*.page" --exclude="*.amq" \
-        --exclude=.deleted $extra_rsync_command || $dest does not exist
+        --exclude=.deleted "${extra_rsync_command[@]}" || $dest does not exist
 }
 
 # BFUNK sync to DFUNK
-alias bfunk_bckp_ebooks="funk_rsync $BFUNK_LOCAL_IP ebooks_audiobooks /media/$USER/bckp_2tb"
-alias bfunk_bckp_games_1="funk_rsync $BFUNK_LOCAL_IP games /media/$USER/media_4tb --exclude=Switch/ --exclude=Wii/ --exclude=WiiU/ --exclude=Gamecube/"  ## don't backup switch folder
-alias bfunk_bckp_games_2_switch="funk_rsync $BFUNK_LOCAL_IP games/emulation/Nintendo/Switch /media/$USER/games"
-alias bfunk_bckp_games_3_wii_u_gc="funk_rsync $BFUNK_LOCAL_IP games/emulation/Nintendo/Gamecube /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/Wii /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/WiiU /media/$USER/wii_gc;"
-alias bfunk_bckp_movies="funk_rsync $BFUNK_LOCAL_IP movies /media/$USER/dfunk_10tb_1"
-alias bfunk_bckp_music="funk_rsync $BFUNK_LOCAL_IP music /media/$USER/media_center"
-alias bfunk_bckp_music_no_beet="funk_rsync $BFUNK_LOCAL_IP music /media/$USER/media_center --exclude='*.blb'"
+alias bfunk_bckp_ebooks="funk_rsync $BFUNK_LOCAL_IP ebooks_audiobooks /media/$USER/dfunk_10tb_1 --max-delete=100"
+alias bfunk_bckp_games_1="funk_rsync $BFUNK_LOCAL_IP games /media/$USER/media_4tb --exclude=Switch/ --exclude=Wii/ --exclude=WiiU/ --exclude=Gamecube/ --max-delete=100"  ## don't backup switch folder
+alias bfunk_bckp_games_2_switch="funk_rsync $BFUNK_LOCAL_IP games/emulation/Nintendo/Switch /media/$USER/games --max-delete=100"
+alias bfunk_bckp_games_3_wii_u_gc="funk_rsync $BFUNK_LOCAL_IP games/emulation/Nintendo/Gamecube /media/$USER/wii_gc --max-delete=100;bfunk_rsync games/emulation/Nintendo/Wii /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/WiiU /media/$USER/wii_gc --max-delete=100;"
+alias bfunk_bckp_movies="funk_rsync $BFUNK_LOCAL_IP movies /media/$USER/dfunk_10tb_1 --max-delete=100"
+alias bfunk_bckp_music="funk_rsync $BFUNK_LOCAL_IP music /media/$USER/media_center --max-delete=1000"
+alias bfunk_bckp_music_no_beet="funk_rsync $BFUNK_LOCAL_IP music /media/$USER/media_center --exclude='*.blb' --max-delete=1000"
 alias bfunk_bckp_nextcloud="funk_rsync $BFUNK_LOCAL_IP nextcloud /media/$USER/dfunk_10tb_1"
-alias bfunk_bckp_pictures="funk_rsync $BFUNK_LOCAL_IP pictures /media/$USER/dfunk_10tb_1"
-alias bfunk_bckp_self_improvement="funk_rsync $BFUNK_LOCAL_IP self_improvement /media/$USER/2tb_bckp"
+alias bfunk_bckp_pictures="funk_rsync $BFUNK_LOCAL_IP pictures /media/$USER/dfunk_10tb_1 --max-delete=1000"
+alias bfunk_bckp_self_improvement="funk_rsync $BFUNK_LOCAL_IP self_improvement /media/$USER/dfunk_10tb_1 --max-delete=1000"
 alias bfunk_bckp_docker="funk_rsync $BFUNK_LOCAL_IP docker /media/$USER/dfunk_10tb_1"
 
 # DFUNK sync to BFUNK
-alias dfunk_bckp_pictures="rsync -auv -P --delete-after --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_LOCAL_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress --dry-run"
-
-
+alias dfunk_bckp_pictures_dry_run="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_LOCAL_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress --dry-run"
+alias dfunk_bckp_pictures_dry_run="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_LOCAL_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress"
