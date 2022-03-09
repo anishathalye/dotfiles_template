@@ -43,7 +43,7 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/mariadb:/config
     ports:
-      - 3306:3306
+      - ${DB_PORT}:3306
     restart: always
     networks:
       frontend:
@@ -74,6 +74,7 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/jellyfin:/config
       - ${TV_SHOWS_PATH}:/data/tvshows:ro
+      - $TV_SHOWS_PATH/tubesync-downloads/video:/data/youtube:ro
       - $MOVIES_PATH:/data/movies:ro
       - $MOVIES_FR_PATH:/data/movies_french:ro
       - $MOVIES_SPORT_PATH:/data/movies_adventure_sports:ro
@@ -146,6 +147,9 @@ services:
 ######################################
   tubesync:
     image: ghcr.io/meeb/tubesync:latest
+    depends_on:
+      - mariadb
+      - pihole
     container_name: tubesync
     restart: unless-stopped
     ports:
@@ -158,6 +162,11 @@ services:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - WATCHTOWER_CLEANUP=true
+      - DATABASE_CONNECTION=mysql://${DB_TUBESYNC_USER}:${DB_TUBESYNC_PWD}@${DB_HOST}:${DB_PORT}/${DB_TUBESYNC_SCHEMA}
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
     labels:
       com.centurylinklabs.watchtower.enable: true
 ###
@@ -260,6 +269,48 @@ services:
       - pihole
     restart: unless-stopped
 ##################
+  matrix:
+    container_name: matrix
+    build:
+        context: ../..
+        dockerfile: docker/Dockerfile
+    image: docker.io/matrixdotorg/synapse:latest
+    # Since synapse does not retry to connect to the database, restart upon
+    # failure
+    restart: unless-stopped
+    # See the readme for a full documentation of the environment settings
+    # NOTE: You must edit homeserver.yaml to use postgres, it defaults to sqlite
+    environment:
+      - SYNAPSE_CONFIG_PATH=/data/homeserver.yaml
+    volumes:
+      # You may either store all the files in a local folder
+      - $DOCKER_CONFIG_PATH/synapse/files:/data
+      # .. or you may split this between different storage points
+      # - ./files:/data
+      # - /path/to/ssd:/data/uploads
+      # - /path/to/large_hdd:/data/media
+    depends_on:
+      - db
+    # In order to expose Synapse, remove one of the following, you might for
+    # instance expose the TLS port directly:
+    ports:
+      - 8448:8448/tcp
+    # ... or use a reverse proxy, here is an example for traefik:
+  db:
+    image: docker.io/postgres:12-alpine
+    # Change that password, of course!
+    environment:
+      - POSTGRES_USER=synapse
+      - POSTGRES_PASSWORD=NSarjiyrJ8p9HmFUGKTBVK5qVvgqVUiJh
+      # ensure the database gets created correctly
+      # https://matrix-org.github.io/synapse/latest/postgres.html#set-up-database
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    volumes:
+      # You may store the database tables in a local folder..
+      - $DOCKER_CONFIG_PATH/synapse/postgresql/schemas:/var/lib/postgresql/data
+      # .. or store them on some high performance storage for better results
+      # - /path/to/ssd/storage:/var/lib/postgresql/data
+
 #  gitea:
     #image: gitea/gitea:1.15.5
     #container_name: gitea
@@ -471,8 +522,8 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/radarr:/config
       - $MOVIES_ENG_PATH:/movies
-      - $TORRENT_PATH/completed:/downloads
-      - $TORRENT_PATH/completed:/data/completed
+      - $TORRENT_PATH/movies:/downloads
+      - $TORRENT_PATH/movies:/data/completed
     ports:
       - 7878:7878
     dns:
@@ -497,8 +548,8 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/radarr_fr:/config
       - $MOVIES_FR_PATH:/movies
-      - $TORRENT_PATH/completed:/downloads
-      - $TORRENT_PATH/completed:/data/completed
+      - $TORRENT_PATH/movies:/downloads
+      - $TORRENT_PATH/movies:/data/completed
     ports:
       - 7879:7878
     dns:
@@ -523,8 +574,8 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/sonarr:/config
       - ${TV_SHOWS_PATH}:/tv
-      - $TORRENT_PATH/completed:/downloads
-      - $TORRENT_PATH/completed:/data/completed
+      - $TORRENT_PATH/shows:/downloads
+      - $TORRENT_PATH/shows:/data/completed
     ports:
       - 8989:8989
     dns:
@@ -961,13 +1012,22 @@ services:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
+      - WATCHTOWER_CLEANUP=true
       - UMASK_SET=022 #optional
     volumes:
       - $DOCKER_CONFIG_PATH/bazarr:/config
       - $MOVIES_ENG_PATH:/movies
       - $TV_SHOWS_PATH:/tv
+    depends_on:
+      - pihole
     ports:
       - 6768:6767
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
     restart: unless-stopped
 ###################
   searx:
@@ -1015,7 +1075,7 @@ services:
       - KOMGA_LIBRARIES_SCAN_STARTUP=false
       - KOMGA_LIBRARIES_SCAN_CRON=0 0 */4 * * ?
       - WATCHTOWER_CLEANUP=true
-    restart: unless-stopped
+    restart: always
     networks:
       - frontend
     labels:
@@ -1266,13 +1326,6 @@ services:
       - /run/udev:/run/udev:ro
     ports:
       - 8033:8080
-    devices:
-      #- /dev:/dev
-      - /dev/sda:/dev/sda
-      - /dev/sdb:/dev/sdb
-      - /dev/sdc:/dev/sdc
-      - /dev/sdd:/dev/sdd
-      - /dev/sde:/dev/sde
     restart: unless-stopped
     labels:
       com.centurylinklabs.watchtower.enable: true
