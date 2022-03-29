@@ -468,7 +468,7 @@ same directory as the org-buffer and insert a link to this file."
 ;; rjsx-mode extends js2-mode, so it provides js2-mode plus functionality for jsx
 (use-package rjsx-mode
   :defer t
-  :mode ("\\.jsx?\\'" "\\.tsx?\\'")
+  :mode ("\\.jsx?\\'" "\\.tsx?\\'" "\\.m?js\\'")
   :hook (((js2-mode rjsx-mode) . lsp-deferred)) ;; enable lsp-mode
   :config
   (define-key rjsx-mode-map "<" nil)
