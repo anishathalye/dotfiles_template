@@ -3,7 +3,7 @@
 ;; and org-journal. 
 
 ;; I installed org-journal as a subodule
-(add-to-list 'load-path "../org-journal/")
+(add-to-list 'load-path "~/.dotfiles/org-journal/")
 
 (require 'org-journal)
 
