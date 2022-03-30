@@ -34,3 +34,6 @@
 [submodule "qmk_firmware"]
 	path = qmk_firmware
 	url = git://github.com/ezmiller/qmk_firmware.git
+[submodule "org-journal"]
+	path = org-journal
+	url = https://github.com/bastibe/org-journal.git
