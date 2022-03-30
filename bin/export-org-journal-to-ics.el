@@ -10,8 +10,8 @@
 (defvar s3-destination "s3://ezmiller/calendar/org-events.ics")
 
 (with-eval-after-load 'org-journal
-  (setq org-journal-dir "~/org/journal/")
-  (setq org-agenda-files '("~/org/journal"))
+  (setq org-journal-dir "~/org/journal/") ;; not sure this is needed
+  (setq org-agenda-files '("~/org/journal")) ;; this is needed!
   (setq org-journal-file-type 'weekly)
   (setq org-journal-file-format "%Y-%m-%d.org")
   (setq org-icalendar-store-UID t
