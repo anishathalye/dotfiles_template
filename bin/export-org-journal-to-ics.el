@@ -2,12 +2,21 @@
 ;; ICS file and then uploads to an S3 bucket. It relies on AWS-CLI
 ;; and org-journal. 
 
+;; This prevents yes-or-no prompts, came from here:
+;; https://stackoverflow.com/a/59509250/1190586
+(defmacro without-yes-or-no (&rest body)
+  "Override `yes-or-no-p' & `y-or-n-p',
+not to prompt for input and return t."
+  (declare (indent 1))
+  `(cl-letf (((symbol-function 'yes-or-no-p) (lambda (&rest _) t))
+             ((symbol-function 'y-or-n-p) (lambda (&rest _) t)))
+    ,@body))
+
+
 ;; I installed org-journal as a subodule
 (add-to-list 'load-path "~/.dotfiles/org-journal/")
 
 (require 'org-journal)
-
-(defvar s3-destination "s3://ezmiller/calendar/org-events.ics")
 
 (with-eval-after-load 'org-journal
   (setq org-journal-dir "~/org/journal/") ;; not sure this is needed
@@ -22,13 +31,9 @@
         org-icalendar-combined-agenda-file "./org-events.ics")
   (setq org-agenda-file-regexp "\\`\\([^.].*\\.org\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\.org\\(\\.gpg\\)?\\)\\'"))
 
-(message "Starting...")
-(org-icalendar-combine-agenda-files)  ; export the ICS file
+(message "Starting export...")
+(without-yes-or-no
+ (org-icalendar-combine-agenda-files))  ; export the ICS file
 (message "Finished exporting events to ICS file.")
-(message (format "Uploading ICS file to S3: %s" s3-destination) )
-(shell-command-to-string (format "aws s3 cp ./org-events.ics %s --acl public-read" s3-destination))
-(message "Cleaning up...")
-(shell-command-to-string "rm ./org-events.ics")
-(message "Done")
 (save-buffers-kill-emacs t)           ; save all modified files and exit
 
