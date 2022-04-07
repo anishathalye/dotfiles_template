@@ -64,6 +64,7 @@ alias vagrant_ssh=vs
 alias ansible_provision_latop='ansible-playbook -i hosts $ANSIBLE_PATH/local.yml -K'
 alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.yml'
 [[ `hostname` == "9-aws-syd" ]] && alias stackman="source /opt/stackman/virtualenv__usr_bin_python3/bin/activate;stackman";
+[[ `hostname` == "po-dev-aws-syd" ]] && alias stackman="source /mnt/ebs/pyenv/versions/3.8.10/envs/commandpost_venv/bin/activate;stackman";
 
 ##########################
 # IMOS related - pipeline 
