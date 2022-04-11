@@ -79,3 +79,5 @@ fi
 
 
 export DOCKER_CONFIG_DIR=/opt/docker_config
+
+export PYTHONBREAKPOINT=ipdb.set_trace

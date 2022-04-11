@@ -15,3 +15,20 @@ mount -o loop disk1.iso /mnt/disk
 
 # automount if i3
 udiskie
+
+
+############
+## mount encrypted partition
+# source https://evilshit.wordpress.com/2012/10/29/how-to-mount-luks-encrypted-partitions-manually/
+
+blkid | grep crypto
+# sample output:
+# /dev/sda2: UUID="VERY LONG NUMBER" TYPE="crypto_LUKS"
+
+# decrypt with keypass , give the device the crypthome name
+sudo cryptsetup luksOpen /dev/sda2 crypthome
+
+sudo mkdir /media/$USER/crypthome 
+sudo mount /dev/mapper/crypthome /media/$USER/crypthome
+
+
