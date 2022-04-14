@@ -120,22 +120,6 @@ services:
     labels:
       com.centurylinklabs.watchtower.enable: true
 ######################################
-  tubesync:
-    image: ghcr.io/meeb/tubesync:latest
-    container_name: tubesync
-    restart: unless-stopped
-    ports:
-      - 4848:4848
-    volumes:
-      - $DOCKER_CONFIG_PATH/tubesync-config:/config
-      - $TV_SHOWS_PATH/tubesync-downloads:/downloads
-    environment:
-      - TZ=$TZ
-      - PUID=$PUID_USER
-      - PGID=$PGID_USER
-      - WATCHTOWER_CLEANUP=true
-    labels:
-      com.centurylinklabs.watchtower.enable: true
 ###
   calibre:
     image: linuxserver/calibre
@@ -286,6 +270,24 @@ services:
     restart: unless-stopped
     labels:
       com.centurylinklabs.watchtower.enable: true
+##################
+  tubesync:
+    image: ghcr.io/meeb/tubesync:latest
+    container_name: tubesync
+    restart: unless-stopped
+    ports:
+      - 4848:4848
+    volumes:
+      - $DOCKER_CONFIG_PATH/tubesync-config:/config
+      - $TV_SHOWS_PATH/tubesync-downloads:/downloads
+    environment:
+      - TZ=$TZ
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - WATCHTOWER_CLEANUP=true
+      - DATABASE_CONNECTION=mysql://${DB_TUBESYNC_USER}:${DB_TUBESYNC_PWD}@${DB_HOST}:${DB_PORT}/${DB_TUBESYNC_SCHEMA}
+    labels:
+      com.centurylinklabs.watchtower.enable: true
 #########################
 ######################
 # rsync server
@@ -295,6 +297,7 @@ services:
     volumes:
       - $HOME/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
       - $PICTURES_PATH/Pictures:/data/pictures:ro
+      - $EBOOKS_AUDIOBOOKS_PATH:/data/ebooks_audiobooks:ro
     environment:
       PUID: $PUID_USER
       PGID: $PGID_USER
