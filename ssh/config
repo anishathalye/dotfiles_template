@@ -2,16 +2,16 @@
 Host *
 VisualHostKey no
 AddKeysToAgent yes  
-# if ssh agent is not run prior to ask for passphrase (git for example), agent is kept
-#ForwardX11 no
+
 
 Host jumpbox
   Hostname %h.emii.org.au
+  #Proxycommand ssh -q dfunk nc -q0 %h %p
   ForwardAgent yes
   ForwardX11 yes
   ControlMaster auto
-  ControlPath ~/.ssh/jumpbox-%r@%h:%p
-  ControlPersist 5m
+  #ControlPath ~/.ssh/jumpbox-%r@%h:%p
+  #ControlPersist 5m
 
 Host *-nec
   Hostname %h-hob.emii.org.au
@@ -37,16 +37,29 @@ Host 10-aws-syd
   ForwardAgent yes
   ForwardX11 yes
 
+Host 9-aws-syd
+  Hostname %h.emii.org.au
+  Proxycommand ssh -q jumpbox nc -q0 %h %p
+  ForwardAgent yes
+  ForwardX11 yes
+
+
 Host commandpost
   Hostname %h.aodn.org.au
   Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
   ForwardX11 yes
   ControlMaster auto
-  ControlPath ~/.ssh/jumpbox-%r@%h:%p
-  ControlPersist 5m
+  #ControlPath ~/.ssh/jumpbox-%r@%h:%p
+  #ControlPersist 5m
 
-Host *nec* *nsp* *aws* *po* commandpost* 
+Host nectar_rdsi
+  hostname 131.217.175.208
+  user ubuntu
+  ForwardAgent yes
+  ForwardX11 yes
+
+Host *nec* *nsp* *aws* *po* commandpost* nectar_*
   PermitLocalCommand yes
   LocalCommand tar ch -C${HOME} .gitconfig  .initsys.sh .alias .pgpass | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
 
@@ -79,9 +92,29 @@ Host github.com
   Hostname ssh.github.com
   ForwardX11 no
 
+Host dfunk
+  hostname 100.109.170.21
+  Port 22
+  ForwardAgent yes
+  ForwardX11 yes
+
 # bfunk
 Host bfunk
   Hostname brownfunk.lan
+  Port 22
+  ForwardAgent yes
+  ForwardX11 yes
+
+Host bfunk_jump
+  Hostname brownfunk.lan
+  Proxycommand ssh -q dfunk nc -q0 %h %p
+  Port 22
+  ForwardAgent yes
+  ForwardX11 yes
+
+# asus
+Host asus
+  Hostname 10.200.208.226
   Port 22
   ForwardAgent yes
   ForwardX11 yes
