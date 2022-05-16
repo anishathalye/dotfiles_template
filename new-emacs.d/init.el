@@ -20,6 +20,7 @@
             ;; (setq outline-heading-end-regexp ":\n")
             (outline-minor-mode 1)))
 
+(setq user-full-name "Ethan Miller")
 (setq delete-old-versions -1)
 (setq inhibit-startup-screen t)
 (setq ring-bell-function 'ignore)
@@ -29,8 +30,16 @@
 (setq default-fill-column 80)
 (setq initial-scratch-message "")
 (setq-default mode-line-format nil)
-(global-auto-revert-mode t)
 (electric-pair-mode 1)
+
+(use-package autorevert
+  :ensure nil
+  :config
+  (setq auto-revert-interval 2)
+  (setq auto-revert-check-vc-info t)
+  (setq global-auto-revert-non-file-buffers t)
+  (setq auto-revert-verbose nil)
+  (global-auto-revert-mode +1))
 
 
 ;; Enables ligatures in the emacs macport
