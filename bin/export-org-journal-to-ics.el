@@ -28,6 +28,8 @@ not to prompt for input and return t."
         org-icalendar-timezone "America/Los_Angeles"
         org-icalendar-date-time-format ";TZID=%Z:%Y%m%dT%H%M%S"
         org-icalendar-include-todo "all"
+        org-icalendar-use-deadline '(todo-due)
+        org-icalendar-use-scheduled '(todo-start)
         org-icalendar-combined-agenda-file "./org-events.ics")
   (setq org-agenda-file-regexp "\\`\\([^.].*\\.org\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\.org\\(\\.gpg\\)?\\)\\'"))
 
