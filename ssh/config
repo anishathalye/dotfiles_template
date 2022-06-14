@@ -25,11 +25,18 @@ Host *-aws
   ForwardAgent yes
   ForwardX11 yes
 
-Host 4-nec-hob
+Host pipeline-rc-nec-hob
   Hostname %h.emii.org.au
   Proxycommand ssh -q jumpbox nc -q0 %h %p
   ForwardAgent yes
   ForwardX11 yes
+
+Host pipeline-prod-aws-syd
+  Hostname %h.emii.org.au
+  Proxycommand ssh -q jumpbox nc -q0 %h %p
+  ForwardAgent yes
+  ForwardX11 yes
+
 
 Host 10-aws-syd
   Hostname %h.emii.org.au
@@ -59,11 +66,11 @@ Host nectar_rdsi
   ForwardAgent yes
   ForwardX11 yes
 
-Host *nec* *nsp* *aws* *po* commandpost* nectar_*
+Host *nec* *nsp* *aws* *po* commandpost* nectar_* *funk *.emii.org.au
   PermitLocalCommand yes
   LocalCommand tar ch -C${HOME} .gitconfig  .initsys.sh .alias .pgpass | ssh -o PermitLocalCommand=no %n "tar mx -C${HOME}"
 
-Host pipeline
+Host pipeline-vagrant
   HostName 127.0.0.1
   User vagrant
   Port 2222
@@ -131,3 +138,17 @@ Host gcw0_usb0
   user root
   port 22
   IdentityFile ~/.ssh/id_rsa.pub
+
+Host necfunk
+    hostname 131.217.175.170
+    user ubuntu
+    port 22
+    ForwardAgent yes
+    ForwardX11 yes
+
+
+Host beefunk
+    hostname 100.101.222.41
+    port 22
+    ForwardAgent yes
+    ForwardX11 yes

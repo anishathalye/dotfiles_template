@@ -400,6 +400,9 @@ remove_file_extension() {
     mv $file ${file%\.[^.]*}
 }
 
+list_error_netcdf() {
+    readlink -f * | cut -d '/' -f6 | sed -e 's/\.nc\..*/\.nc/g'
+}
 ##########################
 # NetCDF
 ##########################
@@ -420,10 +423,31 @@ ncbrowse() {
 }
 alias ncvue_plot=ncbrowse
 
+
+_cc_activate_env() {
+    local conda_cc=1
+    [ -f /mnt/ebs/pyenv/versions/pipeline_prod_venv/bin/activate ] && . /mnt/ebs/pyenv/versions/pipeline_prod_venv/bin/activate && conda_cc=0
+    [ -f /mnt/ebs/pyenv/versions/pipeline_rc_venv/bin/activate ] && . /mnt/ebs/pyenv/versions/pipeline_rc_venv/bin/activate && conda_cc=0
+
+    if [ $conda_cc -eq "1" ]; then
+        conda activate python-aodndata-conda
+    fi
+}
+
+_cc_deactivate_env() {
+    local conda_cc=1
+    [ -f /mnt/ebs/pyenv/versions/pipeline_prod_venv/bin/activate ] &&  /mnt/ebs/pyenv/bin/pyenv deactivate && conda_cc=0
+    [ -f /mnt/ebs/pyenv/versions/pipeline_rc_venv/bin/activate ] &&  /mnt/ebs/pyenv/bin/pyenv deactivate && conda_cc=0
+
+    if [ $conda_cc -eq "1" ]; then
+        conda deactivate
+    fi
+}
 # compliance checker with fzf
 _cc() {
     local test=$1;shift
-    [ -f /mnt/ebs/pipeline/bin/activate ] && . /mnt/ebs/pipeline/bin/activate || conda activate python-aodndata-conda
+    #[ -f /mnt/ebs/pipeline/bin/activate ] && . /mnt/ebs/pipeline/bin/activate || conda activate python-aodndata-conda
+    _cc_activate_env
     local uuid_regexp='[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
     filepath=$( (fd -LHI nc.$uuid_regexp ; fd -LHI -e nc) | fzf --multi=1 --preview "([[ -f {} ]] && ncdump -h {})")
 
@@ -432,12 +456,18 @@ _cc() {
             #compliance-checker $test $(fd -LHI -e nc | fzf -m --preview "([[ -f {} ]] && ncdump -h {})") 
             compliance-checker $test $filepath
             tmux split-window -h "ncdump -h \"$filepath\" | less"
-            [ -f /mnt/ebs/pipeline/bin/activate ] && deactivate || conda deactivate
+            #[ -f /mnt/ebs/pipeline/bin/activate ] && deactivate || conda deactivate
+            _cc_deactivate_env
     fi
 }
 
 cc_cf() {
     _cc -t=cf:latest
+}
+
+
+cc_cf_1.6() {
+    _cc -t=cf:1.6
 }
 
 # compliance checker running the imos1.4 check
@@ -713,6 +743,9 @@ alias bfunk_bckp_nextcloud="funk_rsync $BFUNK_IP nextcloud /media/$USER/dfunk_10
 alias bfunk_bckp_pictures="funk_rsync $BFUNK_IP pictures /media/$USER/dfunk_10tb_1 --max-delete=1000"
 alias bfunk_bckp_self_improvement="funk_rsync $BFUNK_IP self_improvement /media/$USER/dfunk_10tb_1 --max-delete=1000"
 alias bfunk_bckp_docker="funk_rsync $BFUNK_IP docker /media/$USER/dfunk_10tb_1"
+
+# bfunk sync to beefunk
+alias bfunk_bckp_navidrome="docker stop navidrome; funk_rsync $BFUNK_IP docker/navidrome /opt/docker_config; cd ~/dotfiles/beefunk/docker-compose; docker-compose up -d navidrome"
 
 # DFUNK sync to BFUNK
 alias dfunk_bckp_pictures_dry_run="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_LOCAL_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress --dry-run"

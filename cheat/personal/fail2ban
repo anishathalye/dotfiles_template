@@ -1,0 +1,8 @@
+# list jails
+fail2ban-client status
+
+# list status of jail
+fail2ban-client status  nginx-deny
+
+# unban ip
+fail2ban-client set nginx-deny unbanip 124.169.87.84
