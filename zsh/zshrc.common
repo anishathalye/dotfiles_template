@@ -93,6 +93,7 @@ zinit load "esc/conda-zsh-completion"
 zinit load "hchbaw/auto-fu.zsh"
 zinit load "rummik/zsh-tailf"
 zinit load "soimort/translate-shell"
+zinit load "unixorn/docker-helpers.zshplugin"
 zinit load "zsh-users/zsh-autosuggestions"
 zinit load "zsh-users/zsh-completions"
 zinit load "zsh-users/zsh-history-substring-search" #, defer:2
