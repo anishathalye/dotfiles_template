@@ -60,10 +60,10 @@
     ~/.xsessionrc: {force: true, path: xsessionrc}
     ~/.zplug/complete/beet/_beet: {create: true, force: true, path: zsh/_beet}
     ~/.zsh_alias: {force: true, path: zsh_alias}
-    ~/.zshrc.zplug.bfunk: {force: true, path: zsh/zshrc.zplug.bfunk}
-    ~/.zshrc.zplug.common: {force: true, path: zsh/zshrc.zplug.common}
-    ~/.zshrc.zplug.local: {force: true, path: zsh/zshrc.zplug.local}
-    ~/.zshrc.zplug.ssh: {force: true, path: zsh/zshrc.zplug.ssh}
+    ~/.zshrc.bfunk: {force: true, path: zsh/zshrc.bfunk}
+    ~/.zshrc.common: {force: true, path: zsh/zshrc.common}
+    ~/.zshrc.local: {force: true, path: zsh/zshrc.local}
+    ~/.zshrc.ssh: {force: true, path: zsh/zshrc.ssh}
     ~/.zshrc: {force: true, path: zsh/zshrc}
     ~/bfunk-docker-compose: {force: true, create: true, path: bfunk/docker-compose/}
     ~/bin: {path: bin, create: true, force: true}

@@ -148,7 +148,7 @@ Host necfunk
 
 
 Host beefunk
-    hostname 100.101.222.41
+    hostname 100.107.210.10
     port 22
     ForwardAgent yes
     ForwardX11 yes

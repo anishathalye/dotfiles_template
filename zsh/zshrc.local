@@ -1,6 +1,6 @@
 # Background Agents
-command -v ssh-agent >/dev/null 2>&1 && zplug "plugins/ssh-agent", from:oh-my-zsh
-command -v gpg-agent >/dev/null 2>&1 && zplug "plugins/gpg-agent", from:oh-my-zsh
+command -v ssh-agent >/dev/null 2>&1 && zinit snippet OMZP::"ssh-agent" #, from:oh-my-zsh
+command -v gpg-agent >/dev/null 2>&1 && zinit snippet OMZP::"gpg-agent" #, from:oh-my-zsh
 
 
 SSH_ENV="$HOME/.ssh/environment"
@@ -40,4 +40,4 @@ fi
 # https://github.com/schollz/croc
 PROG=croc
 _CLI_ZSH_AUTOCOMPLETE_HACK=1
-source /etc/zsh/zsh_autocomplete_croc
+#source /etc/zsh/zsh_autocomplete_croc
