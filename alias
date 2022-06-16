@@ -741,6 +741,7 @@ alias bfunk_bckp_music="funk_rsync $BFUNK_IP music /media/$USER/dfunk_5tb_1 --ma
 alias bfunk_bckp_music_no_beet="funk_rsync $BFUNK_IP music /media/$USER/dfunk_5tb_1 --exclude='*.blb' --max-delete=1000"
 alias bfunk_bckp_nextcloud="funk_rsync $BFUNK_IP nextcloud /media/$USER/dfunk_10tb_1"
 alias bfunk_bckp_pictures="funk_rsync $BFUNK_IP pictures /media/$USER/dfunk_10tb_1 --max-delete=1000"
+alias bfunk_bckp_pictures_piwigo="funk_rsync $BFUNK_IP pictures_piwigo /opt/docker_config/piwigo/piwigo/gallery/upload --max-delete=1000"
 alias bfunk_bckp_self_improvement="funk_rsync $BFUNK_IP self_improvement /media/$USER/dfunk_10tb_1 --max-delete=1000"
 alias bfunk_bckp_docker="funk_rsync $BFUNK_IP docker /media/$USER/dfunk_10tb_1"
 
