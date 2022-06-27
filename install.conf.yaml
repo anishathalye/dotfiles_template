@@ -36,6 +36,7 @@
     ~/.gpligrc: {create: true, force: true, path: gpligrc}
     ~/.initsys.sh: {create: true, force: true, path: initsys.sh}
     ~/.irssi: {create: true, force: true, path: irssi}
+    ~/.local/passhole.ini: {create: true, force: true, path: local/passhole.ini}
     ~/.lynx.cfg: {force: true, path: lynx.cfg, create: true}
     ~/.myclirc: {create: true, force: true, path: myclirc}
     ~/.ogierc: {force: true, path: ogierc, create: true}
