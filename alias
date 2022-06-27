@@ -175,6 +175,15 @@ if command -v gh > /dev/null; then
     done
 fi
 
+# forgit aliases https://github.com/wfxr/forgit written manually not to conflict
+# with grc tool
+alias ga=forgit::add
+alias gd=forgit::diff
+alias glo=forgit::log
+alias grh=forgit::log
+alias gbl=gorgit::blame
+alias gclean=gorgit::clean
+
 #########################
 ## conda
 #########################

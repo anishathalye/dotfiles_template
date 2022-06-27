@@ -86,7 +86,6 @@ zinit light romkatv/powerlevel10k
 
 #zinit ice wait"5"
 
-#zinit load 'wfxr/forgit'
 zinit load "chrissicool/zsh-256color"
 zinit load "eastokes/aws-plugin-zsh"
 zinit load "esc/conda-zsh-completion"
@@ -118,6 +117,11 @@ zinit snippet OMZP::"virtualenv" #,  from:oh-my-zsh
 zinit snippet OMZP::"web-search" #,  from:oh-my-zsh
 zinit snippet OMZP::"zsh-interactive-cd" #,  from:oh-my-zsh
 zinit snippet OMZP::"zsh-navigation-tools" #,  from:oh-my-zsh
+
+# conflict with https://github.com/garabik/grc/ so removing default forgit aliases
+export FORGIT_NO_ALIASES=True
+zinit load wfxr/forgit
+
 
 if [ ! -n "${SSH_TTY+1}" ]; then
     zinit snippet OMZP::"tmux" #,   from:oh-my-zsh
@@ -243,3 +247,4 @@ fi
 # inherit aliases completion
 # https://unix.stackexchange.com/questions/177902/zsh-completion-on-the-second-command-or-after-an-alias/178054#178054
 unsetopt complete_aliases
+
