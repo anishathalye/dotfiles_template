@@ -1,17 +1,25 @@
 [core]
     editor   = nvim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+    pager = delta
+    #pager = diff-so-fancy | less --tabs=4 -RFX
     #autocrlf = true
 [user]
     name  = lbesnard
     email = laurent.besnard@utas.edu.au
-
 [credential]
     helper = cache --timeout=36000
 [status]
   showUntrackedFiles = no
+
+[diff]
+    pager = diff-so-fancy | less --tabs=4 -RFX
+[merge]
+    conflictstyle = diff3
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    light = false    # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 [color]
-	ui = true
+    ui = true
     branch      = auto
     diff        = auto
     interactive = auto
@@ -73,7 +81,8 @@
     bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
     reset-branch-like-remote = "!f() { branch=`git branch  | grep '*' | sed 's/* //g'`; git fetch --all; git reset --hard origin/$branch; }; f"
 [interactive]
-	diffFilter = diff-so-fancy --patch
+    diffFilter = delta --color-only
+#	diffFilter = diff-so-fancy --patch
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = red bold 52

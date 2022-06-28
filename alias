@@ -181,8 +181,8 @@ alias ga=forgit::add
 alias gd=forgit::diff
 alias glo=forgit::log
 alias grh=forgit::log
-alias gbl=gorgit::blame
-alias gclean=gorgit::clean
+alias gbl=forgit::blame
+alias gclean=forgit::clean
 
 #########################
 ## conda
