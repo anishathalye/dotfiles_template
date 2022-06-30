@@ -446,7 +446,7 @@ same directory as the org-buffer and insert a link to this file."
   :config
   (setq lsp-auto-configure t
         lsp-auto-guess-root t
-        lsp-diagnostic-package :none
+        ;; lsp-diagnostic-package :none
         lsp-log-io nil ;; speed
         lsp-restart t ;; b/c server dies
         lsp-ui-sideline-enable t
@@ -455,7 +455,8 @@ same directory as the org-buffer and insert a link to this file."
         lsp-ui-sideline-show-diagnostics t
         ))
 
-(use-package lsp-ui)
+(use-package lsp-ui
+  :commands lsp-ui-mode)
 
 (use-package company
   :init
