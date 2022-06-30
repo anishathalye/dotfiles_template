@@ -465,6 +465,14 @@ same directory as the org-buffer and insert a link to this file."
   (setq company-minimum-prefix-length 1
         company-idle-delay 0.0))
 
+(use-package flycheck
+  :hook ((prog-mode . flycheck-mode))
+  :config
+  (setq flycheck-indication-mode 'left-margin)
+  (setq flycheck-highlighting-mode 'lines)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled newline))
+  (setq flycheck-display-errors-delay 0.1))
+
 ;;; Javascript
 (setq js-indent-level 2)
 
