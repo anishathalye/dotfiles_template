@@ -527,6 +527,11 @@ same directory as the org-buffer and insert a link to this file."
 (setq org-directory "~/org")
 (setq org-log-into-drawer t)
 
+;; Shortcut to org dir files
+(defun my/my-org-finder ()
+  (interactive)
+  (ido-find-file-in-dir org-directory))
+
 ;; ignore journal files in recent files
 ;; (setq recentf-exclude '("/org/journal"))
 
