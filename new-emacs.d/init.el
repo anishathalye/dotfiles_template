@@ -587,6 +587,14 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-journal-date-format 'org-journal-date-format-func)
   (setq org-agenda-file-regexp "\\`\\([^.].*\\.org\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\.org\\(\\.gpg\\)?\\)\\'")
 
+  ;; keybindings
+  (general-define-key
+   :prefix "C-c"
+   "C-j" nil ;; override default C-j binding for org-journal
+   "C-j o" 'org-journal-open-current-journal-file
+   "C-j n" 'org-journal-new-entry
+   "C-j d" 'org-journal-new-date-entry)
+
 (use-package org-super-agenda
   :config
   (org-super-agenda-mode)
