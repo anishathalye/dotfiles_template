@@ -652,6 +652,7 @@ same directory as the org-buffer and insert a link to this file."
 ;;; Terraform support
 (use-package terraform-mode
   :mode ("\\.tf\\'"))
+
 ;;; Notespace
 (defun cider-interactive-notify-and-eval (code)
   (interactive)
