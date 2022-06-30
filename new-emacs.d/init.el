@@ -753,10 +753,40 @@ same directory as the org-buffer and insert a link to this file."
  '(indent-tabs-mode nil)
  '(org-agenda-files '("~/org/journal"))
  '(package-selected-packages
-   '(prettier ob-ipython flycheck golden-ratio evil-surround org-jira perfect-margin git-link org-super-agenda transpose-frame org-ref treemacs-persp treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs outshine company-go add-node-modules-path web-mode typescript-mode org-superstar org-bullets ace-window dashboard writeroom-mode which-key use-package selectrum-prescient restart-emacs projectile magit general exec-path-from-shell evil-nerd-commenter evil-lisp-state evil-collection doom-themes consult cider)))
+   '(jq-format jq-mode mustache mustache-mode prettier ob-ipython flycheck golden-ratio evil-surround org-jira perfect-margin git-link org-super-agenda transpose-frame org-ref treemacs-persp treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs outshine company-go add-node-modules-path web-mode typescript-mode org-superstar org-bullets ace-window dashboard writeroom-mode which-key use-package selectrum-prescient restart-emacs projectile magit general exec-path-from-shell evil-nerd-commenter evil-lisp-state evil-collection doom-themes consult cider))
+ '(safe-local-variable-values
+   '((cider-clojure-cli-aliases . "dev")
+     (eval add-to-list 'cider-jack-in-nrepl-middlewares "scicloj.clay.v1.nrepl/middleware")
+     (cider-clojure-cli-global-options . "-A:demo")
+     (eval
+      (lambda nil
+        (defun cider-jack-in-wrapper-function
+            (orig-fun &rest args)
+          (if
+              (and
+               (boundp 'use-bb-dev)
+               use-bb-dev)
+              (message "Use `bb dev` to start the development server, then `cider-connect` to the port it specifies.")
+            (apply orig-fun args)))
+        (advice-add 'cider-jack-in :around #'cider-jack-in-wrapper-function)
+        (when
+            (not
+             (featurep 'clerk))
+          (let
+              ((init-file-path
+                (expand-file-name "clerk.el" default-directory)))
+            (when
+                (file-exists-p init-file-path)
+              (load init-file-path)
+              (require 'clerk))))))
+     (use-bb-dev . t)))
+ '(send-mail-function 'smtpmail-send-it)
+ '(smtpmail-smtp-server "smtp.gmail.com")
+ '(smtpmail-smtp-service 587))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'downcase-region 'disabled nil)
