@@ -585,7 +585,7 @@ same directory as the org-buffer and insert a link to this file."
 	(`yearly "#+TITLE: Yearly Journal\n\n"))))
     (concat org-journal-date-prefix (format-time-string "%A, %x" time)))
   (setq org-journal-date-format 'org-journal-date-format-func)
-  (setq org-agenda-file-regexp "\\`\\([^.].*\\.org\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\.org\\(\\.gpg\\)?\\)\\'"))
+  (setq org-agenda-file-regexp "\\`\\([^.].*\\.org\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\.org\\(\\.gpg\\)?\\)\\'")
 
 (use-package org-super-agenda
   :config
