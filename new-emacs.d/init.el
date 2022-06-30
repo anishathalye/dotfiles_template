@@ -593,7 +593,7 @@ same directory as the org-buffer and insert a link to this file."
    "C-j" nil ;; override default C-j binding for org-journal
    "C-j o" 'org-journal-open-current-journal-file
    "C-j n" 'org-journal-new-entry
-   "C-j d" 'org-journal-new-date-entry)
+   "C-j d" 'org-journal-new-date-entry))
 
 (use-package org-super-agenda
   :config
