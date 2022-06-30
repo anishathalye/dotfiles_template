@@ -487,13 +487,19 @@ same directory as the org-buffer and insert a link to this file."
 (use-package rjsx-mode
   :defer t
   :mode ("\\.jsx?\\'" "\\.tsx?\\'" "\\.m?js\\'")
-  :hook (((js2-mode rjsx-mode) . lsp-deferred)) ;; enable lsp-mode
+  :hook (((js2-mode
+           rjsx-mode
+           ) . lsp-deferred)) ;; enable lsp-mode
   :config
+  (setq lsp-auto-guess-root t)
+  ;; (setq lsp-diagnostic-package :none)
+  (setq lsp-idle-delay 0.5)
+  (setq js2-mode-show-parse-errors nil
+          js2-mode-show-strict-warnings nil)
   (define-key rjsx-mode-map "<" nil)
   (define-key rjsx-mode-map (kbd "C-d") nil)
   (define-key rjsx-mode-map ">" nil)
-  (setq js2-mode-show-parse-errors nil
-        js2-mode-show-strict-warnings nil))
+  )
 
 (use-package prettier-js
   :defer t
