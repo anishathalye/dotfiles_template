@@ -36,6 +36,7 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.zsh:
     ~/.zshrc:
+    ~/.alacritty.yml:
 
 - create:
     - ~/.rbenv/plugins/ruby-build

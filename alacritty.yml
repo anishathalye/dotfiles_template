@@ -1,0 +1,18 @@
+window:
+  opacity: 0.95
+  padding:
+    x: 5
+    y: 5
+font:
+  size: 16.0
+  normal:
+    family: Fira Code
+    style: Light
+  bold:
+    family: Fira Code
+  italic:
+    family: Fira Code
+cursor:
+  style:
+    shape: Beam
+    blinking: On
