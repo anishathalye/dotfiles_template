@@ -759,6 +759,6 @@ alias bfunk_bckp_docker="funk_rsync $BFUNK_IP docker /media/$USER/dfunk_10tb_1"
 # bfunk sync to beefunk
 alias bfunk_bckp_navidrome="docker stop navidrome; funk_rsync $BFUNK_IP docker/navidrome /opt/docker_config; cd ~/dotfiles/beefunk/docker-compose; docker-compose up -d navidrome"
 
-# DFUNK sync to BFUNK
-alias dfunk_bckp_pictures_dry_run="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_LOCAL_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress --dry-run"
-alias dfunk_bckp_pictures="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_LOCAL_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress"
+#$DFUNK_LOCAL_IP DFUNK sync to BFUNK
+alias dfunk_bckp_pictures_dry_run="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_TAILSCALE_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress --dry-run"
+alias dfunk_bckp_pictures="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_TAILSCALE_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress"
