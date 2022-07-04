@@ -170,6 +170,24 @@ services:
     labels:
       com.centurylinklabs.watchtower.enable: true
 ###
+  emulatorjs:
+    image: lscr.io/linuxserver/emulatorjs
+    container_name: emulatorjs
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - SUBFOLDER=/ #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/emulatorjs:/config
+      - $GAMES_PATH/Nintendo/NES:/data/nes/roms:ro
+      - $GAMES_PATH/Nintendo/SNES/roms:/data/snes/roms:ro
+    ports:
+      - 3333:3000
+      - 3334:80
+      - 4001:4001 #optional
+    restart: unless-stopped
+#
   calibre:
     image: linuxserver/calibre
     container_name: calibre
@@ -595,6 +613,7 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/handbrake:/config:rw
       - $GUITAR_VIDEOS_PATH:/videos:rw
+      - $SELF_IMPROVEMENT_PATH/sailing:/videos2:rw
     ports:
       - "5800:5800"
 ######################
@@ -679,7 +698,7 @@ services:
 ##
 #
   pyload:
-    image: linuxserver/pyload
+    image: linuxserver/pyload-ng
     container_name: pyload
     environment:
       - PUID=$PUID_USER
@@ -728,7 +747,7 @@ services:
      - TRANSMISSION_BLOCKLIST_URL=$TRANSMISSION_BLOCKLIST_URL
      - DISABLE_PORT_UPDATER=true
      - OPENVPN_PROVIDER=PIA
-     - OPENVPN_CONFIG=au_melbourne
+     - OPENVPN_CONFIG=au_sydney
      - OPENVPN_USERNAME=$PIA_USERNAME
      - OPENVPN_PASSWORD=$PIA_PASSWORD
      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
@@ -1159,6 +1178,7 @@ services:
       - $MOVIES_PATH:/data/movies:ro
       - $MUSIC_ROOT_PATH:/data/music:ro
       - $PICTURES_PATH:/data/pictures:ro
+      - $PIWIGO_CONFIG_PATH/piwigo/www/gallery/upload:/data/pictures_piwigo:ro
       - $SHARE_PATH:/data/share:ro
       - $TORRENT_PATH:/data/torrent:ro
       - $SELF_IMPROVEMENT_PATH:/data/self_improvement:ro
@@ -1218,9 +1238,9 @@ services:
       -g "map to guest = Bad User"
       -g "guest account = nobody"
 #######################
-  filebrowser2:
+  filebrowser:
     image: filebrowser/filebrowser
-    container_name: filebrowser2
+    container_name: filebrowser
     environment:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
