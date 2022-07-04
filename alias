@@ -161,8 +161,9 @@ wget_imos_bucket() {
         wget -P $output_folder ${url_prefix}${url_suffix} 
 }
 
-
-alias pycharm="[ -d ~/.local/share/JetBrains/Toolbox/apps/  ] && exec `fd pycharm.sh ~/.local/share/JetBrains/Toolbox/apps/` &"
+if [[ -d ~/.local/share/JetBrains/Toolbox/apps/ ]]; then
+    alias pycharm=`fd pycharm.sh ~/.local/share/JetBrains/Toolbox/apps/ &`
+fi
 ##########################
 ## github cli
 ##########################
