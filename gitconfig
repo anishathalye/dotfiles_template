@@ -3,6 +3,10 @@
     pager = delta
     #pager = diff-so-fancy | less --tabs=4 -RFX
     #autocrlf = true
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+#	diffFilter = diff-so-fancy --patch
+
 [user]
     name  = lbesnard
     email = laurent.besnard@utas.edu.au
@@ -11,13 +15,29 @@
 [status]
   showUntrackedFiles = no
 
-[diff]
-    pager = diff-so-fancy | less --tabs=4 -RFX
+[log]
+    page = delta
+
+#[diff]
+#    pager = diff-so-fancy | less --tabs=4 -RFX
 [merge]
     conflictstyle = diff3
 [delta]
     navigate = true  # use n and N to move between diff sections
     light = false    # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    features = decorations
+    minus-style = syntax bold auto
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    commit-decoration-style = blue ol
+    commit-style = raw
+    file-style = omit
+    hunk-header-decoration-style = blue box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file line-number syntax
 [color]
     ui = true
     branch      = auto
@@ -80,9 +100,6 @@
     bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
     bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
     reset-branch-like-remote = "!f() { branch=`git branch  | grep '*' | sed 's/* //g'`; git fetch --all; git reset --hard origin/$branch; }; f"
-[interactive]
-    diffFilter = delta --color-only
-#	diffFilter = diff-so-fancy --patch
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = red bold 52

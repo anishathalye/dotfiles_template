@@ -162,7 +162,7 @@ wget_imos_bucket() {
 }
 
 
-alias pycharm="[ -d ~/.local/share/JetBrains/Toolbox/apps/  ] && fd pycharm.sh ~/.local/share/JetBrains/Toolbox/apps/"
+alias pycharm="[ -d ~/.local/share/JetBrains/Toolbox/apps/  ] && exec `fd pycharm.sh ~/.local/share/JetBrains/Toolbox/apps/` &"
 ##########################
 ## github cli
 ##########################
@@ -180,7 +180,9 @@ fi
 alias ga=forgit::add
 alias gd=forgit::diff
 alias glo=forgit::log
-alias grh=forgit::log
+alias grh=forgit::reset::head
+alias grco=forgit::revert::commit  # grco not to conflict with grc
+alias gcp=forgit::cherry::pick
 alias gbl=forgit::blame
 alias gclean=forgit::clean
 

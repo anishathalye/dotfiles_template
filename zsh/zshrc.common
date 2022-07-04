@@ -248,3 +248,6 @@ fi
 # https://unix.stackexchange.com/questions/177902/zsh-completion-on-the-second-command-or-after-an-alias/178054#178054
 unsetopt complete_aliases
 
+# rbenv
+eval "$(rbenv init - zsh)"
+
