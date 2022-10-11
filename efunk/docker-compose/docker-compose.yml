@@ -1,0 +1,541 @@
+version: "3.3"
+networks:
+   frontend:
+       ipam:
+         config:
+           - subnet: $DOCKER_SUBNET_1
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    hostname: ubuntu
+    ports:
+      - "5353:53/tcp"
+      - "5353:53/udp"
+      - "67:67/udp"
+      - "455:80/tcp"
+    environment:
+      TZ: $TZ
+      WEBPASSWORD: $PIHOLE_PWD
+    volumes:
+      - $DOCKER_CONFIG_PATH/pihole/etc/pihole/:/etc/pihole/
+      - $DOCKER_CONFIG_PATH/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    networks:
+      frontend:
+        ipv4_address: $PIHOLE_DOCKER_SUB_IP_DNS
+    restart: always
+
+  keeweb:
+    restart: unless-stopped
+    image: antelle/keeweb
+    container_name: keeweb
+    ports:
+      - 8877:80
+      - 8876:443
+    volumes:
+      - $DOCKER_CONFIG_PATH/keeweb:/etc/nginx/external
+    restart: unless-stopped
+###################
+  mariadb:
+    image:  lscr.io/linuxserver/mariadb
+    container_name: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - TZ=$TZ
+      - MYSQL_DATABASE=$DB_NEXTCLOUD_SCHEMA
+      - MYSQL_USER=$DB_NEXTCLOUD_USER
+      - MYSQL_PASSWORD=$DB_NEXTCLOUD_PASS
+    volumes:
+      - $DOCKER_CONFIG_PATH/mariadb:/config
+    ports:
+      - ${DB_PORT}:3306
+    restart: always
+#################
+  nextcloud:
+    image: linuxserver/nextcloud
+    container_name: nextcloud
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - WATCHTOWER_CLEANUP=true
+      - TZ=$TZ
+      - PHP_MEMORY_LIMIT=512M
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    volumes:
+      - $DOCKER_CONFIG_PATH/nextcloud:/config
+      - $NEXTCLOUD_DATA_PATH:/data
+    ports:
+      - 9393:443
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+
+    # buyld locally because on arm64
+  ownfoil:
+    container_name: ownfoil
+    #image: a1ex4/ownfoil
+    build: https://github.com/a1ex4/ownfoil.git
+    environment:
+       - PUID=911
+       - PGID=911
+    volumes:
+      - $SWITCH_PATH:/games
+      # Uncomment if you want to edit and persist the app configuration
+      #- $DOCKER_CONFIG_PATH/ownfoil2/app:/app
+      #- $DOCKER_CONFIG_PATH/ownfoil2/nginx:/etc/nginx
+      # - ./app:/app
+      # Uncomment to setup basic auth
+      #- ./nginx:/etc/nginx
+    ports:
+      - "8001:80"
+    networks:
+      - frontend
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.traefik.entrypoints=http
+
+
+  digikam:
+    image: lscr.io/linuxserver/digikam:latest
+    container_name: digikam
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - KEYBOARD=fr-fr-azerty
+      - DOCKER_MODS=linuxserver/mods:universal-package-install
+      - INSTALL_PACKAGES=language-pack-kde-fr
+    volumes:
+      - $DOCKER_CONFIG_PATH/digikam:/config
+      - $PICTURES_PATH:/pictures
+    #network_mode: host
+    ports:
+      - 3001:3000
+    restart: unless-stopped
+
+  domoticz:
+    image: lscr.io/linuxserver/domoticz:latest
+    container_name: domoticz
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      #- WEBROOT=domoticz #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/domoticz:/config
+    ports:
+      - 8080:8080
+      - 6144:6144
+      - 1443:1443
+    restart: unless-stopped
+
+
+  rsync-server:
+    image: quentintin/rsync-server
+    container_name: rsync-server
+    volumes:
+      - $HOME/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
+      - $PICTURES_PATH:/data/pictures:ro
+      - $IMMICH_PATH:/data/immich:ro
+      - $DOCKER_CONFIG_PATH:/data/docker:ro
+      - $NEXTCLOUD_DATA_PATH:/data/nextcloud:ro
+    environment:
+      #- USERNAME=nouser
+      #- PASSWORD=nopass
+      PUID: $PUID_USER
+      PGID: $PGID_USER
+    ports:
+      #- "873:873" #uncomment if want to use rsyncd
+      - "9000:22"
+    restart: always
+
+
+  samba:
+    image: dperson/samba
+    container_name: samba
+    environment:
+      TZ: $TZ
+    ports:
+      - "139:139/tcp"
+      - "445:445/tcp"
+    read_only: true
+    tmpfs:
+      - /tmp
+    restart: always
+    stdin_open: true
+    tty: true
+    volumes:
+      - $SHARE_PATH:/share6
+      - $PICTURES_PATH:/share5
+    command: |
+      -s "Shared;/share6;yes;no;yes;guest,$USER;guest,$USER;guest,$USER;shared rw"
+      -s "Pictures;/share5;yes;no;yes;$SAMBA_PICTURES_USER,$USER;$SAMBA_PICTURES_USER,$USER;$SAMBA_PICTURES_USER,$USER;pictures rw"
+      -u "guest;guest"
+      -u "$SAMBA_PICTURES_USER;$SAMBA_PICTURES_PASSWORD"
+      -g "map to guest = Bad User"
+      -g "guest account = nobody"
+
+  duckdns:
+    image: linuxserver/duckdns
+    container_name: duckdns
+    dns: 1.1.1.1
+    environment:
+      - PUID=$PUID_USER #optional
+      - PGID=$PGID_USER #optional
+      - TZ=$TZ
+      - SUBDOMAINS=$DUCKDNS_DOMAIN
+      - TOKEN=$DUCKDNS_TOKEN
+      - LOG_FILE=false #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/duckdns:/config #optional
+    restart: always
+
+######################
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    environment:
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - TZ=$TZ
+      - AUTO_UPDATE=true #optional
+      - WATCHTOWER_CLEANUP=true
+      #- RUN_OPTS=run options here #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/jackett:/config
+      - $TORRENT_PATH:/downloads
+    ports:
+      - 9117:9117
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
+      - flaresolverr
+    restart: unless-stopped
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+####################
+  flaresolverr:
+    # DockerHub mirror flaresolverr/flaresolverr:latest
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - WATCHTOWER_CLEANUP=true
+    dns:
+      - 172.19.0.3
+    depends_on:
+      - pihole
+    ports:
+      - 8191:8191
+    restart: unless-stopped
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+#
+  transmission:
+   image: haugene/transmission-openvpn
+   container_name: transmission
+   cap_add:
+     - NET_ADMIN
+   devices:
+     - /dev/net/tun
+   restart: always
+   ports:
+     - "9091:9091"
+     - "8888:8888"
+   dns:
+     - $PIHOLE_DOCKER_SUB_IP_DNS
+     - 8.8.8.8
+     - 8.8.4.4
+   volumes:
+     - /etc/localtime:/etc/localtime:ro
+     - $TORRENT_PATH:/data
+   logging:
+     driver: json-file
+     options:
+       max-size: 10m
+   environment:
+     - CREATE_TUN_DEVICE=true
+     - WEBPROXY_ENABLED=false
+     - TRANSMISSION_WEB_UI=transmission-web-control
+     - TRANSMISSION_INCOMPLETE_DIR=/data/transmission/incomplete
+     - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
+     - TRANSMISSION_BLOCKLIST_ENABLED=true
+     - TRANSMISSION_BLOCKLIST_URL=$TRANSMISSION_BLOCKLIST_URL
+     - DISABLE_PORT_UPDATER=true
+     - OPENVPN_PROVIDER=PIA
+     - OPENVPN_CONFIG=belgium
+     - OPENVPN_USERNAME=$PIA_USERNAME
+     - OPENVPN_PASSWORD=$PIA_PASSWORD
+     - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+     - LOCAL_NETWORK=$LOCAL_NETWORK
+   restart: unless-stopped
+
+  homer:
+    image: b4bz/homer:latest
+    container_name: homer
+    environment:
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - TZ=${TZ}
+      - WATCHTOWER_CLEANUP=true
+    volumes:
+      - $DOCKER_CONFIG_PATH/homer/config.yml:/www/config.yml
+      - $DOCKER_CONFIG_PATH/homer/local/assets/:/www/assets
+    ports:
+      - 80:8080
+    restart: unless-stopped
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+      #traefik.enable: true
+      #traefik.http.routers.home.rule: Host(`home.brownfunk.lan`)
+      #traefik.http.routers.home.entrypoints: web
+      #traefik.http.services.home.loadbalancer.server.port: 80
+    depends_on:
+      - pihole
+#
+#### wireguard
+  wireguard:
+    image: linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      # - PUID=$PUID_USER
+      #- PGID=$PGID_USER
+      - TZ=$TZ
+      - SERVERURL=${DUCKDNS_DOMAIN}.duckdns.org
+      - SERVERPORT=51820 #optional
+      - PEERS=$WG_PEERS #optional
+      - PEERDNS=auto #optional
+      - INTERNAL_SUBNET=10.13.13.0 #optional
+      - PEERDNS=$PIHOLE_DOCKER_SUB_IP_DNS #using pihole docker, default port is 53, which is dsn by default # docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' pihole
+    volumes:
+      - $DOCKER_CONFIG_PATH/wireguard/config:/config
+      - /lib/modules:/lib/modules
+      - /usr/src/:/usr/src
+    ports:
+      - 51820:51820/udp
+    networks:
+      - frontend
+    #sysctls:
+      #- net.ipv4.conf.all.src_valid_mark=1
+    depends_on:
+      - pihole
+    restart: always
+
+  darktable:
+    image: lscr.io/linuxserver/darktable:latest
+    container_name: darktable
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - "photoprism-originals:/photo-originals"               # Original media files (DO NOT REMOVE)
+      - $DOCKER_CONFIG_PATH/darktable:/config
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+
+  photoprism:
+    ## Use photoprism/photoprism:preview for testing preview builds:
+    container_name: photoprism
+    image: photoprism/photoprism:latest
+    depends_on:
+      - pihole
+      - mariadb_photoprism
+    ## Don't enable automatic restarts until PhotoPrism has been properly configured and tested!
+    ## If the service gets stuck in a restart loop, this points to a memory, filesystem, network, or database issue:
+    ## https://docs.photoprism.app/getting-started/troubleshooting/#fatal-server-errors
+    # restart: unless-stopped
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    ports:
+      - "2342:2342" # HTTP port (host:container)
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    environment:
+      PHOTOPRISM_ADMIN_PASSWORD: $PHOTOPRISM_ADMIN_PASSWORD          # INITIAL PASSWORD FOR "admin" USER, MINIMUM 8 CHARACTERS
+      PHOTOPRISM_AUTH_MODE: "password"               # authentication mode (public, password)
+      PHOTOPRISM_SITE_URL: "http://$SERVER_URL:2342/"  # public server URL incl http:// or https:// and /path, :port is optional
+      PHOTOPRISM_ORIGINALS_LIMIT: 5000               # file size limit for originals in MB (increase for high-res video)
+      PHOTOPRISM_HTTP_COMPRESSION: "gzip"            # improves transfer speed and bandwidth utilization (none or gzip)
+      PHOTOPRISM_LOG_LEVEL: "info"                   # log level: trace, debug, info, warning, error, fatal, or panic
+      PHOTOPRISM_READONLY: "false"                   # do not modify originals directory (reduced functionality)
+      PHOTOPRISM_EXPERIMENTAL: "false"               # enables experimental features
+      PHOTOPRISM_DISABLE_CHOWN: "false"              # disables updating storage permissions via chmod and chown on startup
+      PHOTOPRISM_DISABLE_WEBDAV: "false"             # disables built-in WebDAV server
+      PHOTOPRISM_DISABLE_SETTINGS: "false"           # disables settings UI and API
+      PHOTOPRISM_DISABLE_TENSORFLOW: "false"         # disables all features depending on TensorFlow
+      PHOTOPRISM_DISABLE_FACES: "false"              # disables face detection and recognition (requires TensorFlow)
+      PHOTOPRISM_DISABLE_CLASSIFICATION: "false"     # disables image classification (requires TensorFlow)
+      PHOTOPRISM_DISABLE_RAW: "false"                # disables indexing and conversion of RAW files
+      PHOTOPRISM_RAW_PRESETS: "false"                # enables applying user presets when converting RAW files (reduces performance)
+      PHOTOPRISM_JPEG_QUALITY: 85                    # a higher value increases the quality and file size of JPEG images and thumbnails (25-100)
+      PHOTOPRISM_DETECT_NSFW: "false"                # automatically flags photos as private that MAY be offensive (requires TensorFlow)
+      PHOTOPRISM_UPLOAD_NSFW: "true"                 # allows uploads that MAY be offensive (no effect without TensorFlow)
+      # PHOTOPRISM_DATABASE_DRIVER: "sqlite"         # SQLite is an embedded database that doesn't require a server
+      PHOTOPRISM_DATABASE_DRIVER: "mysql"            # use MariaDB 10.5+ or MySQL 8+ instead of SQLite for improved performance
+      PHOTOPRISM_DATABASE_SERVER: $SERVER_URL:3307     # MariaDB or MySQL database server (hostname:port)
+      PHOTOPRISM_DATABASE_NAME: "photoprism"         # MariaDB or MySQL database schema name
+      PHOTOPRISM_DATABASE_USER: "photoprism"         # MariaDB or MySQL database user name
+      PHOTOPRISM_DATABASE_PASSWORD: $PHOTOPRISM_MARIADB_PASSWORD       # MariaDB or MySQL database user password
+      PHOTOPRISM_SITE_CAPTION: "AI-Powered Photos App"
+      PHOTOPRISM_SITE_DESCRIPTION: ""                # meta site description
+      PHOTOPRISM_SITE_AUTHOR: ""                     # meta site author
+      ## Run/install on first startup (options: update gpu tensorflow davfs clitools clean):
+      # PHOTOPRISM_INIT: "gpu tensorflow"
+      ## Hardware Video Transcoding (for sponsors only due to high maintenance and support costs):
+      # PHOTOPRISM_FFMPEG_ENCODER: "software"        # FFmpeg encoder ("software", "intel", "nvidia", "apple", "raspberry")
+      # PHOTOPRISM_FFMPEG_BITRATE: "32"              # FFmpeg encoding bitrate limit in Mbit/s (default: 50)
+      ## Run as a non-root user after initialization (supported: 0, 33, 50-99, 500-600, and 900-1200):
+      # PHOTOPRISM_UID: 1000
+      # PHOTOPRISM_GID: 1000
+      # PHOTOPRISM_UMASK: 0000
+    ## Start as non-root user before initialization (supported: 0, 33, 50-99, 500-600, and 900-1200):
+    # user: "1000:1000"
+    ## Share hardware devices with FFmpeg and TensorFlow (optional):
+    devices:
+      - "/dev/dri:/dev/dri"                         # Intel QSV
+    #  - "/dev/nvidia0:/dev/nvidia0"                 # Nvidia CUDA
+    #  - "/dev/nvidiactl:/dev/nvidiactl"
+    #  - "/dev/nvidia-modeset:/dev/nvidia-modeset"
+    #  - "/dev/nvidia-nvswitchctl:/dev/nvidia-nvswitchctl"
+    #  - "/dev/nvidia-uvm:/dev/nvidia-uvm"
+    #  - "/dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools"
+    #  - "/dev/video11:/dev/video11"                 # Video4Linux Video Encode Device (h264_v4l2m2m)
+    working_dir: "/photoprism" # do not change or remove
+    ## Storage Folders: "~" is a shortcut for your home directory, "." for the current directory
+    volumes:
+      # "/host/folder:/photoprism/folder"                # Example
+      - "photoprism-originals:/photoprism/originals"               # Original media files (DO NOT REMOVE)
+      # - "/example/family:/photoprism/originals/family" # *Additional* media folders can be mounted like this
+      # - "~/Import:/photoprism/import"                  # *Optional* base folder from which files can be imported to originals
+      - "$PHOTOPRISM_STORAGE_DIR:/photoprism/storage"                  # *Writable* storage folder for cache, database, and sidecar files (DO NOT REMOVE)
+
+  ## Database Server (recommended)
+  ## see https://docs.photoprism.app/getting-started/faq/#should-i-use-sqlite-mariadb-or-mysql
+  mariadb_photoprism:
+    container_name: mariadb_photoprism
+    ## If MariaDB gets stuck in a restart loop, this points to a memory or filesystem issue:
+    ## https://docs.photoprism.app/getting-started/troubleshooting/#fatal-server-errors
+    restart: unless-stopped
+    image: mariadb:10.8
+    security_opt: # see https://github.com/MariaDB/mariadb-docker/issues/434#issuecomment-1136151239
+      - seccomp:unconfined
+      - apparmor:unconfined
+    command: mysqld --innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120
+    ## Never store database files on an unreliable device such as a USB flash drive, an SD card, or a shared network folder:
+    volumes:
+      - "$PHOTOPRISM_MARIADB_DIR:/var/lib/mysql" # DO NOT REMOVE
+    environment:
+      MARIADB_AUTO_UPGRADE: "1"
+      MARIADB_INITDB_SKIP_TZINFO: "1"
+      MARIADB_DATABASE: "photoprism"
+      MARIADB_USER: "photoprism"
+      MARIADB_PASSWORD: $PHOTOPRISM_MARIADB_PASSWORD
+      MARIADB_ROOT_PASSWORD: $PHOTOPRISM_MARIADB_ROOT_PASSWORD
+    ports:
+      - 3307:3306
+
+  mealie:
+    container_name: mealie
+    image: hkotel/mealie:latest
+    restart: unless-stopped
+    ports:
+      - 9925:80
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: America/Anchorage
+    volumes:
+      - $DOCKER_CONFIG_PATH/mealie/data/:/app/data
+
+# SWAG from duckdns
+####################
+  swag:
+   image: ghcr.io/linuxserver/swag
+   container_name: swag
+   cap_add:
+     - NET_ADMIN
+   dns:
+     - $PIHOLE_DOCKER_SUB_IP_DNS
+   networks:
+     - frontend
+   environment:
+     - PUID=$PUID_USER
+     - PGID=$PGID_USER
+     - TZ=Europe/Brussels
+     - URL=$DUCKDNS_DOMAIN.duckdns.org
+     - SUBDOMAINS=wildcard
+     - VALIDATION=duckdns
+     #- DNSPLUGIN=cloudflare
+     #- CERTPROVIDER= #optional
+     #- DNSPLUGIN= #optional
+     - DUCKDNSTOKEN=$DUCKDNS_TOKEN
+     #- EMAIL=<e-mail> #optional
+     - ONLY_SUBDOMAINS=false #optional
+     #- EXTRA_DOMAINS=brownfunk.lan #optional
+     - STAGING=false #optional
+   volumes:
+     - $DOCKER_CONFIG_PATH/swag:/config
+   ports:
+     - 443:443
+     - 555:80
+   restart: unless-stopped
+#
+#### netdata
+  netdata:
+    image: netdata/netdata
+    container_name: netdata
+    hostname: $SERVER_URL # set to fqdn of host
+    ports:
+      - 19999:19999
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+            #- PUID=$PUID_USER
+            # - PGID=996
+      - TZ=$TZ
+      - WATCHTOWER_CLEANUP=true
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+
+volumes:
+  netdatalib:
+  netdatacache:
+  photoprism-originals:
+    driver: local
+    driver_opts:
+      type: cifs
+      o: "username=$SAMBA_PICTURES_USER,password=$SAMBA_PICTURES_PASSWORD,rw"
+      device: "//$SERVER_URL/pictures"
+
