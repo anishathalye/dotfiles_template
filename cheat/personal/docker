@@ -41,3 +41,6 @@ docker exec -it <mycontainer> bash
 sudo docker run -d --name nextcloud -p 9393:80 -v /srv/dev-disk-by-id-ata-WDC_WD15EADS-00P8B0_WD-WMAVU0549888-part1/nextcloud:/var/www/html nextcloud:12
 docker run -d --restart="always" -v /export/movies/jellyfin:/config -v /export:/media/export -p 8096:8096 --name jellyfin jellyfin/jellyfin
 docker run -it -v /export:/export rednoah/filebot -script fn:sysinfo
+
+# add docker group to user
+newgrp docker
