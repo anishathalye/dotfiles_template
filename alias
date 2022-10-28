@@ -483,6 +483,11 @@ cc_cf_1.6() {
 }
 
 # compliance checker running the imos1.4 check
+cc_imos_1.3() {
+    _cc -t=imos:1.3
+}
+
+# compliance checker running the imos1.4 check
 cc_imos_1.4() {
     _cc -t=imos:1.4
 }
@@ -510,7 +515,7 @@ function spotify_pl_ls_missing () {
     local pl_val=`ls $pl_path | fzf  --multi=1`
 
     cat "$pl_path/$pl_val" | while read line; do
-        if [[ $line = \#* ]] 
+       if [[ $line = \#* ]] 
             then
             local albumartist=`echo "$line" | grep -o '#.*' | cut -d : -f2,4 | sort | uniq | sed "s/\"title\":/album:/g" | cut -d ',' -f1 | sed "s/\"//g" | sed "s/^ //g"`
             local album=`echo "$line" | grep -o '#.*' | cut -d : -f2,4 | sort | uniq | sed "s/\"title\":/album:/g" | sed "s/, \"length\"//g" | cut -d ',' -f2 | sed "s/\"//g" | sed "s/^ //g" | sed "s/album: //g"`
