@@ -754,12 +754,28 @@ alias bfunk_bckp_music_no_beet="funk_rsync $BFUNK_IP music /media/$USER/dfunk_5t
 alias bfunk_bckp_nextcloud="funk_rsync $BFUNK_IP nextcloud /media/$USER/dfunk_10tb_1"
 alias bfunk_bckp_pictures="funk_rsync $BFUNK_IP pictures /media/$USER/dfunk_10tb_1 --max-delete=1000"
 alias bfunk_bckp_pictures_piwigo="funk_rsync $BFUNK_IP pictures_piwigo /opt/docker_config/piwigo/piwigo/gallery/upload --max-delete=1000"
-alias bfunk_bckp_self_improvement="funk_rsync $BFUNK_IP self_improvement /media/$USER/dfunk_10tb_1 --max-delete=1000"
+alias bfunk_bckp_self_improvement="funk_rsync $BFUNK_IP self_improvement /media/$USER/dfunk_10tb_2 --max-delete=1000"
 alias bfunk_bckp_docker="funk_rsync $BFUNK_IP docker /media/$USER/dfunk_10tb_1"
 
 # bfunk sync to beefunk
 alias bfunk_bckp_navidrome="docker stop navidrome; funk_rsync $BFUNK_IP docker/navidrome /opt/docker_config; cd ~/dotfiles/beefunk/docker-compose; docker-compose up -d navidrome"
 
+alias bfunk_nextcloud_preview_generation="docker exec -it nextcloud occ preview:generate-all --path="lbesnard/files/Photos" -vvv"
+
 #$DFUNK_LOCAL_IP DFUNK sync to BFUNK
 alias dfunk_bckp_pictures_dry_run="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_TAILSCALE_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress --dry-run"
 alias dfunk_bckp_pictures="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_TAILSCALE_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress"
+
+#EFUNK rsync to BEEFUNK
+alias efunk_bckp_nextcloud="funk_rsync $EFUNK_TAILSCALE_IP nextcloud /media/$USER/dfunk_10tb_2/efunk_backup --max-delete=300"
+alias efunk_bckp_immich="funk_rsync $EFUNK_TAILSCALE_IP immich /media/$USER/dfunk_10tb_2/efunk_backup --max-delete=100"
+alias efunk_bckp_pictures="funk_rsync $EFUNK_TAILSCALE_IP pictures /media/$USER/dfunk_10tb_2/efunk_backup --max-delete=100"
+
+alias efunk_nextcloud_preview_gen="docker exec -it nextcloud occ preview:generate-all -vvv"
+
+# crowdsec
+alias cscli="docker exec -t crowdsec cscli"
+alias cscli_decisions_list="cscli decisions list"
+alias cscli_alerts_list="cscli alerts list"
+alias cscli_metrics="cscli metrics"
+alias cscli_bouncer_list="cscli bouncers list"
