@@ -153,3 +153,4 @@ if [[ -z $TMUX && -z $SSH_TTY ]]; then
      exec tmux -2 new-session -s $me
   fi
 fi
+. "$HOME/.cargo/env"
