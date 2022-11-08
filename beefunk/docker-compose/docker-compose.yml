@@ -396,6 +396,7 @@ services:
       - $HOME/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
       - $PICTURES_PATH/Pictures:/data/pictures:ro
       - $EBOOKS_AUDIOBOOKS_PATH:/data/ebooks_audiobooks:ro
+      - $DOCKER_CONFIG_PATH:/data/docker:ro
     environment:
       PUID: $PUID_USER
       PGID: $PGID_USER
