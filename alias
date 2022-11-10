@@ -819,9 +819,16 @@ alias efunk_bckp_pictures="funk_rsync $EFUNK_TAILSCALE_IP pictures /media/$USER/
 
 alias efunk_nextcloud_preview_gen="docker exec -it nextcloud occ preview:generate-all -vvv"
 
+# BEEFUNK sync to BROWNFUNK
+#alias beefunk_bckp_navidrome="docker stop navidrome; funk_rsync $BEEFUNK_TAILSCALE_IP docker/navidrome /opt/docker_config; cd ~/dotfiles/beefunk/docker-compose; docker-compose up -d navidrome"
+alias beefunk_bckp_navidrome="funk_rsync $BEEFUNK_TAILSCALE_IP navidrome $DOCKER_CONFIG_DIR;"
+
 # crowdsec
 alias cscli="docker exec -t crowdsec cscli"
 alias cscli_decisions_list="cscli decisions list"
 alias cscli_alerts_list="cscli alerts list"
 alias cscli_metrics="cscli metrics"
 alias cscli_bouncer_list="cscli bouncers list"
+
+# BROWNFUNK load beets with anaconda
+alias beet="[ -f ~/anaconda3/envs/beets/bin/python ] && conda activate beets;beet"
