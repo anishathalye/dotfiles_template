@@ -806,6 +806,11 @@ alias bfunk_bckp_docker="funk_rsync $BFUNK_IP docker /media/$USER/dfunk_10tb_1"
 # bfunk sync to beefunk
 alias bfunk_bckp_navidrome="docker stop navidrome; funk_rsync $BFUNK_IP docker/navidrome /opt/docker_config; cd ~/dotfiles/beefunk/docker-compose; docker-compose up -d navidrome"
 
+# BEEFUNK sync to BROWNFUNK
+alias beefunk_bckp_docker_komga="funk_rsync $BEEFUNK_TAILSCALE_IP docker/komga $DOCKER_CONFIG_DIR"
+alias beefunk_bckp_docker_navidrome="funk_rsync $BEEFUNK_TAILSCALE_IP docker/navidrome $DOCKER_CONFIG_DIR"
+alias beefunk_bckp_docker_jellyfin="funk_rsync $BEEFUNK_TAILSCALE_IP docker/jellyfin $DOCKER_CONFIG_DIR"
+
 alias bfunk_nextcloud_preview_generation="docker exec -it nextcloud occ preview:generate-all --path="lbesnard/files/Photos" -vvv"
 
 #$DFUNK_LOCAL_IP DFUNK sync to BFUNK
