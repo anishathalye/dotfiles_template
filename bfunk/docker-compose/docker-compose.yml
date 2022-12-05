@@ -28,6 +28,24 @@ services:
       frontend:
         ipv4_address: $PIHOLE_DOCKER_SUB_IP_DNS
     restart: always
+##################
+  crowdsec:
+    image: docker.io/crowdsecurity/crowdsec:latest
+    container_name: crowdsec
+    environment:
+      - GID=$PGID_USER
+      - COLLECTIONS=crowdsecurity/nginx crowdsecurity/http-cve crowdsecurity/whitelist-good-actors
+      - CUSTOM_HOSTNAME=brownfunk
+    volumes:
+      - $DOCKER_CONFIG_PATH/crowdsec/config:/etc/crowdsec:rw
+      - $DOCKER_CONFIG_PATH/crowdsec/data:/var/lib/crowdsec/data:rw
+      - $DOCKER_CONFIG_PATH/swag/log/nginx:/var/log/swag:ro
+      - /var/log:/var/log/host:ro
+    networks:
+      - frontend
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges=true
 ###################
   mariadb:
     image:  lscr.io/linuxserver/mariadb
@@ -47,6 +65,43 @@ services:
     restart: always
     networks:
       frontend:
+  phpmyadmin:
+    image: lscr.io/linuxserver/phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - TZ=$TZ
+      - PMA_ARBITRARY=1
+      #- PMA_ABSOLUTE_URI=https://phpmyadmin.example.com #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/phpmyadmin:/config
+    ports:
+      - 3002:80
+    restart: unless-stopped
+    networks:
+      frontend:
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+
+  periodic-backup:
+    build: ./mariadb_bckp
+    container_name: database-backup
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+      DB_HOST: $DB_HOST
+      DB_PORT: $DB_PORT
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/mysql/backup:/opt/mysql/backup
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    #command: crond -f -d 8
+    command: /etc/periodic/daily/backup-database
+    restart: always
 ######################
   watchtower:
     image: containrrr/watchtower
@@ -145,49 +200,49 @@ services:
     labels:
       com.centurylinklabs.watchtower.enable: true
 ######################################
-  tubesync:
-    image: ghcr.io/meeb/tubesync:latest
-    depends_on:
-      - mariadb
-      - pihole
-    container_name: tubesync
-    restart: unless-stopped
-    ports:
-      - 4848:4848
-    volumes:
-      - $DOCKER_CONFIG_PATH/tubesync-config:/config
-      - $TV_SHOWS_PATH/tubesync-downloads:/downloads
-    environment:
-      - TZ=$TZ
-      - PUID=$PUID_USER
-      - PGID=$PGID_USER
-      - WATCHTOWER_CLEANUP=true
-      - DATABASE_CONNECTION=mysql://${DB_TUBESYNC_USER}:${DB_TUBESYNC_PWD}@${DB_HOST}:${DB_PORT}/${DB_TUBESYNC_SCHEMA}
-    dns:
-      - $PIHOLE_DOCKER_SUB_IP_DNS
-    networks:
-      - frontend
-    labels:
-      com.centurylinklabs.watchtower.enable: true
-###
-  emulatorjs:
-    image: lscr.io/linuxserver/emulatorjs
-    container_name: emulatorjs
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-      - SUBFOLDER=/ #optional
-    volumes:
-      - $DOCKER_CONFIG_PATH/emulatorjs:/config
-      - $GAMES_PATH/Nintendo/NES:/data/nes/roms:ro
-      - $GAMES_PATH/Nintendo/SNES/roms:/data/snes/roms:ro
-    ports:
-      - 3333:3000
-      - 3334:80
-      - 4001:4001 #optional
-    restart: unless-stopped
-#
+#  tubesync:
+    #image: ghcr.io/meeb/tubesync:latest
+    #depends_on:
+      #- mariadb
+      #- pihole
+    #container_name: tubesync
+    #restart: unless-stopped
+    #ports:
+      #- 4848:4848
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/tubesync-config:/config
+      #- $TV_SHOWS_PATH/tubesync-downloads:/downloads
+    #environment:
+      #- TZ=$TZ
+      #- PUID=$PUID_USER
+      #- PGID=$PGID_USER
+      #- WATCHTOWER_CLEANUP=true
+      #- DATABASE_CONNECTION=mysql://${DB_TUBESYNC_USER}:${DB_TUBESYNC_PWD}@${DB_HOST}:${DB_PORT}/${DB_TUBESYNC_SCHEMA}
+    #dns:
+      #- $PIHOLE_DOCKER_SUB_IP_DNS
+    #networks:
+      #- frontend
+    #labels:
+      #com.centurylinklabs.watchtower.enable: true
+####
+#  emulatorjs:
+    #image: lscr.io/linuxserver/emulatorjs
+    #container_name: emulatorjs
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=Europe/London
+      #- SUBFOLDER=/ #optional
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/emulatorjs:/config
+      #- $GAMES_PATH/Nintendo/NES:/data/nes/roms:ro
+      #- $GAMES_PATH/Nintendo/SNES/roms:/data/snes/roms:ro
+    #ports:
+      #- 3333:3000
+      #- 3334:80
+      #- 4001:4001 #optional
+    #restart: unless-stopped
+##
   calibre:
     image: linuxserver/calibre
     container_name: calibre
@@ -285,50 +340,9 @@ services:
       - frontend
     depends_on:
       - pihole
+      - mariadb
     restart: unless-stopped
 ##################
-  matrix:
-    container_name: matrix
-    build:
-        context: ../..
-        dockerfile: docker/Dockerfile
-    image: docker.io/matrixdotorg/synapse:latest
-    # Since synapse does not retry to connect to the database, restart upon
-    # failure
-    restart: unless-stopped
-    # See the readme for a full documentation of the environment settings
-    # NOTE: You must edit homeserver.yaml to use postgres, it defaults to sqlite
-    environment:
-      - SYNAPSE_CONFIG_PATH=/data/homeserver.yaml
-    volumes:
-      # You may either store all the files in a local folder
-      - $DOCKER_CONFIG_PATH/synapse/files:/data
-      # .. or you may split this between different storage points
-      # - ./files:/data
-      # - /path/to/ssd:/data/uploads
-      # - /path/to/large_hdd:/data/media
-    depends_on:
-      - db
-    # In order to expose Synapse, remove one of the following, you might for
-    # instance expose the TLS port directly:
-    ports:
-      - 8448:8448/tcp
-    # ... or use a reverse proxy, here is an example for traefik:
-  db:
-    image: docker.io/postgres:12-alpine
-    # Change that password, of course!
-    environment:
-      - POSTGRES_USER=synapse
-      - POSTGRES_PASSWORD=NSarjiyrJ8p9HmFUGKTBVK5qVvgqVUiJh
-      # ensure the database gets created correctly
-      # https://matrix-org.github.io/synapse/latest/postgres.html#set-up-database
-      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
-    volumes:
-      # You may store the database tables in a local folder..
-      - $DOCKER_CONFIG_PATH/synapse/postgresql/schemas:/var/lib/postgresql/data
-      # .. or store them on some high performance storage for better results
-      # - /path/to/ssd/storage:/var/lib/postgresql/data
-
 #  gitea:
     #image: gitea/gitea:1.15.5
     #container_name: gitea
@@ -745,6 +759,7 @@ services:
      - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
      - TRANSMISSION_BLOCKLIST_ENABLED=true
      - TRANSMISSION_BLOCKLIST_URL=$TRANSMISSION_BLOCKLIST_URL
+     - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=false
      - DISABLE_PORT_UPDATER=true
      - OPENVPN_PROVIDER=PIA
      - OPENVPN_CONFIG=au_sydney
@@ -819,6 +834,7 @@ services:
       - frontend
     depends_on:
       - pihole
+      - mariadb
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -863,8 +879,12 @@ services:
      - DUCKDNSTOKEN=$DUCKDNS_TOKEN
      #- EMAIL=<e-mail> #optional
      - ONLY_SUBDOMAINS=false #optional
+     #- DOCKER_MODS=linuxserver/mods:swag-crowdsec
      #- EXTRA_DOMAINS=brownfunk.lan #optional
      - STAGING=false #optional
+     - DOCKER_MODS=ghcr.io/linuxserver/mods:swag-crowdsec
+     - CROWDSEC_API_KEY=${CROWDSEC_SWAG_API_KEY}
+     - CROWDSEC_LAPI_URL=http://crowdsec:8080
    volumes:
      - $DOCKER_CONFIG_PATH/swag:/config
    ports:
@@ -924,22 +944,20 @@ services:
       - frontend
     depends_on:
       - pihole
+      - mariadb
     ports:
       - 3637:80
     volumes:
       - $DOCKER_CONFIG_PATH/wallabag/var/www/wallabag/data:/var/www/wallabag/data
       - $DOCKER_CONFIG_PATH/wallabag/opt/wallabag/images:/var/www/wallabag/web/assets/images
-    environment:
-      - TZ=$TZ
-      - SYMFONY__ENV__DOMAIN_NAME=$SERVER_URL:3637
-      #- SYMFONY__ENV__DOMAIN_NAME=https://wallabag.${DUCKDNS_DOMAIN}.duckdns.org
-      - SYMFONY__ENV__DATABASE_HOST=172.20.0.17
     restart: unless-stopped
     environment:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
       - WATCHTOWER_CLEANUP=true
+      - SYMFONY__ENV__DOMAIN_NAME=$SERVER_URL:3637
+      - SYMFONY__ENV__DATABASE_HOST=172.20.0.17
     links:
       - redis
     labels:
@@ -1185,7 +1203,6 @@ services:
       - $PODCASTS_PATH:/data/podcasts:ro
       - $DOCKER_CONFIG_PATH:/data/docker:ro
       - $NEXTCLOUD_DATA_PATH:/data/nextcloud:ro
-   #- $SERVER_PATH:/data:ro
     environment:
       #- USERNAME=nouser
       #- PASSWORD=nopass
@@ -1328,24 +1345,29 @@ services:
 #    restart: unless-stopped
 #
   scrutiny:
-    image: lscr.io/linuxserver/scrutiny
+    #image: lscr.io/linuxserver/scrutiny
+    image: ghcr.io/analogj/scrutiny:master-omnibus
     container_name: scrutiny
     cap_add:
       - SYS_RAWIO
-      - SYS_ADMIN #optional
+      #- SYS_ADMIN #optional
     environment:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
       - SCRUTINY_API_ENDPOINT=http://localhost:8080
-      - SCRUTINY_WEB=true
+      - SCRUTINY_WEB=false
       - SCRUTINY_COLLECTOR=true
       - WATCHTOWER_CLEANUP=true
     volumes:
       - $DOCKER_CONFIG_PATH/scrutiny:/config
       - /run/udev:/run/udev:ro
+      - $DOCKER_CONFIG_PATH/influxdb:/opt/scrutiny/influxdb
     ports:
       - 8033:8080
+      - "8086:8086" # influxDB admin
+    devices:
+      - /dev/sda:/dev/sda
     restart: unless-stopped
     labels:
       com.centurylinklabs.watchtower.enable: true

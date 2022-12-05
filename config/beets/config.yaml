@@ -20,7 +20,7 @@ convert:
         command: ffmpeg -i $source -y -vn -aq 2 $dest
         extension: flac
 
-directory: /export/music/beet_library/
+directory: /media/lbesnard/bfunk_10tb_3/music/beet_library/
 
 duplicates:
     album: yes
@@ -72,7 +72,8 @@ wlg:
     separator: ', '
     whitelist: ~/.config/beets/beets_genre
 
-library: /export/music/musiclibrary2.blb
+#library: /media/lbesnard/bfunk_10tb_3/music/musiclibrary2.blb
+library: /media/lbesnard/bfunk_10tb_3/music/beets_library.blb
 
 replaygain:
     backend: ffmpeg
@@ -119,6 +120,7 @@ plugins:
     - acousticbrainz
     - artistcountry
     - badfiles
+    - bareasc
     - cmus
     - convert
     - discogs
@@ -135,6 +137,7 @@ plugins:
     - inline
     - lastgenre
     - mbsync
+    - parentwork
     - play
     - random
     - replaygain
@@ -153,8 +156,8 @@ pluginpath:
 
 # recreated at each run monthly import playlists
 smartplaylist:
-    relative_to: /export/music/beet_library# as setup on docker container
-    playlist_dir: /export/music/playlists
+    relative_to: /media/lbesnard/bfunk_10tb_3/music/beet_library# as setup on docker container
+    playlist_dir: /media/lbesnard/bfunk_10tb_3/music/playlists
     playlists:
         - name: 'New_%time{$added,%Y-%m}_$genre_no_space.m3u'
           query: 'added:2018-10..' # first month of using beet. monthly playlists will be created afterwards
@@ -168,8 +171,8 @@ hook:
       command: "sh -c 'bash /home/lbesnard/bin/beet_playlist_management.sh'"
 
 
-    - event: import
-      command: "sh -c 'sh /home/lbesnard/bin/airsonic_update_lib.sh'"
+    #- event: import
+    #  command: "sh -c 'sh /home/lbesnard/bin/airsonic_update_lib.sh'"
 
 edit:
     itemfields: track title artist album albumartist genre year
