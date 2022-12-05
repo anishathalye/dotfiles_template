@@ -789,8 +789,8 @@ function funk_rsync() {
         --exclude=.deleted "${extra_rsync_command[@]}" || $dest does not exist
 }
 
-# BFUNK sync to DFUNK
-alias bfunk_bckp_ebooks="funk_rsync $BFUNK_IP ebooks_audiobooks /media/$USER/dfunk_10tb_1 --max-delete=100"
+# BFUNK sync to BEEFUNK
+alias bfunk_bckp_ebooks="funk_rsync $BFUNK_IP ebooks_audiobooks /media/$USER/dfunk_10tb_2 --max-delete=100"
 alias bfunk_bckp_games_1="funk_rsync $BFUNK_IP games /media/$USER/media_4tb --exclude=Switch/ --exclude=Wii/ --exclude=WiiU/ --exclude=Gamecube/ --max-delete=100"  ## don't backup switch folder
 alias bfunk_bckp_games_2_switch="funk_rsync $BFUNK_IP games/emulation/Nintendo/Switch /media/$USER/dfunk_5tb_2 --max-delete=100"
 alias bfunk_bckp_games_3_wii_u_gc="funk_rsync $BFUNK_IP games/emulation/Nintendo/Gamecube /media/$USER/wii_gc --max-delete=100;bfunk_rsync games/emulation/Nintendo/Wii /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/WiiU /media/$USER/wii_gc --max-delete=100;"
@@ -802,8 +802,6 @@ alias bfunk_bckp_pictures="funk_rsync $BFUNK_IP pictures /media/$USER/dfunk_10tb
 alias bfunk_bckp_pictures_piwigo="funk_rsync $BFUNK_IP pictures_piwigo /opt/docker_config/piwigo/piwigo/gallery/upload --max-delete=1000"
 alias bfunk_bckp_self_improvement="funk_rsync $BFUNK_IP self_improvement /media/$USER/dfunk_10tb_2 --max-delete=1000"
 alias bfunk_bckp_docker="funk_rsync $BFUNK_IP docker /media/$USER/dfunk_10tb_1"
-
-# bfunk sync to beefunk
 alias bfunk_bckp_navidrome="docker stop navidrome; funk_rsync $BFUNK_IP docker/navidrome /opt/docker_config; cd ~/dotfiles/beefunk/docker-compose; docker-compose up -d navidrome"
 
 # BEEFUNK sync to BROWNFUNK

@@ -397,6 +397,7 @@ services:
       - $PICTURES_PATH/Pictures:/data/pictures:ro
       - $EBOOKS_AUDIOBOOKS_PATH:/data/ebooks_audiobooks:ro
       - $DOCKER_CONFIG_PATH:/data/docker:ro
+      - $DOCKER_CONFIG_PATH/navidrome:/data/navidrome:ro
     environment:
       PUID: $PUID_USER
       PGID: $PGID_USER
@@ -448,6 +449,15 @@ services:
     restart: unless-stopped
     ports:
       - "8001:80"
+#######################
+#### jupyterlab
+  jupyter:
+    container_name: jupyter
+    image: jupyter/minimal-notebook
+    volumes:
+      - $DOCKER_CONFIG_PATH/jupyter:/jupyter
+    ports:
+      - 1002:8888
 #######################
 #### netdata
   netdata:
