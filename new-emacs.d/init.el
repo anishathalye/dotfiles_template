@@ -586,7 +586,7 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-journal-file-format "%Y-%m-%d.org")
   (setq org-journal-time-prefix "** ")
   (setq org-journal-date-format "%A, %B %d %Y")
-  (setq org-journal-carryover-items "TODO=\"TODO\"|TODO=\"STARTED\"|TODO=\"REVIEW\"")
+  (setq org-journal-carryover-items "TODO=\"TODO\"|TODO=\"STARTED\"|TODO=\"REVIEW\"|TODO=\"BLOCKED\"")
   (setq org-journal-find-file #'find-file-other-window)
   (defun org-journal-date-format-func (time)
     "Custom function to insert journal date header,
