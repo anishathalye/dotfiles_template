@@ -356,12 +356,27 @@ same directory as the org-buffer and insert a link to this file."
     (setq column-number-mode t
           line-number-mode t)))
 
-;;; Selectrum, etc.
-(use-package selectrum
+;;; Vertico, etc.
+
+;; (use-package selectrum
+;;   :config
+;;   (selectrum-mode +1))
+(use-package vertico
+  :init
+  (vertico-mode))
+
+;;Persists history between restarts, vertico sorts by history position. 
+(use-package savehist
+  :init
+  (savehist-mode))
+
+;; Sorting and filtering for emacs and other libraries, e.g. veritco 
+(use-package prescient
   :config
-  (selectrum-mode +1))
-(use-package prescient :config (prescient-persist-mode +1))
-(use-package selectrum-prescient :init (selectrum-prescient-mode +1) :after selectrum)
+  (prescient-persist-mode +1))
+(use-package vertico-prescient
+  :after vertico
+  :init (vertico-prescient-mode +1))
 
 ;; alternate to consult-find that uses fd which respects .gitignore
 (defun my/consult-find-fd (&optional dir initial)
