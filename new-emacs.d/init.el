@@ -552,6 +552,8 @@ same directory as the org-buffer and insert a link to this file."
 ;;; Org-mode configuation
 (setq org-directory "~/org")
 (setq org-log-into-drawer t)
+(setq org-export-backends
+      '(md html))
 
 ;; Shortcut to org dir files
 (defun my/my-org-finder ()
