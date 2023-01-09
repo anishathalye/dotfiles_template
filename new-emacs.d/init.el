@@ -407,6 +407,17 @@ same directory as the org-buffer and insert a link to this file."
   :config
   (spc-key-definer "gs" 'magit-status))
 
+
+;; Enable color escape codes in magit-process buffer, see source
+;; https://github.com/magit/magit/issues/1878#issuecomment-418763526
+(defun color-buffer (proc &rest args)
+  (interactive)
+  (with-current-buffer (process-buffer proc)
+    (read-only-mode -1)
+    (ansi-color-apply-on-region (point-min) (point-max))
+    (read-only-mode 1)))
+(advice-add 'magit-process-filter :after #'color-buffer)
+
 ;;; Code editing tools
 
 ;; like lets you surround texts with symbols easily
