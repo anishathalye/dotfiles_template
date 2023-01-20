@@ -789,7 +789,7 @@ same directory as the org-buffer and insert a link to this file."
  '(indent-tabs-mode nil)
  '(org-agenda-files '("~/org/journal"))
  '(package-selected-packages
-   '(jq-format jq-mode mustache mustache-mode prettier ob-ipython flycheck golden-ratio evil-surround org-jira perfect-margin git-link org-super-agenda transpose-frame org-ref treemacs-persp treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs outshine company-go add-node-modules-path web-mode typescript-mode org-superstar org-bullets ace-window dashboard writeroom-mode which-key use-package selectrum-prescient restart-emacs projectile magit general exec-path-from-shell evil-nerd-commenter evil-lisp-state evil-collection doom-themes consult cider))
+   '(vertico-prescient vertico 0blayout magithub ess multiple-cursors jq-format jq-mode mustache mustache-mode prettier ob-ipython flycheck golden-ratio evil-surround org-jira perfect-margin git-link org-super-agenda transpose-frame org-ref treemacs-persp treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs outshine company-go add-node-modules-path web-mode typescript-mode org-superstar org-bullets ace-window dashboard writeroom-mode which-key use-package selectrum-prescient restart-emacs projectile magit general exec-path-from-shell evil-nerd-commenter evil-lisp-state evil-collection doom-themes consult cider))
  '(safe-local-variable-values
    '((cider-clojure-cli-aliases . "dev")
      (eval add-to-list 'cider-jack-in-nrepl-middlewares "scicloj.clay.v1.nrepl/middleware")
