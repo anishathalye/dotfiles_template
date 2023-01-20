@@ -647,15 +647,9 @@ same directory as the org-buffer and insert a link to this file."
 
     ;; (spacemacs/declare-prefix "ar" "org-roam")
     (spc-key-definer
-      "arl" 'org-roam
-      "arf" 'org-roam-find-file))
+      "arf" 'org-roam-node-find))
   :config
-  (setq org-roam-capture-templates
-	'(("d" "default" plain (function org-roam--capture-get-point)
-	    "%?"
-	    :file-name "${slug}_%<%Y%m%d%H%M%S>"
-	    :head "#+TITLE: ${title}\n#+ROAM_TAGS:  "
-	    :unnarrowed t))))
+  (org-roam-setup))
 
 (use-package org-ref
   :config
