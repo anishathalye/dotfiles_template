@@ -577,6 +577,11 @@ same directory as the org-buffer and insert a link to this file."
  "j" 'org-agenda-next-item
  "k" 'org-agenda-previous-item)
 
+;; Some keybindings for org-mode itself
+(general-define-key
+ :keymaps 'org-mode-map
+ "<tab>" 'org-cycle)
+
 ;; Setup status tags
 (setq org-todo-keywords
       '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "REVIEW(r)" "|" "BLOCKED(b!)" "DONE(d!)" "CANCELED(c!)")))
