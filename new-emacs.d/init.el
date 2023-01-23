@@ -407,6 +407,7 @@ same directory as the org-buffer and insert a link to this file."
   :config
   (spc-key-definer "gs" 'magit-status))
 
+(use-package git-link)
 
 ;; Enable color escape codes in magit-process buffer, see source
 ;; https://github.com/magit/magit/issues/1878#issuecomment-418763526
