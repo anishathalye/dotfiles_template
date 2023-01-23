@@ -162,7 +162,7 @@ same directory as the org-buffer and insert a link to this file."
   (spc-key-definer
     "TAB" 'my/toggle-buffers
     "pp"  'projectile-switch-project
-    "pf"  'my/consult-find-fd
+    "pf"  'projectile-find-file ;'my/consult-find-fd
     "/"   'consult-ripgrep
     "bb"  'consult-buffer
     "rr"  'consult-recent-file
