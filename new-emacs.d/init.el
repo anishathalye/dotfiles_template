@@ -8,6 +8,25 @@
   ;;   - Use `C-c @ C-a` to show all
   ;;   - Other options for org-outline-minor-mode: `C-c @`
 
+
+;;; Package tools setup
+
+(require 'package)
+(setq package-enable-at-startup nil)
+(setq package-archives '(("org"       . "http://orgmode.org/elpa/")
+                        ("gnu"       . "http://elpa.gnu.org/packages/")
+                        ("melpa"     . "https://melpa.org/packages/")))
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package)
+
+;; ensure everything is installed, use `:ensure nil` to override
+(setq use-package-always-ensure t)
+
 ;;; Initial setup
 
 ;; Setup outline-minor-mode for emacs-lisp, useful for this file
@@ -115,23 +134,6 @@ same directory as the org-buffer and insert a link to this file."
                                         ; insert into file if correctly taken
   (if (file-exists-p filename)
       (insert (concat "[[file:" filename "]]"))))
-
-;;; Package management
-(require 'package)
-(setq package-enable-at-startup nil)
-(setq package-archives '(("org"       . "http://orgmode.org/elpa/")
-                        ("gnu"       . "http://elpa.gnu.org/packages/")
-                        ("melpa"     . "https://melpa.org/packages/")))
-(package-initialize)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
-
-;; ensure everything is installed, use `:ensure nil` to override
-(setq use-package-always-ensure t)
 
 ;;; Theme using `doom-themes`
 (use-package doom-themes
