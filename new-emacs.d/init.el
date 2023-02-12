@@ -172,7 +172,7 @@ same directory as the org-buffer and insert a link to this file."
   (spc-key-definer
     "TAB" 'my/toggle-buffers
     "pp"  'projectile-switch-project
-    "pf"  'projectile-find-file ;'my/consult-find-fd
+    "pf"  'consult-find ;'projectile-find-file
     "/"   'consult-ripgrep
     "bb"  'consult-buffer
     "rr"  'consult-recent-file
@@ -381,13 +381,14 @@ same directory as the org-buffer and insert a link to this file."
   :after vertico
   :init (vertico-prescient-mode +1))
 
-;; alternate to consult-find that uses fd which respects .gitignore
-(defun my/consult-find-fd (&optional dir initial)
-  (interactive "P")
-  (let ((consult-find-command "fd --color=never --full-path ARG OPTS"))
-    (consult-find dir initial)))
 
-(use-package consult :after projectile)
+(use-package consult
+  :after projectile
+  :config
+  ;; This is to prevent consult-find from picking up node_modules.  For more, see:
+  ;; https://github.com/minad/consult/wiki#skipping-directories-when-using-consult-find
+  (setq consult-find-args "find . -not ( -wholename */.* -prune -o -name node_modules -prune )")
+  )
 
 ;; Richer annotations using the Marginalia package
 (use-package marginalia
