@@ -94,3 +94,6 @@ gtags.files
 eln-cache/
 meghanada/
 vimish-fold/
+
+# For straight
+straight/*
