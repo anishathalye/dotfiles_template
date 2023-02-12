@@ -368,9 +368,6 @@ same directory as the org-buffer and insert a link to this file."
 
 ;;; Vertico, etc.
 
-;; (use-package selectrum
-;;   :config
-;;   (selectrum-mode +1))
 (use-package vertico
   :init
   (vertico-mode))
