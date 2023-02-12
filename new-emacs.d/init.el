@@ -380,10 +380,6 @@ same directory as the org-buffer and insert a link to this file."
   :init
   (savehist-mode))
 
-;; Sorting and filtering for emacs and other libraries, e.g. veritco 
-(use-package prescient
-  :config
-  (prescient-persist-mode +1))
 (use-package vertico-prescient
   :after vertico
   :init (vertico-prescient-mode +1))
