@@ -554,6 +554,11 @@ same directory as the org-buffer and insert a link to this file."
     (add-hook 'cider-repl-mode-hook #'company-mode)
     (add-hook 'cider-mode-hook #'company-mode)))
 
+;;; R Congiguration
+(use-package ess
+  :init
+  (setq ess-indent-with-fancy-comments nil))
+
 ;;; Org-mode configuation
 (setq org-directory "~/org")
 (setq org-log-into-drawer t)
