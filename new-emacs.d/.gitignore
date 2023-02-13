@@ -96,4 +96,6 @@ meghanada/
 vimish-fold/
 
 # For straight
-straight/*
+straight/build/*
+straight/repos/*
+build-cache.el
