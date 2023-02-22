@@ -34,7 +34,7 @@ services:
     container_name: crowdsec
     environment:
       - GID=$PGID_USER
-      - COLLECTIONS=crowdsecurity/nginx crowdsecurity/http-cve crowdsecurity/whitelist-good-actors
+      - COLLECTIONS=crowdsecurity/nginx crowdsecurity/http-cve crowdsecurity/whitelist-good-actors crowdsecurity/linux
       - CUSTOM_HOSTNAME=brownfunk
     volumes:
       - $DOCKER_CONFIG_PATH/crowdsec/config:/etc/crowdsec:rw
@@ -327,6 +327,8 @@ services:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
+      - DOCKER_MODS=linuxserver/mods:nextcloud-mediadc|linuxserver/mods:universal-package-install
+      - INSTALL_PACKAGES=ffmpeg
     labels:
       - com.centurylinklabs.watchtower.enable=true
     volumes:
@@ -375,6 +377,8 @@ services:
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
+      - DOCKER_MODS=linuxserver/mods:universal-package-install
+      - INSTALL_PACKAGES=ffmpeg
     volumes:
       - $PIWIGO_CONFIG_PATH/piwigo:/config
     ports:
@@ -656,6 +660,29 @@ services:
     restart: unless-stopped
     labels:
       com.centurylinklabs.watchtower.enable: true
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - AUTO_UPDATE=true #optional
+      - WATCHTOWER_CLEANUP=true
+    volumes:
+      - $DOCKER_CONFIG_PATH/prowlarr:/config
+    ports:
+      - 9696:9696
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+    restart: unless-stopped
 ####################
   flaresolverr:
     # DockerHub mirror flaresolverr/flaresolverr:latest
@@ -1256,7 +1283,7 @@ services:
       -g "guest account = nobody"
 #######################
   filebrowser:
-    image: filebrowser/filebrowser
+    image: filebrowser/filebrowser:s6
     container_name: filebrowser
     environment:
       - PUID=$PUID_USER
@@ -1269,8 +1296,8 @@ services:
     ports:
       - 9295:80
     volumes:
-      - $DOCKER_CONFIG_PATH/filebrowser2/filebrowser.db:/config/filebrowser.db
-      - $DOCKER_CONFIG_PATH/filebrowser2/.filebrowser.json:/.filebrowser.json
+      - $DOCKER_CONFIG_PATH/filebrowser/database:/database
+      - $DOCKER_CONFIG_PATH/filebrowser/config:/config
       - $EBOOKS_AUDIOBOOKS_PATH:/srv/ebooks_audiobooks:ro
       - $MUSIC_PATH:/srv/music:ro
       - $MOVIES_PATH:/srv/movies:ro

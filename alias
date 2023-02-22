@@ -552,7 +552,7 @@ function spotify_pl_ls_missing () {
 
     # download playlists
     IFS=$(echo -en "\n\b");
-    local pl_path=/export/music/beet_library/playlists_navidrome
+    local pl_path=/media/lbesnard/bfunk_10tb_3/music/beet_library/playlists_navidrome
     local pl_val=`ls $pl_path | fzf  --multi=1`
 
     cat "$pl_path/$pl_val" | while read line; do
@@ -813,9 +813,9 @@ alias beefunk_bckp_docker_jellyfin="funk_rsync $BEEFUNK_TAILSCALE_IP docker/jell
 
 alias bfunk_nextcloud_preview_generation="docker exec -it nextcloud occ preview:generate-all --path="lbesnard/files/Photos" -vvv"
 
-#$DFUNK_LOCAL_IP DFUNK sync to BFUNK
-alias dfunk_bckp_pictures_dry_run="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_TAILSCALE_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress --dry-run"
-alias dfunk_bckp_pictures="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $DFUNK_TAILSCALE_IP:/data/pictures/ /export/pictures/Pictures/ --stats --progress"
+#$BEEFUNK_LOCAL_IP BEEFUNK sync to BFUNK
+alias beefunk_bckp_pictures_dry_run="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $BEEFUNK_TAILSCALE_IP:/data/pictures/ $BFUNK_PICTURES_PATH --stats --progress --dry-run"
+alias beefunk_bckp_pictures="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $BEEFUNK_TAILSCALE_IP:/data/pictures/ $BFUNK_PICTURES_PATH --stats --progress"
 
 #EFUNK rsync to BEEFUNK
 alias efunk_bckp_nextcloud="funk_rsync $EFUNK_TAILSCALE_IP nextcloud /media/$USER/dfunk_10tb_2/efunk_backup --max-delete=300"

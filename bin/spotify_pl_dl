@@ -11,8 +11,8 @@ main() {
     # extensive list of playlists 
     local pl_vals=`cat $SCRIPT_DIR/.spotify_pl.list| fzf --no-preview | cut -d , -f1`
 
-    local pl_m3u_path=/export/music/beet_library/playlists_navidrome
-    local pl_spotify_path=/export/music/beet_library/spotify_music
+    local pl_m3u_path=/media/lbesnard/bfunk_10tb_3/music/beet_library/playlists_navidrome
+    local pl_spotify_path=/media/lbesnard/bfunk_10tb_3/music/beet_library/spotify_music
 
     for pl_val in $pl_vals; do
         local tempdir=`mktemp -d --tmpdir=/export/torrent/tmp`
