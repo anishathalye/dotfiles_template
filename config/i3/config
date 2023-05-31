@@ -30,6 +30,8 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec "if ! command -v alacritty > /dev/null; then i3-sensible-terminal; else alacritty; fi"
+
+#bindsym $mod+Return exec "[[ -f ~/.local/kitty.app/bin/kitty ]] && ~/.local/kitty.app/bin/kitty || i3-sensible-terminal"
 #bindsym $mod+Return exec i3-sensible-terminal
 
 # start window manager pcmanfm
