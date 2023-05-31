@@ -43,6 +43,9 @@ services:
       - /var/log:/var/log/host:ro
     networks:
       - frontend
+    ports:
+      - "8890:8080"
+      - "8891:6060"
     restart: unless-stopped
     security_opt:
       - no-new-privileges=true
@@ -84,24 +87,24 @@ services:
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
 
-  periodic-backup:
-    build: ./mariadb_bckp
-    container_name: database-backup
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
-      DB_HOST: $DB_HOST
-      DB_PORT: $DB_PORT
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /opt/mysql/backup:/opt/mysql/backup
-    dns:
-      - $PIHOLE_DOCKER_SUB_IP_DNS
-    networks:
-      - frontend
-    #command: crond -f -d 8
-    command: /etc/periodic/daily/backup-database
-    restart: always
+#  periodic-backup:
+    #build: ./mariadb_bckp
+    #container_name: database-backup
+    #environment:
+      #MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      #MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+      #DB_HOST: $DB_HOST
+      #DB_PORT: $DB_PORT
+    #volumes:
+      #- /etc/localtime:/etc/localtime:ro
+      #- /opt/mysql/backup:/opt/mysql/backup
+    #dns:
+      #- $PIHOLE_DOCKER_SUB_IP_DNS
+    #networks:
+      #- frontend
+    ##command: crond -f -d 8
+    #command: /etc/periodic/daily/backup-database
+#    restart: always
 ######################
   watchtower:
     image: containrrr/watchtower
@@ -151,7 +154,7 @@ services:
     container_name: navidrome
     user: $PUID_USER:$PGID_USER # should be owner of volumes
     ports:
-      - "8080:4533"
+      - "8082:4533"
     restart: unless-stopped
     environment:
       # Optional: put your config options customization here. Examples:
@@ -304,20 +307,20 @@ services:
       #traefik.http.services.home.loadbalancer.server.port: 80
     depends_on:
       - pihole
-##################
-  flame:
-    image: pawelmalak/flame:latest
-    container_name: flame
-    environment:
-      - WATCHTOWER_CLEANUP=true
-    volumes:
-      - $DOCKER_CONFIG_PATH/flame:/app/data
-      - /var/run/docker.sock:/var/run/docker.sock # optional but required for Docker integration feature
-    ports:
-      - 5005:5005
-    restart: unless-stopped
-    labels:
-      com.centurylinklabs.watchtower.enable: true
+###################
+  #flame:
+    #image: pawelmalak/flame:latest
+    #container_name: flame
+    #environment:
+      #- WATCHTOWER_CLEANUP=true
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/flame:/app/data
+      #- /var/run/docker.sock:/var/run/docker.sock # optional but required for Docker integration feature
+    #ports:
+      #- 5005:5005
+    #restart: unless-stopped
+    #labels:
+#      com.centurylinklabs.watchtower.enable: true
 #####################################
   nextcloud:
     image: linuxserver/nextcloud
@@ -632,8 +635,24 @@ services:
       - $DOCKER_CONFIG_PATH/handbrake:/config:rw
       - $GUITAR_VIDEOS_PATH:/videos:rw
       - $SELF_IMPROVEMENT_PATH/sailing:/videos2:rw
+      - $MUSIC_LEARNING_VIDEOS_PATH:/videos3:rw
     ports:
       - "5800:5800"
+
+  tinymediamanager:
+    #image: romancin/tinymediamanager:latest-v4
+    image: romancin/tinymediamanager:latest
+    container_name: tinymediamanager
+    ports:
+      - "5803:5800"
+    environment:
+      - USER_ID=0
+      - GROUP_ID=0
+      - TZ=Europe/Madrid
+      - VNC_PASSWORD=password
+    volumes:
+      - "$DOCKER_CONFIG_PATH/tinymediamanager:/config:rw"
+      - "$GUITAR_VIDEOS_PATH:/media:rw"
 ######################
   jackett:
     image: linuxserver/jackett
@@ -774,6 +793,7 @@ services:
    volumes:
      - /etc/localtime:/etc/localtime:ro
      - $TORRENT_PATH:/data
+     - $TORRENT_PATH:/config
    logging:
      driver: json-file
      options:
@@ -919,33 +939,33 @@ services:
      - 555:80
    restart: unless-stopped
 ##############
-  reverse-proxy:
-    # The official v2 Traefik docker image
-    image: traefik:latest
-    container_name: traefik
-    # Enables the web UI and tells Traefik to listen to docker
-    hostname: brownfunk
-    domainname: brownfunk.lan
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
-    ports:
-      # The HTTP port
-      - "81:80"
-      # The Web UI (enabled by --api.insecure=true)
-      - "8087:8080"
-    volumes:
-      # So that Traefik can listen to the Docker events
-      - /var/run/docker.sock:/var/run/docker.sock
-    dns:
-      - $PIHOLE_DOCKER_SUB_IP_DNS
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=web
-      - traefik.http.routers.traefik.rule=Host(`traefik.brownfunk.lan`)
-      - traefik.http.routers.traefik.entrypoints=http
-      - traefik.http.services.traefik.loadbalancer.server.port=8087
+#  reverse-proxy:
+    ## The official v2 Traefik docker image
+    #image: traefik:latest
+    #container_name: traefik
+    ## Enables the web UI and tells Traefik to listen to docker
+    #hostname: brownfunk
+    #domainname: brownfunk.lan
+    #command:
+      #- "--api.insecure=true"
+      #- "--providers.docker=true"
+      #- "--entrypoints.web.address=:80"
+    #ports:
+      ## The HTTP port
+      #- "81:80"
+      ## The Web UI (enabled by --api.insecure=true)
+      #- "8087:8080"
+    #volumes:
+      ## So that Traefik can listen to the Docker events
+      #- /var/run/docker.sock:/var/run/docker.sock
+    #dns:
+      #- $PIHOLE_DOCKER_SUB_IP_DNS
+    #labels:
+      #- traefik.enable=true
+      #- traefik.docker.network=web
+      #- traefik.http.routers.traefik.rule=Host(`traefik.brownfunk.lan`)
+      #- traefik.http.routers.traefik.entrypoints=http
+      #- traefik.http.services.traefik.loadbalancer.server.port=8087
 
 ################3
   ldap-auth:
@@ -971,6 +991,7 @@ services:
       - frontend
     depends_on:
       - pihole
+      - redis
       - mariadb
     ports:
       - 3637:80
@@ -1020,18 +1041,23 @@ services:
       com.centurylinklabs.watchtower.enable: true
 ###########
   wordpress:
-    image: wordpress:latest
+    image: wordpress:5-php7.4-apache
+    #image: wordpress:6.2.0-php8.2-apache
     container_name: wordpress
     ports:
        - 5555:80
     restart: always
     depends_on:
       - mariadb
+      - pihole
     environment:
       WORDPRESS_DB_HOST: $DB_WP_URL
       WORDPRESS_DB_USER: $DB_WP_USER
       WORDPRESS_DB_PASSWORD: $DB_WP_PASS
       WORDPRESS_DB_NAME: $DB_WP_SCHEMA
+      # should be set as www-data:www-data
+      PUID: 1000
+      PGID: 1000
     dns:
       - $PIHOLE_DOCKER_SUB_IP_DNS
     networks:
@@ -1044,7 +1070,8 @@ services:
        - $DOCKER_CONFIG_PATH/wordpress:/var/www/html
 ###########
   wordpress_diary:
-    image: wordpress:latest
+    #image: wordpress:latest
+    image: wordpress:6.2.0-php8.2-apache
     container_name: wordpress_diary
     ports:
        - 5556:80
@@ -1340,6 +1367,41 @@ services:
       #- "diun.watch_repo=true"
 #    restart: always
 #######################
+  firefox:
+    image: lscr.io/linuxserver/firefox:latest
+    container_name: firefox
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+    volumes:
+      - $DOCKER_CONFIG_PATH/firefox:/config
+    ports:
+      - 3008:3000
+    shm_size: "1gb"
+    restart: unless-stopped
+
+############
+#  sheetable:
+    #container_name: sheetable
+    #restart: unless-stopped
+    #image: vallezw/sheetable
+    #ports:
+      #- 8780:8080
+    #environment:
+      #- CONFIG_PATH=/app/config/
+    #volumes:
+      #- /etc/localtime:/etc/localtime:ro
+      #- $DOCKER_CONFIG_PATH/sheetable:/app/config
+    #networks:
+      #frontend:
+    #dns:
+      #- $PIHOLE_DOCKER_SUB_IP_DNS
+    #labels:
+#      com.centurylinklabs.watchtower.enable: true
+
 ###############
   ownfoil:
     container_name: ownfoil
@@ -1355,6 +1417,12 @@ services:
     restart: unless-stopped
     ports:
       - "8001:80"
+    networks:
+      frontend:
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    labels:
+      com.centurylinklabs.watchtower.enable: true
 #######################
 #  webtop:
     #image: ghcr.io/linuxserver/webtop:alpine-mate
@@ -1372,32 +1440,32 @@ services:
 #    restart: unless-stopped
 #
   scrutiny:
-    #image: lscr.io/linuxserver/scrutiny
-    image: ghcr.io/analogj/scrutiny:master-omnibus
     container_name: scrutiny
+    image: ghcr.io/analogj/scrutiny:master-omnibus
     cap_add:
       - SYS_RAWIO
-      #- SYS_ADMIN #optional
+    ports:
+      - "8033:8080" # webapp
+      - "8086:8086" # influxDB admin
+    volumes:
+      - /run/udev:/run/udev:ro
+      - $DOCKER_CONFIG_PATH/scrutiny/config:/opt/scrutiny/config
+      - $DOCKER_CONFIG_PATH/scrutiny/influxdb:/opt/scrutiny/influxdb
+    devices:
+      - "/dev/sda"
+      - "/dev/sdh"
+      - "/dev/sdg"
+      - "/dev/sdi"
+      - "/dev/sdf"
     environment:
+      - COLLECTOR_CRON_SCHEDULE="*/5 * * * *"
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
-      - SCRUTINY_API_ENDPOINT=http://localhost:8080
-      - SCRUTINY_WEB=false
-      - SCRUTINY_COLLECTOR=true
       - WATCHTOWER_CLEANUP=true
-    volumes:
-      - $DOCKER_CONFIG_PATH/scrutiny:/config
-      - /run/udev:/run/udev:ro
-      - $DOCKER_CONFIG_PATH/influxdb:/opt/scrutiny/influxdb
-    ports:
-      - 8033:8080
-      - "8086:8086" # influxDB admin
-    devices:
-      - /dev/sda:/dev/sda
-    restart: unless-stopped
     labels:
       com.centurylinklabs.watchtower.enable: true
+    restart: unless-stopped
 #######################
 #### netdata
   netdata:
