@@ -86,7 +86,10 @@ services:
       ND_LOGLEVEL: info
       ND_SESSIONTIMEOUT: 24h
       ND_BASEURL: ""
+      ND_MUSICFOLDER: "/music"
       ND_AUTOIMPORTPLAYLISTS: "true"
+      ND_PLAYLISTSPATH: "playlists_navidrome"
+      ND_LOGLEVEL: "debug"
       ND_LOGLEVEL: "trace"
       ND_RECENTLYADDEDBYMODTIME: "true"
       ND_LASTFM_APIKEY: $LASTFM_API
@@ -102,27 +105,38 @@ services:
     labels:
       com.centurylinklabs.watchtower.enable: true
 ##################
-# Audiobooks
-  gonic:
-    image: sentriz/gonic:latest
-    container_name: gonic
-    environment:
-      - TZ
-      - PUID=$PUID_USER
-      - PGID=$PGID_USER
-      - WATCHTOWER_CLEANUP=true
-    expose:
-      - 80
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
     ports:
-      - "4040:80"
+      - 13378:80
     volumes:
-    - $DOCKER_CONFIG_PATH/gonic:/data                # gonic db etc
-    - $AUDIOBOOKS_PATH:/music:ro    # your music
-    - $DOCKER_CONFIG_PATH/gonic/cache:/cache       # transcode / covers / etc cache dir
-    restart: unless-stopped
+      - $AUDIOBOOKS_PATH:/audiobooks
+      - $PODCASTS_PATH:/podcasts
+      - $DOCKER_CONFIG_PATH/audiobookshelf:/config
+      - $DOCKER_CONFIG_PATH/audiobookshelf_metadata>:/metadata
     labels:
       com.centurylinklabs.watchtower.enable: true
-#######################
+# Audiobooks
+#  gonic:
+    #image: sentriz/gonic:latest
+    #container_name: gonic
+    #environment:
+      #- TZ
+      #- PUID=$PUID_USER
+      #- PGID=$PGID_USER
+      #- WATCHTOWER_CLEANUP=true
+    #expose:
+      #- 80
+    #ports:
+      #- "4040:80"
+    #volumes:
+    #- $DOCKER_CONFIG_PATH/gonic:/data                # gonic db etc
+    #- $AUDIOBOOKS_PATH:/music:ro    # your music
+    #- $DOCKER_CONFIG_PATH/gonic/cache:/cache       # transcode / covers / etc cache dir
+    #restart: unless-stopped
+    #labels:
+      #com.centurylinklabs.watchtower.enable: true
+########################
   piwigo:
     image: lscr.io/linuxserver/piwigo:latest
     # conf of DB in www/gallery/local/config/database.inc.php
@@ -219,108 +233,72 @@ services:
 #
 ######################################
 ###
-  calibre:
-    image: linuxserver/calibre
-    container_name: calibre
-    environment:
-      - PUID=$PUID_USER
-      - PGID=$PGID_USER
-      - TZ=${TZ}
-      - WATCHTOWER_CLEANUP=true
-      #- GUAC_USER=admin
-      #- GUAC_PASS=admin
-    volumes:
-      - $EBOOKS_PATH:/config
-    ports:
-      - 7080:8080
-      - 8081:8081
-    restart: unless-stopped
-    labels:
-      com.centurylinklabs.watchtower.enable: true
-######################################
-  calibre-web:
-    image: linuxserver/calibre-web
-    container_name: calibre-web
-    environment:
-      - PUID=$PUID_USER
-      - PGID=$PGID_USER
-      - TZ=${TZ}
-      - DOCKER_MODS=linuxserver/calibre-web:calibre
-      - WATCHTOWER_CLEANUP=true
-    volumes:
-      - $DOCKER_CONFIG_PATH/calibre-web:/config
-      - $EBOOKS_PATH:/books:ro
-    ports:
-      - 8083:8083
-    restart: unless-stopped
-    labels:
-      com.centurylinklabs.watchtower.enable: true
 #####################################
-  nextcloud:
-    image: linuxserver/nextcloud
-    container_name: nextcloud
-    environment:
-      - WATCHTOWER_CLEANUP=true
-      - PUID=$PUID_USER
-      - PGID=$PGID_USER
-      - TZ=$TZ
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-    volumes:
-      - $DOCKER_CONFIG_PATH/nextcloud:/config
-      - $NEXTCLOUD_DATA_PATH:/data
-    ports:
-      - 9393:443
-    restart: unless-stopped
-##################
+#  nextcloud:
+    #image: linuxserver/nextcloud
+    #container_name: nextcloud
+    #environment:
+      #- WATCHTOWER_CLEANUP=true
+      #- PUID=$PUID_USER
+      #- PGID=$PGID_USER
+      #- TZ=$TZ
+    #labels:
+      #- com.centurylinklabs.watchtower.enable=true
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/nextcloud:/config
+      #- $NEXTCLOUD_DATA_PATH:/data
+    #ports:
+      #- 9393:443
+    #restart: unless-stopped
+###################
 #
-  reverse-proxy:
-    # The official v2 Traefik docker image
-    image: traefik:latest
-    container_name: traefik
-    # Enables the web UI and tells Traefik to listen to docker
-    security_opt:
-      - no-new-privileges:true
-    restart: always
-    command:
-      - --api.dashboard=true
-      - --providers.docker=true
-      #- --providers.docker.exposedbydefault=false
-      - --providers.docker.network=proxy
-      - --entrypoints.webinsecure.address=:80
-      - --entrypoints.webinsecure.http.redirections.entrypoint.to=websecure
-      - --entrypoints.webinsecure.http.redirections.entrypoint.scheme=https
-      - --entrypoints.websecure.address=:443
-      - --api.insecure=true
-    ports:
-      # The HTTP port
-      - "80:80"
-      - 443:443
-      # The Web UI (enabled by --api.insecure=true)
-      - "8087:8080"
-    volumes:
-      # So that Traefik can listen to the Docker events
-      - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=web
-      - traefik.http.routers.traefik.rule=Host(`$SERVER_IP`)
-      - traefik.http.routers.traefik.service=api@internal
-      - traefik.http.routers.traefik.tls=true
-      - traefik.http.routers.traefik.entrypoints=websecure
-#
-  ldap-auth:
-    image: lscr.io/linuxserver/ldap-auth
-    container_name: ldap-auth
-    environment:
-      - TZ=$TZ
-      #- F#ERNETKEY= #optional
-      #- CERTFILE= #optional
-      #- KEYFILE= #optional
-    ports:
-      - 8899:8888
-      - 9900:9000
-    restart: unless-stopped
+#  reverse-proxy:
+    ## The official v2 Traefik docker image
+    #image: traefik:latest
+    #container_name: traefik
+    ## Enables the web UI and tells Traefik to listen to docker
+    #security_opt:
+      #- no-new-privileges:true
+    #restart: always
+    #command:
+      #- --api.dashboard=true
+      #- --providers.docker=true
+      ##- --providers.docker.exposedbydefault=false
+      #- --providers.docker.network=proxy
+      #- --entrypoints.webinsecure.address=:80
+      #- --entrypoints.webinsecure.http.redirections.entrypoint.to=websecure
+      #- --entrypoints.webinsecure.http.redirections.entrypoint.scheme=https
+      #- --entrypoints.websecure.address=:443
+      #- --api.insecure=true
+    #ports:
+      ## The HTTP port
+      #- "80:80"
+      #- 443:443
+      ## The Web UI (enabled by --api.insecure=true)
+      #- "8087:8080"
+    #volumes:
+      ## So that Traefik can listen to the Docker events
+      #- /var/run/docker.sock:/var/run/docker.sock
+    #labels:
+      #- traefik.enable=true
+      #- traefik.docker.network=web
+      #- traefik.http.routers.traefik.rule=Host(`$SERVER_IP`)
+      #- traefik.http.routers.traefik.service=api@internal
+      #- traefik.http.routers.traefik.tls=true
+      #- traefik.http.routers.traefik.entrypoints=websecure
+##
+#  ldap-auth:
+    #image: lscr.io/linuxserver/ldap-auth
+    #container_name: ldap-auth
+    #environment:
+      #- TZ=$TZ
+      ##- F#ERNETKEY= #optional
+      ##- CERTFILE= #optional
+      ##- KEYFILE= #optional
+    #ports:
+      #- 8899:8888
+      #- 9900:9000
+#    restart: unless-stopped
 ##########
   portainer:
     image: portainer/portainer-ce
@@ -354,6 +332,10 @@ services:
         target: /magazines
         read_only: true
       - type: bind
+        source: $MUSIC_SHEETS_PATH/
+        target: /music_sheet
+        read_only: true
+      - type: bind
         source: /etc/timezone
         target: /etc/timezone
         read_only: true
@@ -369,23 +351,23 @@ services:
     labels:
       com.centurylinklabs.watchtower.enable: true
 ##################
-  tubesync:
-    image: ghcr.io/meeb/tubesync:latest
-    container_name: tubesync
-    restart: unless-stopped
-    ports:
-      - 4848:4848
-    volumes:
-      - $DOCKER_CONFIG_PATH/tubesync-config:/config
-      - $TV_SHOWS_PATH/tubesync-downloads:/downloads
-    environment:
-      - TZ=$TZ
-      - PUID=$PUID_USER
-      - PGID=$PGID_USER
-      - WATCHTOWER_CLEANUP=true
-      - DATABASE_CONNECTION=mysql://${DB_TUBESYNC_USER}:${DB_TUBESYNC_PASS}@${DB_HOST}:${DB_PORT}/${DB_TUBESYNC_SCHEMA}
-    labels:
-      com.centurylinklabs.watchtower.enable: true
+#  tubesync:
+    #image: ghcr.io/meeb/tubesync:latest
+    #container_name: tubesync
+    #restart: unless-stopped
+    #ports:
+      #- 4848:4848
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/tubesync-config:/config
+      #- $TV_SHOWS_PATH/tubesync-downloads:/downloads
+    #environment:
+      #- TZ=$TZ
+      #- PUID=$PUID_USER
+      #- PGID=$PGID_USER
+      #- WATCHTOWER_CLEANUP=true
+      #- DATABASE_CONNECTION=mysql://${DB_TUBESYNC_USER}:${DB_TUBESYNC_PASS}@${DB_HOST}:${DB_PORT}/${DB_TUBESYNC_SCHEMA}
+    #labels:
+#      com.centurylinklabs.watchtower.enable: true
 #########################
 ######################
 # rsync server
@@ -394,7 +376,11 @@ services:
     container_name: rsync-server
     volumes:
       - $HOME/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
-      - $PICTURES_PATH/Pictures:/data/pictures:ro
+      - $PICTURES_PATH:/data/pictures:ro
+      - $MOVIES_PATH:/data/movies:ro
+      - $GAMES_PATH:/data/games:ro
+      - $MUSIC_ROOT_PATH:/data/music:ro
+      - $SELF_IMPROVEMENT_PATH:/data/self_improvement:ro
       - $EBOOKS_AUDIOBOOKS_PATH:/data/ebooks_audiobooks:ro
       - $DOCKER_CONFIG_PATH:/data/docker:ro
       - $DOCKER_CONFIG_PATH/navidrome:/data/navidrome:ro
@@ -426,13 +412,40 @@ services:
     volumes:
       - $PICTURES_PATH:/share5
       - $PICTURES_EXPORT_PATH:/share4
+      - $SELF_IMPROVEMENT_PATH:/share3:ro
     command: |
       -s "Pictures;/share5;yes;no;no;$USER;$USER;$USER;pictures ro except user"
       -s "Pictures_export;/share4;yes;no;no;$USER;$USER;$USER;pictures_export ro except user"
+      -s "Self Improvement;/share3;yes;no;no;$USER;$USER;$USER;Self Improvement share ro"
       -u "$USER;$SAMBA_PASSWORD"
       -u "guest;guest"
       -g "map to guest = Bad User"
       -g "guest account = nobody"
+
+ # filebrowser:
+    #image: filebrowser/filebrowser
+    #container_name: filebrowser
+    #environment:
+      #- PUID=$PUID_USER
+      #- PGID=$PGID_USER
+      #- TZ=$TZ
+      #- FB_NOAUTH=False
+      #- FB_BASEURL=/filebrowser
+      #- FB_DATABASE=/config/filebrowser.db
+      #- WATCHTOWER_CLEANUP=true
+    #ports:
+      #- 9295:80
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/filebrowser/database:/database
+      #- $DOCKER_CONFIG_PATH/filebrowser/config:/config
+      #- $EBOOKS_AUDIOBOOKS_PATH:/srv/ebooks_audiobooks:ro
+      #- $MUSIC_PATH:/srv/music:ro
+      #- $MOVIES_PATH:/srv/movies:ro
+      #- $SELF_IMPROVEMENT_PATH:/srv/self_improvement:ro
+      #- $GAMES_PATH:/srv/games:ro
+    #restart: unless-stopped
+    #labels:
+ #     com.centurylinklabs.watchtower.enable: true
 #######################
 ###############
   ownfoil:
@@ -446,19 +459,92 @@ services:
       # - ./app:/app
       # Uncomment to setup basic auth
       #- ./nginx:/etc/nginx
+    environment:
+      - USERNAME=$OWNFOIL_USERNAME
+      - PASSWORD=$OWNFOIL_PASSWORD
+      - SAVE_ENABLED=true
     restart: unless-stopped
     ports:
       - "8001:80"
 #######################
 #### jupyterlab
-  jupyter:
-    container_name: jupyter
-    image: jupyter/minimal-notebook
-    volumes:
-      - $DOCKER_CONFIG_PATH/jupyter:/jupyter
-    ports:
-      - 1002:8888
+#  jupyter:
+    #container_name: jupyter
+    #image: jupyter/minimal-notebook
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/jupyter:/jupyter
+    #ports:
+#      - 1002:8888
 #######################
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+      - SUDO_PASSWORD=password
+      - PASSWORD=$CODE_SERVER_PASSWORD
+      - DOCKER_MODS=linuxserver/mods:code-server-python3|linuxserver/mods:code-server-zsh
+    volumes:
+      - $DOCKER_CONFIG_PATH/code-server/config:/config
+      - $DOCKER_CONFIG_PATH/code-server/code:/code
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+#### netdata
+  netdata:
+    image: netdata/netdata
+    container_name: netdata
+    hostname: $SERVER_URL # set to fqdn of host
+    ports:
+      - 19999:19999
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - PUID=$PUID_USER
+      - PGID=996
+      - TZ=$TZ
+      - WATCHTOWER_CLEANUP=true
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+
+  scrutiny:
+    container_name: scrutiny
+    image: ghcr.io/analogj/scrutiny:master-omnibus
+    cap_add:
+      - SYS_RAWIO
+    ports:
+      - "8033:8080" # webapp
+      - "8086:8086" # influxDB admin
+    volumes:
+      - /run/udev:/run/udev:ro
+      - $DOCKER_CONFIG_PATH/scrutiny/config:/opt/scrutiny/config
+      - $DOCKER_CONFIG_PATH/scrutiny/influxdb:/opt/scrutiny/influxdb
+    devices:
+      - "/dev/sdd"
+    environment:
+      - COLLECTOR_CRON_SCHEDULE="*/5 * * * *"
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - TZ=$TZ
+      - WATCHTOWER_CLEANUP=true
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+
+
 #### netdata
   netdata:
     image: netdata/netdata
