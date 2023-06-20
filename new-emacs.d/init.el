@@ -143,6 +143,17 @@ same directory as the org-buffer and insert a link to this file."
   (if (file-exists-p filename)
       (insert (concat "[[file:" filename "]]"))))
 
+;;; Secrets Setup
+(setq epg-pinentry-mode 'loopback)
+(require 'epa-file)
+(epa-file-enable)
+(custom-set-variables '(epg-gpg-program "/usr/local/bin/gpg"))
+(setq auth-source-debug t)
+(load-library "~/secrets.el.gpg")
+
+;;; Setup Env variables
+(setenv GITHUB_PKG_AUTH_TOKEN secret--github-pkg-auth-token)
+
 ;;; Theme using `doom-themes`
 (use-package doom-themes
   :config
