@@ -1,13 +1,16 @@
-;;; Initial notes
+;; init.el -- Emacs configuration file
 
-  ;; Some resources
-  ;; - https://jamiecollinson.com/blog/my-emacs-config/
+;;; Commentary:
 
-  ;; Note on navigation
-  ;;   - Use `C-c @ C-t` to hide all
-  ;;   - Use `C-c @ C-a` to show all
-  ;;   - Other options for org-outline-minor-mode: `C-c @`
+;; Some resources
+;; - https://jamiecollinson.com/blog/my-emacs-config/
 
+;; Note on navigation
+;;   - Use `C-c @ C-t` to hide all
+;;   - Use `C-c @ C-a` to show all
+;;   - Other options for org-outline-minor-mode: `C-c @`
+
+;;; Code:
 
 ;;; Package tools setup
 
@@ -872,3 +875,5 @@ same directory as the org-buffer and insert a link to this file."
  ;; If there is more than one, they won't work right.
  )
 (put 'downcase-region 'disabled nil)
+
+;;; init.el ends here
