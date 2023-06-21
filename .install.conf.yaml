@@ -16,6 +16,7 @@
       path: new-emacs.d
     ~/.gitconfig:
     ~/.gitignore_global:
+    ~/.gnupg:
     ~/.irbrc:
     ~/.nvm:
     ~/.pyenv:
