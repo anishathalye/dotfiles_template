@@ -95,6 +95,9 @@
                                     (delete-windows-on "*scratch*"))))
 
 
+;;; emacs 28.2 fix, see: https://trac.macports.org/ticket/66658 
+(setq native-comp-driver-options (when (eq system-type 'darwin) '("-Wl,-w")))
+
 ;;; Font
 
 ;; Font needs to be installed in the Mac Font Book
