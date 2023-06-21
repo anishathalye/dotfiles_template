@@ -158,7 +158,8 @@ same directory as the org-buffer and insert a link to this file."
 (load-library "~/secrets.el.gpg")
 
 ;;; Setup Env variables
-(setenv GITHUB_PKG_AUTH_TOKEN secret--github-pkg-auth-token)
+(setenv "GITHUB_PKG_AUTH_TOKEN" secret/github-pkg-auth-token)
+
 
 ;;; Theme using `doom-themes`
 (use-package doom-themes
