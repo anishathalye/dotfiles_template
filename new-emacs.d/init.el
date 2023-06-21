@@ -100,9 +100,30 @@
 
 ;;; Font
 
-;; Font needs to be installed in the Mac Font Book
+;; Font needs to be installed in the Mac Font Book or
+;; Fira Code fonts installed with brew:
+;;   https://github.com/tonsky/FiraCode/wiki/Installing.
 (add-to-list 'default-frame-alist '(font . "Fira Code-16"))
 (set-face-attribute 'default t :font "Fira Code-16")
+
+(use-package ligature
+  :config
+  (ligature-set-ligatures 't '("www"))
+
+  ;; Enable ligatures in programming modes                                                           
+  (ligature-set-ligatures 'prog-mode '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
+                                      ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
+                                      "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
+                                      "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
+                                      "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
+                                      "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
+                                      "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
+                                      "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
+                                      "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
+                                      "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
+
+  ;; Enable the www ligature in every possible major mode
+  (global-ligature-mode 't))
 
 ;;; Global Functions
 (defun my/toggle-buffers ()
