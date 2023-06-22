@@ -171,7 +171,7 @@ same directory as the org-buffer and insert a link to this file."
       (insert (concat "[[file:" filename "]]"))))
 
 ;;; Secrets Setup
-(setq epg-pinentry-mode 'loopback)
+(setq epg-pinentry-mode 'loopback) ;; this line I think allows prompt for passphrase in minibuffer
 (require 'epa-file)
 (epa-file-enable)
 (custom-set-variables '(epg-gpg-program "/usr/local/bin/gpg"))
