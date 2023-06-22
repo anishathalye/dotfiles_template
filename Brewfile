@@ -15,7 +15,14 @@ brew "fd"
 brew "hub"
 
 # GnuPG for GPG key management
-brew "gpg"
+# Pinning to v2.2 because latest version 2.4.2 has bug
+# that causes Emacs to hang on decrypt. See:
+# - https://www.reddit.com/r/emacs/comments/137r7j7/gnupg_241_encryption_issues_with_emacs_orgmode/
+# - https://dev.gnupg.org/T6481
+# It sounds like this is being worked on by GnuPG team and may be fixed in newer versions...
+#
+# Note: Brew does not automatically symlink these so we need to do a brew link command after.
+brew "gnupg@2.2"
 
 # Clojure
 brew "clojure"
