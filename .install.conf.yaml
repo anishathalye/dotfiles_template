@@ -44,12 +44,6 @@
     - ~/.pyenv/plugins/pyenv-virtualenv
 
 - shell: 
-  - git submodule sync --recursive
-  # the following have to run after linking ~/.gitconfig
-  - git update-submodules
-  - >
-    git cleanall -f
-    rbenv/plugins/
-    shell/plugins/
-    zsh/plugins/
-  - brew bundle
+  - [git submodule sync --recursive, Syncronize submodule remote Urls]
+  - [git submodule update --init --recursive, Initialize/Update submodules] 
+  - [brew bundle, Installing package from Brewfile]
