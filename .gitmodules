@@ -37,3 +37,6 @@
 [submodule "org-journal"]
 	path = org-journal
 	url = https://github.com/bastibe/org-journal.git
+[submodule "alacritty"]
+	path = alacritty
+	url = git@github.com:alacritty/alacritty.git
