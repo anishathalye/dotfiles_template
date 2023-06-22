@@ -1,5 +1,8 @@
-# Prettier alternatives to cat
+# Prettier alternative to cat
 brew "bat"
+
+# Tmux, of course
+brew "tmux"
 
 # A useeful tool for learning about cli commands
 # https://github.com/tldr-pages/tldr
