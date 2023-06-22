@@ -20,6 +20,9 @@ brew "gpg"
 # Clojure
 brew "clojure"
 
+# Rust
+brew "rust"
+
 # Emacs
 tap 'jimeh/emacs-builds'
 cask 'emacs-app'

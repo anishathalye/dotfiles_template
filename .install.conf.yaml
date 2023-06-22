@@ -47,3 +47,5 @@
   - [git submodule sync --recursive, Syncronize submodule remote Urls]
   - [git submodule update --init --recursive, Initialize/Update submodules] 
   - [brew bundle, Installing package from Brewfile]
+  - [brew link gnupg@2.2, Linking GPG v2.2 (Temporary step)]
+  - [(cd alacritty && make app && cp -r target/release/osx/Alacritty.app /Applications/), Building and installing Alacritty]
