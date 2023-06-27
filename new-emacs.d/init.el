@@ -261,7 +261,7 @@ same directory as the org-buffer and insert a link to this file."
   :after evil
   :config
   (setq evil-collection-mode-list nil) ;; disable all evil bindings as default
-  (evil-collection-init '(magit dired)))
+  (evil-collection-init '(magit dired wgrep)))
 
 (use-package evil-nerd-commenter
   :config
@@ -614,7 +614,9 @@ same directory as the org-buffer and insert a link to this file."
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-(use-package wgrep)
+(use-package wgrep
+  :config
+  (setq wgrep-auto-save-buffer t))
 
 ;;; Version management
 (use-package magit
