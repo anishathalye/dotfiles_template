@@ -585,11 +585,13 @@ same directory as the org-buffer and insert a link to this file."
 
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+   ("C-," . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings) ;; alternative for `describe-bindings'
+   ("M-." . embark-occur)       ;; occur-edit-mode
+   ("M-;" . embark-export)         ; export current view
+   )
 
   :init
-
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
 
@@ -599,23 +601,12 @@ same directory as the org-buffer and insert a link to this file."
   ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
 
   :config
-
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none))))
-
-
-
-  (general-define-key
-    "C-." 'embark-act             ; pick some action
-    "C-," 'embark-dwim            ; show context-based actions
-    "M-." 'embark-occur           ; occur-edit mode
-    "M-;" 'embark-export          ; export current view
-    "s"   'embark-isearch         ; live search
-    "/"   'embark-occur           ; occur-edit mode)
-  ))
+ )
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
