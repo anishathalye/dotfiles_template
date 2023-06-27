@@ -4,6 +4,9 @@ brew "bat"
 # Tmux, of course
 brew "tmux"
 
+# JQ, of course
+brew "jq"
+
 # A useeful tool for learning about cli commands
 # https://github.com/tldr-pages/tldr
 brew "tldr"
