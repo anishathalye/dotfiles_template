@@ -201,6 +201,7 @@ same directory as the org-buffer and insert a link to this file."
 
 ;; modus-vivendi
 ;; customization options: https://protesilaos.com/emacs/modus-themes#h:bf1c82f2-46c7-4eb2-ad00-dd11fdd8b53f
+(require-theme 'modus-themes)
 (setq modus-themes-disable-other-themes t
       modus-themes-mode-line '(accented borderless)
       modus-themes-mixed-fonts t
