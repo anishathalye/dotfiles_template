@@ -222,6 +222,17 @@ same directory as the org-buffer and insert a link to this file."
    :keymaps 'process-menu-mode-map
    "d" 'process-menu-delete-process))
 
+;;; Path management
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
+;;; Restart-emacs package
+(use-package restart-emacs
+  :config
+  (general-def "C-c R" 'restart-emacs))
+
 ;;; Initialize Evil
 
 ;; Allow C-u/d for page up/down
@@ -265,16 +276,136 @@ same directory as the org-buffer and insert a link to this file."
   :config
   (which-key-mode))
 
-;;; Path management
-(use-package exec-path-from-shell
-  :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+;;; Org-mode configuation
 
-;;; Restart-emacs package
-(use-package restart-emacs
+;; This may help ensure we have the correct org version
+(use-package org)
+
+(setq org-directory "~/org")
+(setq org-log-into-drawer t)
+(setq org-export-backends
+      '(md html))
+
+;; Shortcut to org dir files
+(defun my/my-org-finder ()
+  (interactive)
+  (ido-find-file-in-dir org-directory))
+
+;; ignore journal files in recent files
+;; (setq recentf-exclude '("/org/journal"))
+
+;; Sets the column width to 80 columns and enables line breaking, ie. auto-fill.
+(add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
+(add-hook 'org-mode-hook 'auto-fill-mode)
+
+;; Indent contents along with tree/bullet depth
+(add-hook 'org-mode-hook 'org-indent-mode)
+
+;; Set some keybindings for org-agenda
+(general-define-key
+ :keymaps 'org-agenda-keymap
+ "j" 'org-agenda-next-item
+ "k" 'org-agenda-previous-item)
+
+;; Some keybindings for org-mode itself
+(general-define-key
+ :keymaps 'org-mode-map
+ "<tab>" 'org-cycle)
+
+;; Setup status tags
+(setq org-todo-keywords
+      '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "REVIEW(r)" "|" "BLOCKED(b!)" "DONE(d!)" "CANCELED(c!)")))
+
+(setq org-todo-keyword-faces
+      '(("TODO" . (:foreground "#ff39a3" :weight bold))
+	("STARTED" . "#E35DBF")
+	("REVIEW" . "lightblue")
+	("BLOCKED" . "pink")
+	("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
+	("DONE" . "#008080")))
+
+(use-package org-superstar
+  :init
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
+
+(use-package org-journal
   :config
-  (general-def "C-c R" 'restart-emacs))
+  (setq org-journal-dir "~/org/journal/")
+  (setq org-journal-file-type 'weekly)
+  (setq org-journal-file-format "%Y-%m-%d.org")
+  (setq org-journal-time-prefix "** ")
+  (setq org-journal-date-format "%A, %B %d %Y")
+  (setq org-journal-carryover-items "TODO=\"TODO\"|TODO=\"STARTED\"|TODO=\"REVIEW\"|TODO=\"BLOCKED\"")
+  (setq org-journal-find-file #'find-file-other-window)
+  (defun org-journal-date-format-func (time)
+    "Custom function to insert journal date header,
+    and some custom text on a newly created journal file."
+    (when (= (buffer-size) 0)
+      (insert
+      (pcase org-journal-file-type
+	(`daily "#+TITLE: Daily Journal\n\n")
+	(`weekly (concat"#+TITLE: Weekly Journal " (format-time-string "(Wk #%V)" time) "\n\n"))
+	(`monthly "#+TITLE: Monthly Journal\n\n")
+	(`yearly "#+TITLE: Yearly Journal\n\n"))))
+    (concat org-journal-date-prefix (format-time-string "%A, %x" time)))
+  (setq org-journal-date-format 'org-journal-date-format-func)
+  (setq org-agenda-file-regexp "\\`\\([^.].*\\.org\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\.org\\(\\.gpg\\)?\\)\\'")
+
+  ;; keybindings
+  (general-define-key
+   :prefix "C-c"
+   "C-j" nil ;; override default C-j binding for org-journal
+   "C-j o" 'org-journal-open-current-journal-file
+   "C-j n" 'org-journal-new-entry
+   "C-j d" 'org-journal-new-date-entry))
+
+(use-package org-super-agenda
+  :config
+  (org-super-agenda-mode)
+  (setq org-super-agenda-groups
+    '(;; Each group has an implicit Boolean OR operator between its selectors.
+      (:name "Life" :tag "life")
+      (:name "PrimaryKids" :tag "primarykids")
+      (:name "SciCloj" :tag "scicloj")
+      (:name "✨ Finished ✨" :todo "DONE")))
+  (org-agenda nil "a"))
+
+;; (use-package 
+;;   :hook
+;;   (after-init . org-roam-mode)
+;;   :custom
+;;   (org-roam-directory "~/org/notes")
+;;   :init
+;;   (progn
+;;     ;; Define fn to fetch list of org-roam files (using with org-ql)
+;;     (defun org-roam-files ()
+;;       (org-ql-search-directories-files :recurse "~/org/notes"))
+
+;;     ;; (spacemacs/declare-prefix "ar" "org-roam")
+;;     (spc-key-definer
+;;       "arf" 'org-roam-node-find))
+;;   :config
+;;   (org-roam-setup))
+
+(use-package org-ref
+  :config
+  (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f"))
+  (setq org-ref-default-bibliography (list "~/org/sources/zotero-library.bib")
+	org-ref-bibliography-notes "~/org/sources/bibliography-notes.org"))
+
+(use-package pandoc-mode
+  :init
+  (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
+
+(use-package org-jira
+  :defer t
+  :config
+  (setq jiralib-url "https://primary.atlassian.net")
+  (setq org-jira-custom-jqls
+        '((:jql "project IN (EPD) AND sprint in openSprints() AND assignee = currentUser()"
+           :filename "current-sprint")
+          (:jql "project IN (PW) AND filter = \"11478\""
+           :filename "helpdesk"))))
 
 ;;; Treemacs
 (use-package treemacs
@@ -646,133 +777,6 @@ same directory as the org-buffer and insert a link to this file."
 (use-package ess
   :init
   (setq ess-indent-with-fancy-comments nil))
-
-;;; Org-mode configuation
-(setq org-directory "~/org")
-(setq org-log-into-drawer t)
-(setq org-export-backends
-      '(md html))
-
-;; Shortcut to org dir files
-(defun my/my-org-finder ()
-  (interactive)
-  (ido-find-file-in-dir org-directory))
-
-;; ignore journal files in recent files
-;; (setq recentf-exclude '("/org/journal"))
-
-;; Sets the column width to 80 columns and enables line breaking, ie. auto-fill.
-(add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
-(add-hook 'org-mode-hook 'auto-fill-mode)
-
-;; Indent contents along with tree/bullet depth
-(add-hook 'org-mode-hook 'org-indent-mode)
-
-;; Set some keybindings for org-agenda
-(general-define-key
- :keymaps 'org-agenda-keymap
- "j" 'org-agenda-next-item
- "k" 'org-agenda-previous-item)
-
-;; Some keybindings for org-mode itself
-(general-define-key
- :keymaps 'org-mode-map
- "<tab>" 'org-cycle)
-
-;; Setup status tags
-(setq org-todo-keywords
-      '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "REVIEW(r)" "|" "BLOCKED(b!)" "DONE(d!)" "CANCELED(c!)")))
-
-(setq org-todo-keyword-faces
-      '(("TODO" . (:foreground "#ff39a3" :weight bold))
-	("STARTED" . "#E35DBF")
-	("REVIEW" . "lightblue")
-	("BLOCKED" . "pink")
-	("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
-	("DONE" . "#008080")))
-
-(use-package org-superstar
-  :init
-  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
-
-(use-package org-journal
-  :config
-  (setq org-journal-dir "~/org/journal/")
-  (setq org-journal-file-type 'weekly)
-  (setq org-journal-file-format "%Y-%m-%d.org")
-  (setq org-journal-time-prefix "** ")
-  (setq org-journal-date-format "%A, %B %d %Y")
-  (setq org-journal-carryover-items "TODO=\"TODO\"|TODO=\"STARTED\"|TODO=\"REVIEW\"|TODO=\"BLOCKED\"")
-  (setq org-journal-find-file #'find-file-other-window)
-  (defun org-journal-date-format-func (time)
-    "Custom function to insert journal date header,
-    and some custom text on a newly created journal file."
-    (when (= (buffer-size) 0)
-      (insert
-      (pcase org-journal-file-type
-	(`daily "#+TITLE: Daily Journal\n\n")
-	(`weekly (concat"#+TITLE: Weekly Journal " (format-time-string "(Wk #%V)" time) "\n\n"))
-	(`monthly "#+TITLE: Monthly Journal\n\n")
-	(`yearly "#+TITLE: Yearly Journal\n\n"))))
-    (concat org-journal-date-prefix (format-time-string "%A, %x" time)))
-  (setq org-journal-date-format 'org-journal-date-format-func)
-  (setq org-agenda-file-regexp "\\`\\([^.].*\\.org\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\.org\\(\\.gpg\\)?\\)\\'")
-
-  ;; keybindings
-  (general-define-key
-   :prefix "C-c"
-   "C-j" nil ;; override default C-j binding for org-journal
-   "C-j o" 'org-journal-open-current-journal-file
-   "C-j n" 'org-journal-new-entry
-   "C-j d" 'org-journal-new-date-entry))
-
-(use-package org-super-agenda
-  :config
-  (org-super-agenda-mode)
-  (setq org-super-agenda-groups
-    '(;; Each group has an implicit Boolean OR operator between its selectors.
-      (:name "Life" :tag "life")
-      (:name "PrimaryKids" :tag "primarykids")
-      (:name "SciCloj" :tag "scicloj")
-      (:name "✨ Finished ✨" :todo "DONE")))
-  (org-agenda nil "a"))
-
-;; (use-package 
-;;   :hook
-;;   (after-init . org-roam-mode)
-;;   :custom
-;;   (org-roam-directory "~/org/notes")
-;;   :init
-;;   (progn
-;;     ;; Define fn to fetch list of org-roam files (using with org-ql)
-;;     (defun org-roam-files ()
-;;       (org-ql-search-directories-files :recurse "~/org/notes"))
-
-;;     ;; (spacemacs/declare-prefix "ar" "org-roam")
-;;     (spc-key-definer
-;;       "arf" 'org-roam-node-find))
-;;   :config
-;;   (org-roam-setup))
-
-(use-package org-ref
-  :config
-  (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f"))
-  (setq org-ref-default-bibliography (list "~/org/sources/zotero-library.bib")
-	org-ref-bibliography-notes "~/org/sources/bibliography-notes.org"))
-
-(use-package pandoc-mode
-  :init
-  (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
-
-(use-package org-jira
-  :defer t
-  :config
-  (setq jiralib-url "https://primary.atlassian.net")
-  (setq org-jira-custom-jqls
-        '((:jql "project IN (EPD) AND sprint in openSprints() AND assignee = currentUser()"
-           :filename "current-sprint")
-          (:jql "project IN (PW) AND filter = \"11478\""
-           :filename "helpdesk"))))
 
 ;;; YAML support
 (use-package yaml-mode
