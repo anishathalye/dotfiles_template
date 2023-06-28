@@ -37,7 +37,7 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.zsh:
     ~/.zshrc:
-    ~/.alacritty.yml:
+    ~/.alacritty.toml:
 
 - create:
     - ~/.pyenv/plugins/pyenv-virtualenv

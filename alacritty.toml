@@ -1,0 +1,24 @@
+[window]
+opacity = 0.95
+option_as_alt = "OnlyLeft"
+
+  [window.padding]
+  x = 5
+  y = 5
+
+[font]
+size = 16
+
+  [font.normal]
+  family = "Fira Code"
+  style = "Light"
+
+  [font.bold]
+  family = "Fira Code"
+
+  [font.italic]
+  family = "Fira Code"
+
+[cursor.style]
+shape = "Beam"
+blinking = "On"
