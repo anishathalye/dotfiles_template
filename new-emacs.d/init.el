@@ -62,6 +62,14 @@
 (setq-default mode-line-format nil)
 (electric-pair-mode 1)
 
+;; line numbers
+(global-display-line-numbers-mode t)
+(dolist (mode '(org-mode-hook
+		term-mode-hook
+		eshell-mode-hook
+		treemacs-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
 (use-package autorevert
   :ensure nil
   :config
