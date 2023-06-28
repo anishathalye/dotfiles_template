@@ -581,10 +581,10 @@
     },
     "tap": {
       "jimeh/emacs-builds": {
-        "revision": "4d0b434b55240d377da6fecaabc9959eeddcbc8f"
+        "revision": "ccf905e90ccf199187d3fbc59e4ff6f20afb5331"
       },
       "homebrew/cask-fonts": {
-        "revision": "3b89630fd81b2b6b4b0a9048d58c152d093adf8f"
+        "revision": "cdbf6ebbbd29e7a4265ac19a9ac7c50f4c465709"
       }
     },
     "cask": {
