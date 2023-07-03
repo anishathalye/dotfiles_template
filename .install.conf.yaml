@@ -19,6 +19,7 @@
     ~/.gnupg:
     ~/.irbrc:
     ~/.nvm:
+    ~/.nvmrc:
     ~/.pyenv:
     ~/.pyenv/plugins/pyenv-virtualenv:
       path: pyenv-virtualenv
