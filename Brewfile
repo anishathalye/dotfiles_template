@@ -44,3 +44,5 @@ cask 'emacs-app'
 tap 'homebrew/cask-fonts'
 cask 'font-fira-code'
 
+# AWS Cli
+brew "awscli"
