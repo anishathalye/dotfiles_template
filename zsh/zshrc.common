@@ -116,14 +116,8 @@ zinit snippet OMZP::"vagrant" #,  from:oh-my-zsh
 zinit snippet OMZP::"virtualenv" #,  from:oh-my-zsh
 zinit snippet OMZP::"web-search" #,  from:oh-my-zsh
 zinit snippet OMZP::"zsh-interactive-cd" #,  from:oh-my-zsh
-#<<<<<<< HEAD
-#zinit load z-shell/zsh-navigation-tools
-#||||||| parent of 70430d9 (wip)
+zinit load z-shell/zsh-navigation-tools
 zinit snippet OMZP::"zsh-navigation-tools" #,  from:oh-my-zsh
-#=======
-#zinit load z-shell/zsh-navigation-tools
-#zinit snippet OMZP::"zsh-navigation-tools" #,  from:oh-my-zsh
-#>>>>>>> 70430d9 (wip)
 
 # conflict with https://github.com/garabik/grc/ so removing default forgit aliases
 export FORGIT_NO_ALIASES=True
