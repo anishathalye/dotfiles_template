@@ -183,26 +183,56 @@ services:
       com.centurylinklabs.watchtower.enable: true
 ##################
 # Audiobooks
-  gonic:
-    image: sentriz/gonic:latest
-    container_name: gonic
+  audiobookshelf:
+    container_name: audiobookshelf
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    ports:
+      - 4040:80
+    volumes:
+      - $AUDIOBOOKS_PATH:/audiobooks
+      - $PODCASTS_PATH:/podcasts
+      - $DOCKER_CONFIG_PATH/audiobookshelf/config>:/config
+      - $DOCKER_CONFIG_PATH/audiobooksehlf/metadata>:/metadata
     environment:
       - TZ
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - WATCHTOWER_CLEANUP=true
-    expose:
-      - 80
-    ports:
-      - "4040:80"
-    volumes:
-    - $DOCKER_CONFIG_PATH/gonic:/data                # gonic db etc
-    - $AUDIOBOOKS_PATH:/music:ro    # your music
-    - $DOCKER_CONFIG_PATH/gonic/cache:/cache       # transcode / covers / etc cache dir
-    restart: unless-stopped
     labels:
       com.centurylinklabs.watchtower.enable: true
+
+#  gonic:
+    #image: sentriz/gonic:latest
+    #container_name: gonic
+    #environment:
+      #- TZ
+      #- PUID=$PUID_USER
+      #- PGID=$PGID_USER
+      #- WATCHTOWER_CLEANUP=true
+    #expose:
+      #- 80
+    #ports:
+      #- "4040:80"
+    #volumes:
+    #- $DOCKER_CONFIG_PATH/gonic:/data                # gonic db etc
+    #- $AUDIOBOOKS_PATH:/music:ro    # your music
+    #- $DOCKER_CONFIG_PATH/gonic/cache:/cache       # transcode / covers / etc cache dir
+    #restart: unless-stopped
+    #labels:
+#      com.centurylinklabs.watchtower.enable: true
 ######################################
+  metube:
+    image: ghcr.io/alexta69/metube
+    container_name: metube
+    restart: unless-stopped
+    ports:
+      - "4848:8081"
+    volumes:
+      - $DOCKER_CONFIG_PATH/metube/:/config
+      - $MOVIES_SPORT_PATH/youtube-movies:/downloads
+    environment:
+      - 'YTDL_OPTIONS={"writesubtitles":true,"subtitleslangs":["en","-live_chat"],"updatetime":false,"postprocessors":[{"key":"Exec","exec_cmd":"chmod 0664","when":"after_move"},{"key":"FFmpegEmbedSubtitle","already_have_subtitle":false},{"key":"FFmpegMetadata","add_chapters":true}]}'
+
 #  tubesync:
     #image: ghcr.io/meeb/tubesync:latest
     #depends_on:
@@ -323,7 +353,7 @@ services:
 #      com.centurylinklabs.watchtower.enable: true
 #####################################
   nextcloud:
-    image: linuxserver/nextcloud
+    image:  lscr.io/linuxserver/nextcloud
     container_name: nextcloud
     environment:
       - WATCHTOWER_CLEANUP=true
@@ -587,8 +617,8 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/radarr_fr:/config
       - $MOVIES_FR_PATH:/movies
-      - $TORRENT_PATH/movies:/downloads
-      - $TORRENT_PATH/movies:/data/completed
+      - $TORRENT_PATH/completed:/downloads
+      - $TORRENT_PATH/completed:/data/completed
     ports:
       - 7879:7878
     dns:
@@ -1159,7 +1189,7 @@ services:
         target: /etc/timezone
         read_only: true
     ports:
-      - 9980:8080
+      - 9980:25600
     user: "$PUID_USER:$PGID_USER"
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx4g
@@ -1248,6 +1278,8 @@ services:
       - $EBOOKS_AUDIOBOOKS_PATH:/data/ebooks_audiobooks:ro
       - $GAMES_PATH:/data/games:ro
       - $MOVIES_PATH:/data/movies:ro
+      - $MOVIES_FR_PATH:/data/Movies(French):ro
+      - $MOVIES_SPORT_PATH:/data/Sport:ro
       - $MUSIC_ROOT_PATH:/data/music:ro
       - $PICTURES_PATH:/data/pictures:ro
       - $PIWIGO_CONFIG_PATH/piwigo/www/gallery/upload:/data/pictures_piwigo:ro

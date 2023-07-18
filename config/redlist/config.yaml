@@ -1,7 +1,7 @@
 # Configuration file at "/home/lbesnard/.config/redlist/config.yaml"
 
 beets_library: /media/lbesnard/bfunk_10tb_3/music/beets_library_redlist.blb
-beets_match_threshold: 0.3   # maximum difference between tracks to match (lower is stricter)
+beets_match_threshold: 0.25   # maximum difference between tracks to match (lower is stricter)
 torrent_directory: .
 m3u_directory: /media/lbesnard/bfunk_10tb_3/music/beet_library/playlists_navidrome
 pinentry: yes

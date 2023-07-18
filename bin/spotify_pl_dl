@@ -15,7 +15,7 @@ main() {
     local pl_spotify_path=/media/lbesnard/bfunk_10tb_3/music/beet_library/spotify_music
 
     for pl_val in $pl_vals; do
-        local tempdir=`mktemp -d --tmpdir=/export/torrent/tmp`
+        local tempdir=`mktemp -d`   # -d --tmpdir=/tmp/spotify
         spotdl https://open.spotify.com/playlist/$pl_val --m3u -o $tempdir
         
         pl_filepath=`fd .m3u $tempdir`
