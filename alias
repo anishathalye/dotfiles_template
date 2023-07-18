@@ -795,8 +795,9 @@ alias bfunk_bckp_games_1="funk_rsync $BFUNK_IP games /media/$USER/beefunk_data -
 alias bfunk_bckp_games_switch="funk_rsync $BFUNK_IP games/emulation/Nintendo/Switch /media/$USER/beefunk_data --exclude=JKSV/ --max-delete=100"
 alias bfunk_bckp_games_wii_u_gc="funk_rsync $BFUNK_IP games/emulation/Nintendo/Gamecube /media/$USER/beefunk_data --max-delete=100;bfunk_rsync games/emulation/Nintendo/Wii /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/WiiU /media/$USER/wii_gc --max-delete=100;"
 alias bfunk_bckp_games_ps4="funk_rsync $BFUNK_IP games/emulation/Playstation/PS4 /media/$USER/beefunk_data/ps4/bfunk --max-delete=100;"
-alias bfunk_bckp_movies="funk_rsync $BFUNK_IP movies /media/$USER/beefunk_data --exclude='tubesync-downloads' --exclude='UFC*' --filter='P *' --exclude='One Piece*' --exclude='/Sport/' --max-delete=100"
-alias bfunk_bckp_movies_sport="funk_rsync $BFUNK_IP movies_sport /media/$USER/beefunk_data/movies/Sport --max-delete=100"
+alias bfunk_bckp_movies="funk_rsync $BFUNK_IP movies /media/$USER/beefunk_data --exclude='tubesync-downloads' --exclude='UFC*' --filter='P *' --exclude='One Piece*' --exclude='/Sport/' --exclude='Movies(French)' --max-delete=20"
+alias bfunk_bckp_movies_sport='funk_rsync 100.92.18.39 Sport /media/lbesnard/beefunk_data/movies --max-delete=10'
+alias bfunk_bckp_movies_french='funk_rsync 100.92.18.39 Movies\(French\) /media/lbesnard/beefunk_data/movies --max-delete=20'
 alias bfunk_bckp_music="funk_rsync $BFUNK_IP music /media/$USER/beefunk_data --max-delete=1000"
 alias bfunk_bckp_music_no_beet="funk_rsync $BFUNK_IP music /media/$USER/beefunk_data --exclude='*.blb' --max-delete=1000"
 alias bfunk_bckp_nextcloud="funk_rsync $BFUNK_IP nextcloud /media/$USER/beefunk_data/ --exclude=backups/nextcloud-\*"
@@ -818,7 +819,7 @@ alias beefunk_bckp_pictures_dry_run="rsync -auv -P --delete-after --max-delete=1
 alias beefunk_bckp_pictures="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $BEEFUNK_TAILSCALE_IP:/data/pictures/ $BFUNK_PICTURES_PATH --stats --progress"
 
 #EFUNK rsync to BEEFUNK
-alias efunk_bckp_nextcloud="funk_rsync $EFUNK_TAILSCALE_IP nextcloud /media/$USER/beefunk_data/efunk_backup --max-delete=300"
+alias efunk_bckp_nextcloud="funk_rsync $EFUNK_TAILSCALE_IP nextcloud /media/$USER/beefunk_data/efunk_backup  --exclude=backups/nextcloud-\*- --max-delete=300"
 alias efunk_bckp_immich="funk_rsync $EFUNK_TAILSCALE_IP immich /media/$USER/beefunk_data/efunk_backup --max-delete=100"
 alias efunk_bckp_pictures="funk_rsync $EFUNK_TAILSCALE_IP pictures /media/$USER/beefunk_data/efunk_backup --max-delete=100"
 alias efunk_bckp_ps4="funk_rsync $EFUNK_TAILSCALE_IP torrent_ps4 /media/$USER/beefunk_data/ps4 --max-delete=100"

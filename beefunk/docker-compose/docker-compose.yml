@@ -340,7 +340,7 @@ services:
         target: /etc/timezone
         read_only: true
     ports:
-      - 9980:8080
+      - 9980:25600
     user: "$PUID_USER:$PGID_USER"
     environment:
       - JAVA_TOOL_OPTIONS=-Xmx4g
