@@ -36,6 +36,8 @@
     ~/.spacemacs-private:
     ~/.tmux:
     ~/.tmux.conf: tmux/tmux.conf
+    ~/.vimrc:
+    ~/.vim:
     ~/.zsh:
     ~/.zshrc:
     ~/.alacritty.toml:
