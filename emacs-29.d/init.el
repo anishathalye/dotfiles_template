@@ -340,6 +340,20 @@ same directory as the org-buffer and insert a link to this file."
   :config
   (setq wgrep-auto-save-buffer t))
 
+(use-package ace-window
+  :init
+  (ace-window-display-mode 1)
+  :config
+  (general-define-key
+  "M-o" 'ace-window))
+
+(use-package golden-ratio
+  :after ace-window
+  :init
+  (golden-ratio-mode 1)
+  :config
+  (add-to-list 'golden-ratio-extra-commands 'ace-window))
+
 (use-package projectile
   :diminish projectile-mode
   :config
@@ -481,20 +495,21 @@ same directory as the org-buffer and insert a link to this file."
   ")" 'my-lisp/insert-sexp-after
   "(" 'my-lisp/insert-sexp-before))
 
-(setq treesit-language-source-alist
-      '((elisp "https://github.com/Wilfred/tree-sitter-elisp")
-	(javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-	(typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-	(tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")))
-
- (setq major-mode-remap-alist
-  '((js2-mode . js-ts-mode)
-    (typescript-mode . typescript-ts-mode)
-    (rjsx-mode . tsx-ts-mode)
-    (json-mode . json-ts-mode)
-    (css-mode . css-ts-mode)))
-
-(customize-set-variable 'treesit-font-lock-level 5)
+(use-package tree-sitter
+  :config
+  (customize-set-variable 'treesit-font-lock-level 5)
+  (setq treesit-language-source-alist
+    '((elisp "https://github.com/Wilfred/tree-sitter-elisp")
+      (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+      (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+      (clojure "https://github.com/sogaiu/tree-sitter-clojure" "master" "src")))
+  (setq major-mode-remap-alist
+    '((js2-mode . js-ts-mode)
+      (typescript-mode . typescript-ts-mode)
+      (rjsx-mode . tsx-ts-mode)
+      (json-mode . json-ts-mode)
+      (css-mode . css-ts-mode))))
 
 (use-package lsp-mode
   :defer t
@@ -542,13 +557,16 @@ same directory as the org-buffer and insert a link to this file."
   :mode ("\\.jsx?\\'" "\\.tsx?\\'" "\\.m?js\\'")
   :hook (((js2-mode
            rjsx-mode
+	   js-ts-mode
+	   typescript-ts-mode
+	   tsx-ts-mode
            ) . lsp-deferred)) ;; enable lsp-mode
   :config
   (setq lsp-auto-guess-root t)
   ;; (setq lsp-diagnostic-package :none)
   (setq lsp-idle-delay 0.5)
   (setq js2-mode-show-parse-errors nil
-          js2-mode-show-strict-warnings nil)
+        js2-mode-show-strict-warnings nil)
   (define-key rjsx-mode-map "<" nil)
   (define-key rjsx-mode-map (kbd "C-d") nil)
   (define-key rjsx-mode-map ">" nil)
@@ -559,6 +577,62 @@ same directory as the org-buffer and insert a link to this file."
   :diminish prettier-js-mode
   :hook (((js2-mode rjsx-mode) . prettier-js-mode))
   )
+
+(show-paren-mode 1)
+
+(use-package clojure-mode
+  :defer t)
+
+(use-package clojure-ts-mode
+  :defer t)
+
+(use-package cider
+  :defer t
+  :config
+  (setq cider-repl-pop-to-buffer-on-connect nil))
+
+(use-package rainbow-delimiters
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+(use-package company
+  :config
+  (progn
+    (add-hook 'cider-repl-mode-hook #'company-mode)
+    (add-hook 'cider-mode-hook #'company-mode)))
+
+;; This is for allowing cider to send values to clay... 
+;; inspired by https://github.com/clojure-emacs/cider/issues/3094
+(defun cider-tap (&rest r) 
+  (cons (concat "(let [__value "
+                (caar r)
+                "] (tap> {:clay-tap? true :form (quote " (caar r) ") :value __value}) __value)")
+        (cdar r)))
+
+(advice-add 'cider-nrepl-request:eval :filter-args #'cider-tap)
+
+;; Here are some helper functions for showing the whole clay document.
+
+(defun scittle-show ()
+  (interactive)
+  (save-buffer)
+  (let
+      ((filename
+        (buffer-file-name)))
+    (when filename
+      (cider-interactive-eval
+       (concat "(scicloj.clay.v2.api/show-doc! \"" filename "\" {})")))))
+
+(defun scittle-show-and-write ()
+  (interactive)
+  (save-buffeci)
+  (let
+      ((filename
+        (buffer-file-name)))
+    (when filename
+      (cider-interactive-eval
+       (concat "(scicloj.clay.v2.api/show-doc-and-write-html! \"" filename "\" {:toc? true})")))))
 
 (setq org-directory "~/org")
 (setq org-log-into-drawer t)
@@ -577,38 +651,54 @@ same directory as the org-buffer and insert a link to this file."
 (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
 (add-hook 'org-mode-hook 'auto-fill-mode)
 
-  (defun my/org-mode-setup ()
-    (org-indent-mode)
-    (variable-pitch-mode 1)
-    (auto-fill-mode 0)
-    (visual-line-mode 1)
-    (setq evil-auto-indent nil))
+(defun my/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (auto-fill-mode 0)
+  (visual-line-mode 1)
+  (setq evil-auto-indent nil))
 
-  (use-package org
-    :hook (org-mode . my/org-mode-setup)
-    :config
-    (dolist (face '((org-document-title . 1.4)
-    		  (org-level-1 . 1.3)
-    		  (org-level-2 . 1.2)
-    		  (org-level-3 . 1.1)
-    		  (org-level-4 . 1.1)
-    		  (org-level-5 . 1.2)
-    		  (org-level-6 . 1.2)
-    		  (org-level-7 . 1.2)
-    		  (org-level-8 . 1.2)))
-      (set-face-attribute (car face) nil :font "ETBembo" :weight 'normal :height (cdr face)))
-    ;; replace ellipsis for closed entries
-    (set-display-table-slot standard-display-table
-    			  'selective-display (string-to-vector " ... "))
-    (setq ;;org-ellipsis " ▾"
-    	org-hide-emphasis-markers t ;; hides the special markup symbols arond text
-    	org-startup-indented t
-    	org-startup-folded 'overview ;; will fold most items
-    	org-src-fontify-natively t
-            org-edit-src-content-indentation 2
-    	org-fontify-quote-and-verse-blocks t
-    	org-fontify-whole-heading-line t
-    ))
+(use-package org
+  :hook (org-mode . my/org-mode-setup)
+  :config
+  (dolist (face '((org-document-title . 1.4)
+  		  (org-level-1 . 1.3)
+  		  (org-level-2 . 1.2)
+  		  (org-level-3 . 1.1)
+  		  (org-level-4 . 1.1)
+  		  (org-level-5 . 1.2)
+  		  (org-level-6 . 1.2)
+  		  (org-level-7 . 1.2)
+  		  (org-level-8 . 1.2)))
+    (set-face-attribute (car face) nil
+			 :font "Roboto Slab"
+			 :weight 'normal
+			 :height (cdr face)
+			 ))
+
+  ;; replace ellipsis for closed entries
+  (set-display-table-slot standard-display-table
+  			  'selective-display (string-to-vector "..."))
+  (setq ;;org-ellipsis " ▾"
+  	org-hide-emphasis-markers t ;; hides the special markup symbols arond text
+  	org-startup-indented t
+  	org-startup-folded 'overview ;; will fold most items
+  	org-src-fontify-natively t
+          org-edit-src-content-indentation 2
+  	org-fontify-quote-and-verse-blocks t
+  	org-fontify-whole-heading-line t
+  ))
+
+;; this is a nice replacement of org-bullets
+(use-package org-superstar
+  :after (org)
+  :init
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+  :config
+  (setq org-superstar-remove-leading-stars t
+        org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")
+	;; org-superstar-headline-bullets-list '(" ")
+	))
 
 (require 'org-tempo)
 (with-eval-after-load 'org-tempo
@@ -645,3 +735,15 @@ same directory as the org-buffer and insert a link to this file."
    "C-j o" 'org-journal-open-current-journal-file
    "C-j n" 'org-journal-new-entry
    "C-j d" 'org-journal-new-date-entry))
+
+(use-package emacsql)
+(use-package emacsql-sqlite)
+(use-package org-roam 
+  :after (emacsql emacsql-sqlite)
+  :config
+  (setq org-roam-directory "~/org/notes")
+  (org-roam-setup))
+
+(use-package gptel
+  :config
+  (setq gptel-api-key secret/openai-api-key))

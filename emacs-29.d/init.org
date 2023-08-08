@@ -383,6 +383,26 @@ same directory as the org-buffer and insert a link to this file."
   :config
   (setq wgrep-auto-save-buffer t))
 #+end_src
+** Window management
+*** Ace Window
+Enables easy toggle and other things that I've not yet used.
+#+begin_src emacs-lisp
+  (use-package ace-window
+    :init
+    (ace-window-display-mode 1)
+    :config
+    (general-define-key
+    "M-o" 'ace-window)) 
+#+end_src
+*** Golden Ratio
+#+begin_src emacs-lisp
+  (use-package golden-ratio
+    :after ace-window
+    :init
+    (golden-ratio-mode 1)
+    :config
+    (add-to-list 'golden-ratio-extra-commands 'ace-window))
+#+end_src
 * Project Management
 ** Projectile
 #+begin_src emacs-lisp
@@ -540,22 +560,57 @@ Helps surrounding text with symbols, e.g. quotes.
   "(" 'my-lisp/insert-sexp-before))
 #+end_src
 ** Tree-Sitter
+*** Tree-Sitter config
 #+begin_src emacs-lisp
-  (setq treesit-language-source-alist
-        '((elisp "https://github.com/Wilfred/tree-sitter-elisp")
-  	(javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-  	(typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-  	(tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")))
-
-   (setq major-mode-remap-alist
-    '((js2-mode . js-ts-mode)
-      (typescript-mode . typescript-ts-mode)
-      (rjsx-mode . tsx-ts-mode)
-      (json-mode . json-ts-mode)
-      (css-mode . css-ts-mode)))
-
-  (customize-set-variable 'treesit-font-lock-level 5)
+  (use-package tree-sitter
+    :config
+    (customize-set-variable 'treesit-font-lock-level 5)
+    (setq treesit-language-source-alist
+      '((elisp "https://github.com/Wilfred/tree-sitter-elisp")
+        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+        (clojure "https://github.com/sogaiu/tree-sitter-clojure" "master" "src")))
+    (setq major-mode-remap-alist
+      '((js2-mode . js-ts-mode)
+        (typescript-mode . typescript-ts-mode)
+        (rjsx-mode . tsx-ts-mode)
+        (json-mode . json-ts-mode)
+        (css-mode . css-ts-mode))))
 #+end_src
+
+*** COMMENT Text Objects
+#+begin_src emacs-lisp 
+  (use-package evil-textobj-tree-sitter
+    :config
+    (setq evil-textobj-tree-sitter--dir "~/.emacs.d/tree-sitter"))
+#+end_src
+*** COMMENT Code folding
+#+begin_src emacs-lisp
+  (use-package ts-fold
+    :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold"))
+#+end_src
+*** COMMENT Combobulate
+#+begin_src emacs-lisp
+  (use-package combobulate
+    :straight (combobulate :type git
+  			 :host github
+  			 :repo "mickeynp/combobulate")
+    :preface
+    ;; You can customize Combobulate's key prefix here.
+    ;; Note that you may have to restart Emacs for this to take effect!
+    (setq combobulate-key-prefix "C-c o")
+
+    ;; Optional, but recommended.
+    ;;
+    ;; You can manually enable Combobulate with `M-x
+    ;; combobulate-mode'.
+    :hook ((js-ts-mode . combobulate-mode)
+           (css-ts-mode . combobulate-mode)
+           (typescript-ts-mode . combobulate-mode)
+           (tsx-ts-mode . combobulate-mode)))
+#+end_src
+
 ** Enable LSP Mode
 #+begin_src emacs-lisp
   (use-package lsp-mode
@@ -612,13 +667,16 @@ Helps surrounding text with symbols, e.g. quotes.
     :mode ("\\.jsx?\\'" "\\.tsx?\\'" "\\.m?js\\'")
     :hook (((js2-mode
              rjsx-mode
+  	   js-ts-mode
+  	   typescript-ts-mode
+  	   tsx-ts-mode
              ) . lsp-deferred)) ;; enable lsp-mode
     :config
     (setq lsp-auto-guess-root t)
     ;; (setq lsp-diagnostic-package :none)
     (setq lsp-idle-delay 0.5)
     (setq js2-mode-show-parse-errors nil
-            js2-mode-show-strict-warnings nil)
+          js2-mode-show-strict-warnings nil)
     (define-key rjsx-mode-map "<" nil)
     (define-key rjsx-mode-map (kbd "C-d") nil)
     (define-key rjsx-mode-map ">" nil)
@@ -630,59 +688,153 @@ Helps surrounding text with symbols, e.g. quotes.
     :hook (((js2-mode rjsx-mode) . prettier-js-mode))
     )
 #+end_src
+** Clojure
+*** Basic setup
+#+begin_src emacs-lisp
+    (show-paren-mode 1)
+
+    (use-package clojure-mode
+      :defer t)
+
+    (use-package clojure-ts-mode
+      :defer t)
+
+    (use-package cider
+      :defer t
+      :config
+      (setq cider-repl-pop-to-buffer-on-connect nil))
+
+    (use-package rainbow-delimiters
+      :defer t
+      :init
+      (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+    (use-package company
+      :config
+      (progn
+        (add-hook 'cider-repl-mode-hook #'company-mode)
+        (add-hook 'cider-mode-hook #'company-mode)))
+#+end_src
+*** Clay (literate notebooks)
+#+begin_src emacs-lisp
+;; This is for allowing cider to send values to clay... 
+;; inspired by https://github.com/clojure-emacs/cider/issues/3094
+(defun cider-tap (&rest r) 
+  (cons (concat "(let [__value "
+                (caar r)
+                "] (tap> {:clay-tap? true :form (quote " (caar r) ") :value __value}) __value)")
+        (cdar r)))
+
+(advice-add 'cider-nrepl-request:eval :filter-args #'cider-tap)
+
+;; Here are some helper functions for showing the whole clay document.
+
+(defun scittle-show ()
+  (interactive)
+  (save-buffer)
+  (let
+      ((filename
+        (buffer-file-name)))
+    (when filename
+      (cider-interactive-eval
+       (concat "(scicloj.clay.v2.api/show-doc! \"" filename "\" {})")))))
+
+(defun scittle-show-and-write ()
+  (interactive)
+  (save-buffeci)
+  (let
+      ((filename
+        (buffer-file-name)))
+    (when filename
+      (cider-interactive-eval
+       (concat "(scicloj.clay.v2.api/show-doc-and-write-html! \"" filename "\" {:toc? true})")))))
+
+#+end_src
 
 * Org Mode
 ** Basic setup
 #+begin_src emacs-lisp
-(setq org-directory "~/org")
-(setq org-log-into-drawer t)
-(setq org-export-backends
-      '(md html))
+   (setq org-directory "~/org")
+   (setq org-log-into-drawer t)
+   (setq org-export-backends
+         '(md html))
 
-;; Shortcut to org dir files
-(defun my/my-org-finder ()
-  (interactive)
-  (ido-find-file-in-dir org-directory))
+   ;; Shortcut to org dir files
+   (defun my/my-org-finder ()
+     (interactive)
+     (ido-find-file-in-dir org-directory))
 
-;; ignore journal files in recent files
-;; (setq recentf-exclude '("/org/journal"))
+   ;; ignore journal files in recent files
+   ;; (setq recentf-exclude '("/org/journal"))
 
-;; Sets the column width to 80 columns and enables line breaking, ie. auto-fill.
-(add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
-(add-hook 'org-mode-hook 'auto-fill-mode)
+   ;; Sets the column width to 80 columns and enables line breaking, ie. auto-fill.
+   (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
+   (add-hook 'org-mode-hook 'auto-fill-mode)
 
-  (defun my/org-mode-setup ()
-    (org-indent-mode)
-    (variable-pitch-mode 1)
-    (auto-fill-mode 0)
-    (visual-line-mode 1)
-    (setq evil-auto-indent nil))
+   (defun my/org-mode-setup ()
+     (org-indent-mode)
+     (variable-pitch-mode 1)
+     (auto-fill-mode 0)
+     (visual-line-mode 1)
+     (setq evil-auto-indent nil))
 
-  (use-package org
-    :hook (org-mode . my/org-mode-setup)
+   (use-package org
+     :hook (org-mode . my/org-mode-setup)
+     :config
+     (dolist (face '((org-document-title . 1.4)
+     		  (org-level-1 . 1.3)
+     		  (org-level-2 . 1.2)
+     		  (org-level-3 . 1.1)
+     		  (org-level-4 . 1.1)
+     		  (org-level-5 . 1.2)
+     		  (org-level-6 . 1.2)
+     		  (org-level-7 . 1.2)
+     		  (org-level-8 . 1.2)))
+       (set-face-attribute (car face) nil
+  			 :font "Roboto Slab"
+  			 :weight 'normal
+  			 :height (cdr face)
+  			 ))
+
+     ;; replace ellipsis for closed entries
+     (set-display-table-slot standard-display-table
+     			  'selective-display (string-to-vector "..."))
+     (setq ;;org-ellipsis " ▾"
+     	org-hide-emphasis-markers t ;; hides the special markup symbols arond text
+     	org-startup-indented t
+     	org-startup-folded 'overview ;; will fold most items
+     	org-src-fontify-natively t
+             org-edit-src-content-indentation 2
+     	org-fontify-quote-and-verse-blocks t
+     	org-fontify-whole-heading-line t
+     ))
+#+end_src
+** Bullets
+#+begin_src emacs-lisp
+  ;; this is a nice replacement of org-bullets
+  (use-package org-superstar
+    :after (org)
+    :init
+    (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
     :config
-    (dolist (face '((org-document-title . 1.4)
-    		  (org-level-1 . 1.3)
-    		  (org-level-2 . 1.2)
-    		  (org-level-3 . 1.1)
-    		  (org-level-4 . 1.1)
-    		  (org-level-5 . 1.2)
-    		  (org-level-6 . 1.2)
-    		  (org-level-7 . 1.2)
-    		  (org-level-8 . 1.2)))
-      (set-face-attribute (car face) nil :font "ETBembo" :weight 'normal :height (cdr face)))
-    ;; replace ellipsis for closed entries
-    (set-display-table-slot standard-display-table
-    			  'selective-display (string-to-vector " ... "))
-    (setq ;;org-ellipsis " ▾"
-    	org-hide-emphasis-markers t ;; hides the special markup symbols arond text
-    	org-startup-indented t
-    	org-startup-folded 'overview ;; will fold most items
-    	org-src-fontify-natively t
-            org-edit-src-content-indentation 2
-    	org-fontify-quote-and-verse-blocks t
-    	org-fontify-whole-heading-line t
-    ))
+    (setq org-superstar-remove-leading-stars t
+          org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")
+  	;; org-superstar-headline-bullets-list '(" ")
+  	))
+#+end_src
+** Todo Setup
+#+begin_src emacs-lisp
+  ;; Setup status tags
+  (setq org-todo-keywords
+        '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "REVIEW(r)" "|" "BLOCKED(b!)" "DONE(d!)" "CANCELED(c!)")))
+
+  (setq org-todo-keyword-faces
+        '(("TODO" . (:foreground "#ff39a3" :weight bold))
+  	("STARTED" . "#E35DBF")
+  	("REVIEW" . "lightblue")
+  	("BLOCKED" . "pink")
+  	("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
+  	("DONE" . "#008080")))
 #+end_src
 
 ** Block Templates
@@ -725,4 +877,23 @@ Helps surrounding text with symbols, e.g. quotes.
    "C-j o" 'org-journal-open-current-journal-file
    "C-j n" 'org-journal-new-entry
    "C-j d" 'org-journal-new-date-entry))
+#+end_src
+
+** Org Roam
+#+begin_src emacs-lisp
+  (use-package emacsql)
+  (use-package emacsql-sqlite)
+  (use-package org-roam 
+    :after (emacsql emacsql-sqlite)
+    :config
+    (setq org-roam-directory "~/org/notes")
+    (org-roam-setup))
+#+end_src
+
+* Misc Other stuff
+** Gptel (Chat GPT)
+#+begin_src emacs-lisp
+  (use-package gptel
+    :config
+    (setq gptel-api-key secret/openai-api-key))
 #+end_src
