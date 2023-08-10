@@ -2,61 +2,69 @@ version: "3.8"
 
 services:
   immich-server:
-    image: altran1502/immich-server:release
-    entrypoint: ["/bin/sh", "./start-server.sh"]
+    container_name: immich_server
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    command: [ "start.sh", "immich" ]
     volumes:
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
     env_file:
       - .env
-    environment:
-      - NODE_ENV=production
     depends_on:
       - redis
       - database
+      - typesense
     restart: always
 
   immich-microservices:
-    image: altran1502/immich-server:release
-    entrypoint: ["/bin/sh", "./start-microservices.sh"]
+    container_name: immich_microservices
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    command: [ "start.sh", "microservices" ]
     volumes:
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
     env_file:
       - .env
-    environment:
-      - NODE_ENV=production
     depends_on:
       - redis
       - database
+      - typesense
     restart: always
 
   immich-machine-learning:
-    image: altran1502/immich-machine-learning:release
-    entrypoint: ["/bin/sh", "./entrypoint.sh"]
+    container_name: immich_machine_learning
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
     volumes:
-      - ${UPLOAD_LOCATION}:/usr/src/app/upload
+      - model-cache:/cache
     env_file:
       - .env
-    environment:
-      - NODE_ENV=production
-    depends_on:
-      - database
     restart: always
 
   immich-web:
-    image: altran1502/immich-web:release
-    entrypoint: ["/bin/sh", "./entrypoint.sh"]
+    container_name: immich_web
+    image: ghcr.io/immich-app/immich-web:${IMMICH_VERSION:-release}
     env_file:
       - .env
+    restart: always
+
+  typesense:
+    container_name: immich_typesense
+    image: typesense/typesense:0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd
+    environment:
+      - TYPESENSE_API_KEY=${TYPESENSE_API_KEY}
+      - TYPESENSE_DATA_DIR=/data
+    logging:
+      driver: none
+    volumes:
+      - tsdata:/data
     restart: always
 
   redis:
     container_name: immich_redis
-    image: redis:6.2
+    image: redis:6.2-alpine@sha256:70a7a5b641117670beae0d80658430853896b5ef269ccf00d1827427e3263fa3
     restart: always
 
   database:
     container_name: immich_postgres
-    image: postgres:14
+    image: postgres:14-alpine@sha256:28407a9961e76f2d285dc6991e8e48893503cc3836a4755bbc2d40bcc272a441
     env_file:
       - .env
     environment:
@@ -65,22 +73,24 @@ services:
       POSTGRES_DB: ${DB_DATABASE_NAME}
       PG_DATA: /var/lib/postgresql/data
     volumes:
-      - $PG_DATA:/var/lib/postgresql/data
-      #- pgdata:/var/lib/postgresql/data
-    ports:
-      - $DB_PORT:5432
+      - pgdata:/var/lib/postgresql/data
     restart: always
 
   immich-proxy:
     container_name: immich_proxy
-    image: altran1502/immich-proxy:release
+    image: ghcr.io/immich-app/immich-proxy:${IMMICH_VERSION:-release}
+    environment:
+      # Make sure these values get passed through from the env file
+      - IMMICH_SERVER_URL
+      - IMMICH_WEB_URL
     ports:
       - 2283:8080
-    logging:
-      driver: none
     depends_on:
       - immich-server
+      - immich-web
     restart: always
 
 volumes:
   pgdata:
+  model-cache:
+  tsdata:

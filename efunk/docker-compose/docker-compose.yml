@@ -64,6 +64,8 @@ services:
       - WATCHTOWER_CLEANUP=true
       - TZ=$TZ
       - PHP_MEMORY_LIMIT=512M
+      - DOCKER_MODS=linuxserver/mods:nextcloud-mediadc|linuxserver/mods:universal-package-install
+      - INSTALL_PACKAGES=ffmpeg
     labels:
       - com.centurylinklabs.watchtower.enable=true
     volumes:
@@ -118,21 +120,21 @@ services:
       - 3001:3000
     restart: unless-stopped
 
-  domoticz:
-    image: lscr.io/linuxserver/domoticz:latest
-    container_name: domoticz
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Paris
-      #- WEBROOT=domoticz #optional
-    volumes:
-      - $DOCKER_CONFIG_PATH/domoticz:/config
-    ports:
-      - 8080:8080
-      - 6144:6144
-      - 1443:1443
-    restart: unless-stopped
+ # domoticz:
+    #image: lscr.io/linuxserver/domoticz:latest
+    #container_name: domoticz
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=Europe/Paris
+      ##- WEBROOT=domoticz #optional
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/domoticz:/config
+    #ports:
+      #- 8080:8080
+      #- 6144:6144
+      #- 1443:1443
+    #restart: unless-stopped
 
 
   rsync-server:
@@ -144,6 +146,7 @@ services:
       - $IMMICH_PATH:/data/immich:ro
       - $DOCKER_CONFIG_PATH:/data/docker:ro
       - $NEXTCLOUD_DATA_PATH:/data/nextcloud:ro
+      - $TORRENT_PATH/PS4:/data/torrent_ps4:ro
     environment:
       #- USERNAME=nouser
       #- PASSWORD=nopass
@@ -172,8 +175,10 @@ services:
     volumes:
       - $SHARE_PATH:/share6
       - $PICTURES_PATH:/share5
+      - $MOVIES_PATH:/share4
     command: |
       -s "Shared;/share6;yes;no;yes;guest,$USER;guest,$USER;guest,$USER;shared rw"
+      -s "Films;/share4;yes;no;yes;guest,$USER;guest,$USER;guest,$USER;films rw"
       -s "Pictures;/share5;yes;no;yes;$SAMBA_PICTURES_USER,$USER;$SAMBA_PICTURES_USER,$USER;$SAMBA_PICTURES_USER,$USER;pictures rw"
       -u "guest;guest"
       -u "$SAMBA_PICTURES_USER;$SAMBA_PICTURES_PASSWORD"
@@ -196,53 +201,53 @@ services:
     restart: always
 
 ######################
-  jackett:
-    image: linuxserver/jackett
-    container_name: jackett
-    environment:
-      - PUID=$PUID_USER
-      - PGID=$PGID_USER
-      - TZ=$TZ
-      - AUTO_UPDATE=true #optional
-      - WATCHTOWER_CLEANUP=true
-      #- RUN_OPTS=run options here #optional
-    volumes:
-      - $DOCKER_CONFIG_PATH/jackett:/config
-      - $TORRENT_PATH:/downloads
-    ports:
-      - 9117:9117
-    dns:
-      - $PIHOLE_DOCKER_SUB_IP_DNS
-    networks:
-      - frontend
-    depends_on:
-      - pihole
-      - flaresolverr
-    restart: unless-stopped
-    labels:
-      com.centurylinklabs.watchtower.enable: true
+#  jackett:
+    #image: linuxserver/jackett
+    #container_name: jackett
+    #environment:
+      #- PUID=$PUID_USER
+      #- PGID=$PGID_USER
+      #- TZ=$TZ
+      #- AUTO_UPDATE=true #optional
+      #- WATCHTOWER_CLEANUP=true
+      ##- RUN_OPTS=run options here #optional
+    #volumes:
+      #- $DOCKER_CONFIG_PATH/jackett:/config
+      #- $TORRENT_PATH:/downloads
+    #ports:
+      #- 9117:9117
+    #dns:
+      #- $PIHOLE_DOCKER_SUB_IP_DNS
+    #networks:
+      #- frontend
+    #depends_on:
+      #- pihole
+      #- flaresolverr
+    #restart: unless-stopped
+    #labels:
+#      com.centurylinklabs.watchtower.enable: true
 ####################
-  flaresolverr:
-    # DockerHub mirror flaresolverr/flaresolverr:latest
-    image: ghcr.io/flaresolverr/flaresolverr:latest
-    container_name: flaresolverr
-    environment:
-      - LOG_LEVEL=${LOG_LEVEL:-info}
-      - LOG_HTML=${LOG_HTML:-false}
-      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
-      - PUID=$PUID_USER
-      - PGID=$PGID_USER
-      - WATCHTOWER_CLEANUP=true
-    dns:
-      - 172.19.0.3
-    depends_on:
-      - pihole
-    ports:
-      - 8191:8191
-    restart: unless-stopped
-    labels:
-      com.centurylinklabs.watchtower.enable: true
-#
+#  flaresolverr:
+    ## DockerHub mirror flaresolverr/flaresolverr:latest
+    #image: ghcr.io/flaresolverr/flaresolverr:latest
+    #container_name: flaresolverr
+    #environment:
+      #- LOG_LEVEL=${LOG_LEVEL:-info}
+      #- LOG_HTML=${LOG_HTML:-false}
+      #- CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      #- PUID=$PUID_USER
+      #- PGID=$PGID_USER
+      #- WATCHTOWER_CLEANUP=true
+    #dns:
+      #- 172.19.0.3
+    #depends_on:
+      #- pihole
+    #ports:
+      #- 8191:8191
+    #restart: unless-stopped
+    #labels:
+#      com.centurylinklabs.watchtower.enable: true
+##
   transmission:
    image: haugene/transmission-openvpn
    container_name: transmission
@@ -295,7 +300,7 @@ services:
       - $DOCKER_CONFIG_PATH/homer/local/assets/:/www/assets
     ports:
       - 80:8080
-    restart: unless-stopped
+    restart: always
     labels:
       com.centurylinklabs.watchtower.enable: true
       #traefik.enable: true
@@ -336,24 +341,25 @@ services:
       - pihole
     restart: always
 
-  darktable:
-    image: lscr.io/linuxserver/darktable:latest
-    container_name: darktable
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-    volumes:
-      - "photoprism-originals:/photo-originals"               # Original media files (DO NOT REMOVE)
-      - $DOCKER_CONFIG_PATH/darktable:/config
-    ports:
-      - 3000:3000
-    restart: unless-stopped
+#  darktable:
+    #image: lscr.io/linuxserver/darktable:latest
+    #container_name: darktable
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=Europe/London
+    #volumes:
+      #- "photoprism-originals:/photo-originals"               # Original media files (DO NOT REMOVE)
+      #- $DOCKER_CONFIG_PATH/darktable:/config
+    #ports:
+      #- 3000:3000
+    #restart: unless-stopped
 
   photoprism:
     ## Use photoprism/photoprism:preview for testing preview builds:
     container_name: photoprism
     image: photoprism/photoprism:latest
+    restart: unless-stopped
     depends_on:
       - pihole
       - mariadb_photoprism
@@ -467,6 +473,21 @@ services:
     volumes:
       - $DOCKER_CONFIG_PATH/mealie/data/:/app/data
 
+  portforward:
+    image: marcnuri/port-forward
+    container_name: portforward
+    environment:
+      - REMOTE_HOST=brownfunk.lan
+      - REMOTE_PORT=8083
+      - LOCAL_PORT=80
+    ports:
+      - 8083:80
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+
+
 # SWAG from duckdns
 ####################
   swag:
@@ -501,33 +522,58 @@ services:
    restart: unless-stopped
 #
 #### netdata
-  netdata:
-    image: netdata/netdata
-    container_name: netdata
-    hostname: $SERVER_URL # set to fqdn of host
-    ports:
-      - 19999:19999
-    restart: unless-stopped
+#  netdata:
+    #image: netdata/netdata
+    #container_name: netdata
+    #hostname: $SERVER_URL # set to fqdn of host
+    #ports:
+      #- 19999:19999
+    #restart: unless-stopped
+    #cap_add:
+      #- SYS_PTRACE
+    #security_opt:
+      #- apparmor:unconfined
+    #volumes:
+      #- netdatalib:/var/lib/netdata
+      #- netdatacache:/var/cache/netdata
+      #- /etc/passwd:/host/etc/passwd:ro
+      #- /etc/group:/host/etc/group:ro
+      #- /proc:/host/proc:ro
+      #- /sys:/host/sys:ro
+      #- /etc/os-release:/host/etc/os-release:ro
+      #- /var/run/docker.sock:/var/run/docker.sock:ro
+    #environment:
+            ##- PUID=$PUID_USER
+            ## - PGID=996
+      #- TZ=$TZ
+      #- WATCHTOWER_CLEANUP=true
+    #labels:
+      #com.centurylinklabs.watchtower.enable: true
+
+  scrutiny:
+    container_name: scrutiny
+    image: ghcr.io/analogj/scrutiny:master-omnibus
     cap_add:
-      - SYS_PTRACE
-    security_opt:
-      - apparmor:unconfined
+      - SYS_RAWIO
+    ports:
+      - "8033:8080" # webapp
+      - "8086:8086" # influxDB admin
     volumes:
-      - netdatalib:/var/lib/netdata
-      - netdatacache:/var/cache/netdata
-      - /etc/passwd:/host/etc/passwd:ro
-      - /etc/group:/host/etc/group:ro
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /etc/os-release:/host/etc/os-release:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /run/udev:/run/udev:ro
+      - $DOCKER_CONFIG_PATH/scrutiny/config:/opt/scrutiny/config
+      - $DOCKER_CONFIG_PATH/scrutiny/influxdb:/opt/scrutiny/influxdb
+    devices:
+      - "/dev/sdb"
     environment:
-            #- PUID=$PUID_USER
-            # - PGID=996
+      - COLLECTOR_CRON_SCHEDULE="*/5 * * * *"
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
       - TZ=$TZ
       - WATCHTOWER_CLEANUP=true
     labels:
       com.centurylinklabs.watchtower.enable: true
+
+
 
 volumes:
   netdatalib:
