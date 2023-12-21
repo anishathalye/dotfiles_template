@@ -22,7 +22,7 @@ fi
 
 # fix perl language issues
 export LANGUAGE="en_AU:en"
-export LC_ALL="en_IE.UTF-8"
+#export LC_ALL="en_IE.UTF-8"
 export LANG="en_IE.UTF-8"
 
 ## Turns out that compinit is ZSH checking the cached .zcompdump to see if it needs regenerating. The simplest fix is to only do that once a day. Thanks to this comment, we can achieve that pretty easily.
