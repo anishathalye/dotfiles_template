@@ -192,7 +192,7 @@ services:
       - $AUDIOBOOKS_PATH:/audiobooks
       - $PODCASTS_PATH:/podcasts
       - $DOCKER_CONFIG_PATH/audiobookshelf/config>:/config
-      - $DOCKER_CONFIG_PATH/audiobooksehlf/metadata>:/metadata
+      - $DOCKER_CONFIG_PATH/audiobookshelf/metadata>:/metadata
     environment:
       - TZ
       - PUID=$PUID_USER
@@ -353,14 +353,14 @@ services:
 #      com.centurylinklabs.watchtower.enable: true
 #####################################
   nextcloud:
-    image:  lscr.io/linuxserver/nextcloud
+    image:  lscr.io/linuxserver/nextcloud:27.0.1-ls259
     container_name: nextcloud
     environment:
       - WATCHTOWER_CLEANUP=true
       - PUID=$PUID_USER
       - PGID=$PGID_USER
       - TZ=$TZ
-      - DOCKER_MODS=linuxserver/mods:nextcloud-mediadc|linuxserver/mods:universal-package-install
+      - DOCKER_MODS=ghcr.io/linuxserver/mods:pull_request_733|linuxserver/mods:universal-package-install
       - INSTALL_PACKAGES=ffmpeg
     labels:
       - com.centurylinklabs.watchtower.enable=true
@@ -376,8 +376,13 @@ services:
     depends_on:
       - pihole
       - mariadb
+    healthcheck:
+      test: curl --insecure --fail "https://brownfunk.lan:9393/login" || exit 1
+      interval: 2m
+      retries: 10
+      start_period: 10m
+      timeout: 5s
     restart: unless-stopped
-##################
 #  gitea:
     #image: gitea/gitea:1.15.5
     #container_name: gitea
@@ -710,8 +715,10 @@ services:
     labels:
       com.centurylinklabs.watchtower.enable: true
 
+    #image: lscr.io/linuxserver/prowlarr:1.7.4.3769-ls26
+    #image: lscr.io/linuxserver/prowlarr:1.6.3.3608-ls25
   prowlarr:
-    image: lscr.io/linuxserver/prowlarr:latest
+    image: lscr.io/linuxserver/prowlarr
     container_name: prowlarr
     environment:
       - PUID=1000
@@ -915,6 +922,24 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+
+  trilium:
+    image: zadam/trilium
+    container_name: trilium
+    restart: always
+    volumes:
+      - $DOCKER_CONFIG_PATH/trilium:/home/node/trilium-data
+    environment:
+      - USER_UID=$PUID_USER
+      - USER_GID=$PGID_USER
+    ports:
+      - 8080:8080
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
 ################
 ########## get server ip to duckdns
   duckdns:
@@ -1035,7 +1060,7 @@ services:
       - TZ=$TZ
       - WATCHTOWER_CLEANUP=true
       - SYMFONY__ENV__DOMAIN_NAME=$SERVER_URL:3637
-      - SYMFONY__ENV__DATABASE_HOST=172.20.0.17
+      #- SYMFONY__ENV__DATABASE_HOST=172.20.0.17
     links:
       - redis
     labels:
@@ -1189,10 +1214,10 @@ services:
         target: /etc/timezone
         read_only: true
     ports:
-      - 9980:25600
+      - 9981:25600
     user: "$PUID_USER:$PGID_USER"
     environment:
-      - JAVA_TOOL_OPTIONS=-Xmx4g
+      - JAVA_TOOL_OPTIONS=-Xmx6g
       - KOMGA_LIBRARIES_SCAN_STARTUP=false
       - KOMGA_LIBRARIES_SCAN_CRON=0 0 */4 * * ?
       - WATCHTOWER_CLEANUP=true
@@ -1276,10 +1301,12 @@ services:
     volumes:
       - $HOME/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
       - $EBOOKS_AUDIOBOOKS_PATH:/data/ebooks_audiobooks:ro
+      - $EBOOKS_FR_PATH:/data/ebooks_fr:ro
       - $GAMES_PATH:/data/games:ro
       - $MOVIES_PATH:/data/movies:ro
       - $MOVIES_FR_PATH:/data/Movies(French):ro
       - $MOVIES_SPORT_PATH:/data/Sport:ro
+      - $TV_SHOWS_PATH:/data/TV Shows:ro
       - $MUSIC_ROOT_PATH:/data/music:ro
       - $PICTURES_PATH:/data/pictures:ro
       - $PIWIGO_CONFIG_PATH/piwigo/www/gallery/upload:/data/pictures_piwigo:ro
