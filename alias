@@ -12,9 +12,9 @@ alias dotfiles_update='cd $DOTFILES_PATH && git pull && bash install; cd -'
 # UPDATE AppImages
 ##########################
 alias update_nextcloud="wget https://download.nextcloud.com/desktop/releases/Linux/latest -O $HOME/bin/Nextcloud.AppImage && chmod +x $HOME/bin/*.AppImage"
-alias update_joplin='curl -s https://api.github.com/repos/laurent22/joplin/releases/latest | grep "browser_download_url.*AppImage" | cut -d : -f 2,3 | tr -d \" | wget -qi - -O $HOME/bin/Joplin.AppImage && chmod +x $HOME/bin/*.AppImage'
-alias update_etcher='curl -s https://api.github.com/repos/balena-io/etcher/releases/latest | grep "browser_download_url.*x64.AppImage" | cut -d : -f 2,3 | tr -d \" | wget -qi - -O $HOME/bin/balenaEtcher.AppImage && chmod +x $HOME/bin/*.AppImage'
-alias update_shotcut='curl -s https://api.github.com/repos/mltframework/shotcut/releases/latest | grep "browser_download_url.*AppImage" | cut -d : -f 2,3 | tr -d \" | wget -qi - -O $HOME/bin/Shotcut.AppImage && chmod +x $HOME/bin/*.AppImage'
+alias update_joplin='curl -s https://api.github.com/repos/laurent22/joplin/releases/latest | grep "browser_download_url.*AppImage" | cut -d : -f 2,3 | tr -d \" | head -1| wget --show-progress -qi - -O $HOME/bin/Joplin.AppImage && chmod +x $HOME/bin/*.AppImage'
+alias update_etcher='curl -s https://api.github.com/repos/balena-io/etcher/releases/latest | grep "browser_download_url.*x64.AppImage" | cut -d : -f 2,3 | tr -d \" | wget --show-progress -qi - -O $HOME/bin/balenaEtcher.AppImage && chmod +x $HOME/bin/*.AppImage'
+alias update_shotcut='curl -s https://api.github.com/repos/mltframework/shotcut/releases/latest | grep "browser_download_url.*AppImage" | cut -d : -f 2,3 | tr -d \" | wget --show-progress -qi - -O $HOME/bin/Shotcut.AppImage && chmod +x $HOME/bin/*.AppImage'
 alias update_appimages='update_nextcloud; update_joplin; update_etcher; update_shotcut'
 
 alias shotcut='Shotcut.AppImage --QT_SCALE_FACTOR 1'
@@ -71,122 +71,19 @@ alias ansible_provision_remote='ansible-playbook -i hosts $ANSIBLE_PATH/remote.y
 ##########################
 alias project_officer_user='sudo -u projectofficer -s'
 
-# pipeline
-export PIPELINE_TASK_LOG_PATH=/mnt/ebs/log/pipeline/process
-
 
 # pipeline
 export PIPELINE_TASK_LOG_PATH=/mnt/ebs/log/pipeline/process
 
-function _ardc_log() {
-    local ardc_log_dir=$WIP_DIR/ARDC_API_NRT
-    # fname is not local to be re-used by other sub-functions
+# add ~/.zsh_functions to fpath, and then lazy autoload
+# every file in there as a function. THIS IS A REQUIREMENT
+fpath=(~/.zsh_functions $fpath);
+autoload -U $fpath[1]/*(.:t)
 
-    if command -v fzf > /dev/null; then
-        fname=$(find $ardc_log_dir -type f -name "process.log" | \
-        fzf --preview "( [[ -f {} ]] && (tail -50 {} || cat {}))")
-    else
-        printf "Please select log file:\n"
-        select fname in `find $ardc_log_dir -type f -name process.log`;
-        do
-          echo you picked $fname \($REPLY\)
-          break;
-        done
-    fi
-}
-#export -f _ardc_log
-
-function ardc_log_recent() {
-    _ardc_log
-    local hrago=$(date --date="1 hours ago" "+%Y-%m-%d %H")
-
-    sed -n "/^$hrago/,\$p" $fname | perl -pe 's/^.*FATAL.*$/\e[1;37;41m$&\e[0m/g; s/^.*ERROR.*$/\e[1;31;40m$&\e[0m/g; s/^.*WARN.*$/\e[0;33;40m$&\e[0m/g; s/^.*INFO.*$/\e[0;36;40m$&\e[0m/g; s/^.*DEBUG.*$/\e[0;37;40m$&\e[0m/g'
-    }
-#export -f ardc_log_recent
-
-function ardc_log_recent_errors() {
-    _ardc_log
-    local hrago=$(date --date="1 hours ago" "+%Y-%m-%d %H")
-
-    sed -n "/^$hrago/,\$p" $fname | grep ERROR | perl -pe 's/^.*FATAL.*$/\e[1;37;41m$&\e[0m/g; s/^.*ERROR.*$/\e[1;31;40m$&\e[0m/g; s/^.*WARN.*$/\e[0;33;40m$&\e[0m/g; s/^.*INFO.*$/\e[0;36;40m$&\e[0m/g; s/^.*DEBUG.*$/\e[0;37;40m$&\e[0m/g '
-    }
-#export -f ardc_log_recent_errors
-
-
-alias pipeline_log_tailf='var=$(find /mnt/ebs/log/pipeline -type f -name "*.log" | \
-    fzf --preview "( [[ -f {} ]] && (tail -50 {} || cat {}))" ) && \
-    (grc tail -f $var || tail -f $var)'
-
-alias pipeline_log_tailf_task='var=$(find $PIPELINE_TASK_LOG_PATH -type f -name "task*.log" | \
-    fzf --preview "( [[ -f {} ]] && (tail -50 {} || cat {}))" ) && \
-    (grc tail -f $var || tail -f $var)'
-
-alias pipeline_ls_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | \
-    fzf --preview "\
-    ( [[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || \
-    ( [[ -d {} ]] && (tree -C {} | less)) || \
-    echo {} 2> /dev/null | head -200") \
-    && ls $var'
-
-alias pipeline_cd_error_dir='var=$(find $ERROR_DIR -maxdepth 1 -type d | \
-    fzf --preview "\
-    ( [[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || \
-    ( [[ -d {} ]] && (tree -C {} | less)) || \
-    echo {} 2> /dev/null | head -200") \
-    && cd $var'
-
-alias pipeline_cd_incoming_dir='var=$(find $INCOMING_DIR -maxdepth 3 -type d | \
-    fzf --preview "\
-    ( [[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || \
-    ( [[ -d {} ]] && (tree -C {} | less)) || \
-    echo {} 2> /dev/null | head -200") \
-    && cd $var'
-
-# retrieve all logs for any UUID in a pipeline task log
-# $1 UUID value
-function pipeline_log_uuid() {
-    local uuid=$1;
-
-    local log_file_path=$(find $PIPELINE_TASK_LOG_PATH -type f -name "task*.log" | fzf --multi=1)
-    grep $uuid $log_file_path
-}
-
-# retrieve specific log output for failed file in pipeline
-# $1 error file path
-function pipeline_log_error_file() {
-    # list files in ALL $ERROR_DIR with a uuid at the end
-    local uuid_regexp='[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
-    local list_all_error_files=$(find $ERROR_DIR -type f)
-    local file_input=$(echo $list_all_error_files | grep -E .$uuid_regexp | \
-    fzf --multi=1 \
-    --preview \
-    '
-    ( (echo {} | grep -q -E "*\.nc$") && ncdump -h {}) || \
-    ( (echo {} | grep -q -E "*\.nc\..*") && ncdump -h {}) || \
-    ( (echo {} | grep -q -E "*.zip.$uuid_regexp") && zip -sf {}) || \
-    ( (echo {} | grep -q -E "*.zip$") && zip -sf {}) || \
-    ( (echo {} | grep -q -E "*.manifest.$uuid_regexp") && bat {}) || \
-    ( (echo {} | grep -q -E "*.manifest$") && bat {}) || \
-    ( (echo {} | grep -q -E "*.(log|xml|txt).$uuid_regexp") && bat {}) || \
-    ( (echo {} | grep -q -E "*.(log|xml|txt)$") && bat {}) || \
-    ( [[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || \
-    ' 
-    )
-
-    if [ -z "$file_input" ]
-        then
-        echo "no file selected"
-        return 1
-    fi
-
-    local uuid_file=`echo "$file_input" | grep -o -E $uuid_regexp`
-    local pipeline_name=`basename $(dirname $(readlink -f $file_input))`
-
-    # find uuid entries in corresponding pipeline task log
-    sed -E "0,/$uuid_file/d;/IncomingFileStateManager.*FILE_(SUCCESS|IN_ERROR)/q" $PIPELINE_TASK_LOG_PATH/tasks.$pipeline_name.log
-}
-
-alias talend_cd='var=$(find /mnt/ebs/talend/jobs -maxdepth 1 -type d | fzf --multi=1) && cd $var'
+# For multiple functions files, just source them
+source $HOME/.zsh_functions/imos_ardc.zsh
+source $HOME/.zsh_functions/pipelines.zsh
+source $HOME/.zsh_functions/comics.zsh
 
 
 # wget for imos buck by simply giving the relative path of an object without the full bucket address
@@ -292,27 +189,6 @@ function vita_update_all_games() {
     done
 }
 
-function x(){
-    if [ -f $1 ] ; then
-            case $1 in
-                    *.tar.bz2)   tar xvjf $1    ;;
-                    *.tar.gz)    tar xvzf $1    ;;
-                    *.bz2)       bunzip2 $1     ;;
-                    *.rar)       unrar x $1     ;;
-                    *.gz)        gunzip $1      ;;
-                    *.tar)       tar xvf $1     ;;
-                    *.tbz2)      tar xvjf $1    ;;
-                    *.tgz)       tar xvzf $1    ;;
-                    *.zip)       unzip $1       ;;
-                    *.Z)         uncompress $1  ;;
-                    *.7z)        7z x $1        ;;
-                    *)           echo "Unable to extract '$1'" ;;
-            esac
-    else
-            echo "'$1' is not a valid file"
-    fi
-}
-
 # file edit function in nvim/vim
 function fe(){ 
     nvim $(fd -LIH --type f | fzf -m --preview "([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {}))")
@@ -321,10 +197,6 @@ function fe(){
 function csv_viewer() {
     local input_file=$1;
     cat $input_file | column -t -s, | less -S
-}
-
-function cheat_fzf(){
-    eval `cheat -l | tail -n +2 | fzf --reverse --preview '(cheat $(echo {} | cut -d " " -f1 ))' | awk -v vars="$*" '{ print "cheat " $1 " -t " $3, vars }'`
 }
 
 #https://github.com/junegunn/fzf/wiki/Examples
@@ -604,128 +476,6 @@ kill_py () {
 
 
 ##############################
-# COMICS specific functions
-##############################
-function pdf2cbz(){
-    IFS=$(echo -en "\n\b");
-    PDF_FILE="$1"; shift;
-
-    PDF_FILE_PATH=`readlink -f "$PDF_FILE"`;
-    PDF_FILE_NAME=`basename "$PDF_FILE_PATH"`;
-    PDF_FILE_DIRNAME=`dirname "$PDF_FILE_PATH"`;
-
-    temp_dir=`mktemp -d`;
-
-    if command -v pdfimages > /dev/null; then
-        pdfimages -j "$PDF_FILE_PATH" $temp_dir/page && \
-        zip -jr "${PDF_FILE_PATH%.*}.cbz" $temp_dir/* && \
-        mv "$PDF_FILE_PATH" "$PDF_FILE_DIRNAME"/."$PDF_FILE_NAME" && \
-        rm -Rf $temp_dir;
-    else
-        echo "Please install pdfimages package"
-    fi
-}
-alias comic_pdf2cbz='pdf2cbz'
-
-
-function pdf2cbz_all_files_in_dir() {
-    IFS=$(echo -en "\n\b");
-    for f in `find . -maxdepth 1 -type f -name '*.pdf' -not -path '*/\.*' -exec readlink -f {} \;`;do
-        pdf2cbz "$f";
-    done;
-}
-alias comic_pdf2cbz_all_files_in_dir=pdf2cbz_all_files_in_dir
-
-
-function dirs2cbz() {
-    IFS=$(echo -en "\n\b");
-    for dir in `find . -mindepth 1 -type d -not -empty`; do
-        if find "$dir" -maxdepth 1 -type f -not -ipath '.*\.cbz' -not -ipath '.*\.cbr' -not  -ipath '.*\.pdf'| read f; then
-            zip "$(dirname "$dir")/$(basename "$dir").cbz" "$dir"/* && rm -Rf "$dir" ;*/
-        fi;
-    done
-}
-alias comic_dirs2cbz=dirs2cbz
-
-
-function append_folder_name_as_prefix_to_file(){
-    IFS=$(echo -en "\n\b");
-    local file="$1"; shift;
-    mv "${file}" "${PWD##*/} - ${file}"
-}
-alias comic_add_serie_name='append_folder_name_as_prefix_to_file'
-
-function cbz2pdf(){
-    IFS=$(echo -en "\n\b");
-    ARCHIVE_FILE="$1"; shift;
-
-    ARCHIVE_FILE_PATH=`readlink -f "$ARCHIVE_FILE"`;
-    ARCHIVE_FILE_NAME=`basename "$ARCHIVE_FILE_PATH"`;
-    ARCHIVE_FILE_DIRNAME=`dirname "$ARCHIVEFILE_PATH"`;
-
-    temp_dir=`mktemp -d`;
-
-    if ! command -v dwebp > /dev/null; then
-        echo "Please install webp package"
-        return 1
-    fi
-
-    if command -v convert > /dev/null; then
-        unzip -j "$ARCHIVE_FILE_PATH" -d $temp_dir
-        find $temp_dir/ -name "*.webp" -exec dwebp {} -o {}.jpg \;
-        convert $temp_dir/*.jpg "${ARCHIVE_FILE_PATH%.*}.pdf"
-
-        mv "$ARCHIVE_FILE_PATH" "$ARCHIVE_FILE_DIRNAME"/."$ARCHIVE_FILE_NAME" && \
-        rm -Rf $temp_dir;
-    else
-        echo "Please install imagemagick package"
-        return 1
-    fi
-}
-alias comic_cbz2pdf='cbz2pdf'
-
-function comic_repack_corrupt_archive2cbz(){
-    IFS=$(echo -en "\n\b");
-    ARCHIVE_FILE="$1"; shift;
-
-    ARCHIVE_FILE_PATH=`readlink -f "$ARCHIVE_FILE"`;
-    ARCHIVE_FILE_NAME=`basename "$ARCHIVE_FILE_PATH"`;
-    ARCHIVE_FILE_DIRNAME=`dirname "$ARCHIVEFILE_PATH"`;
-
-    if ! command -v arepack > /dev/null; then
-        echo "Please install atool package"
-        return 1
-    fi
-
-    if [[ "$ARCHIVE_FILE" = *.cbz ]]; then
-        arepack "$ARCHIVE_FILE_PATH" "${ARCHIVE_FILE_PATH%.*}.rar"
-        mv -f "$ARCHIVE_FILE_PATH" "$ARCHIVE_FILE_DIRNAME"/."$ARCHIVE_FILE_NAME" # archive original 
-
-        arepack "${ARCHIVE_FILE_PATH%.*}.rar" "${ARCHIVE_FILE_PATH%.*}.zip" # reconvert to zip
-        rm -f "${ARCHIVE_FILE_PATH%.*}.rar"
-        mv -f "${ARCHIVE_FILE_PATH%.*}.zip"  "${ARCHIVE_FILE_PATH%.*}.cbz"
-    elif [[ "$ARCHIVE_FILE" = *.cbr ]]; then
-        arepack "$ARCHIVE_FILE_PATH" "${ARCHIVE_FILE_PATH%.*}.zip"
-        mv -f "$ARCHIVE_FILE_PATH" "$ARCHIVE_FILE_DIRNAME"/."$ARCHIVE_FILE_NAME" && \
-          mv -f "${ARCHIVE_FILE_PATH%.*}.zip"  "${ARCHIVE_FILE_PATH%.*}.cbz"
-    else
-        echo "unknown extension"
-    fi
-
-    # remove file from archive
-    zip -o -d "${ARCHIVE_FILE_PATH%.*}.cbz" \*crg.gif \*ner0.jpg \*ner0_lee.jpg
-}
-
-
-function comic_repack_all_corrupt_archive2cbz(){
-    IFS=$(echo -en "\n\b");
-    for f in `find . -maxdepth 1 -type f  -not -path '*/\.*' -exec readlink -f {} \;`;do
-        comic_repack_corrupt_archive2cbz "$f";
-    done;
-}
-
-
-##############################
 # docker compose
 ##############################
 #alias dcp='docker-compose -f /opt/docker-compose.yml '
@@ -790,22 +540,23 @@ function funk_rsync() {
 }
 
 # BFUNK sync to BEEFUNK
+alias bfunk_bckp_docker="funk_rsync $BFUNK_IP docker /media/$USER/beefunk_data"
 alias bfunk_bckp_ebooks="funk_rsync $BFUNK_IP ebooks_audiobooks /media/$USER/beefunk_data --max-delete=100"
 alias bfunk_bckp_games_1="funk_rsync $BFUNK_IP games /media/$USER/beefunk_data --exclude=Switch/ --exclude=Wii/ --exclude=WiiU/ --exclude=Gamecube/ --max-delete=100"  ## don't backup switch folder
+alias bfunk_bckp_games_ps4="funk_rsync $BFUNK_IP games/emulation/Playstation/PS4 /media/$USER/beefunk_data/games/emulation/Playstation --max-delete=1"
 alias bfunk_bckp_games_switch="funk_rsync $BFUNK_IP games/emulation/Nintendo/Switch /media/$USER/beefunk_data --exclude=JKSV/ --max-delete=100"
 alias bfunk_bckp_games_wii_u_gc="funk_rsync $BFUNK_IP games/emulation/Nintendo/Gamecube /media/$USER/beefunk_data --max-delete=100;bfunk_rsync games/emulation/Nintendo/Wii /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/WiiU /media/$USER/wii_gc --max-delete=100;"
-alias bfunk_bckp_games_ps4="funk_rsync $BFUNK_IP games/emulation/Playstation/PS4 /media/$USER/beefunk_data/ps4/bfunk --max-delete=100;"
-alias bfunk_bckp_movies="funk_rsync $BFUNK_IP movies /media/$USER/beefunk_data --exclude='tubesync-downloads' --exclude='UFC*' --filter='P *' --exclude='One Piece*' --exclude='/Sport/' --exclude='Movies(French)' --max-delete=20"
-alias bfunk_bckp_movies_sport='funk_rsync 100.92.18.39 Sport /media/lbesnard/beefunk_data/movies --max-delete=10'
-alias bfunk_bckp_movies_french='funk_rsync 100.92.18.39 Movies\(French\) /media/lbesnard/beefunk_data/movies --max-delete=20'
+alias bfunk_bckp_movies="funk_rsync $BFUNK_IP movies /media/$USER/beefunk_data --exclude='tubesync-downloads' --exclude='UFC*' --filter='P *' --exclude='One Piece*' --exclude='/Sport/' --exclude='Movies(French)' --max-delete=20"                                                                                                                                                                                                                                                                    
+alias bfunk_bckp_movies_french="funk_rsync $BFUNK_IP Movies\(French\) /media/lbesnard/beefunk_data/movies --max-delete=20"                                                                                                                                                                                                                                                                                                                                                                              
+alias bfunk_bckp_movies_sport="funk_rsync $BFUNK_IP Sport /media/lbesnard/beefunk_data/movies --max-delete=10"
 alias bfunk_bckp_music="funk_rsync $BFUNK_IP music /media/$USER/beefunk_data --max-delete=1000"
 alias bfunk_bckp_music_no_beet="funk_rsync $BFUNK_IP music /media/$USER/beefunk_data --exclude='*.blb' --max-delete=1000"
+alias bfunk_bckp_navidrome="docker stop navidrome; funk_rsync $BFUNK_IP docker/navidrome /opt/docker_config; cd ~/dotfiles/beefunk/docker-compose; docker-compose up -d navidrome"
 alias bfunk_bckp_nextcloud="funk_rsync $BFUNK_IP nextcloud /media/$USER/beefunk_data/ --exclude=backups/nextcloud-\*"
 alias bfunk_bckp_pictures="funk_rsync $BFUNK_IP pictures /media/$USER/beefunk_data --max-delete=1000"
 alias bfunk_bckp_pictures_piwigo="funk_rsync $BFUNK_IP pictures_piwigo /opt/docker_config/piwigo/piwigo/gallery/upload --max-delete=1000"
 alias bfunk_bckp_self_improvement="funk_rsync $BFUNK_IP self_improvement /media/$USER/beefunk_data --max-delete=1000"
-alias bfunk_bckp_docker="funk_rsync $BFUNK_IP docker /media/$USER/beefunk_data"
-alias bfunk_bckp_navidrome="docker stop navidrome; funk_rsync $BFUNK_IP docker/navidrome /opt/docker_config; cd ~/dotfiles/beefunk/docker-compose; docker-compose up -d navidrome"
+alias bfunk_bckp_shows="funk_rsync $BFUNK_IP TV\ Shows /media/lbesnard/beefunk_data/movies  --exclude='tubesync-downloads' --exclude='UFC*' --filter='P *' --exclude='One Piece*' --max-delete=20"
 
 # BEEFUNK sync to BROWNFUNK
 alias beefunk_bckp_docker_komga="funk_rsync $BEEFUNK_TAILSCALE_IP docker/komga $DOCKER_CONFIG_DIR"

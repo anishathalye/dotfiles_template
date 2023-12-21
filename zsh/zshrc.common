@@ -1,14 +1,14 @@
 # check if zinit is installed
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-mkdir -p "$(dirname $ZINIT_HOME)"
-if [ ! -d $ZINIT_HOME ]; then
-    rm -Rf ~/.local/share/zinit
-    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-    source "${ZINIT_HOME}/zinit.zsh" # && zinit self-update
-fi
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
-source "${ZINIT_HOME}/zinit.zsh" # && zinit self-update
+# Skip the not really helping Ubuntu global compinit
+skip_global_compinit=1
 
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 # TMUX conf
 if [ ! -n "${SSH_TTY+1}" ]; then
@@ -20,13 +20,18 @@ if [ ! -n "${SSH_TTY+1}" ]; then
     ZSH_TMUX_AUTOQUIT=true
 fi
 
-# Turns out that compinit is ZSH checking the cached .zcompdump to see if it needs regenerating. The simplest fix is to only do that once a day. Thanks to this comment, we can achieve that pretty easily.
-autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-    compinit;
-else
-    compinit -C;
-fi;
+# fix perl language issues
+export LANGUAGE="en_AU:en"
+export LC_ALL="en_IE.UTF-8"
+export LANG="en_IE.UTF-8"
+
+## Turns out that compinit is ZSH checking the cached .zcompdump to see if it needs regenerating. The simplest fix is to only do that once a day. Thanks to this comment, we can achieve that pretty easily.
+#autoload -Uz compinit
+#if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+    #compinit;
+#else
+    #compinit -C;
+#fi;
 
 # check where is linuxbrew installed
 if [[ -d $HOME/.linuxbrew ]]; then
@@ -35,28 +40,28 @@ elif [[ -d /home/linuxbrew ]]; then
     export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 fi
 
-#export POWERLEVEL9K_COLOR_SCHEME='light'
-# Set up the prompt
-export TERM="xterm-256color"
-export PATH="$HOMEBREW_PREFIX/bin:$PATH"
-export SHELL=$HOMEBREW_PREFIX/bin/zsh
-export DEFAULT_USER=loz
-export DISPLAY=:0.0
+##export POWERLEVEL9K_COLOR_SCHEME='light'
+## Set up the prompt
+#export TERM="xterm-256color"
+#export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+#export SHELL=$HOMEBREW_PREFIX/bin/zsh
+#export DEFAULT_USER=loz
+#export DISPLAY=:0.0
 
-setopt nosharehistory
-setopt interactivecomments
+#setopt nosharehistory
+#setopt interactivecomments
 
-# Essential
-source "${ZINIT_HOME}/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-#source ~/.zplug/init.zsh
+## Essential
+#source "${ZINIT_HOME}/zinit.zsh"
+#autoload -Uz _zinit
+#(( ${+_comps} )) && _comps[zinit]=_zinit
+##source ~/.zplug/init.zsh
 
-# completion for cheat
-_cmpl_cheat() {
-reply=($(cheat -l | cut -d' ' -f1))
-}
-compctl -K _cmpl_cheat cheat
+## completion for cheat
+#_cmpl_cheat() {
+#reply=($(cheat -l | cut -d' ' -f1))
+#}
+#compctl -K _cmpl_cheat cheat
 
 # Configure ssh-agent plugin
 zstyle :omz:plugins:ssh-agent agent-forwarding on # Enabled agent forwarding
@@ -69,9 +74,9 @@ COMPLETION_WAITING_DOTS="true"
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
 
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$PYENV_ROOT/bin:$PATH"
-#eval "$(pyenv init --path)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 
 # pip venv
 #export WORKON_HOME=$HOME/.virtualenvs
@@ -80,48 +85,82 @@ export HISTFILESIZE=$HISTSIZE;
 
 setopt prompt_subst # Make sure prompt is able to be generated properly.
 
-# Load powerlevel10k theme
-zinit ice depth"1" # git clone depth
-zinit light romkatv/powerlevel10k
+## Load powerlevel10k theme
+##zinit ice depth"1" # git clone depth
+##zinit light romkatv/powerlevel10k
 
-#zinit ice wait"5"
+# starship theme
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
 
-zinit load "chrissicool/zsh-256color"
-zinit load "eastokes/aws-plugin-zsh"
-zinit load "esc/conda-zsh-completion"
-zinit load "hchbaw/auto-fu.zsh"
-zinit load "rummik/zsh-tailf"
-zinit load "soimort/translate-shell"
-zinit load "unixorn/docker-helpers.zshplugin"
-zinit load "zsh-users/zsh-autosuggestions"
-zinit load "zsh-users/zsh-completions"
-zinit load "zsh-users/zsh-history-substring-search" #, defer:2
-zinit load "zsh-users/zsh-syntax-highlighting" #, defer:2
-zinit snippet OMZP::"autojump" #,  from:oh-my-zsh
-zinit snippet OMZP::"brew" #,  from:oh-my-zsh
-zinit snippet OMZP::"command-not-found" #,  from:oh-my-zsh
-zinit snippet OMZP::"common-aliases" #,  from:oh-my-zsh
-zinit snippet OMZP::"cp" # cp with rsync -> call cpv
-zinit snippet OMZP::"docker" #,  from:oh-my-zsh
-zinit snippet OMZP::"docker-compose" #,  from:oh-my-zsh
-zinit snippet OMZP::"extract" #,  from:oh-my-zsh
-zinit snippet OMZP::"fasd" #,  from:oh-my-zsh
-zinit snippet OMZP::"nmap" #,  from:oh-my-zsh
-zinit snippet OMZP::"pip" #,  from:oh-my-zsh
-zinit snippet OMZP::"rsync" #,  from:oh-my-zsh
-zinit snippet OMZP::"sudo" #,  from:oh-my-zsh
-zinit snippet OMZP::"systemd" #,   from:oh-my-zsh
-zinit snippet OMZP::"taskwarrior" #,   from:oh-my-zsh
-zinit snippet OMZP::"vagrant" #,  from:oh-my-zsh
-zinit snippet OMZP::"virtualenv" #,  from:oh-my-zsh
-zinit snippet OMZP::"web-search" #,  from:oh-my-zsh
-zinit snippet OMZP::"zsh-interactive-cd" #,  from:oh-my-zsh
-zinit load z-shell/zsh-navigation-tools
-zinit snippet OMZP::"zsh-navigation-tools" #,  from:oh-my-zsh
+
+# Option B – a load with Turbo-Mode being in use
+#zinit ice wait'0' lucid atload'zsh-startify'
+#zinit load zdharma-continuum/zsh-startify
+
+zinit ice wait"2" lucid
+zinit light "chrissicool/zsh-256color"
+
+zi lucid light-mode wait'[[ -n ${ZLAST_COMMANDS[(r)g*]} ]]' for \
+  "OMZ::plugins/git-extras/git-extras.plugin.zsh" \
+  "wfxr/forgit"
 
 # conflict with https://github.com/garabik/grc/ so removing default forgit aliases
 export FORGIT_NO_ALIASES=True
-zinit load wfxr/forgit
+zi lucid light-mode wait'[[ $PWD = */github || $PWD = */github_repo/* ]]' for \
+  "wfxr/forgit"
+  #"OMZ::plugins/git/git.plugin.zsh" \
+  #"unixorn/git-extra-commands" \
+source ~/.alias_forgit
+
+
+zi lucid light-mode wait'[[ -n ${ZLAST_COMMANDS[(r)j*]} ]]' for \
+    "OMZP::autojump"
+
+zi lucid light-mode wait"2" for \
+    "OMZP::zsh-interactive-cd" \
+    "zsh-users/zsh-history-substring-search" \
+    "zsh-users/zsh-syntax-highlighting" \
+    "rummik/zsh-tailf" \
+    "OMZP::cp" # cp with rsync -> call cpv
+    #"z-shell/zsh-navigation-tools" \
+    #"OMZP::zsh-navigation-tools" \
+    
+
+zi lucid light-mode wait'3' for \
+  "eastokes/aws-plugin-zsh" \
+  "esc/conda-zsh-completion" \
+  "soimort/translate-shell" \
+  #"unixorn/docker-helpers.zshplugin" \
+  #"hchbaw/auto-fu.zsh" \
+
+zi wait lucid for \
+  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    light-mode zdharma-continuum/fast-syntax-highlighting \
+  atload"zicompinit; zicdreplay" blockf \
+    light-mode zsh-users/zsh-completions \
+  compile'{src/*.zsh,src/strategies/*}' atload"!_zsh_autosuggest_start" \
+    light-mode zsh-users/zsh-autosuggestions
+
+zi lucid light-mode wait'3' for \
+    OMZP::"brew" \
+    OMZP::"command-not-found" \
+    OMZP::"common-aliases" \
+    OMZP::"docker-compose" \
+    OMZP::"extract" \
+    OMZP::"fasd" \
+    OMZP::"nmap" \
+    OMZP::"pip" \
+    OMZP::"rsync" \
+    OMZP::"sudo" \
+    OMZP::"systemd" \
+    OMZP::"taskwarrior" \
+    OMZP::"vagrant" \
+    OMZP::"virtualenv" \
+    OMZP::"web-search" 
+    #OMZP::"docker" \
 
 
 if [ ! -n "${SSH_TTY+1}" ]; then
@@ -203,13 +242,13 @@ export FZF_DEFAULT_OPTS="
 --bind 'alt-v:execute(code {+})'
 "
 
-#export FORGIT_FZF_DEFAULT_OPTS="
-#--prompt='∼ ' --pointer='▶' --marker='✓'
-#--border
-#--cycle
-#--reverse
-#--height '80%'
-#"
+export FORGIT_FZF_DEFAULT_OPTS="
+--prompt='∼ ' --pointer='▶' --marker='✓'
+--border
+--cycle
+--reverse
+--height '80%'
+"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --type f -LHI" # ALT-C's command
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
@@ -253,4 +292,3 @@ unsetopt complete_aliases
 if command -v rbenv > /dev/null; then
     eval "$(rbenv init - zsh)"
 fi
-

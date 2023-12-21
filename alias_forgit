@@ -1,0 +1,12 @@
+# forgit aliases https://github.com/wfxr/forgit written manually not to conflict
+# with grc tool
+alias ga=forgit::add
+alias gcf=forgit::checkout::file
+alias gbl=forgit::blame
+alias gd=forgit::diff
+alias glo=forgit::log
+alias grh=forgit::reset::head
+alias grco=forgit::revert::commit  # grco not to conflict with grc
+alias gcp=forgit::cherry::pick
+alias gbl=forgit::blame
+alias gclean=forgit::clean

@@ -3,6 +3,7 @@
 - clean: ['~']
 - link:
     ~/.alias: {force: true, path: alias, create: true}
+    ~/.alias_forgit: {force: true, path: alias_forgit, create: true}
     ~/.ansible.cfg: {force: true, path: ansible.cfg, create: true}
     ~/.aws: {create: true, force: true, path: aws/}
     ~/.bashrc: {force: true, path: bashrc}
@@ -66,6 +67,7 @@
     ~/.zshrc.local: {force: true, path: zsh/zshrc.local}
     ~/.zshrc.ssh: {force: true, path: zsh/zshrc.ssh}
     ~/.zshrc: {force: true, path: zsh/zshrc}
+    ~/.zsh_functions: {force: true, path: zsh/functions}
     ~/bfunk-docker-compose: {force: true, create: true, path: bfunk/docker-compose/}
     ~/bin: {path: bin, create: true, force: true}
     ~/Mobac/mapsources: {path: mobac/mapsources, create: true, force: true}
