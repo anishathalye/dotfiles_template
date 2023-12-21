@@ -77,30 +77,70 @@ services:
       - mariadb
     restart: unless-stopped
 
-    # buyld locally because on arm64
   ownfoil:
     container_name: ownfoil
-    #image: a1ex4/ownfoil
-    build: https://github.com/a1ex4/ownfoil.git
+    image: a1ex4/ownfoil:v2
     environment:
-       - PUID=911
-       - PGID=911
+      # For write permission in config directory
+      - PUID=1000
+      - PGID=1000
     volumes:
       - $SWITCH_PATH:/games
-      # Uncomment if you want to edit and persist the app configuration
-      #- $DOCKER_CONFIG_PATH/ownfoil2/app:/app
-      #- $DOCKER_CONFIG_PATH/ownfoil2/nginx:/etc/nginx
-      # - ./app:/app
-      # Uncomment to setup basic auth
-      #- ./nginx:/etc/nginx
+      - $DOCKER_CONFIG_PATH/ownfoil:/app/config
     ports:
-      - "8001:80"
+      - "8001:8465"
     networks:
-      - frontend
+      frontend:
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
     labels:
-      - traefik.enable=true
-      - traefik.http.routers.traefik.entrypoints=http
+      com.centurylinklabs.watchtower.enable: true
+#    # buyld locally because on arm64
+  #ownfoil:
+    #container_name: ownfoil
+    ##image: a1ex4/ownfoil
+    #build: https://github.com/a1ex4/ownfoil.git
+    #environment:
+       #- PUID=911
+       #- PGID=911
+    #volumes:
+      #- $SWITCH_PATH:/games
+      ## Uncomment if you want to edit and persist the app configuration
+      ##- $DOCKER_CONFIG_PATH/ownfoil2/app:/app
+      ##- $DOCKER_CONFIG_PATH/ownfoil2/nginx:/etc/nginx
+      ## - ./app:/app
+      ## Uncomment to setup basic auth
+      ##- ./nginx:/etc/nginx
+    #ports:
+      #- "8001:80"
+    #networks:
+      #- frontend
 
+  jellyfin:
+    image: linuxserver/jellyfin
+    container_name: jellyfin
+    environment:
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - TZ=${TZ}
+      - UMASK=022 #optional
+      - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
+      - WATCHTOWER_CLEANUP=true
+    volumes:
+      - $DOCKER_CONFIG_PATH/jellyfin:/config
+      - $MOVIES_FR_PATH:/data/movies_french:ro
+      - $SHOWS_PATH:/data/shows:ro
+      - /dev/dri:/dev/dri #optional
+    ports:
+      - 8096:8096 #http
+      - 8920:8920 #https
+      - 7359:7359/udp #optional
+      - 1900:1900/udp #optional
+    devices:
+      - /dev/dri:/dev/dri #optional
+    restart: unless-stopped
+    labels:
+      com.centurylinklabs.watchtower.enable: true
 
   digikam:
     image: lscr.io/linuxserver/digikam:latest
@@ -338,6 +378,7 @@ services:
     #sysctls:
       #- net.ipv4.conf.all.src_valid_mark=1
     depends_on:
+      - duckdns
       - pihole
     restart: always
 
@@ -478,6 +519,20 @@ services:
     container_name: portforward
     environment:
       - REMOTE_HOST=brownfunk.lan
+      - REMOTE_PORT=7879
+      - LOCAL_PORT=80
+    ports:
+      - 7879:80
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+
+  portforward_calibreweb:
+    image: marcnuri/port-forward
+    container_name: portforward_calibreweb
+    environment:
+      - REMOTE_HOST=brownfunk.lan
       - REMOTE_PORT=8083
       - LOCAL_PORT=80
     ports:
@@ -487,6 +542,46 @@ services:
     networks:
       - frontend
 
+  portforward_calibre:
+    image: marcnuri/port-forward
+    container_name: portforward_calibre
+    environment:
+      - REMOTE_HOST=brownfunk.lan
+      - REMOTE_PORT=8081
+      - LOCAL_PORT=80
+    ports:
+      - 8081:80
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+
+
+
+
+  filebrowser:
+    image: filebrowser/filebrowser:s6
+    container_name: filebrowser
+    environment:
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - TZ=$TZ
+      - FB_NOAUTH=True
+      - FB_BASEURL=/filebrowser
+      - FB_DATABASE=/config/filebrowser.db
+      - WATCHTOWER_CLEANUP=true
+    ports:
+      - 9295:80
+    volumes:
+      - $DOCKER_CONFIG_PATH/filebrowser/database:/database
+      - $DOCKER_CONFIG_PATH/filebrowser/config:/config
+      - $MOVIES_PATH:/srv/movies:ro
+      - $TORRENT_PATH:/srv/torrent:ro
+      - $SHARE_PATH:/srv/share
+    restart: unless-stopped
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+#
 
 # SWAG from duckdns
 ####################
@@ -574,6 +669,13 @@ services:
       com.centurylinklabs.watchtower.enable: true
 
 
+  memos:
+    image: neosmemo/memos:latest
+    container_name: memos
+    volumes:
+      - $DOCKER_CONFIG_PATH/memos/:/var/opt/memos
+    ports:
+      - 5230:5230
 
 volumes:
   netdatalib:

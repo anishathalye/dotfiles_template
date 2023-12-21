@@ -25,6 +25,13 @@ It uses:
 ![Workspace example](laptop.png "i3 + i3block + tmux + neovim + ranger...")
 
 ## Installation
+Note that the private key needs to be setup prior to starting the following
+```
+ls ~/.ssh/id_rsa
+eval `ssh-agent -s`
+ssh-add
+
+```
 
 ### 1) Remote machine 
 for a remote machine (without sudo access), simply run

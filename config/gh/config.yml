@@ -5,8 +5,7 @@ editor:
 # When to interactively prompt. This is a global config that cannot be overridden by hostname. Supported values: enabled, disabled
 prompt: enabled
 # A pager program to send command output to, e.g. "less". Set the value to "cat" to disable the pager.
-pager:
-  bat --style plain
+pager: bat --style plain
 # Aliases allow you to create nicknames for gh commands
 aliases:
     co: '!id="$(gh pr list -L100 | fzf --no-preview --reverse | cut -f1)"; [ -n "$id" ] && gh pr checkout "$id"'
@@ -54,7 +53,6 @@ aliases:
         # show or comment selected issue
         [ -n "$id" ] && gh issue -R $repo $command "$id"
         )
-
     issues: |-
         !(case $1 in
          content|issues|backlog|po-backlog|data-services|python-aodntools|python-aodncore|python-aodndata)

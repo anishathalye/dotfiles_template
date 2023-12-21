@@ -558,6 +558,9 @@ alias bfunk_bckp_pictures_piwigo="funk_rsync $BFUNK_IP pictures_piwigo /opt/dock
 alias bfunk_bckp_self_improvement="funk_rsync $BFUNK_IP self_improvement /media/$USER/beefunk_data --max-delete=1000"
 alias bfunk_bckp_shows="funk_rsync $BFUNK_IP TV\ Shows /media/lbesnard/beefunk_data/movies  --exclude='tubesync-downloads' --exclude='UFC*' --filter='P *' --exclude='One Piece*' --max-delete=20"
 
+alias bfunk2efunk_bckp_games_switch="funk_rsync $BFUNK_IP games/emulation/Nintendo/Switch /media/dfunk_5tb_1 --exclude=backup\* --exclude=SCUMMVM\* --exclude=WRC\* --exclude=JKSV/ --max-delete=100"
+alias bfunk2efunk_bckp_movies_french="funk_rsync $BFUNK_IP Movies\(French\) /media/efunk_4tb_1/movies --max-delete=20"
+
 # BEEFUNK sync to BROWNFUNK
 alias beefunk_bckp_docker_komga="funk_rsync $BEEFUNK_TAILSCALE_IP docker/komga $DOCKER_CONFIG_DIR"
 alias beefunk_bckp_docker_navidrome="funk_rsync $BEEFUNK_TAILSCALE_IP docker/navidrome $DOCKER_CONFIG_DIR"

@@ -8,7 +8,7 @@
 # if user has sudo privileges, linuxbrew should be installed in /home/linuxbrew
 # Otherwise the install script will automatically setup brew under $HOME/.linuxbrew
 if ! [ -x "$(command -v brew)" ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 # check where is linuxbrew installed
