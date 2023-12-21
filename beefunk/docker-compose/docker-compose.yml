@@ -447,6 +447,13 @@ services:
     #labels:
  #     com.centurylinklabs.watchtower.enable: true
 #######################
+  memos:
+    image: neosmemo/memos:latest
+    container_name: memos
+    volumes:
+      - $DOCKER_CONFIG_PATH/memos/:/var/opt/memos
+    ports:
+      - 5230:5230
 ###############
   ownfoil:
     container_name: ownfoil
@@ -466,6 +473,18 @@ services:
     restart: unless-stopped
     ports:
       - "8001:80"
+  ownfoil2:
+    container_name: ownfoil2
+    image: a1ex4/ownfoil:v2
+    environment:
+      # For write permission in config directory
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - $SWITCH_PATH:/games
+      - $DOCKER_CONFIG_PATH/ownfoil2:/app/config
+    ports:
+      - "8465:8465"
 #######################
 #### jupyterlab
 #  jupyter:
@@ -534,7 +553,7 @@ services:
       - $DOCKER_CONFIG_PATH/scrutiny/config:/opt/scrutiny/config
       - $DOCKER_CONFIG_PATH/scrutiny/influxdb:/opt/scrutiny/influxdb
     devices:
-      - "/dev/sdd"
+      - "/dev/sda"
     environment:
       - COLLECTOR_CRON_SCHEDULE="*/5 * * * *"
       - PUID=$PUID_USER
