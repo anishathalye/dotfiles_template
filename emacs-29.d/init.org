@@ -322,48 +322,47 @@ same directory as the org-buffer and insert a link to this file."
     ;; This is to prevent consult-find from picking up node_modules.  For more, see:
     ;; https://github.com/minad/consult/wiki#skipping-directories-when-using-consult-find
     (setq consult-find-args "find . -not ( -wholename */.* -prune -o -name node_modules -prune )"))
+
+  ;; Richer annotations using the Marginalia package
+  (use-package marginalia
+    ;; Either bind `marginalia-cycle` globally or only in the minibuffer
+    :bind (("M-A" . marginalia-cycle)
+          :map minibuffer-local-map
+          ("M-A" . marginalia-cycle))
+    :init
+    (marginalia-mode)
+    ;; Prefer richer, more heavy, annotations over the lighter default variant.
+    ;; E.g. M-x will show the documentation string additional to the keybinding.
+    ;; By default only the keybinding is shown as annotation.
+    ;; Note that there is the command `marginalia-cycle' to
+    ;; switch between the annotators.
+    ;; (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   )
 
-;; Richer annotations using the Marginalia package
-(use-package marginalia
-  ;; Either bind `marginalia-cycle` globally or only in the minibuffer
-  :bind (("M-A" . marginalia-cycle)
-        :map minibuffer-local-map
-        ("M-A" . marginalia-cycle))
-  :init
-  (marginalia-mode)
-  ;; Prefer richer, more heavy, annotations over the lighter default variant.
-  ;; E.g. M-x will show the documentation string additional to the keybinding.
-  ;; By default only the keybinding is shown as annotation.
-  ;; Note that there is the command `marginalia-cycle' to
-  ;; switch between the annotators.
-  ;; (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
-)
+  (use-package marginalia
+    :ensure t
+    :config
+    (marginalia-mode))
 
-(use-package marginalia
-  :ensure t
-  :config
-  (marginalia-mode))
+  (use-package embark
+    :ensure t
 
-(use-package embark
-  :ensure t
+    :bind
+    (("C-." . embark-act)         ;; pick some comfortable binding
+     ("C-," . embark-dwim)        ;; good alternative: M-.
+     ("C-h B" . embark-bindings) ;; alternative for `describe-bindings'
+     ("M-." . embark-occur)       ;; occur-edit-mode
+     ;;("M-;" . embark-export)         ; export current view
+     )
 
-  :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-," . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings) ;; alternative for `describe-bindings'
-   ("M-." . embark-occur)       ;; occur-edit-mode
-   ;;("M-;" . embark-export)         ; export current view
-   )
+    :init
+    ;; Optionally replace the key help with a completing-read interface
+    (setq prefix-help-command #'embark-prefix-help-command)
 
-  :init
-  ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
-
-  ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
-  ;; strategy, if you want to see the documentation from multiple providers.
-  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+    ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
+    ;; strategy, if you want to see the documentation from multiple providers.
+    (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+    ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
 
   :config
   ;; Hide the mode line of the Embark live/completions buffers
