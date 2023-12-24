@@ -303,18 +303,18 @@ same directory as the org-buffer and insert a link to this file."
 #+end_src
 ** Completions, Search, etc
 #+begin_src emacs-lisp
-(use-package vertico
-  :init
-  (vertico-mode))
+  (use-package vertico
+    :init
+    (vertico-mode))
 
-;;Persists history between restarts, vertico sorts by history position. 
-(use-package savehist
-  :init
-  (savehist-mode))
+  ;;Persists history between restarts, vertico sorts by history position. 
+  (use-package savehist
+    :init
+    (savehist-mode))
 
-(use-package vertico-prescient
-  :after vertico
-  :init (vertico-prescient-mode +1))
+  (use-package vertico-prescient
+    :after vertico
+    :init (vertico-prescient-mode +1))
 
 (use-package consult
   :after projectile
