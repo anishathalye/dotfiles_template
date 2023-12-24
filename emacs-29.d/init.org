@@ -316,12 +316,12 @@ same directory as the org-buffer and insert a link to this file."
     :after vertico
     :init (vertico-prescient-mode +1))
 
-(use-package consult
-  :after projectile
-  :config
-  ;; This is to prevent consult-find from picking up node_modules.  For more, see:
-  ;; https://github.com/minad/consult/wiki#skipping-directories-when-using-consult-find
-  (setq consult-find-args "find . -not ( -wholename */.* -prune -o -name node_modules -prune )")
+  (use-package consult
+    :after projectile
+    :config
+    ;; This is to prevent consult-find from picking up node_modules.  For more, see:
+    ;; https://github.com/minad/consult/wiki#skipping-directories-when-using-consult-find
+    (setq consult-find-args "find . -not ( -wholename */.* -prune -o -name node_modules -prune )"))
   )
 
 ;; Richer annotations using the Marginalia package
