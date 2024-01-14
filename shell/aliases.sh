@@ -134,6 +134,8 @@ alias peek='tee >(cat 1>&2)'
 # Get public url
 alias puburl='curl ipecho.net/plain ; echo'
 
+alias python="python3"
+
 # Primary aliases & functions
 alias ptest='docker-compose exec rails bundle exec rspec ${1}'
 alias prc='docker-compose exec rails bundle exec rails c'
