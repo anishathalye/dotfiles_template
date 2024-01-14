@@ -30,19 +30,24 @@ brew "hub"
 # Note: Brew does not automatically symlink these so we need to do a brew link command after.
 brew "gnupg@2.2"
 
-# Clojure
+# Programming languages
 brew "clojure"
-
-# Rust
 brew "rust"
-
-# Emacs
-tap 'jimeh/emacs-builds'
-cask 'emacs-app'
+brew "python"
+brew "java"
 
 # Fira Code Font used in Emacs
-tap 'homebrew/cask-fonts'
+
 cask 'font-fira-code'
 
 # AWS Cli
 brew "awscli"
+
+# Emacs
+#tap 'jimeh/emacs-builds'
+#cask 'emacs-app'
+
+# Emacs 29
+brew "gcc"
+brew "tree-sitter" 
+brew "emacs-plus@29", args: ["with-native-comp"]
