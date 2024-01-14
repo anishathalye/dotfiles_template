@@ -36,3 +36,8 @@ path_append "$HOME/miniconda"
 
 # For Hub (http://hub.github.com)
 eval "$(hub alias -s)"
+
+# Alacritty shell completions
+# See: https://github.com/alacritty/alacritty/blob/master/INSTALL.md#zsh
+mkdir -p ${ZDOTDIR:-~}/.zsh_functions
+echo 'fpath+=${ZDOTDIR:-~}/.zsh_functions' >> ${ZDOTDIR:-~}/.zshrc
