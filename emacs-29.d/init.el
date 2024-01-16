@@ -22,6 +22,7 @@
 (setq default-fill-column 80)
 (setq initial-scratch-message "")
 (setq-default mode-line-format nil)
+(setq goto-address-mode t) ;; clickable links
 (electric-pair-mode 1)
 
 ;; line numbers
