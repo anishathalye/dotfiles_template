@@ -48,9 +48,11 @@
             (setq outline-regexp "^;;; ")
             (make-local-variable 'outline-heading-end-regexp)
             ;; (setq outline-heading-end-regexp ":\n")
-            (outline-minor-mode 1)))
+))
 
 (setq user-full-name "Ethan Miller")
+(setq xterm-extra-capabilities nil)
+
 (setq delete-old-versions -1)
 (setq inhibit-startup-screen t)
 (setq ring-bell-function 'ignore)
@@ -79,20 +81,17 @@
   (setq auto-revert-verbose nil)
   (global-auto-revert-mode +1))
 
-
-;; Enables ligatures in the emacs macport
-(if (fboundp 'mac-auto-operator-composition-mode)
-    (mac-auto-operator-composition-mode))
-
 ;; Minimal UI
 (scroll-bar-mode -2)
 (tool-bar-mode   -1)
 (tooltip-mode    -1)
-(menu-bar-mode   -1)
+
+;; Line spacing
+(setq line-spacing 0.1)
 
 ;; Ensure that emacs window is focused when switching desktops
 ;; See: https://emacs.stackexchange.com/questions/28121/osx-switching-to-virtual-desktop-doesnt-focus-emacs
-(menu-bar-mode t) 
+(menu-bar-mode -1) 
 
 ;; Make links clickable in comments
 (goto-address-mode 1)
@@ -181,7 +180,6 @@ same directory as the org-buffer and insert a link to this file."
 ;;; Secrets Setup
 (setq epg-pinentry-mode 'loopback) ;; this line I think allows prompt for passphrase in minibuffer
 (require 'epa-file)
-(custom-set-variables '(epg-gpg-program "/usr/local/bin/gpg"))
 (setq auth-source-debug t)
 (load-library "~/secrets.el.gpg")
 
@@ -310,7 +308,48 @@ same directory as the org-buffer and insert a link to this file."
 ;;; Org-mode configuation
 
 ;; This may help ensure we have the correct org version
-(use-package org)
+(defun my/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (auto-fill-mode 0)
+  (visual-line-mode 1)
+  (setq evil-auto-indent nil))
+
+(use-package org
+  :hook (org-mode . my/org-mode-setup)
+  :config
+  (dolist (face '((org-document-title . 1.4)
+		  (org-level-1 . 1.3)
+		  (org-level-2 . 1.2)
+		  (org-level-3 . 1.1)
+		  (org-level-4 . 1.1)
+		  (org-level-5 . 1.2)
+		  (org-level-6 . 1.2)
+		  (org-level-7 . 1.2)
+		  (org-level-8 . 1.2)))
+    (set-face-attribute (car face) nil :font "ETBembo" :weight 'normal :height (cdr face)))
+  ;; replace ellipsis for closed entries
+  (set-display-table-slot standard-display-table
+			  'selective-display (string-to-vector " ... "))
+  (setq ;;org-ellipsis " ▾"
+	org-hide-emphasis-markers t ;; hides the special markup symbols arond text
+	org-startup-indented t
+	org-startup-folded 'overview ;; will fold most items
+	org-src-fontify-natively t
+	org-fontify-quote-and-verse-blocks t
+	org-fontify-whole-heading-line t
+  ))
+
+;; this is a nice replacement of org-bullets
+(use-package org-superstar
+  :after (org)
+  :init
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+  :config
+  (setq org-superstar-remove-leading-stars t
+        org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")
+	;; org-superstar-headline-bullets-list '(" ")
+	))
 
 (setq org-directory "~/org")
 (setq org-log-into-drawer t)
@@ -355,9 +394,12 @@ same directory as the org-buffer and insert a link to this file."
 	("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
 	("DONE" . "#008080")))
 
-(use-package org-superstar
-  :init
-  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
+
+;; customize font size for levels in org-mode
+
+;; (font-lock-add-keywords 'org-mode
+;; 			'(("^ *\\([-]\\) ")
+;; 			  (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•")))))
 
 (use-package org-journal
   :config
@@ -395,28 +437,19 @@ same directory as the org-buffer and insert a link to this file."
   (org-super-agenda-mode)
   (setq org-super-agenda-groups
     '(;; Each group has an implicit Boolean OR operator between its selectors.
-      (:name "Life" :tag "life")
+      (:name "Personal" :tag "personal")
       (:name "PrimaryKids" :tag "primarykids")
       (:name "SciCloj" :tag "scicloj")
       (:name "✨ Finished ✨" :todo "DONE")))
   (org-agenda nil "a"))
 
-;; (use-package 
-;;   :hook
-;;   (after-init . org-roam-mode)
-;;   :custom
-;;   (org-roam-directory "~/org/notes")
-;;   :init
-;;   (progn
-;;     ;; Define fn to fetch list of org-roam files (using with org-ql)
-;;     (defun org-roam-files ()
-;;       (org-ql-search-directories-files :recurse "~/org/notes"))
-
-;;     ;; (spacemacs/declare-prefix "ar" "org-roam")
-;;     (spc-key-definer
-;;       "arf" 'org-roam-node-find))
-;;   :config
-;;   (org-roam-setup))
+(use-package emacsql)
+(use-package emacsql-sqlite)
+(use-package org-roam 
+  :after (emacsql emacsql-sqlite)
+  :config
+  (setq org-roam-directory "~/org/notes")
+  (org-roam-setup))
 
 (use-package org-ref
   :config
@@ -607,7 +640,7 @@ same directory as the org-buffer and insert a link to this file."
    ("C-," . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings) ;; alternative for `describe-bindings'
    ("M-." . embark-occur)       ;; occur-edit-mode
-   ("M-;" . embark-export)         ; export current view
+   ;;("M-;" . embark-export)         ; export current view
    )
 
   :init
@@ -709,7 +742,7 @@ same directory as the org-buffer and insert a link to this file."
   (setq lsp-auto-configure t
         lsp-auto-guess-root t
         ;; lsp-diagnostic-package :none
-        lsp-log-io nil ;; speed
+        lsp-log-io t ;; speed
         lsp-restart t ;; b/c server dies
         lsp-ui-sideline-enable t
         lsp-ui-sideline-show-hover t
@@ -766,7 +799,8 @@ same directory as the org-buffer and insert a link to this file."
 (use-package prettier-js
   :defer t
   :diminish prettier-js-mode
-  :hook (((js2-mode rjsx-mode) . prettier-js-mode)))
+  :hook (((js2-mode rjsx-mode) . prettier-js-mode))
+  )
 
 ;;; Clojure Configuration
 (show-paren-mode 1)
@@ -919,15 +953,5 @@ same directory as the org-buffer and insert a link to this file."
   :config
   (setq gptel-api-key secret/openai-api-key))
 
-;;; Custom-set-variables - do not edit (autogenerated)
-
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(put 'downcase-region 'disabled nil)
 
 ;;; init.el ends here
