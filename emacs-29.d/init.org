@@ -374,23 +374,23 @@
     (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
     ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
 
-  :config
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none))))
- )
+    :config
+    ;; Hide the mode line of the Embark live/completions buffers
+    (add-to-list 'display-buffer-alist
+                 '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                   nil
+                   (window-parameters (mode-line-format . none))))
+   )
 
-;; Consult users will also want the embark-consult package.
-(use-package embark-consult
-  :ensure t ; only need to install it, embark loads it after consult if found
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
+  ;; Consult users will also want the embark-consult package.
+  (use-package embark-consult
+    :ensure t ; only need to install it, embark loads it after consult if found
+    :hook
+    (embark-collect-mode . consult-preview-at-point-mode))
 
-(use-package wgrep
-  :config
-  (setq wgrep-auto-save-buffer t))
+  (use-package wgrep
+    :config
+    (setq wgrep-auto-save-buffer t))
 #+end_src
 ** Window management
 *** Ace Window
@@ -756,91 +756,84 @@ Helps surrounding text with symbols, e.g. quotes.
              :host github
              :repo "scicloj/clay.el"))
 #+end_src
-
-(advice-add 'cider-nrepl-request:eval :filter-args #'cider-tap)
-
-;; Here are some helper functions for showing the whole clay document.
-
-(defun scittle-show ()
-  (interactive)
-  (save-buffer)
-  (let
-      ((filename
-        (buffer-file-name)))
-    (when filename
-      (cider-interactive-eval
-       (concat "(scicloj.clay.v2.api/show-doc! \"" filename "\" {})")))))
-
-(defun scittle-show-and-write ()
-  (interactive)
-  (save-buffeci)
-  (let
-      ((filename
-        (buffer-file-name)))
-    (when filename
-      (cider-interactive-eval
-       (concat "(scicloj.clay.v2.api/show-doc-and-write-html! \"" filename "\" {:toc? true})")))))
-
+** YAML
+#+begin_src emacs-lisp
+(use-package yaml-mode
+    :mode (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
+          ("Procfile\\'" . yaml-mode))
+    :config (add-hook 'yaml-mode-hook
+                      #'(lambda ()
+                        (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 #+end_src
 
 * Org Mode
 ** Basic setup
 #+begin_src emacs-lisp
-   (setq org-directory "~/org")
-   (setq org-log-into-drawer t)
-   (setq org-export-backends
-         '(md html))
+  (setq org-directory "~/org")
+  (setq org-log-into-drawer t)
+  (setq org-export-backends
+        '(md html))
 
-   ;; Shortcut to org dir files
-   (defun my/my-org-finder ()
-     (interactive)
-     (ido-find-file-in-dir org-directory))
+  ;; Shortcut to org dir files
+  (defun my/my-org-finder ()
+    (interactive)
+    (ido-find-file-in-dir org-directory))
 
-   ;; ignore journal files in recent files
-   ;; (setq recentf-exclude '("/org/journal"))
+  ;; ignore journal files in recent files
+  ;; (setq recentf-exclude '("/org/journal"))
 
-   ;; Sets the column width to 80 columns and enables line breaking, ie. auto-fill.
-   (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
-   (add-hook 'org-mode-hook 'auto-fill-mode)
+  ;; Sets the column width to 80 columns and enables line breaking, ie. auto-fill.
+  (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
+  (add-hook 'org-mode-hook 'auto-fill-mode)
 
-   (defun my/org-mode-setup ()
-     (org-indent-mode)
-     (variable-pitch-mode 1)
-     (auto-fill-mode 0)
-     (visual-line-mode 1)
-     (setq evil-auto-indent nil))
+  (defun my/org-mode-setup ()
+    (org-indent-mode)
+    (variable-pitch-mode 1)
+    (auto-fill-mode 0)
+    (visual-line-mode 1)
+    (setq evil-auto-indent nil))
 
-   (use-package org
-     :hook (org-mode . my/org-mode-setup)
-     :config
-     (dolist (face '((org-document-title . 1.4)
-     		  (org-level-1 . 1.3)
-     		  (org-level-2 . 1.2)
-     		  (org-level-3 . 1.1)
-     		  (org-level-4 . 1.1)
-     		  (org-level-5 . 1.2)
-     		  (org-level-6 . 1.2)
-     		  (org-level-7 . 1.2)
-     		  (org-level-8 . 1.2)))
-       (set-face-attribute (car face) nil
+  (use-package org
+    :hook (org-mode . my/org-mode-setup)
+    :config
+    (dolist (face '((org-document-title . 1.4)
+    		  (org-level-1 . 1.3)
+    		  (org-level-2 . 1.2)
+    		  (org-level-3 . 1.1)
+    		  (org-level-4 . 1.1)
+    		  (org-level-5 . 1.2)
+    		  (org-level-6 . 1.2)
+    		  (org-level-7 . 1.2)
+    		  (org-level-8 . 1.2)))
+      (set-face-attribute (car face) nil
   			 :font "Roboto Slab"
   			 :weight 'normal
   			 :height (cdr face)
   			 ))
 
-     ;; replace ellipsis for closed entries
-     (set-display-table-slot standard-display-table
-     			  'selective-display (string-to-vector "..."))
-     (setq ;;org-ellipsis " ▾"
-     	org-hide-emphasis-markers t ;; hides the special markup symbols arond text
-     	org-startup-indented t
-     	org-startup-folded 'overview ;; will fold most items
-     	org-src-fontify-natively t
-             org-edit-src-content-indentation 2
-     	org-fontify-quote-and-verse-blocks t
-     	org-fontify-whole-heading-line t
-     ))
+    ;; replace ellipsis for closed entries
+    (set-display-table-slot standard-display-table
+    			  'selective-display (string-to-vector "..."))
+
+    (setq org-ellipsis " ▾"
+    	org-hide-emphasis-markers t ;; hides the special markup symbols arond text
+    	org-startup-indented t
+    	org-startup-folded 'overview ;; will fold most items
+    	org-src-fontify-natively t
+            org-edit-src-content-indentation 2
+    	org-fontify-quote-and-verse-blocks t
+    	org-fontify-whole-heading-line t))
+
+  ;; helps with org-mode tables that get messed up sometimes
+  (use-package mixed-pitch
+    :hook
+    ;; If you want it in all text modes:
+    (text-mode . mixed-pitch-mode))
 #+end_src
+
+#+RESULTS:
+| mixed-pitch-mode | text-mode-hook-identify |
+
 ** Bullets
 #+begin_src emacs-lisp
   ;; this is a nice replacement of org-bullets
@@ -854,6 +847,7 @@ Helps surrounding text with symbols, e.g. quotes.
   	;; org-superstar-headline-bullets-list '(" ")
   	))
 #+end_src
+
 ** Todo Setup
 #+begin_src emacs-lisp
   ;; Setup status tags
@@ -881,7 +875,7 @@ Helps surrounding text with symbols, e.g. quotes.
 #+begin_src emacs-lisp
 (use-package org-journal
   :config
-  (setq org-journal-dir "~/org/journal/")
+  (setq org-journal-dir "~/org/journals/")
   (setq org-journal-file-type 'weekly)
   (setq org-journal-file-format "%Y-%m-%d.org")
   (setq org-journal-time-prefix "** ")
@@ -915,14 +909,49 @@ Helps surrounding text with symbols, e.g. quotes.
 #+begin_src emacs-lisp
   (use-package emacsql)
   (use-package emacsql-sqlite)
-  (use-package org-roam 
+
+
+  ;; This setup is designed to allow org-roam to work with logseq.
+  ;; The org-roam directory is also the logseq directory. The
+  ;; org-roam dailies directory is set to be the same one logseq
+  ;; uses. Then for the capture templtes we put files in the `pages`
+  ;; directory. I followed this post to do this:
+  ;; https://coredumped.dev/2021/05/26/taking-org-roam-everywhere-with-logseq/
+  (use-package org-roam
     :after (emacsql emacsql-sqlite)
+    :custom
+    (org-roam-directory "~/org/old-notes")
+    ;; (org-roam-dailies-directory "journals/")
+    (org-roam-file-exclude-regexp "\\.st[^/]*\\|logseq/.*$")
+    (org-roam-capture-templates
+     '(("d" "default" plain
+        "%?" :target
+        (file+head "pages/${slug}.org" "#+title: ${title}\n")
+        :unnarrowed t)))
+    (org-roam-dailies-capture-templates '(("d" "default"
+  					 entry
+  					 "* %?"
+  					 :target (file+head "%<%Y_%m_%d>.org" "#+title: %<%Y-%m-%d>\n"))))
     :config
-    (setq org-roam-directory "~/org/notes")
     (org-roam-setup))
+
+
+  ;; This is a repository version of a script/gist that helps covert
+  ;; logseq files so that they will work with org-roam. It's also
+  ;; part of the post above.
+  (use-package org-roam-logseq
+    :straight
+    (:type git :host github :repo "sbougerel/org-roam-logseq.el")
+    :init
+    (setq bill/logseq-folder "~/org/notes")
+    ;; :custom
+    ;; (bill/logseq-folder "~/org/notes")
+    ;; (bill/logseq-pages "~/org/notes/pages")
+    ;; (bill/logseq-journals "~/org/notes/journals")
+    )
 #+end_src
 
-* Misc Other stuff
+* Other stuff
 ** Gptel (Chat GPT)
 #+begin_src emacs-lisp
   (use-package gptel
