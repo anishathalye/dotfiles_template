@@ -571,21 +571,23 @@ Helps surrounding text with symbols, e.g. quotes.
 ** Tree-Sitter
 *** Tree-Sitter config
 #+begin_src emacs-lisp
-  (use-package tree-sitter
-    :config
-    (customize-set-variable 'treesit-font-lock-level 5)
-    (setq treesit-language-source-alist
-      '((elisp "https://github.com/Wilfred/tree-sitter-elisp")
-        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-        (clojure "https://github.com/sogaiu/tree-sitter-clojure" "master" "src")))
-    (setq major-mode-remap-alist
-      '((js2-mode . js-ts-mode)
-        (typescript-mode . typescript-ts-mode)
-        (rjsx-mode . tsx-ts-mode)
-        (json-mode . json-ts-mode)
-        (css-mode . css-ts-mode))))
+      (use-package tree-sitter
+        :config
+        (customize-set-variable 'treesit-font-lock-level 5)
+        (setq treesit-language-source-alist
+          '((elisp "https://github.com/Wilfred/tree-sitter-elisp")
+            (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+            (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+            (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+            (clojure "https://github.com/sogaiu/tree-sitter-clojure" "master" "src")
+    	  (yaml "https://github.com/ikatyang/tree-sitter-yaml" "master" "src")
+            (json "https://github.com/tree-sitter/tree-sitter-json" "master" "src")))
+        (setq major-mode-remap-alist
+          '((js2-mode . js-ts-mode)
+            (typescript-mode . typescript-ts-mode)
+            (rjsx-mode . tsx-ts-mode)
+            (json-mode . json-ts-mode)
+            (css-mode . css-ts-mode))))
 #+end_src
 
 *** COMMENT Text Objects
