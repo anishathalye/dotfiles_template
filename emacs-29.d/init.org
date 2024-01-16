@@ -712,7 +712,7 @@ Helps surrounding text with symbols, e.g. quotes.
   (use-package prettier-js
     :defer t
     :diminish prettier-js-mode
-    :hook (((js2-mode rjsx-mode) . prettier-js-mode))
+    :hook (((js2-mode rjsx-mode js-ts-mode tsx-ts-mode typescript-ts-mode) . prettier-js-mode))
     )
 #+end_src
 ** Clojure
