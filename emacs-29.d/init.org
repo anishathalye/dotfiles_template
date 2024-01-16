@@ -624,6 +624,10 @@ Helps surrounding text with symbols, e.g. quotes.
 
 ** Enable LSP Mode
 #+begin_src emacs-lisp
+  ;; Optimizations for lsp, see https://emacs-lsp.github.io/lsp-mode/page/performance/
+  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+  (setq gc-cons-threshold 100000000)
+
   (use-package lsp-mode
     :defer t
     :hook ((lsp-mode . lsp-enable-which-key-integration))
@@ -634,24 +638,36 @@ Helps surrounding text with symbols, e.g. quotes.
           ;; lsp-diagnostic-package :none
           lsp-log-io t ;; speed
           lsp-restart t ;; b/c server dies
-          lsp-ui-sideline-enable t
-          lsp-ui-sideline-show-hover t
+          ;; lsp-ui-sideline-enable t
+          ;; lsp-ui-sideline-show-hover t
           lsp-ui-sideline-show-code-actions t
-          lsp-ui-sideline-show-diagnostics t
+          ;; lsp-ui-sideline-show-diagnostics t
           ))
 
   (use-package lsp-ui
     :commands lsp-ui-mode)
 #+end_src
+
 ** Completion in buffer
 #+begin_src emacs-lisp
+  (defun my/setup-lsp-company ()
+    (setq-local company-backends
+                '(company-capf company-dabbrev company-dabbrev-code)))
+
+  (add-hook 'lsp-completion-mode-hook #'my/setup-lsp-company)
+
   (use-package company
     :init
     (add-hook 'after-init-hook 'global-company-mode)
     :config
-    (setq company-minimum-prefix-length 1
-          company-idle-delay 0.0))
-
+    (setq
+     company-minimum-prefix-length 2
+     company-idle-delay 0.35
+     company-tooltip-align-annotations t
+     company-require-match nil     ;; allow free typing
+     company-dabbrev-ignore-case t ;; don't ignore case for completions
+     company-dabbrev-downcase t    ;; don't downcase completions
+     ))
 #+end_src
 ** Flycheck for errors
 #+begin_src emacs-lisp
