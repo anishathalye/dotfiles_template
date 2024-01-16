@@ -103,3 +103,4 @@ build-cache.el
 # Other emacs stuff
 .org-id-locations
 org-persist/*
+tree-sitter/*
