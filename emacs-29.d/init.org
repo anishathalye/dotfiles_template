@@ -120,51 +120,60 @@
 (setenv "GITHUB_PKG_AUTH_TOKEN" secret/github-pkg-auth-token)
 #+end_src
 ** Global Custom Functions
+*** Toggle Buffers 
 #+begin_src emacs-lisp
-(defun my/toggle-buffers ()
-  (interactive)
-  (switch-to-buffer nil))
+  (defun my/toggle-buffers ()
+    (interactive)
+    (switch-to-buffer nil))
+#+end_src emaacs-lisp
+*** Evil Functions
+#+begin_src emacs-lisp
+  (defun my/evil-shift-right ()
+    (interactive)
+    (evil-shift-right evil-visual-beginning evil-visual-end)
+    (evil-normal-state)
+    (evil-visual-restore))
 
-(defun my/evil-shift-right ()
-  (interactive)
-  (evil-shift-right evil-visual-beginning evil-visual-end)
-  (evil-normal-state)
-  (evil-visual-restore))
-
-(defun my/evil-shift-left ()
-  (interactive)
-  (evil-shift-left evil-visual-beginning evil-visual-end)
-  (evil-normal-state)
-  (evil-visual-restore))
-
-(defun my/cider-test-run-focused-test ()
-  "Run test around point."
-  (interactive)
-  (cider-load-buffer)
-  (cider-test-run-test))
-
-(defun my/org-screenshot ()
-  "Take a screenshot into a time stamped unique-named file in the
-same directory as the org-buffer and insert a link to this file."
-  (interactive)
-  (org-display-inline-images)
-  (setq filename
-        (concat
-         (make-temp-name
-          (concat (file-name-nondirectory (buffer-file-name))
-                  "_imgs/"
-                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
-  (unless (file-exists-p (file-name-directory filename))
-    (make-directory (file-name-directory filename)))
-                                        ; take screenshot
-  (if (eq system-type 'darwin)
-      (call-process "screencapture" nil nil nil "-i" filename))
-  (if (eq system-type 'gnu/linux)
-      (call-process "import" nil nil nil filename))
-                                        ; insert into file if correctly taken
-  (if (file-exists-p filename)
-      (insert (concat "[[file:" filename "]]"))))
+  (defun my/evil-shift-left ()
+    (interactive)
+    (evil-shift-left evil-visual-beginning evil-visual-end)
+    (evil-normal-state)
+    (evil-visual-restore))
 #+end_src
+*** Cider Test Focused Test
+#+begin_src emacs-lisp
+  (defun my/cider-test-run-focused-test ()
+    "Run test around point."
+    (interactive)
+    (cider-load-buffer)
+    (cider-test-run-test))
+#+end_src
+
+*** Screenshot
+#+begin_src emacs-lisp
+  (defun my/org-screenshot ()
+    "Take a screenshot into a time stamped unique-named file in the
+  same directory as the org-buffer and insert a link to this file."
+    (interactive)
+    (org-display-inline-images)
+    (setq filename
+          (concat
+           (make-temp-name
+            (concat (file-name-nondirectory (buffer-file-name))
+                    "_imgs/"
+                    (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+    (unless (file-exists-p (file-name-directory filename))
+      (make-directory (file-name-directory filename)))
+                                          ; take screenshot
+    (if (eq system-type 'darwin)
+        (call-process "screencapture" nil nil nil "-i" filename))
+    (if (eq system-type 'gnu/linux)
+        (call-process "import" nil nil nil filename))
+                                          ; insert into file if correctly taken
+    (if (file-exists-p filename)
+        (insert (concat "[[file:" filename "]]"))))
+#+end_src
+
 * Advanced UI Setup
 ** Fonts Setup
 #+begin_src emacs-lisp
