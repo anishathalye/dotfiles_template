@@ -714,6 +714,12 @@ Helps surrounding text with symbols, e.g. quotes.
     :diminish prettier-js-mode
     :hook (((js2-mode rjsx-mode js-ts-mode tsx-ts-mode typescript-ts-mode) . prettier-js-mode))
     )
+
+  (use-package jest-test-mode 
+    :ensure t 
+    :commands jest-test-mode
+    :hook (typescript-mode js-mode typescript-tsx-mode))
+
 #+end_src
 ** Clojure
 *** Basic setup
