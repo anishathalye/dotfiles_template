@@ -99,10 +99,6 @@
 
 (setenv "GITHUB_PKG_AUTH_TOKEN" secret/github-pkg-auth-token)
 
-(defun my/toggle-buffers ()
-  (interactive)
-  (switch-to-buffer nil))
-
 (defun my/evil-shift-right ()
   (interactive)
   (evil-shift-right evil-visual-beginning evil-visual-end)
@@ -194,7 +190,6 @@ same directory as the org-buffer and insert a link to this file."
       modus-themes-italic-constructs t
       modus-themes-bold-constructs t
       modus-themes-paren-match '(bold intense))
-(load-theme 'modus-vivendi t)
 
 ;;; Initialize `general` for keybindings
 (use-package general
@@ -279,8 +274,7 @@ same directory as the org-buffer and insert a link to this file."
   :config
   ;; This is to prevent consult-find from picking up node_modules.  For more, see:
   ;; https://github.com/minad/consult/wiki#skipping-directories-when-using-consult-find
-  (setq consult-find-args "find . -not ( -wholename */.* -prune -o -name node_modules -prune )")
-  )
+  (setq consult-find-args "find . -not ( -wholename */.* -prune -o -name node_modules -prune )"))
 
 ;; Richer annotations using the Marginalia package
 (use-package marginalia
@@ -504,13 +498,19 @@ same directory as the org-buffer and insert a link to this file."
       (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
       (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
       (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-      (clojure "https://github.com/sogaiu/tree-sitter-clojure" "master" "src")))
+      (clojure "https://github.com/sogaiu/tree-sitter-clojure" "master" "src")
+	  (yaml "https://github.com/ikatyang/tree-sitter-yaml" "master" "src")
+      (json "https://github.com/tree-sitter/tree-sitter-json" "master" "src")))
   (setq major-mode-remap-alist
     '((js2-mode . js-ts-mode)
       (typescript-mode . typescript-ts-mode)
       (rjsx-mode . tsx-ts-mode)
       (json-mode . json-ts-mode)
       (css-mode . css-ts-mode))))
+
+;; Optimizations for lsp, see https://emacs-lsp.github.io/lsp-mode/page/performance/
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setq gc-cons-threshold 100000000)
 
 (use-package lsp-mode
   :defer t
@@ -522,21 +522,33 @@ same directory as the org-buffer and insert a link to this file."
         ;; lsp-diagnostic-package :none
         lsp-log-io t ;; speed
         lsp-restart t ;; b/c server dies
-        lsp-ui-sideline-enable t
-        lsp-ui-sideline-show-hover t
+        ;; lsp-ui-sideline-enable t
+        ;; lsp-ui-sideline-show-hover t
         lsp-ui-sideline-show-code-actions t
-        lsp-ui-sideline-show-diagnostics t
+        ;; lsp-ui-sideline-show-diagnostics t
         ))
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
 
+(defun my/setup-lsp-company ()
+  (setq-local company-backends
+              '(company-capf company-dabbrev company-dabbrev-code)))
+
+(add-hook 'lsp-completion-mode-hook #'my/setup-lsp-company)
+
 (use-package company
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
-  (setq company-minimum-prefix-length 1
-        company-idle-delay 0.0))
+  (setq
+   company-minimum-prefix-length 2
+   company-idle-delay 0.35
+   company-tooltip-align-annotations t
+   company-require-match nil     ;; allow free typing
+   company-dabbrev-ignore-case t ;; don't ignore case for completions
+   company-dabbrev-downcase t    ;; don't downcase completions
+   ))
 
 (use-package flycheck
   :hook ((prog-mode . flycheck-mode))
@@ -576,8 +588,13 @@ same directory as the org-buffer and insert a link to this file."
 (use-package prettier-js
   :defer t
   :diminish prettier-js-mode
-  :hook (((js2-mode rjsx-mode) . prettier-js-mode))
+  :hook (((js2-mode rjsx-mode js-ts-mode tsx-ts-mode typescript-ts-mode) . prettier-js-mode))
   )
+
+(use-package jest-test-mode 
+  :ensure t 
+  :commands jest-test-mode
+  :hook (typescript-mode js-mode typescript-tsx-mode))
 
 (show-paren-mode 1)
 
@@ -603,37 +620,18 @@ same directory as the org-buffer and insert a link to this file."
     (add-hook 'cider-repl-mode-hook #'company-mode)
     (add-hook 'cider-mode-hook #'company-mode)))
 
-;; This is for allowing cider to send values to clay... 
-;; inspired by https://github.com/clojure-emacs/cider/issues/3094
-(defun cider-tap (&rest r) 
-  (cons (concat "(let [__value "
-                (caar r)
-                "] (tap> {:clay-tap? true :form (quote " (caar r) ") :value __value}) __value)")
-        (cdar r)))
+(use-package clay
+  :straight (clay
+             :type git
+             :host github
+             :repo "scicloj/clay.el"))
 
-(advice-add 'cider-nrepl-request:eval :filter-args #'cider-tap)
-
-;; Here are some helper functions for showing the whole clay document.
-
-(defun scittle-show ()
-  (interactive)
-  (save-buffer)
-  (let
-      ((filename
-        (buffer-file-name)))
-    (when filename
-      (cider-interactive-eval
-       (concat "(scicloj.clay.v2.api/show-doc! \"" filename "\" {})")))))
-
-(defun scittle-show-and-write ()
-  (interactive)
-  (save-buffeci)
-  (let
-      ((filename
-        (buffer-file-name)))
-    (when filename
-      (cider-interactive-eval
-       (concat "(scicloj.clay.v2.api/show-doc-and-write-html! \"" filename "\" {:toc? true})")))))
+(use-package yaml-mode
+    :mode (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
+          ("Procfile\\'" . yaml-mode))
+    :config (add-hook 'yaml-mode-hook
+                      #'(lambda ()
+                        (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 
 (setq org-directory "~/org")
 (setq org-log-into-drawer t)
@@ -680,15 +678,21 @@ same directory as the org-buffer and insert a link to this file."
   ;; replace ellipsis for closed entries
   (set-display-table-slot standard-display-table
   			  'selective-display (string-to-vector "..."))
-  (setq ;;org-ellipsis " ▾"
+
+  (setq org-ellipsis " ▾"
   	org-hide-emphasis-markers t ;; hides the special markup symbols arond text
   	org-startup-indented t
   	org-startup-folded 'overview ;; will fold most items
   	org-src-fontify-natively t
           org-edit-src-content-indentation 2
   	org-fontify-quote-and-verse-blocks t
-  	org-fontify-whole-heading-line t
-  ))
+  	org-fontify-whole-heading-line t))
+
+;; helps with org-mode tables that get messed up sometimes
+(use-package mixed-pitch
+  :hook
+  ;; If you want it in all text modes:
+  (text-mode . mixed-pitch-mode))
 
 ;; this is a nice replacement of org-bullets
 (use-package org-superstar
@@ -701,6 +705,18 @@ same directory as the org-buffer and insert a link to this file."
 	;; org-superstar-headline-bullets-list '(" ")
 	))
 
+;; Setup status tags
+(setq org-todo-keywords
+      '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "REVIEW(r)" "|" "BLOCKED(b!)" "DONE(d!)" "CANCELED(c!)")))
+
+(setq org-todo-keyword-faces
+      '(("TODO" . (:foreground "#ff39a3" :weight bold))
+	("STARTED" . "#E35DBF")
+	("REVIEW" . "lightblue")
+	("BLOCKED" . "pink")
+	("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
+	("DONE" . "#008080")))
+
 (require 'org-tempo)
 (with-eval-after-load 'org-tempo
   (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
@@ -708,7 +724,7 @@ same directory as the org-buffer and insert a link to this file."
 
 (use-package org-journal
   :config
-  (setq org-journal-dir "~/org/journal/")
+  (setq org-journal-dir "~/org/journals/")
   (setq org-journal-file-type 'weekly)
   (setq org-journal-file-format "%Y-%m-%d.org")
   (setq org-journal-time-prefix "** ")
@@ -739,11 +755,46 @@ same directory as the org-buffer and insert a link to this file."
 
 (use-package emacsql)
 (use-package emacsql-sqlite)
-(use-package org-roam 
+
+
+;; This setup is designed to allow org-roam to work with logseq.
+;; The org-roam directory is also the logseq directory. The
+;; org-roam dailies directory is set to be the same one logseq
+;; uses. Then for the capture templtes we put files in the `pages`
+;; directory. I followed this post to do this:
+;; https://coredumped.dev/2021/05/26/taking-org-roam-everywhere-with-logseq/
+(use-package org-roam
   :after (emacsql emacsql-sqlite)
+  :custom
+  (org-roam-directory "~/org/old-notes")
+  ;; (org-roam-dailies-directory "journals/")
+  (org-roam-file-exclude-regexp "\\.st[^/]*\\|logseq/.*$")
+  (org-roam-capture-templates
+   '(("d" "default" plain
+      "%?" :target
+      (file+head "pages/${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)))
+  (org-roam-dailies-capture-templates '(("d" "default"
+					 entry
+					 "* %?"
+					 :target (file+head "%<%Y_%m_%d>.org" "#+title: %<%Y-%m-%d>\n"))))
   :config
-  (setq org-roam-directory "~/org/notes")
   (org-roam-setup))
+
+
+;; This is a repository version of a script/gist that helps covert
+;; logseq files so that they will work with org-roam. It's also
+;; part of the post above.
+(use-package org-roam-logseq
+  :straight
+  (:type git :host github :repo "sbougerel/org-roam-logseq.el")
+  :init
+  (setq bill/logseq-folder "~/org/notes")
+  ;; :custom
+  ;; (bill/logseq-folder "~/org/notes")
+  ;; (bill/logseq-pages "~/org/notes/pages")
+  ;; (bill/logseq-journals "~/org/notes/journals")
+  )
 
 (use-package gptel
   :config
