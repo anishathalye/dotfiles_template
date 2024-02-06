@@ -1,3 +1,15 @@
 - clean: []
-- link: {}
-- shell: []
+- link:
+    ~/.zshrc:
+      force: true
+      path: zsh/zshrc
+    ~/.zsh_plugins.txt:
+      force: true
+      path: zsh/zsh_plugins.txt
+    ~/.asdf:
+      force: true
+      path: asdf
+- brewfile:
+  - brew/Brewfile
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]

@@ -1,0 +1,13 @@
+# ~/.zshrc
+
+source $(brew --prefix)/share/antidote/antidote.zsh
+source "$HOME/.asdf/asdf.sh"
+
+antidote load
+
+eval "$(starship init zsh)"
+fpath=(${ASDF_DIR}/completions $fpath)
+autoload -Uz compinit && compinit
+
+GPG_TTY=$(tty)
+export GPG_TTY

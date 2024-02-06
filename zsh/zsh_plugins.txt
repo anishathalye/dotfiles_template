@@ -1,0 +1,14 @@
+# utility plugins
+romkatv/zsh-defer
+romkatv/zsh-bench kind:path
+
+agkozak/zsh-z
+
+# completion plugins
+zsh-users/zsh-completions
+
+# deferred plugins
+olets/zsh-abbr kind:defer
+zsh-users/zsh-autosuggestions kind:defer
+zdharma-continuum/fast-syntax-highlighting kind:defer
+zsh-users/zsh-history-substring-search kind:defer
