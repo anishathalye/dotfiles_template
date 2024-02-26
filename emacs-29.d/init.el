@@ -99,6 +99,10 @@
 
 (setenv "GITHUB_PKG_AUTH_TOKEN" secret/github-pkg-auth-token)
 
+(defun my/toggle-buffers ()
+  (interactive)
+  (switch-to-buffer nil))
+
 (defun my/evil-shift-right ()
   (interactive)
   (evil-shift-right evil-visual-beginning evil-visual-end)
@@ -190,6 +194,7 @@ same directory as the org-buffer and insert a link to this file."
       modus-themes-italic-constructs t
       modus-themes-bold-constructs t
       modus-themes-paren-match '(bold intense))
+(load-theme 'modus-vivendi t)
 
 ;;; Initialize `general` for keybindings
 (use-package general
@@ -348,6 +353,10 @@ same directory as the org-buffer and insert a link to this file."
   (golden-ratio-mode 1)
   :config
   (add-to-list 'golden-ratio-extra-commands 'ace-window))
+
+(use-package origami
+  :config
+  (add-hook 'js-to-mode 'origami-mode))
 
 (use-package projectile
   :diminish projectile-mode
@@ -655,7 +664,8 @@ same directory as the org-buffer and insert a link to this file."
   (variable-pitch-mode 1)
   (auto-fill-mode 0)
   (visual-line-mode 1)
-  (setq evil-auto-indent nil))
+  (setq evil-auto-indent nil)
+  (setq org-list-indent-offset 2))
 
 (use-package org
   :hook (org-mode . my/org-mode-setup)
@@ -677,7 +687,7 @@ same directory as the org-buffer and insert a link to this file."
 
   ;; replace ellipsis for closed entries
   (set-display-table-slot standard-display-table
-  			  'selective-display (string-to-vector "..."))
+  			'selective-display (string-to-vector "..."))
 
   (setq org-ellipsis " ▾"
   	org-hide-emphasis-markers t ;; hides the special markup symbols arond text

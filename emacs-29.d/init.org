@@ -125,7 +125,7 @@
   (defun my/toggle-buffers ()
     (interactive)
     (switch-to-buffer nil))
-#+end_src emaacs-lisp
+#+end_src
 *** Evil Functions
 #+begin_src emacs-lisp
   (defun my/evil-shift-right ()
@@ -412,6 +412,13 @@ Enables easy toggle and other things that I've not yet used.
     :config
     (add-to-list 'golden-ratio-extra-commands 'ace-window))
 #+end_src
+** Origami Mode
+#+begin_src emacs-lisp
+  (use-package origami
+    :config
+    (add-hook 'js-to-mode 'origami-mode))
+#+end_src
+
 * Project Management
 ** Projectile
 #+begin_src emacs-lisp
@@ -791,7 +798,8 @@ Helps surrounding text with symbols, e.g. quotes.
     (variable-pitch-mode 1)
     (auto-fill-mode 0)
     (visual-line-mode 1)
-    (setq evil-auto-indent nil))
+    (setq evil-auto-indent nil)
+    (setq org-list-indent-offset 2))
 
   (use-package org
     :hook (org-mode . my/org-mode-setup)
@@ -813,7 +821,7 @@ Helps surrounding text with symbols, e.g. quotes.
 
     ;; replace ellipsis for closed entries
     (set-display-table-slot standard-display-table
-    			  'selective-display (string-to-vector "..."))
+    			'selective-display (string-to-vector "..."))
 
     (setq org-ellipsis " ▾"
     	org-hide-emphasis-markers t ;; hides the special markup symbols arond text
