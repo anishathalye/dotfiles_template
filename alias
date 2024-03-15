@@ -101,6 +101,7 @@ if [[ -d ~/.local/share/JetBrains/Toolbox/apps/ ]]; then
     alias pycharm=`fd pycharm.sh ~/.local/share/JetBrains/Toolbox/apps/ &`
 fi
 
+
 function aws_select_profile() {
     # Define local variables
     local profiles
@@ -118,6 +119,26 @@ function aws_select_profile() {
     # Optionally, you can print the selected profile for confirmation
     echo "Selected AWS profile: $selected_profile"
 }
+function aws_select_profile_login() {
+    # Define local variables
+    local profiles
+    local selected_profile
+
+    # Read the content of the ~/.aws/config file and extract profile names
+    profiles=$(awk '$1=="[profile" {print substr($2, 1, length($2)-1)}' ~/.aws/config)
+
+    # Use fzf to select a profile
+    selected_profile=$(echo "$profiles" | fzf)
+
+    # Export AWS_PROFILE with the selected profile
+    export AWS_PROFILE="$selected_profile"
+    aws sso login --profile $AWS_PROFILE
+
+    # Optionally, you can print the selected profile for confirmation
+    echo "Selected AWS profile: $selected_profile"
+}
+
+
 
 ##########################
 ## github cli

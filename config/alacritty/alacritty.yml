@@ -38,6 +38,8 @@ font:
 selection:
   save_to_clipboard: true
 
-url_launcher:
-  program: firefox
-  args:  -P default-release -no-remote --new-tab
+mouse:
+  url:
+    launcher:
+      program: firefox
+      args:  -P default-release -no-remote --new-tab
