@@ -132,12 +132,14 @@ function aws_select_profile_login() {
 
     # Export AWS_PROFILE with the selected profile
     export AWS_PROFILE="$selected_profile"
-    aws sso login --profile $AWS_PROFILE
+    aws sso login --profile $AWS_PROFILE --no-browser
 
     # Optionally, you can print the selected profile for confirmation
     echo "Selected AWS profile: $selected_profile"
 }
 
+# start jupyter lab
+alias jupyter_lab_start="jupyter notebook --ip=0.0.0.0 --port=8888"
 
 
 ##########################
@@ -288,8 +290,6 @@ alias wg_bfunk_down='wg-quick down bfunk'
 alias wg_bfunk_stop='wg_bfunk_down'
 alias wg_bfunk_restart='wg_bfunk_down && wg_bfunk_up'
 alias wg_bfunk_route_force_start='sudo ip route del default; sudo ip route add default via 131.217.38.1 dev eth1; sudo ip route add $SERVER_LOCAL_IP via 11.13.13.4 dev bfunk; sudo ip route add 10.1.1.0/24 via 10.13.13.4 dev bfunk' # could be useful if wifi network has same network as vpn
-
-#
 
 ##########################
 # vim nvim alias

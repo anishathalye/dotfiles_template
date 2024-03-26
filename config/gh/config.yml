@@ -95,3 +95,4 @@ aliases:
 
             ;;
           esac)
+version: "1"
