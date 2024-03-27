@@ -88,7 +88,8 @@ signal=1
 color=#929596
 
 [backlight]
-command=light | cut -d . -f 1
+#command=light | cut -d . -f 1
+command=~/.config/i3blocks/brightness.py
 label= 
 interval=1
 color=#eddd00
