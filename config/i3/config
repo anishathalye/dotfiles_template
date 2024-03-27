@@ -48,9 +48,9 @@ bindsym $mod+d exec rofi -show combi -columns 3
 # keepass rofi wrapper
 #bindsym Ctrl+k exec ~/bin/keepass_rofi_wrapper.sh
 # user + pass
-bindsym Ctrl+u exec ~/anaconda3/bin/ph type --tabbed --prog dmenu
+bindsym Ctrl+u exec ~/miniforge3/bin/ph type --tabbed --prog dmenu
 # pass only
-bindsym Ctrl+k exec ~/anaconda3/bin/ph type --prog dmenu
+bindsym Ctrl+k exec ~/miniforge3/bin/ph type --prog dmenu
 
 # change focus
 bindsym $mod+h focus left

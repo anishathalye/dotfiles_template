@@ -217,6 +217,10 @@ alias musescore_dl='npx msdl'
 alias path_env_path="echo $PATH | tr ':' '\n' | fzf"
 [[ -s "$HOMEBREW_PREFIX/etc/grc.zsh" ]] && alias tail='grc tail'
 
+if command -v cheat-linux-amd64 > /dev/null; then
+    alias cheat=cheat-linux-amd64
+fi
+
 alias irssi='screen irssi'
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
 alias cleanup_cache="brew cleanup && conda clean -a"
@@ -631,5 +635,5 @@ alias cscli_alerts_list="cscli alerts list"
 alias cscli_metrics="cscli metrics"
 alias cscli_bouncer_list="cscli bouncers list"
 
-# BROWNFUNK load beets with anaconda
-alias beet="[ -f ~/anaconda3/envs/beets/bin/python ] && conda activate beets;beet"
+# BROWNFUNK load beets with miniforge
+alias beet="[ -f ~/miniforge3/envs/beets/bin/python ] && conda activate beets;beet"

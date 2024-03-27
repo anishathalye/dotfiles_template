@@ -1,9 +1,9 @@
 
 " load neovim with conda env
-if !empty(glob('~/anaconda3/envs/neovim/bin/python'))
-    let g:python3_host_prog = expand('~/anaconda3/envs/neovim/bin/python')
-elseif !empty(glob('~/miniconda3/envs/neovim/bin/python'))
-    let g:python3_host_prog = expand('~/miniconda3/envs/neovim/bin/python')
+if !empty(glob('~/miniforge3/envs/neovim/bin/python'))
+    let g:python3_host_prog = expand('~/miniforge3/envs/neovim/bin/python')
+elseif !empty(glob('~/miniforge3/envs/neovim/bin/python'))
+    let g:python3_host_prog = expand('~/miniforge3/envs/neovim/bin/python')
 endif
 
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
