@@ -18,6 +18,7 @@
     ~/.config/gh: {create: true, force: true, path: config/gh/}
     ~/.config/nvim/init.vim: {create: true, force: true, path: vim/nvim.init.vim}
     ~/.config/Nextcloud: {create: true, force: true, path: config/Nextcloud/}
+    ~/.config/passhole.ini: {create: true, force: true, path: config/passhole.ini}
     ~/.config/pgcli: {create: true, force: true, path: config/pgcli/}
     ~/.config/ranger: {create: true, force: true, path: config/ranger/}
     ~/.config/redlist: {create: true, force: true, path: config/redlist/}
