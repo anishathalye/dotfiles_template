@@ -46,19 +46,3 @@ sshfs <user>@<host>:/path/to/folder /path/to/mount/point
 # Emacs can read file through SSH
 # Doc: http://www.gnu.org/software/emacs/manual/html_node/emacs/Remote-Files.html
 emacs /ssh:<user>@<host>:<file>
-openssl rsa -in ~/.ssh/id_rsa -out /tmp/id_rs_plain
-
-# jenkins ssh
-ssh USERd@kenkins.aodn.org.au -p 2222 build chef_cook_node -p NODE_NAME=14-nsp-mel -p GIT_BRANCH=master
-
-# rt forwarding
-
-# port forwarding on my machine via its6 :
-ssh -fNg -L 5556:DEST-MACHINE:5432 VIA-TUNNEL-MACHINE6 ssh -A USERd@DEST-MACHINE
-
-# port forwarding to scp via ssh tunnel :
-# Step 1: Establish SSH tunnel. Pick a temporary port between 1024 and 32768 (12345 in this example). Port 22 will be used by scp.
-ssh -fNg -L 12345:DEST-machine:22 TUNNEL-MACHINE
-# Step 2: Run scp against port 1234 pretending 127.0.0.1 (localhost) is the remote machine R, and the command will be sent to R.
-scp -r  -P 12345 USER@127.0.0.1:/mnt/opendap/1/IMOS/opendap/Argo/dac/csiro/5903665 dest-dir-local
-
