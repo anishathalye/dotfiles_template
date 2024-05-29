@@ -3,7 +3,7 @@
 
 unalias  fd >/dev/null 2>/dev/null # in order to use https://github.com/sharkdp/fd
 
-alias mintupdate = 'sudo mintupdate-cli --install-recommends -y upgrade'
+alias mintupdate='sudo mintupdate-cli --install-recommends -y upgrade'
 
 ##########################
 # DOTFILES UPDATE
