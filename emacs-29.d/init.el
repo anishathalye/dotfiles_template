@@ -645,7 +645,7 @@ same directory as the org-buffer and insert a link to this file."
 (setq org-directory "~/org")
 (setq org-log-into-drawer t)
 (setq org-export-backends
-      '(md html))
+      '(md html odt))
 
 ;; Shortcut to org dir files
 (defun my/my-org-finder ()
