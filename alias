@@ -176,11 +176,13 @@ alias gclean=forgit::clean
 function conda_activate () {
   conda activate "$(conda info --envs | grep envs | fzf | awk '{print $1}')"
 }
+alias mamba_activate=conda_activate
 
 function conda_destroy () {
-  conda env remove -n "$(conda info --envs | grep envs |fzf | awk '{print $1}')"
+  mamba env remove -n "$(mamba info --envs | grep envs |fzf | awk '{print $1}')"
 }
 alias conda_remove=conda_destroy
+alias mamba_destroy=conda_destroy
 
 ##########################
 # Display
