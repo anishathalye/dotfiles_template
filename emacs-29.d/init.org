@@ -418,6 +418,12 @@ Enables easy toggle and other things that I've not yet used.
     :config
     (add-hook 'js-to-mode 'origami-mode))
 #+end_src
+** Copilot
+#+begin_src emacs-lisp
+(use-package copilot
+  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+  :ensure t)
+#+end_src
 
 * Project Management
 ** Projectile
