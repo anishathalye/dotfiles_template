@@ -25,6 +25,7 @@ font pango: SpaceMono Nerd Font Mono Medium 11
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -103,53 +104,84 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# Name the workspaces
-set $workspace1 " 1:  "
-set $workspace2 " 2:  "
-set $workspace3 " 3:  "
-set $workspace4 " 4:  "
-set $workspace5 " 5:  " 
-set $workspace6 " 6:  "
-set $workspace7 " 7:  "
-set $workspace8 " 8: ♫ "
-set $workspace9 " 9:  "
-set $workspace0 " 10:  "
+## Name the workspaces
+#set $workspace1 " 1:  "
+#set $workspace2 " 2:  "
+#set $workspace3 " 3:  "
+#set $workspace4 " 4:  "
+#set $workspace5 " 5:  " 
+#set $workspace6 " 6:  "
+#set $workspace7 " 7:  "
+#set $workspace8 " 8: ♫ "
+#set $workspace9 " 9:  "
+#set $workspace0 " 10:  "
 
-# set workspace to external monitor if connected
-workspace " 1:  " output DP-1-3
-workspace " 2:  " output DP-1-3
-workspace " 4:  " output DP-1-3
+## set workspace to external monitor if connected
+#workspace " 1:  " output DP-1-3
+#workspace " 2:  " output DP-1-3
+#workspace " 4:  " output DP-1-3
 
-# Switch to workspace
-bindsym $mod+1 workspace $workspace1
-bindsym $mod+2 workspace $workspace2
-bindsym $mod+3 workspace $workspace3
-bindsym $mod+4 workspace $workspace4
-bindsym $mod+5 workspace $workspace5
-bindsym $mod+6 workspace $workspace6
-bindsym $mod+7 workspace $workspace7
-bindsym $mod+8 workspace $workspace8
-bindsym $mod+9 workspace $workspace9
-bindsym $mod+0 workspace $workspace0
+## Switch to workspace
+#bindsym $mod+1 workspace $workspace1
+#bindsym $mod+2 workspace $workspace2
+#bindsym $mod+3 workspace $workspace3
+#bindsym $mod+4 workspace $workspace4
+#bindsym $mod+5 workspace $workspace5
+#bindsym $mod+6 workspace $workspace6
+#bindsym $mod+7 workspace $workspace7
+#bindsym $mod+8 workspace $workspace8
+#bindsym $mod+9 workspace $workspace9
+#bindsym $mod+0 workspace $workspace0
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 0
 
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $workspace1
-bindsym $mod+Shift+2 move container to workspace $workspace2
-bindsym $mod+Shift+3 move container to workspace $workspace3
-bindsym $mod+Shift+4 move container to workspace $workspace4
-bindsym $mod+Shift+5 move container to workspace $workspace5
-bindsym $mod+Shift+6 move container to workspace $workspace6
-bindsym $mod+Shift+7 move container to workspace $workspace7
-bindsym $mod+Shift+8 move container to workspace $workspace8
-bindsym $mod+Shift+9 move container to workspace $workspace9
-bindsym $mod+Shift+0 move container to workspace $workspace0
+#bindsym $mod+Shift+1 move container to workspace $workspace1
+#bindsym $mod+Shift+2 move container to workspace $workspace2
+#bindsym $mod+Shift+3 move container to workspace $workspace3
+#bindsym $mod+Shift+4 move container to workspace $workspace4
+#bindsym $mod+Shift+5 move container to workspace $workspace5
+#bindsym $mod+Shift+6 move container to workspace $workspace6
+#bindsym $mod+Shift+7 move container to workspace $workspace7
+#bindsym $mod+Shift+8 move container to workspace $workspace8
+#bindsym $mod+Shift+9 move container to workspace $workspace9
+#bindsym $mod+Shift+0 move container to workspace $workspace0
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 0
+
 
 # Always open some programs on specified workspace
-assign [class="firefox"]    $workspace3
-assign [class="jetbrains-toolbox"]    $workspace2
-assign [class="pcmanfm"]    $workspace4
-assign [class="virtualbox"]    $workspace5
-assign [class="zoom"]    $workspace9
+#assign [class="firefox"]    $workspace3
+#assign [class="jetbrains-toolbox"]    $workspace2
+#assign [class="pcmanfm"]    $workspace4
+#assign [class="virtualbox"]    $workspace5
+#assign [class="zoom"]    $workspace9
+
+assign [class="firefox"]    number 3
+#assign [class="jetbrains-toolbox"]    number 2
+assign [class="pcmanfm"]    number 4
+assign [class="virtualbox"]    number 5
+assign [class="zoom"]    number 9
+
+
 
 # Enable float for some windows
 for_window [class="^Pavucontrol$"] floating enable
@@ -266,3 +298,8 @@ exec --no-startup-id /usr/bin/pasystray
 
 # floating calendar
 for_window [class="Yad"] floating enable
+
+# https://github.com/justbuchanan/i3scripts/blob/master/autoname_workspaces.py
+
+exec_always ~/.config/i3/scripts/autoname_workspaces.py &
+#exec_always ~/.config/i3/scripts/autoname_workspaces.py >> ~/.config/i3/scripts/autoname_workspaces.log 2>&1 &
