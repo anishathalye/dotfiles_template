@@ -174,13 +174,65 @@ bindsym $mod+Shift+0 move container to workspace number 0
 #assign [class="pcmanfm"]    $workspace4
 #assign [class="virtualbox"]    $workspace5
 #assign [class="zoom"]    $workspace9
+#assign [class="(.*join\?action\=join.*|.*zoom.*)"]    number 9
 
 assign [class="firefox"]    number 3
 #assign [class="jetbrains-toolbox"]    number 2
 assign [class="pcmanfm"]    number 4
 assign [class="virtualbox"]    number 5
-assign [class="zoom"]    number 9
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)"] move to workspace number 9
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)"] sticky enable
 
+#assign [class="zoom"] number 5
+#for_window [class="zoom"] move to workspace number 5
+#for_window [class="zoom" title=".*Zoom.*"] move to workspace number 5
+#for_window [class="zoom" title=".*Workplace.*"] move to workspace number 5
+#for_window [class="zoom" title=".*Meeting.*"] move to workspace number 5
+#for_window [class="zoom" title="Settings"] move to workspace number 5
+#for_window [class="zoom" title="Settings"] floating enable
+#for_window [class="zoom" title=".*audio.*"] move to workspace number 5
+#for_window [class="zoom)"] floating enable
+#for_window [class="zoom" title="Zoom Workplace - Licensed account"] floating disable
+#for_window [class="zoom" title=".*Meeting.*"] floating disable
+
+
+# Assign all Zoom windows to workspace 5
+assign [class="zoom"] number 5
+
+# Move all Zoom windows to workspace 5
+for_window [class="zoom"] move to workspace number 5
+
+# Enable floating for any other Zoom window not explicitly mentioned
+for_window [class="zoom"] floating enable
+
+# Specifically move Zoom windows with certain titles to workspace 5
+for_window [class="zoom" title=".*Zoom.*"] move to workspace number 5
+for_window [class="zoom" title=".*Workplace.*"] move to workspace number 5
+for_window [class="zoom" title=".*Meeting.*"] move to workspace number 5
+for_window [class="zoom" title=".*audio.*"] move to workspace number 5
+
+# Make "Settings" window floating, but keep it in workspace 5
+for_window [class="zoom" title="Settings"] move to workspace number 5
+for_window [class="zoom" title="Settings"] floating enable
+
+# Ensure "Zoom Workplace - Licensed account" is not floating
+for_window [class="zoom" title="Zoom Workplace - Licensed account"] floating disable
+# Keep the "Zoom Workplace - Licensed account" window behind other windows
+for_window [class="zoom" title="Zoom Workplace - Licensed account"] focus enable
+
+# Ensure "Meeting" windows are not floating, to allow them to tile next to the "Zoom Workplace - Licensed account"
+#for_window [class="zoom" title=".*Meeting.*"] floating disable
+
+
+
+##for_window [class="(.*join\?action\=join.*|.*zoom.*)"] floating enable
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)"] move to workspace 5
+#for_window [class="zoom" title=".*Meeting.*"] floating disable
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom - Licensed Account"] floating disable
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom - Free Account"] floating disable
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom Meeting"] floating disable
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom Webinar"] floating disable
+for_window [class="zoom"] sticky enable
 
 
 # Enable float for some windows
@@ -303,3 +355,10 @@ for_window [class="Yad"] floating enable
 
 exec_always ~/.config/i3/scripts/autoname_workspaces.py &
 #exec_always ~/.config/i3/scripts/autoname_workspaces.py >> ~/.config/i3/scripts/autoname_workspaces.log 2>&1 &
+
+# zoom 
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)"] floating enable
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom - Licensed Account"] floating disable
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom - Free Account"] floating disable
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom Meeting"] floating disable
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom Webinar"] floating disable
