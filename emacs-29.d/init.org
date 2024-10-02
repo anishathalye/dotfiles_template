@@ -253,7 +253,7 @@
     "TAB" 'my/toggle-buffers
     "pp"  'projectile-switch-project
     "pf"  'consult-find ;'projectile-find-file
-    "/"   'consult-ripgrep
+    "/"   'consult-git-grep ;'consult-ripgrep
     "bb"  'consult-buffer
     "rr"  'consult-recent-file
     "u"   'universal-argument))
@@ -390,7 +390,10 @@
 
   (use-package wgrep
     :config
-    (setq wgrep-auto-save-buffer t))
+    (setq wgrep-auto-save-buffer t)
+    (evil-make-overriding-map wgrep-mode-map 'normal)
+    (evil-make-overriding-map wgrep-mode-map 'visual)
+    (evil-make-overriding-map wgrep-mode-map 'motion))
 #+end_src
 ** Window management
 *** Ace Window
@@ -418,13 +421,6 @@ Enables easy toggle and other things that I've not yet used.
     :config
     (add-hook 'js-to-mode 'origami-mode))
 #+end_src
-** Copilot
-#+begin_src emacs-lisp
-(use-package copilot
-  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
-  :ensure t)
-#+end_src
-
 * Project Management
 ** Projectile
 #+begin_src emacs-lisp
@@ -655,6 +651,7 @@ Helps surrounding text with symbols, e.g. quotes.
           ;; lsp-ui-sideline-show-hover t
           lsp-ui-sideline-show-code-actions t
           ;; lsp-ui-sideline-show-diagnostics t
+          lsp-eslint-enable t
           ))
 
   (use-package lsp-ui
@@ -692,6 +689,41 @@ Helps surrounding text with symbols, e.g. quotes.
     (setq flycheck-check-syntax-automatically '(save mode-enabled newline))
     (setq flycheck-display-errors-delay 0.1))
 #+end_src
+** Copilot
+A useful guide for setup here: https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/
+
+#+begin_src emacs-lisp
+  ;; dependencies of copilot
+  (use-package dash)
+  (use-package s)
+  (use-package editorconfig)
+  (use-package f)
+  (use-package yasnippet)
+
+  (use-package copilot
+    :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+    :requires (dash s editorconfig f yasnippet)
+    :hook (prog-mode . copilot-mode)
+    :config
+    (general-define-key
+     :states '(insert)
+     :keymaps 'copilot-mode-map
+     "M-y" #'copilot-accept-completion-by-line
+     "M-Y" #'copilot-accept-completion
+     "M-J" #'copilot-next-completion
+     "M-K" #'copilot-previous-completion
+     "M->" #'copilot-next-completion
+     "M-<" #'copilot-previous-completion)
+     ;; setup indentation - hopefully better way to do this soon
+     (add-to-list 'copilot-indentation-alist '(prog-mode 2))
+     (add-to-list 'copilot-indentation-alist '(org-mode 2))
+     (add-to-list 'copilot-indentation-alist '(text-mode 2))
+     (add-to-list 'copilot-indentation-alist '(closure-mode 2))
+     (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2))
+     (add-to-list 'copilot-indentation-alist '(js2-mode 2))
+     (add-to-list 'copilot-indentation-alist '(rjsx-mode 2)))
+#+end_src
+
 * Language-specific config
 ** Javascript
 #+begin_src emacs-lisp
@@ -734,6 +766,7 @@ Helps surrounding text with symbols, e.g. quotes.
     :hook (typescript-mode js-mode typescript-tsx-mode))
 
 #+end_src
+
 ** Clojure
 *** Basic setup
 #+begin_src emacs-lisp
@@ -778,6 +811,16 @@ Helps surrounding text with symbols, e.g. quotes.
                       #'(lambda ()
                         (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 #+end_src
+** CSS/SCSS
+We'll use scss-mode for both CSS and SCSS files.
+#+begin_src emacs-lisp
+  (use-package scss-mode
+    :mode (("\\.scss\\'" . scss-mode)
+           ("\\.css\\'" . scss-mode))
+    :config
+    ;; set the css-indent-offset to 2
+    (setq css-indent-offset 2))
+#+end_src
 
 * Org Mode
 ** Basic setup
@@ -785,7 +828,7 @@ Helps surrounding text with symbols, e.g. quotes.
   (setq org-directory "~/org")
   (setq org-log-into-drawer t)
   (setq org-export-backends
-        '(md html odt))
+        '(md html odt latex))
 
   ;; Shortcut to org dir files
   (defun my/my-org-finder ()
@@ -935,7 +978,7 @@ Helps surrounding text with symbols, e.g. quotes.
     :after (emacsql emacsql-sqlite)
     :custom
     (org-roam-directory "~/org/old-notes")
-    ;; (org-roam-dailies-directory "journals/")
+    (org-roam-dailies-directory "journals/")
     (org-roam-file-exclude-regexp "\\.st[^/]*\\|logseq/.*$")
     (org-roam-capture-templates
      '(("d" "default" plain
@@ -957,12 +1000,20 @@ Helps surrounding text with symbols, e.g. quotes.
     :straight
     (:type git :host github :repo "sbougerel/org-roam-logseq.el")
     :init
-    (setq bill/logseq-folder "~/org/notes")
-    ;; :custom
-    ;; (bill/logseq-folder "~/org/notes")
-    ;; (bill/logseq-pages "~/org/notes/pages")
-    ;; (bill/logseq-journals "~/org/notes/journals")
+    (setq bill/logseq-folder "~/org/tastes")
+    :custom
+    (bill/logseq-folder "~/org/tastes")
+    (bill/logseq-pages "~/org/tastes/pages")
+    (bill/logseq-journals "~/org/tastes/journals")
     )
+#+end_src
+
+** Org  Contrib Additions
+#+begin_src emacs-lisp
+  (use-package org-contrib
+    :config
+    (require 'ox-extra)
+    (ox-extras-activate '(ignore-headlines)))
 #+end_src
 
 * Other stuff

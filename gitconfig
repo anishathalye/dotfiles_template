@@ -115,7 +115,5 @@
 # Allow local customizations in the .gitconfig_local file
 [include]
 	path = ~/.gitconfig_local
-[hub]
-	protocol = ssh
 [init]
 	defaultBranch = main

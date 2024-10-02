@@ -210,7 +210,7 @@ same directory as the org-buffer and insert a link to this file."
     "TAB" 'my/toggle-buffers
     "pp"  'projectile-switch-project
     "pf"  'consult-find ;'projectile-find-file
-    "/"   'consult-ripgrep
+    "/"   'consult-git-grep ;'consult-ripgrep
     "bb"  'consult-buffer
     "rr"  'consult-recent-file
     "u"   'universal-argument))
@@ -338,7 +338,10 @@ same directory as the org-buffer and insert a link to this file."
 
 (use-package wgrep
   :config
-  (setq wgrep-auto-save-buffer t))
+  (setq wgrep-auto-save-buffer t)
+  (evil-make-overriding-map wgrep-mode-map 'normal)
+  (evil-make-overriding-map wgrep-mode-map 'visual)
+  (evil-make-overriding-map wgrep-mode-map 'motion))
 
 (use-package ace-window
   :init
@@ -535,6 +538,7 @@ same directory as the org-buffer and insert a link to this file."
         ;; lsp-ui-sideline-show-hover t
         lsp-ui-sideline-show-code-actions t
         ;; lsp-ui-sideline-show-diagnostics t
+        lsp-eslint-enable t
         ))
 
 (use-package lsp-ui
@@ -566,6 +570,36 @@ same directory as the org-buffer and insert a link to this file."
   (setq flycheck-highlighting-mode 'lines)
   (setq flycheck-check-syntax-automatically '(save mode-enabled newline))
   (setq flycheck-display-errors-delay 0.1))
+
+;; dependencies of copilot
+(use-package dash)
+(use-package s)
+(use-package editorconfig)
+(use-package f)
+(use-package yasnippet)
+
+(use-package copilot
+  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+  :requires (dash s editorconfig f yasnippet)
+  :hook (prog-mode . copilot-mode)
+  :config
+  (general-define-key
+   :states '(insert)
+   :keymaps 'copilot-mode-map
+   "M-y" #'copilot-accept-completion-by-line
+   "M-Y" #'copilot-accept-completion
+   "M-J" #'copilot-next-completion
+   "M-K" #'copilot-previous-completion
+   "M->" #'copilot-next-completion
+   "M-<" #'copilot-previous-completion)
+   ;; setup indentation - hopefully better way to do this soon
+   (add-to-list 'copilot-indentation-alist '(prog-mode 2))
+   (add-to-list 'copilot-indentation-alist '(org-mode 2))
+   (add-to-list 'copilot-indentation-alist '(text-mode 2))
+   (add-to-list 'copilot-indentation-alist '(closure-mode 2))
+   (add-to-list 'copilot-indentation-alist '(emacs-lisp-mode 2))
+   (add-to-list 'copilot-indentation-alist '(js2-mode 2))
+   (add-to-list 'copilot-indentation-alist '(rjsx-mode 2)))
 
 (setq js-indent-level 2)
 
@@ -642,10 +676,14 @@ same directory as the org-buffer and insert a link to this file."
                       #'(lambda ()
                         (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 
+(use-package scss-mode
+  :mode (("\\.scss\\'" . scss-mode)
+         ("\\.css\\'" . scss-mode)))
+
 (setq org-directory "~/org")
 (setq org-log-into-drawer t)
 (setq org-export-backends
-      '(md html odt))
+      '(md html odt latex))
 
 ;; Shortcut to org dir files
 (defun my/my-org-finder ()
@@ -777,7 +815,7 @@ same directory as the org-buffer and insert a link to this file."
   :after (emacsql emacsql-sqlite)
   :custom
   (org-roam-directory "~/org/old-notes")
-  ;; (org-roam-dailies-directory "journals/")
+  (org-roam-dailies-directory "journals/")
   (org-roam-file-exclude-regexp "\\.st[^/]*\\|logseq/.*$")
   (org-roam-capture-templates
    '(("d" "default" plain
@@ -799,12 +837,17 @@ same directory as the org-buffer and insert a link to this file."
   :straight
   (:type git :host github :repo "sbougerel/org-roam-logseq.el")
   :init
-  (setq bill/logseq-folder "~/org/notes")
-  ;; :custom
-  ;; (bill/logseq-folder "~/org/notes")
-  ;; (bill/logseq-pages "~/org/notes/pages")
-  ;; (bill/logseq-journals "~/org/notes/journals")
+  (setq bill/logseq-folder "~/org/tastes")
+  :custom
+  (bill/logseq-folder "~/org/tastes")
+  (bill/logseq-pages "~/org/tastes/pages")
+  (bill/logseq-journals "~/org/tastes/journals")
   )
+
+(use-package org-contrib
+  :config
+  (require 'ox-extra)
+  (ox-extras-activate '(ignore-headlines)))
 
 (use-package gptel
   :config
