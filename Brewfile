@@ -44,10 +44,9 @@ cask 'font-fira-code'
 brew "awscli"
 
 # Emacs
-#tap 'jimeh/emacs-builds'
-#cask 'emacs-app'
-
-# Emacs 29
 brew "gcc"
 brew "tree-sitter" 
-brew "emacs-plus@29", args: ["with-native-comp"]
+tap 'jimeh/emacs-builds'
+cask 'emacs-app'
+#Used this for emacs29 with native comp originally
+#brew "emacs-plus@29", args: ["with-native-comp"]
