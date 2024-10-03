@@ -37,7 +37,10 @@ path_append "$HOME/miniconda"
 # For Hub (http://hub.github.com)
 eval "$(hub alias -s)"
 
-# Alacritty shell completions
-# See: https://github.com/alacritty/alacritty/blob/master/INSTALL.md#zsh
-mkdir -p ${ZDOTDIR:-~}/.zsh_functions
-echo 'fpath+=${ZDOTDIR:-~}/.zsh_functions' >> ${ZDOTDIR:-~}/.zshrc
+# For Alacritty (terminal) completions. This
+# assumes that the zsh_functions directory
+# exists in the home directory and has had the
+# alacritty completion script copied to it. See
+# also .install-alacritty.sh script where we
+# do that preparation work.
+fpath+=${ZDOTDIR:-~}/.zsh_functions
