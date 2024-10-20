@@ -821,7 +821,32 @@ We'll use scss-mode for both CSS and SCSS files.
     ;; set the css-indent-offset to 2
     (setq css-indent-offset 2))
 #+end_src
+** Ruby
+*** Resources
+- https://github.com/howardabrams/dot-files/blob/master/emacs-ruby.org
+*** Ruby-mode
+#+begin_src emacs-lisp
+  (use-package ruby-mode
+    :mode "\\.rb\\'"
+    :mode "Rakefile\\'"
+    :mode "Gemfile\\'"
+    :mode "Berksfile\\'"
+    :mode "Vagrantfile\\'"
+    :interpreter "ruby"
 
+    :init
+    (setq ruby-indent-level 2
+          ruby-indent-tabs-mode nil)
+    (add-hook 'ruby-mode 'superword-mode)
+    )
+#+end_src
+*** Rubcop
+#+begin_src emacs-lisp
+  (use-package rubocop
+    :init
+    (add-hook 'ruby-mode-hook 'rubocop-mode)
+    :diminish rubocop-mode)
+#+end_src
 * Org Mode
 ** Basic setup
 #+begin_src emacs-lisp
