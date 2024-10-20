@@ -1,3 +1,14 @@
+# Misc Stuff that is sometimes needed
+brew "libyaml"
+brew "pkg-config"
+brew "cairo"
+brew "pango"
+brew "libpng"
+brew "jpeg"
+brew "giflib"
+brew "librsvg"
+brew "pixman"
+
 # Prettier alternative to cat
 brew "bat"
 
@@ -30,14 +41,16 @@ brew "hub"
 # Note: Brew does not automatically symlink these so we need to do a brew link command after.
 brew "gnupg@2.2"
 
-# Programming languages
+# Programming languages & related
 brew "clojure"
 brew "rust"
 brew "python"
+brew "python-setuptools"
 brew "java"
+brew "npm"
+brew "yarn"
 
 # Fira Code Font used in Emacs
-
 cask 'font-fira-code'
 
 # AWS Cli
@@ -50,3 +63,6 @@ tap 'jimeh/emacs-builds'
 cask 'emacs-app'
 #Used this for emacs29 with native comp originally
 #brew "emacs-plus@29", args: ["with-native-comp"]
+
+# Docker - often needed
+cask "docker"
