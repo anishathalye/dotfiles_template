@@ -316,10 +316,24 @@ set -g pane-border-format " [ ###P #T ] "
 bind-key T command-prompt -p "Title for pane: " "select-pane -T '%%'"
 
 # switch key binding ctrl-s
+#bind-key -n C-s run-shell ' \
+    #if [ "$(tmux show-option -gqv prefix)" = "C-a" ]; then \
+        #tmux set-option -g prefix C-b; \
+        #tmux display-message "Prefix switched to Ctrl-b"; \
+    #else \
+        #tmux set-option -g prefix C-a; \
+        #tmux display-message "Prefix switched to Ctrl-a"; \
+    #fi'
+
+
 bind-key -n C-s run-shell ' \
-    if [ "$(tmux show-option -gqv prefix)" = "C-a" ]; then \
+    current_prefix=$(tmux show-option -gqv prefix); \
+    if [ "$current_prefix" = "C-a" ]; then \
         tmux set-option -g prefix C-b; \
         tmux display-message "Prefix switched to Ctrl-b"; \
+    elif [ "$current_prefix" = "C-b" ]; then \
+        tmux set-option -g prefix C-w; \
+        tmux display-message "Prefix switched to Ctrl-w"; \
     else \
         tmux set-option -g prefix C-a; \
         tmux display-message "Prefix switched to Ctrl-a"; \
