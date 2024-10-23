@@ -957,7 +957,7 @@ We'll use scss-mode for both CSS and SCSS files.
 #+begin_src emacs-lisp
   (use-package org-journal
     :config
-    (setq org-journal-dir "~/org/primarykids/journals/")
+    (setq org-journal-dir "~/org/techwork/journals/")
     (setq org-journal-file-type 'daily)
     (setq org-journal-file-format "%Y-%m-%d.org")
     (setq org-journal-time-prefix "* ")
@@ -1009,7 +1009,7 @@ The setup below relies on the following configuration settings in logseq's .edn:
 
   (use-package org-roam
     :init
-    (setq org-roam-directory "~/org/primarykids/")
+    (setq org-roam-directory "~/org/techwork/")
     (setq org-roam-dailies-directory "journals/")
     :config
     (setq org-roam-file-exclude-regexp "\\.git/.*\\|logseq/.*$"

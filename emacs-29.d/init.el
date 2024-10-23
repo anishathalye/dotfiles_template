@@ -794,7 +794,7 @@ same directory as the org-buffer and insert a link to this file."
 
 (use-package org-journal
   :config
-  (setq org-journal-dir "~/org/primarykids/journals/")
+  (setq org-journal-dir "~/org/techwork/journals/")
   (setq org-journal-file-type 'daily)
   (setq org-journal-file-format "%Y-%m-%d.org")
   (setq org-journal-time-prefix "* ")
@@ -828,7 +828,7 @@ same directory as the org-buffer and insert a link to this file."
 
 (use-package org-roam
   :init
-  (setq org-roam-directory "~/org/primarykids/")
+  (setq org-roam-directory "~/org/techwork/")
   (setq org-roam-dailies-directory "journals/")
   :config
   (setq org-roam-file-exclude-regexp "\\.git/.*\\|logseq/.*$"
@@ -877,3 +877,30 @@ same directory as the org-buffer and insert a link to this file."
 (use-package gptel
   :config
   (setq gptel-api-key secret/openai-api-key))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values
+   '((eval let
+	   ((current-dir
+	     (expand-file-name
+	      (locate-dominating-file default-directory ".dir-locals.el"))))
+	   (message "Setting new org roam directory: %s" current-dir)
+	   (setq org-roam-directory current-dir)
+	   (message "Setting new db location: %s"
+		    (concat current-dir "org-roam.db"))
+	   (setq org-roam-db-location
+		 (concat current-dir "org-roam.db"))
+	   (message "Setting new org-journal directory: %s"
+		    (concat current-dir "journals/"))
+	   (setq org-journal-dir
+		 (concat current-dir "journals/"))
+	   (setq org-journal-file-type 'daily)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
