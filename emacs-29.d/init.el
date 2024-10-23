@@ -678,7 +678,29 @@ same directory as the org-buffer and insert a link to this file."
 
 (use-package scss-mode
   :mode (("\\.scss\\'" . scss-mode)
-         ("\\.css\\'" . scss-mode)))
+         ("\\.css\\'" . scss-mode))
+  :config
+  ;; set the css-indent-offset to 2
+  (setq css-indent-offset 2))
+
+(use-package ruby-mode
+  :mode "\\.rb\\'"
+  :mode "Rakefile\\'"
+  :mode "Gemfile\\'"
+  :mode "Berksfile\\'"
+  :mode "Vagrantfile\\'"
+  :interpreter "ruby"
+
+  :init
+  (setq ruby-indent-level 2
+        ruby-indent-tabs-mode nil)
+  (add-hook 'ruby-mode 'superword-mode)
+  )
+
+(use-package rubocop
+  :init
+  (add-hook 'ruby-mode-hook 'rubocop-mode)
+  :diminish rubocop-mode)
 
 (setq org-directory "~/org")
 (setq org-log-into-drawer t)
@@ -772,11 +794,11 @@ same directory as the org-buffer and insert a link to this file."
 
 (use-package org-journal
   :config
-  (setq org-journal-dir "~/org/journals/")
-  (setq org-journal-file-type 'weekly)
+  (setq org-journal-dir "~/org/primarykids/journals/")
+  (setq org-journal-file-type 'daily)
   (setq org-journal-file-format "%Y-%m-%d.org")
-  (setq org-journal-time-prefix "** ")
-  (setq org-journal-date-format "%A, %B %d %Y")
+  (setq org-journal-time-prefix "* ")
+  (setq org-journal-date-format "%B %d %Y")
   (setq org-journal-carryover-items "TODO=\"TODO\"|TODO=\"STARTED\"|TODO=\"REVIEW\"|TODO=\"BLOCKED\"")
   (setq org-journal-find-file #'find-file-other-window)
   (defun org-journal-date-format-func (time)
@@ -784,12 +806,12 @@ same directory as the org-buffer and insert a link to this file."
     and some custom text on a newly created journal file."
     (when (= (buffer-size) 0)
       (insert
-      (pcase org-journal-file-type
-	(`daily "#+TITLE: Daily Journal\n\n")
-	(`weekly (concat"#+TITLE: Weekly Journal " (format-time-string "(Wk #%V)" time) "\n\n"))
-	(`monthly "#+TITLE: Monthly Journal\n\n")
-	(`yearly "#+TITLE: Yearly Journal\n\n"))))
-    (concat org-journal-date-prefix (format-time-string "%A, %x" time)))
+       (pcase org-journal-file-type
+	 (`daily (concat (format-time-string "#+TITLE: %Y-%m-%d") "\n\n"))
+	 (`weekly (concat"#+TITLE: Weekly Journal " (format-time-string "(Wk #%V)" time) "\n\n"))
+	 (`monthly "#+TITLE: Monthly Journal\n\n")
+	 (`yearly "#+TITLE: Yearly Journal\n\n"))))
+    (concat org-journal-date-prefix (format-time-string "%x" time)))
   (setq org-journal-date-format 'org-journal-date-format-func)
   (setq org-agenda-file-regexp "\\`\\([^.].*\\.org\\|[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\.org\\(\\.gpg\\)?\\)\\'")
 
@@ -804,45 +826,48 @@ same directory as the org-buffer and insert a link to this file."
 (use-package emacsql)
 (use-package emacsql-sqlite)
 
-
-;; This setup is designed to allow org-roam to work with logseq.
-;; The org-roam directory is also the logseq directory. The
-;; org-roam dailies directory is set to be the same one logseq
-;; uses. Then for the capture templtes we put files in the `pages`
-;; directory. I followed this post to do this:
-;; https://coredumped.dev/2021/05/26/taking-org-roam-everywhere-with-logseq/
 (use-package org-roam
-  :after (emacsql emacsql-sqlite)
-  :custom
-  (org-roam-directory "~/org/old-notes")
-  (org-roam-dailies-directory "journals/")
-  (org-roam-file-exclude-regexp "\\.st[^/]*\\|logseq/.*$")
-  (org-roam-capture-templates
-   '(("d" "default" plain
-      "%?" :target
-      (file+head "pages/${slug}.org" "#+title: ${title}\n")
-      :unnarrowed t)))
-  (org-roam-dailies-capture-templates '(("d" "default"
-					 entry
-					 "* %?"
-					 :target (file+head "%<%Y_%m_%d>.org" "#+title: %<%Y-%m-%d>\n"))))
-  :config
-  (org-roam-setup))
-
-
-;; This is a repository version of a script/gist that helps covert
-;; logseq files so that they will work with org-roam. It's also
-;; part of the post above.
-(use-package org-roam-logseq
-  :straight
-  (:type git :host github :repo "sbougerel/org-roam-logseq.el")
   :init
-  (setq bill/logseq-folder "~/org/tastes")
-  :custom
-  (bill/logseq-folder "~/org/tastes")
-  (bill/logseq-pages "~/org/tastes/pages")
-  (bill/logseq-journals "~/org/tastes/journals")
+  (setq org-roam-directory "~/org/primarykids/")
+  (setq org-roam-dailies-directory "journals/")
+  :config
+  (setq org-roam-file-exclude-regexp "\\.git/.*\\|logseq/.*$"
+	org-roam-capture-templates
+	'(("d" "default" plain
+	  "%?"
+	  ;; Accomodates for the fact that Logseq uses the "pages" directory
+	  :target (file+head "pages/${slug}.org" "#+title: ${title}\n")
+	  :unnarrowed t))
+	org-roam-dailies-capture-templates
+	'(("d" "default" entry
+	  "* %?"
+	  :target (file+head "%<%Y-%m-%d>.org" ;; format matches Logseq
+			      "#+title: %<%Y-%m-%d>\n"))))
   )
+
+(use-package logseq-org-roam
+ :straight (:host github
+            :repo "sbougerel/logseq-org-roam"
+            :files ("*.el")))
+
+(use-package consult-org-roam
+  :after org-roam
+  :init
+  (require 'consult-org-roam)
+  (consult-org-roam-mode 1) ;; activate minor mode
+  :custom
+  (consult-org-roam-grep-func #'consult-ripgrep)
+  :config
+  (consult-customize
+   consult-org-roam-forward-links
+   :preview-key (kbd "M-.")
+   )
+  :bind
+  ("C-c n e" . consult-org-roam-file-find)
+  ("C-c n b" . consult-org-roam-backlinks)
+  ("C-c n B" . consult-org-roam-backlinks-recursive)
+  ("C-c n l" . consult-org-roam-forward-links)
+  ("C-c n r" . consult-org-roam-search))
 
 (use-package org-contrib
   :config
