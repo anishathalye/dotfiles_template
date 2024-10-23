@@ -864,7 +864,7 @@ We'll use scss-mode for both CSS and SCSS files.
   ;; (setq recentf-exclude '("/org/journal"))
 
   ;; Sets the column width to 80 columns and enables line breaking, ie. auto-fill.
-  (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
+  (add-hook 'org-mode-hook #'(lambda () (setq fill-column 80)))
   (add-hook 'org-mode-hook 'auto-fill-mode)
 
   (defun my/org-mode-setup ()

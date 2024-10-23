@@ -716,7 +716,7 @@ same directory as the org-buffer and insert a link to this file."
 ;; (setq recentf-exclude '("/org/journal"))
 
 ;; Sets the column width to 80 columns and enables line breaking, ie. auto-fill.
-(add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
+(add-hook 'org-mode-hook #'(lambda () (setq fill-column 80)))
 (add-hook 'org-mode-hook 'auto-fill-mode)
 
 (defun my/org-mode-setup ()
@@ -877,30 +877,3 @@ same directory as the org-buffer and insert a link to this file."
 (use-package gptel
   :config
   (setq gptel-api-key secret/openai-api-key))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(safe-local-variable-values
-   '((eval let
-	   ((current-dir
-	     (expand-file-name
-	      (locate-dominating-file default-directory ".dir-locals.el"))))
-	   (message "Setting new org roam directory: %s" current-dir)
-	   (setq org-roam-directory current-dir)
-	   (message "Setting new db location: %s"
-		    (concat current-dir "org-roam.db"))
-	   (setq org-roam-db-location
-		 (concat current-dir "org-roam.db"))
-	   (message "Setting new org-journal directory: %s"
-		    (concat current-dir "journals/"))
-	   (setq org-journal-dir
-		 (concat current-dir "journals/"))
-	   (setq org-journal-file-type 'daily)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
