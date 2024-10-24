@@ -726,6 +726,7 @@ A useful guide for setup here: https://robert.kra.hn/posts/2023-02-22-copilot-em
 
 * Language-specific config
 ** Javascript
+*** Basic setup
 #+begin_src emacs-lisp
   (setq js-indent-level 2)
 
@@ -766,8 +767,11 @@ A useful guide for setup here: https://robert.kra.hn/posts/2023-02-22-copilot-em
     :hook (typescript-mode js-mode typescript-tsx-mode))
 
 #+end_src
-
-** Clojure
+*** Graphql-mode
+#+begin_src emacs-lisp
+(use-package graphql-mode)
+#+end_src
+* Clojure
 *** Basic setup
 #+begin_src emacs-lisp
     (show-paren-mode 1)
