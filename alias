@@ -322,6 +322,7 @@ alias tz_utc='TZ="UTC" date'
 # SYSTEM
 ##########################
 if command -v htop > /dev/null; then alias top='htop'; fi
+if command -v btop > /dev/null; then alias top='btop'; fi  # replace htop with btop
 if command -v dfc > /dev/null; then alias df='dfc'; fi
 
 if command -v ncdu > /dev/null; then
