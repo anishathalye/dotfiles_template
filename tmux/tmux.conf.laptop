@@ -311,7 +311,8 @@ bind-key C-j choose-tree
 # see pane title 
 # https://stackoverflow.com/questions/40234553/how-do-i-rename-a-pane-in-tmux
 set -g pane-border-status top
-set -g pane-border-format " [ ###P #T ] "
+#set -g pane-border-format " [ ###P #T ] "
+set -g pane-border-format " [ ###P #T  #(sleep 0.25;ps -t #{pane_tty} -o args= | head -n 1) ] "
 
 bind-key T command-prompt -p "Title for pane: " "select-pane -T '%%'"
 
