@@ -645,3 +645,31 @@ alias cscli_bouncer_list="cscli bouncers list"
 
 # BROWNFUNK load beets with miniforge
 alias beet="[ -f ~/miniforge3/envs/beets/bin/python ] && conda activate beets;beet"
+
+
+
+dask_tunnel() {
+ if [ "$#" -ne 3 ]; then
+ echo "Usage: dask_tunnel <target_host> <ssh_host> <token>"
+ return 1
+ fi
+
+ target_host="$1"
+ ssh_host="$2"
+ token="$3"
+
+
+ full_url="https://localhost:8080/status?token=$token"
+
+ echo "Connecting to Dask cluster at: $full_url"
+
+ /usr/bin/ssh -L 8080:"$target_host":443 "$ssh_host" -N &
+
+ ssh_pid=$!
+
+ sleep 2
+
+ echo "Please open the following URL in your browser: $full_url"
+
+ echo "SSH tunnel established with PID: $ssh_pid"
+}
