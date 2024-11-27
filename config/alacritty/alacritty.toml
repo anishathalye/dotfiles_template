@@ -1,0 +1,29 @@
+[env]
+WINIT_X11_SCALE_FACTOR = "1.55"
+
+[font]
+size = 6
+
+[font.bold]
+family = "SauceCodePro Nerd Font Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "SauceCodePro Nerd Font Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "SauceCodePro Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "SauceCodePro Nerd Font Mono"
+style = "Regular"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[selection]
+save_to_clipboard = true
+

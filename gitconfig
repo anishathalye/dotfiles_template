@@ -80,7 +80,7 @@
     hash = !git log -1 --format=format:'%H'
     hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
     co = checkout
-    com = !(git checkout master || git checkout main) && git pull && git bclean && git fetch --all
+    com = "!f() { if git show-ref --verify --quiet refs/heads/main; then git checkout main; elif git show-ref --verify --quiet refs/heads/master; then git checkout master; else echo 'No main or master branch found'; return 1; fi && git pull && git branch --merged | grep -v 'main' | grep -v 'master' | xargs -r git branch -d && git fetch --all; }; f"
     co-pr = !sh -c 'git fetch origin pull/$1/head:pr/$1 && git checkout pr/$1' -
     co-wip-and-squash-last = !git co-wip && git squash-auto
     squash-auto = !"f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
@@ -100,6 +100,7 @@
     bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
     bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
     reset-branch-like-remote = "!f() { branch=`git branch  | grep '*' | sed 's/* //g'`; git fetch --all; git reset --hard origin/$branch; }; f"
+	sync-and-stash = "!f() { \\\n    branch=$(git symbolic-ref --short HEAD); \\\n    gh repo sync --branch \"$branch\" && \\\n    git stash --all && \\\n    git stash pop; \\\n}; f"
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = red bold 52

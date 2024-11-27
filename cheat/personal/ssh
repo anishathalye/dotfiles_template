@@ -1,5 +1,4 @@
 ---
-tags [ ssh ]
 ---
 # To ssh via pem file (which normally needs 0600 permissions):
 ssh -i <pemfile> <user>@<host>

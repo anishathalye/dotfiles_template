@@ -183,7 +183,10 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #tmux_conf_theme_status_left='  #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
 
 #tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
-tmux_conf_theme_status_left='  #{hostname} | #{username}#{root} ' 
+#tmux_conf_theme_status_left='  #{hostname} | #{username}#{root} ' 
+tmux_conf_theme_status_left='  #{hostname} | #{username}#{root}|: ctrl-#(tmux show-option -gv prefix | sed "s/C-a/a/;s/C-b/b/")' 
+
+
 tmux_conf_theme_status_right=' '
 
 # status left style
@@ -312,3 +315,17 @@ bind-key C-j choose-tree
 
 # fix ssh agent when tmux is detached
 setenv -g SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
+
+bind-key -n C-s run-shell ' \
+    current_prefix=$(tmux show-option -gqv prefix); \
+    if [ "$current_prefix" = "C-a" ]; then \
+        tmux set-option -g prefix C-b; \
+        tmux display-message "Prefix switched to Ctrl-b"; \
+    elif [ "$current_prefix" = "C-b" ]; then \
+        tmux set-option -g prefix C-w; \
+        tmux display-message "Prefix switched to Ctrl-w"; \
+    else \
+        tmux set-option -g prefix C-a; \
+        tmux display-message "Prefix switched to Ctrl-a"; \
+    fi'
+

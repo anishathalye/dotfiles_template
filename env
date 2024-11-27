@@ -75,3 +75,11 @@ fi
 export DOCKER_CONFIG_DIR=/opt/docker_config
 
 export PYTHONBREAKPOINT=ipdb.set_trace
+
+
+# BROWSER
+if command -v opera > /dev/null; then
+    export BROWSER=opera
+fi
+
+

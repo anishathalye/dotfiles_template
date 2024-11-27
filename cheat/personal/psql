@@ -1,5 +1,4 @@
 ---
-tags [ database ]
 ---
 # psql is the PostgreSQL terminal interface. The following commands were tested on version 9.5.
 # Connection options:

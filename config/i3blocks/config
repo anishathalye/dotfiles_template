@@ -38,6 +38,11 @@ interval=10
 label=PUB
 color=#0b819e
 
+[network]
+command=ifstat -i $(ip route | grep '^default' | awk '{print $5}') 1 1 | awk 'NR==3 {down=$1; up=$2; if (down >= 1024) down=down/1024 " MB/s"; else down=down " KB/s"; if (up >= 1024) up=up/1024 " MB/s"; else up=up " KB/s"; print "Down: " down " Up: " up}'
+interval=2
+label=Net:
+
 [wifi]
 command=iwgetid -r | tr '\n' ' ' && grep $(iwgetid -m | awk '{ printf "%s", $1 }') /proc/net/wireless | awk '{ printf "%i%\n", int($3 * 100 / 70) }'
 instance=wlp11s0f3u1
@@ -88,7 +93,8 @@ signal=1
 color=#929596
 
 [backlight]
-command=light | cut -d . -f 1
+#command=light | cut -d . -f 1
+command=~/.config/i3blocks/brightness.py
 label= 
 interval=1
 color=#eddd00

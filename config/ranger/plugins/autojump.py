@@ -18,7 +18,6 @@ ranger.api.hook_init = hook_init
 
 class j(Command):
     """:j
-
     Uses autojump to set the current directory.
     """
 
@@ -26,4 +25,5 @@ class j(Command):
         directory = subprocess.check_output(["autojump", self.arg(1)])
         directory = directory.decode("utf-8", "ignore")
         directory = directory.rstrip('\n')
-        self.fm.execute_console("cd " + directory)
+        self.fm.execute_console("cd -r " + directory)
+

@@ -41,5 +41,7 @@ selection:
 mouse:
   url:
     launcher:
-      program: firefox
-      args:  -P default-release -no-remote --new-tab
+      program: opera
+      args:  --new-tab
+      #program: firefox
+      #args:  -P default-release -no-remote --new-tab

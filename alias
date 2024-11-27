@@ -3,6 +3,8 @@
 
 unalias  fd >/dev/null 2>/dev/null # in order to use https://github.com/sharkdp/fd
 
+alias mintupdate='sudo mintupdate-cli --install-recommends -y upgrade'
+
 ##########################
 # DOTFILES UPDATE
 ##########################
@@ -11,7 +13,10 @@ alias dotfiles_update='cd $DOTFILES_PATH && git pull && bash install; cd -'
 ##########################
 # UPDATE AppImages
 ##########################
-alias update_nextcloud="wget https://download.nextcloud.com/desktop/releases/Linux/latest -O $HOME/bin/Nextcloud.AppImage && chmod +x $HOME/bin/*.AppImage"
+
+# https://github.com/nextcloud/desktop/issues/7231
+# alias update_nextcloud="wget https://download.nextcloud.com/desktop/releases/Linux/latest -O $HOME/bin/Nextcloud.AppImage && chmod +x $HOME/bin/*.AppImage"
+alias update_nextcloud="wget https://download.nextcloud.com/desktop/releases/Linux/Nextcloud-3.13.4-x86_64.AppImage  -O $HOME/bin/Nextcloud.AppImage && chmod +x $HOME/bin/*.AppImage"
 alias update_joplin='curl -s https://api.github.com/repos/laurent22/joplin/releases/latest | grep "browser_download_url.*AppImage" | cut -d : -f 2,3 | tr -d \" | head -1| wget --show-progress -qi - -O $HOME/bin/Joplin.AppImage && chmod +x $HOME/bin/*.AppImage'
 alias update_etcher='curl -s https://api.github.com/repos/balena-io/etcher/releases/latest | grep "browser_download_url.*x64.AppImage" | cut -d : -f 2,3 | tr -d \" | wget --show-progress -qi - -O $HOME/bin/balenaEtcher.AppImage && chmod +x $HOME/bin/*.AppImage'
 alias update_shotcut='curl -s https://api.github.com/repos/mltframework/shotcut/releases/latest | grep "browser_download_url.*AppImage" | cut -d : -f 2,3 | tr -d \" | wget --show-progress -qi - -O $HOME/bin/Shotcut.AppImage && chmod +x $HOME/bin/*.AppImage'
@@ -132,12 +137,14 @@ function aws_select_profile_login() {
 
     # Export AWS_PROFILE with the selected profile
     export AWS_PROFILE="$selected_profile"
-    aws sso login --profile $AWS_PROFILE
+    aws sso login --profile $AWS_PROFILE --no-browser
 
     # Optionally, you can print the selected profile for confirmation
     echo "Selected AWS profile: $selected_profile"
 }
 
+# start jupyter lab
+alias jupyter_lab_start="jupyter notebook --ip=0.0.0.0 --port=8888"
 
 
 ##########################
@@ -172,11 +179,13 @@ alias gclean=forgit::clean
 function conda_activate () {
   conda activate "$(conda info --envs | grep envs | fzf | awk '{print $1}')"
 }
+alias mamba_activate=conda_activate
 
 function conda_destroy () {
-  conda env remove -n "$(conda info --envs | grep envs |fzf | awk '{print $1}')"
+  mamba env remove -n "$(mamba info --envs | grep envs |fzf | awk '{print $1}')"
 }
 alias conda_remove=conda_destroy
+alias mamba_destroy=conda_destroy
 
 ##########################
 # Display
@@ -214,6 +223,10 @@ alias linux_version='neofetch'
 alias musescore_dl='npx msdl'
 alias path_env_path="echo $PATH | tr ':' '\n' | fzf"
 [[ -s "$HOMEBREW_PREFIX/etc/grc.zsh" ]] && alias tail='grc tail'
+
+if command -v cheat-linux-amd64 > /dev/null; then
+    alias cheat=cheat-linux-amd64
+fi
 
 alias irssi='screen irssi'
 alias tmux_start="[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach"
@@ -289,8 +302,6 @@ alias wg_bfunk_stop='wg_bfunk_down'
 alias wg_bfunk_restart='wg_bfunk_down && wg_bfunk_up'
 alias wg_bfunk_route_force_start='sudo ip route del default; sudo ip route add default via 131.217.38.1 dev eth1; sudo ip route add $SERVER_LOCAL_IP via 11.13.13.4 dev bfunk; sudo ip route add 10.1.1.0/24 via 10.13.13.4 dev bfunk' # could be useful if wifi network has same network as vpn
 
-#
-
 ##########################
 # vim nvim alias
 ##########################
@@ -314,6 +325,7 @@ alias tz_utc='TZ="UTC" date'
 # SYSTEM
 ##########################
 if command -v htop > /dev/null; then alias top='htop'; fi
+if command -v btop > /dev/null; then alias top='btop'; fi  # replace htop with btop
 if command -v dfc > /dev/null; then alias df='dfc'; fi
 
 if command -v ncdu > /dev/null; then
@@ -631,5 +643,33 @@ alias cscli_alerts_list="cscli alerts list"
 alias cscli_metrics="cscli metrics"
 alias cscli_bouncer_list="cscli bouncers list"
 
-# BROWNFUNK load beets with anaconda
-alias beet="[ -f ~/anaconda3/envs/beets/bin/python ] && conda activate beets;beet"
+# BROWNFUNK load beets with miniforge
+alias beet="[ -f ~/miniforge3/envs/beets/bin/python ] && conda activate beets;beet"
+
+
+
+dask_tunnel() {
+ if [ "$#" -ne 3 ]; then
+ echo "Usage: dask_tunnel <target_host> <ssh_host> <token>"
+ return 1
+ fi
+
+ target_host="$1"
+ ssh_host="$2"
+ token="$3"
+
+
+ full_url="https://localhost:8080/status?token=$token"
+
+ echo "Connecting to Dask cluster at: $full_url"
+
+ /usr/bin/ssh -L 8080:"$target_host":443 "$ssh_host" -N &
+
+ ssh_pid=$!
+
+ sleep 2
+
+ echo "Please open the following URL in your browser: $full_url"
+
+ echo "SSH tunnel established with PID: $ssh_pid"
+}

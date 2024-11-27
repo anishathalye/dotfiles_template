@@ -1,5 +1,4 @@
 ---
-tags [ networking ]
 ---
 # To display routing table IP addresses instead of host names:
 route -n
