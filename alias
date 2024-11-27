@@ -538,6 +538,12 @@ kill_py () {
 alias docker_logs_truncate='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"' # can save 50Gb of logs easily!!
 alias docker_logs_tail='docker ps --format "{{.Names}}" | fzf | xargs -I {} docker logs -f {}'
 
+# from https://www.reddit.com/r/devops/comments/o5iwbk/useful_fzf_tricks/
+alias dsh='docker exec -it $(  docker ps  --format "{{.Names}}" | fzf | awk '"'"'{print $1;}'"'"'  ) sh'
+alias dbash='docker exec -it $(  docker ps  --format "{{.Names}}" | fzf | awk '"'"'{print $1;}'"'"'  ) bash'
+alias drm='docker rm $(  docker ps  --format "{{.Names}}" | fzf | awk '"'"'{print $1;}'"'"'  )'
+alias drma='docker rm $(  docker ps -a  --format "{{.Names}}" | fzf | awk '"'"'{print $1;}'"'"'  )'
+
 
 ##############################
 ## BFUNK
