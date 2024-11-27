@@ -295,7 +295,7 @@ fi
 
 
 # Load the plugin.zsh file relative to the resolved directory
-zinit snippet "$HOME/.fzf-docker.plugin.zsh"
+zinit snippet "$HOME/.zsh_functions/fzf-docker.plugin.zsh"
 # Ensure completions are available
 autoload -Uz compinit
 compinit

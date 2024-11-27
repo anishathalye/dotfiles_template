@@ -69,7 +69,6 @@
     ~/.zshrc.local: {force: true, path: zsh/zshrc.local}
     ~/.zshrc.ssh: {force: true, path: zsh/zshrc.ssh}
     ~/.zshrc: {force: true, path: zsh/zshrc}
-    ~/.fzf-docker.plugin.zsh: {force: true, path: zsh/fzf-docker.plugin.zsh}
     ~/.zsh_functions: {force: true, path: zsh/functions}
     ~/bfunk-docker-compose: {force: true, create: true, path: bfunk/docker-compose/}
     ~/bin: {path: bin, create: true, force: true}
