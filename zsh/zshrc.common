@@ -292,3 +292,12 @@ unsetopt complete_aliases
 if command -v rbenv > /dev/null; then
     eval "$(rbenv init - zsh)"
 fi
+
+
+# Load the plugin.zsh file relative to the resolved directory
+zinit snippet "$HOME/.fzf-docker.plugin.zsh"
+# Ensure completions are available
+autoload -Uz compinit
+compinit
+# to check setup
+#type _fzf_complete_docker

@@ -536,6 +536,7 @@ kill_py () {
 #alias dtail='docker logs -tf --tail="50" "$@"'
 # replaced by fzf-docker
 alias docker_logs_truncate='sudo sh -c "truncate -s 0 /var/lib/docker/containers/*/*-json.log"' # can save 50Gb of logs easily!!
+alias docker_logs_tail='docker ps --format "{{.Names}}" | fzf | xargs -I {} docker logs -f {}'
 
 
 ##############################
