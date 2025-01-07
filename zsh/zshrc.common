@@ -294,10 +294,60 @@ if command -v rbenv > /dev/null; then
 fi
 
 
-# Load the plugin.zsh file relative to the resolved directory
-zinit snippet "$HOME/.zsh_functions/fzf-docker.plugin.zsh"
+# Use Zsh's built-in globbing to check for .zsh files
+# Enable nomatch to prevent errors when no matches are found
+setopt nomatch
+
+# Use Zsh's built-in globbing to check for .zsh files
+files=($HOME/.zsh_functions/*.zsh)
+
+# Check if files array is non-empty
+if (( ${#files[@]} > 0 )); then
+  # Loop through each .zsh file and source it with zinit
+  for file in "$files[@]"; do
+    zinit snippet "$file"
+  done
+else
+  echo "No .zsh files found in $HOME/.zsh_functions/"
+fi
+#
 # Ensure completions are available
 autoload -Uz compinit
 compinit
 # to check setup
 #type _fzf_complete_docker
+
+
+
+# FOR ssh autocomplete
+# Highlight the current autocomplete option
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# Better SSH/Rsync/SCP Autocomplete
+zstyle ':completion:*:(scp|rsync):*' tag-order ' hosts:-ipaddr:ip\ address hosts:-host:host files'
+zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns '*(.|:)*' loopback ip6-loopback localhost ip6-localhost broadcasthost
+zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
+
+# Allow for autocomplete to be case insensitive
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
+  '+l:|?=** r:|?=**'
+
+# Initialize the autocompletion
+autoload -Uz compinit && compinit -i
+
+
+# Automatically rename tmux pane based on the running command
+rename_tmux_pane() {
+    # Get the current tmux pane ID
+    local pane=$(tmux display-message -p '#{pane_id}')
+    # Get the last executed command
+    local cmd=${1:-$(fc -ln -1 | awk '{print $1}')}
+    # Set the pane name
+    tmux select-pane -T "$cmd" -t "$pane"
+}
+
+# Hook into the zsh preexec function to rename the pane
+preexec() {
+    rename_tmux_pane "$1"
+}
+

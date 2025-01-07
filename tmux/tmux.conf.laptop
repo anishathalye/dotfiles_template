@@ -340,3 +340,4 @@ bind-key -n C-s run-shell ' \
         tmux display-message "Prefix switched to Ctrl-a"; \
     fi'
 
+

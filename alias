@@ -15,8 +15,8 @@ alias dotfiles_update='cd $DOTFILES_PATH && git pull && bash install; cd -'
 ##########################
 
 # https://github.com/nextcloud/desktop/issues/7231
-# alias update_nextcloud="wget https://download.nextcloud.com/desktop/releases/Linux/latest -O $HOME/bin/Nextcloud.AppImage && chmod +x $HOME/bin/*.AppImage"
-alias update_nextcloud="wget https://download.nextcloud.com/desktop/releases/Linux/Nextcloud-3.13.4-x86_64.AppImage  -O $HOME/bin/Nextcloud.AppImage && chmod +x $HOME/bin/*.AppImage"
+alias update_nextcloud="wget https://download.nextcloud.com/desktop/releases/Linux/latest -O $HOME/bin/Nextcloud.AppImage && chmod +x $HOME/bin/*.AppImage"
+#alias update_nextcloud="wget https://download.nextcloud.com/desktop/releases/Linux/Nextcloud-3.13.4-x86_64.AppImage  -O $HOME/bin/Nextcloud.AppImage && chmod +x $HOME/bin/*.AppImage"
 alias update_joplin='curl -s https://api.github.com/repos/laurent22/joplin/releases/latest | grep "browser_download_url.*AppImage" | cut -d : -f 2,3 | tr -d \" | head -1| wget --show-progress -qi - -O $HOME/bin/Joplin.AppImage && chmod +x $HOME/bin/*.AppImage'
 alias update_etcher='curl -s https://api.github.com/repos/balena-io/etcher/releases/latest | grep "browser_download_url.*x64.AppImage" | cut -d : -f 2,3 | tr -d \" | wget --show-progress -qi - -O $HOME/bin/balenaEtcher.AppImage && chmod +x $HOME/bin/*.AppImage'
 alias update_shotcut='curl -s https://api.github.com/repos/mltframework/shotcut/releases/latest | grep "browser_download_url.*AppImage" | cut -d : -f 2,3 | tr -d \" | wget --show-progress -qi - -O $HOME/bin/Shotcut.AppImage && chmod +x $HOME/bin/*.AppImage'
