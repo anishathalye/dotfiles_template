@@ -105,7 +105,8 @@ zinit light "chrissicool/zsh-256color"
 
 zi lucid light-mode wait'[[ -n ${ZLAST_COMMANDS[(r)g*]} ]]' for \
   "OMZ::plugins/git-extras/git-extras.plugin.zsh" \
-  "wfxr/forgit"
+  "wfxr/forgit" \
+  "fdw/ranger_zoxide"
 
 # conflict with https://github.com/garabik/grc/ so removing default forgit aliases
 export FORGIT_NO_ALIASES=True
@@ -118,6 +119,8 @@ source ~/.alias_forgit
 
 zi lucid light-mode wait'[[ -n ${ZLAST_COMMANDS[(r)j*]} ]]' for \
     "OMZP::autojump"
+    #
+eval "$(zoxide init zsh)"
 
 zi lucid light-mode wait"2" for \
     "OMZP::zsh-interactive-cd" \
@@ -150,7 +153,6 @@ zi lucid light-mode wait'3' for \
     OMZP::"common-aliases" \
     OMZP::"docker-compose" \
     OMZP::"extract" \
-    OMZP::"fasd" \
     OMZP::"nmap" \
     OMZP::"pip" \
     OMZP::"rsync" \
