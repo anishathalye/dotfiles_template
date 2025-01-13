@@ -116,6 +116,9 @@ zi lucid light-mode wait'[[ $PWD = */github || $PWD = */github_repo/* ]]' for \
   #"unixorn/git-extra-commands" \
 source ~/.alias_forgit
 
+# install zoxide, autojump replacement
+zi ice as'null' from"gh-r" sbin
+zi light ajeetdsouza/zoxide
 
 zi has'zoxide' wait lucid for \
   z-shell/zsh-zoxide
