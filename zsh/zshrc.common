@@ -117,6 +117,9 @@ zi lucid light-mode wait'[[ $PWD = */github || $PWD = */github_repo/* ]]' for \
 source ~/.alias_forgit
 
 
+zi has'zoxide' wait lucid for \
+  z-shell/zsh-zoxide
+
 zi lucid light-mode wait'[[ -n ${ZLAST_COMMANDS[(r)j*]} ]]' for \
     "OMZP::autojump"
     #
