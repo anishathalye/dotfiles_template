@@ -50,11 +50,11 @@ bindsym $mod+d exec rofi -show combi -columns 3
 #bindsym Ctrl+k exec ~/bin/keepass_rofi_wrapper.sh
 # user + pass
 #bindsym Ctrl+u exec ~/miniforge3/bin/ph type passhole --tabbed --prog "rofi -dmenu"  --xdotool
-bindsym Ctrl+u exec ~/miniforge3/bin/ph type passhole --tabbed --prog dmenu  --xdotool
+bindsym Ctrl+Shift+u exec ~/miniforge3/bin/ph type passhole --tabbed --prog dmenu  --xdotool
 
 # pass only
 #bindsym Ctrl+k exec ~/miniforge3/bin/ph type passhole --prog "rofi -dmenu" --xdotool 
-bindsym Ctrl+k exec ~/miniforge3/bin/ph type passhole --prog dmenu 
+bindsym Ctrl+Shift+k exec ~/miniforge3/bin/ph type passhole --prog dmenu 
 
 # change focus
 bindsym $mod+h focus left

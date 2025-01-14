@@ -86,6 +86,8 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'mechatroner/rainbow_csv'
 Plug 'yann2192/vim-colorschemes'
 Plug 'yann2192/vim-vitamins'
+Plug 'nvim-focus/focus.nvim'
+Plug 'airblade/vim-gitgutter'
 
 " Snipmate
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -113,8 +115,16 @@ Plug 'morhetz/gruvbox'
 
 Plug 'lambdalisue/suda.vim'
 
+" telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'cljoly/telescope-repo.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
+Plug 'nvim-telescope/telescope-hop.nvim'
+
 " Initialize plugin system
 call plug#end()
+
 
 " All of your Plugins must be added before the following line
 filetype plugin indent on    " required
@@ -408,10 +418,11 @@ let g:multi_cursor_quit_key='<Esc>'
 "split navigations
 set splitbelow
 set splitright
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" not working anymore, just use ctrl shift w ctrl shift (hjkl)
+"noremap <C-J> <C-W><C-J>
+"nnoremap <C-K> <C-W><C-K>
+"nnoremap <C-L> <C-W><C-L>
+"nnoremap <C-H> <C-W><C-H>
 
 
 " Enable folding with the tab
@@ -634,3 +645,13 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 "Ctrl+Right MouseClick - Jump back from definition 
 map <C-b> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+
+" telecsope
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+
