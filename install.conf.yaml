@@ -1,5 +1,5 @@
 - shell:
-  - ["[[ -d ~/Downloads ]] && mkdir -p ~/Downloads", Creating downloads directory]
+  - ["[[ -d ~/Downloads ]] || mkdir -p ~/Downloads", Creating downloads directory]
 - clean: ['~']
 - link:
     ~/.alias: {force: true, path: alias, create: true}
@@ -33,6 +33,7 @@
     ~/.env: {force: true, path: env, create: true}
     ~/.env_private: {force: true, path: env_private, create: true}
     ~/.flake8: {force: true, path: flake8, create: true}
+    ~/.funk_rsync_config.json: {force: true, path: funk_rsync_config, create: true}
     ~/.gconf/apps/guake: {create: true, force: true, path: gconf/apps/guake/}
     ~/.gitconfig: {create: true, force: true, path: gitconfig}
     ~/.gitignore: {force: true, path: gitignore, create: true}

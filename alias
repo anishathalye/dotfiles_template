@@ -578,7 +578,7 @@ function funk_rsync() {
     echo "${extra_rsync_command[@]}"
     mkdir -p $dest
 
-    [ -d $dest ] && rsync -auv -P  --delete-after --delete-excluded -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $server_ip:$src/ $dest/ \
+    [ -d $dest ] && rsync -auvh -P  --delete-after --delete-excluded -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $server_ip:$src/ $dest/ \
         --stats --progress --exclude ".*lrprev" --exclude jellyfin/ \
         --exclude "uploaded_piwigo" --exclude "piwigo" --exclude='*.tmp' \
         --exclude="*.jpg_original*" \
@@ -599,50 +599,97 @@ function funk_rsync() {
         --exclude=.deleted "${extra_rsync_command[@]}" || $dest does not exist
 }
 
+function funk_rsync_config() {
+    # Check if jq is installed
+    if ! command -v jq &>/dev/null; then
+        echo "Error: 'jq' is not installed. Please install it and try again."
+        return 1
+    fi
+
+    # Check if fzf is installed
+    if ! command -v fzf &>/dev/null; then
+        echo "Error: 'fzf' is not installed. Please install it and try again."
+        return 1
+    fi
+    local config_file="$HOME/.funk_rsync_config.json"
+
+    # Check if the configuration file exists
+    if [[ ! -f "$config_file" ]]; then
+        echo "Error: Configuration file '$config_file' not found."
+        return 1
+    fi
+
+    # Parse tasks from JSON and list them using fzf
+    local selected_task=$(jq -r '.tasks[] | "\(.name)"' "$config_file" | fzf --prompt="Select a task: " --height=10 --border --ansi)
+
+    # Exit if no task was selected
+    if [[ -z "$selected_task" ]]; then
+        echo "No task selected. Exiting."
+        return 1
+    fi
+
+    # Extract the selected task's details from the JSON
+    local server_ip=$(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .server' "$config_file")
+    local folder_to_bckp=$(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .source' "$config_file")
+    local dest=$(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .destination' "$config_file")
+    local extra_rsync_options=($(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .rsync_options[]' "$config_file"))
+
+    # Call funk_rsync with the extracted details and any extra rsync options passed to funk_rsync_config
+    funk_rsync "$server_ip" "$folder_to_bckp" "$dest" "${extra_rsync_options[@]}" "$@"
+}
+
+
 # BFUNK sync to BEEFUNK
-alias bfunk_bckp_docker="funk_rsync $BFUNK_IP docker /media/$USER/beefunk_data"
-alias bfunk_bckp_ebooks="funk_rsync $BFUNK_IP ebooks_audiobooks /media/$USER/beefunk_data --max-delete=100"
-alias bfunk_bckp_games_1="funk_rsync $BFUNK_IP games /media/$USER/beefunk_data --exclude=Switch/ --exclude=Wii/ --exclude=WiiU/ --exclude=Gamecube/ --max-delete=100"  ## don't backup switch folder
-alias bfunk_bckp_games_ps4="funk_rsync $BFUNK_IP games/emulation/Playstation/PS4 /media/$USER/beefunk_data/games/emulation/Playstation --max-delete=1"
-alias bfunk_bckp_games_switch="funk_rsync $BFUNK_IP games/emulation/Nintendo/Switch /media/$USER/beefunk_data --exclude=JKSV/ --max-delete=100"
-alias bfunk_bckp_games_wii_u_gc="funk_rsync $BFUNK_IP games/emulation/Nintendo/Gamecube /media/$USER/beefunk_data --max-delete=100;bfunk_rsync games/emulation/Nintendo/Wii /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/WiiU /media/$USER/wii_gc --max-delete=100;"
-alias bfunk_bckp_movies="funk_rsync $BFUNK_IP movies /media/$USER/beefunk_data --exclude='tubesync-downloads' --exclude='UFC*' --filter='P *' --exclude='One Piece*' --exclude='/Sport/' --exclude='Movies(French)' --max-delete=20"                                                                                                                                                                                                                                                                    
-alias bfunk_bckp_movies_french="funk_rsync $BFUNK_IP Movies\(French\) /media/lbesnard/beefunk_data/movies --max-delete=20"                                                                                                                                                                                                                                                                                                                                                                              
-alias bfunk_bckp_movies_sport="funk_rsync $BFUNK_IP Sport /media/lbesnard/beefunk_data/movies --max-delete=10"
-alias bfunk_bckp_music="funk_rsync $BFUNK_IP music /media/$USER/beefunk_data --max-delete=1000"
-alias bfunk_bckp_music_no_beet="funk_rsync $BFUNK_IP music /media/$USER/beefunk_data --exclude='*.blb' --max-delete=1000"
-alias bfunk_bckp_navidrome="docker stop navidrome; funk_rsync $BFUNK_IP docker/navidrome /opt/docker_config; cd ~/dotfiles/beefunk/docker-compose; docker-compose up -d navidrome"
-alias bfunk_bckp_nextcloud="funk_rsync $BFUNK_IP nextcloud /media/$USER/beefunk_data/ --exclude=backups/nextcloud-\*"
-alias bfunk_bckp_pictures="funk_rsync $BFUNK_IP pictures /media/$USER/beefunk_data --max-delete=1000"
-alias bfunk_bckp_pictures_piwigo="funk_rsync $BFUNK_IP pictures_piwigo /opt/docker_config/piwigo/piwigo/gallery/upload --max-delete=1000"
-alias bfunk_bckp_self_improvement="funk_rsync $BFUNK_IP self_improvement /media/$USER/beefunk_data --max-delete=1000"
-alias bfunk_bckp_shows="funk_rsync $BFUNK_IP TV\ Shows /media/lbesnard/beefunk_data/movies  --exclude='tubesync-downloads' --exclude='UFC*' --filter='P *' --exclude='One Piece*' --max-delete=20"
+#alias bfunk_bckp_docker="funk_rsync $BFUNK_IP docker /media/$USER/beefunk_data"
+#alias bfunk_bckp_ebooks="funk_rsync $BFUNK_IP ebooks_audiobooks /media/$USER/beefunk_12tb_c --max-delete=100"
+#alias bfunk_bckp_games_1="funk_rsync $BFUNK_IP games /media/$USER/beefunk_data --exclude=Switch/ --exclude=Wii/ --exclude=WiiU/ --exclude=Gamecube/ --max-delete=100"  ## don't backup switch folder
+#alias bfunk_bckp_games_ps4="funk_rsync $BFUNK_IP games/emulation/Playstation/PS4 /media/$USER/beefunk_data/games/emulation/Playstation --max-delete=1"
+#alias bfunk_bckp_games_switch="funk_rsync $BFUNK_IP games/emulation/Nintendo/Switch /media/$USER/beefunk_12tb_b --exclude=JKSV/ --max-delete=100"
+#alias bfunk_bckp_games_wii_u_gc="funk_rsync $BFUNK_IP games/emulation/Nintendo/Gamecube /media/$USER/beefunk_12tb_b --max-delete=100;bfunk_rsync games/emulation/Nintendo/Wii /media/$USER/wii_gc;bfunk_rsync games/emulation/Nintendo/WiiU /media/$USER/wii_gc --max-delete=100;"
+#alias bfunk_bckp_movies="funk_rsync $BFUNK_IP movies /media/$USER/beefunk_12tb_a --exclude='tubesync-downloads' --exclude='UFC*' --filter='P *' --exclude='One Piece*' --exclude='/Sport/' --exclude='Movies(French)' --max-delete=20"                                                                                                                                                                                                                                                                    
+#alias bfunk_bckp_movies_french="funk_rsync $BFUNK_IP Movies\(French\) /media/lbesnard/beefunk_12tb_a/movies --max-delete=20"                                                                                                                                                                                                                                                                                                                                                                              
+#alias bfunk_bckp_movies_sport="funk_rsync $BFUNK_IP Sport /media/lbesnard/beefunk_12tb_a/movies --max-delete=10"
+#alias bfunk_bckp_music="funk_rsync $BFUNK_IP music /media/$USER/beefunk_12tb_c --max-delete=1000"
+#alias bfunk_bckp_music_no_beet="funk_rsync $BFUNK_IP music /media/$USER/beefunk_12tb_c --exclude='*.blb' --max-delete=1000"
+#alias bfunk_bckp_navidrome="docker stop navidrome; funk_rsync $BFUNK_IP docker/navidrome /opt/docker_config; cd ~/dotfiles/beefunk/docker-compose; docker-compose up -d navidrome"
+#alias bfunk_bckp_nextcloud="funk_rsync $BFUNK_IP nextcloud /media/$USER/beefunk_12tb_c/ --exclude=backups/nextcloud-\*"
+#alias bfunk_bckp_pictures="funk_rsync $BFUNK_IP pictures /media/$USER/beefunk_12tb_c --max-delete=1000"
+#alias bfunk_bckp_pictures_piwigo="funk_rsync $BFUNK_IP pictures_piwigo /opt/docker_config/piwigo/piwigo/gallery/upload --max-delete=1000"
+#alias bfunk_bckp_self_improvement="funk_rsync $BFUNK_IP self_improvement /media/$USER/beefunk_12tb_c --max-delete=1000"
+#alias bfunk_bckp_shows="funk_rsync $BFUNK_IP TV\ Shows /media/lbesnard/beefunk_data/movies  --exclude='tubesync-downloads' --exclude='UFC*' --filter='P *' --exclude='One Piece*' --max-delete=20"
 
-alias bfunk2efunk_bckp_games_switch="funk_rsync $BFUNK_IP games/emulation/Nintendo/Switch /media/dfunk_5tb_1 --exclude=backup\* --exclude=SCUMMVM\* --exclude=WRC\* --exclude=JKSV/ --max-delete=100"
-alias bfunk2efunk_bckp_movies_french="funk_rsync $BFUNK_IP Movies\(French\) /media/efunk_4tb_1/movies --max-delete=20"
+## bfunk sync to external hdd
+#alias bfunk_bckp_ebooks_simpl_12tb_1="funk_rsync $BFUNK_IP ebooks_audiobooks /media/$USER/simpl_12tb_1 --max-delete=100"
+#alias bfunk_bckp_nextcloud_simpl_12tb_1="funk_rsync $BFUNK_IP nextcloud /media/$USER/simpl_12tb_1 --exclude=backups/nextcloud-\*"
+#alias bfunk_bckp_self_improvement_simpl_12tb_1="funk_rsync $BFUNK_IP self_improvement /media/$USER/simpl_12tb_1 --max-delete=1000"
+#alias bfunk_bckp_pictures_simpl_12tb_1="funk_rsync $BFUNK_IP pictures /media/$USER/simpl_12tb_1 --max-delete=1000"
 
-# BEEFUNK sync to BROWNFUNK
-alias beefunk_bckp_docker_komga="funk_rsync $BEEFUNK_TAILSCALE_IP docker/komga $DOCKER_CONFIG_DIR"
-alias beefunk_bckp_docker_navidrome="funk_rsync $BEEFUNK_TAILSCALE_IP docker/navidrome $DOCKER_CONFIG_DIR"
-alias beefunk_bckp_docker_jellyfin="funk_rsync $BEEFUNK_TAILSCALE_IP docker/jellyfin $DOCKER_CONFIG_DIR"
+
+#alias bfunk2efunk_bckp_games_switch="funk_rsync $BFUNK_IP games/emulation/Nintendo/Switch /media/dfunk_5tb_1 --exclude=backup\* --exclude=SCUMMVM\* --exclude=WRC\* --exclude=JKSV/ --max-delete=100"
+#alias bfunk2efunk_bckp_movies_french="funk_rsync $BFUNK_IP Movies\(French\) /media/efunk_4tb_1/movies --max-delete=20"
+
+## BEEFUNK sync to BROWNFUNK
+#alias beefunk_bckp_docker_komga="funk_rsync $BEEFUNK_TAILSCALE_IP docker/komga $DOCKER_CONFIG_DIR"
+#alias beefunk_bckp_docker_navidrome="funk_rsync $BEEFUNK_TAILSCALE_IP docker/navidrome $DOCKER_CONFIG_DIR"
+#alias beefunk_bckp_docker_jellyfin="funk_rsync $BEEFUNK_TAILSCALE_IP docker/jellyfin $DOCKER_CONFIG_DIR"
 
 alias bfunk_nextcloud_preview_generation="docker exec -it nextcloud occ preview:generate-all --path="lbesnard/files/Photos" -vvv"
 
 #$BEEFUNK_LOCAL_IP BEEFUNK sync to BFUNK
-alias beefunk_bckp_pictures_dry_run="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $BEEFUNK_TAILSCALE_IP:/data/pictures/ $BFUNK_PICTURES_PATH --stats --progress --dry-run"
-alias beefunk_bckp_pictures="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $BEEFUNK_TAILSCALE_IP:/data/pictures/ $BFUNK_PICTURES_PATH --stats --progress"
+#alias beefunk_bckp_pictures_dry_run="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $BEEFUNK_TAILSCALE_IP:/data/pictures/ $BFUNK_PICTURES_PATH --stats --progress --dry-run"
+#alias beefunk_bckp_pictures="rsync -auv -P --delete-after --max-delete=1000 --delete-excluded -e \"ssh -i ~/.ssh/id_rsa -p 9000 -l root\" $BEEFUNK_TAILSCALE_IP:/data/pictures/ $BFUNK_PICTURES_PATH --stats --progress"
 
-#EFUNK rsync to BEEFUNK
-alias efunk_bckp_nextcloud="funk_rsync $EFUNK_TAILSCALE_IP nextcloud /media/$USER/beefunk_data/efunk_backup  --exclude=backups/nextcloud-\*- --max-delete=300"
-alias efunk_bckp_immich="funk_rsync $EFUNK_TAILSCALE_IP immich /media/$USER/beefunk_data/efunk_backup --max-delete=100"
-alias efunk_bckp_pictures="funk_rsync $EFUNK_TAILSCALE_IP pictures /media/$USER/beefunk_data/efunk_backup --max-delete=100"
-alias efunk_bckp_ps4="funk_rsync $EFUNK_TAILSCALE_IP torrent_ps4 /media/$USER/beefunk_data/ps4 --max-delete=100"
+##EFUNK rsync to BEEFUNK
+#alias efunk_bckp_nextcloud="funk_rsync $EFUNK_TAILSCALE_IP nextcloud /media/$USER/beefunk_12tb_b/efunk_backup  --exclude=backups/nextcloud-\*- --max-delete=300"
+#alias efunk_bckp_immich="funk_rsync $EFUNK_TAILSCALE_IP immich /media/$USER/beefunk_12tb_b/efunk_backup --max-delete=100"
+#alias efunk_bckp_pictures="funk_rsync $EFUNK_TAILSCALE_IP pictures /media/$USER/beefunk_12tb_b/efunk_backup --max-delete=100"
+#alias efunk_bckp_ps4="funk_rsync $EFUNK_TAILSCALE_IP torrent_ps4 /media/$USER/beefunk_data/ps4 --max-delete=100"
 
 alias efunk_nextcloud_preview_gen="docker exec -it nextcloud occ preview:generate-all -vvv"
 
 # BEEFUNK sync to BROWNFUNK
 #alias beefunk_bckp_navidrome="docker stop navidrome; funk_rsync $BEEFUNK_TAILSCALE_IP docker/navidrome /opt/docker_config; cd ~/dotfiles/beefunk/docker-compose; docker-compose up -d navidrome"
-alias beefunk_bckp_navidrome="funk_rsync $BEEFUNK_TAILSCALE_IP navidrome $DOCKER_CONFIG_DIR;"
+#alias beefunk_bckp_navidrome="funk_rsync $BEEFUNK_TAILSCALE_IP navidrome $DOCKER_CONFIG_DIR;"
 
 # crowdsec
 alias cscli="docker exec -t crowdsec cscli"

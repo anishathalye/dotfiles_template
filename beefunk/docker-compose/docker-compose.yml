@@ -376,7 +376,7 @@ services:
     container_name: rsync-server
     volumes:
       - $HOME/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
-      - $PICTURES_PATH:/data/pictures:ro
+      - $PICTURES_PATH/Pictures/:/data/Pictures:ro
       - $MOVIES_PATH:/data/movies:ro
       - $GAMES_PATH:/data/games:ro
       - $MUSIC_ROOT_PATH:/data/music:ro
@@ -460,6 +460,7 @@ services:
     image: a1ex4/ownfoil
     volumes:
       - $SWITCH_PATH:/games
+      - ./config:/app/config
       # Uncomment if you want to edit and persist the app configuration
       #- $DOCKER_CONFIG_PATH/ownfoil2/app:/app
       #- $DOCKER_CONFIG_PATH/ownfoil2/nginx:/etc/nginx
@@ -472,19 +473,19 @@ services:
       - SAVE_ENABLED=true
     restart: unless-stopped
     ports:
-      - "8001:80"
-  ownfoil2:
-    container_name: ownfoil2
-    image: a1ex4/ownfoil:v2
-    environment:
-      # For write permission in config directory
-      - PUID=1000
-      - PGID=1000
-    volumes:
-      - $SWITCH_PATH:/games
-      - $DOCKER_CONFIG_PATH/ownfoil2:/app/config
-    ports:
       - "8465:8465"
+  #ownfoil2:
+    #container_name: ownfoil2
+    #image: a1ex4/ownfoil:v2
+    #environment:
+      ## For write permission in config directory
+      #- PUID=1000
+      #- PGID=1000
+    #volumes:
+      #- $SWITCH_PATH:/games
+      #- $DOCKER_CONFIG_PATH/ownfoil2:/app/config
+    #ports:
+  #    - "8465:8465"
 #######################
 #### jupyterlab
 #  jupyter:
