@@ -10,7 +10,7 @@
 INTERNAL_OUTPUT="eDP-1"
 
 # choices will be displayed in dmenu
-choices="laptop\ndual_work\nclone"
+choices="laptop\ndual_work\ndual_home\nclone"
 
 # Your choice in dmenu will determine what xrandr command to run
 chosen=$(echo -e $choices | dmenu -i)
@@ -45,6 +45,7 @@ fi
 # xrander will run and turn on the display you want, if you have an option for 3 displays, this will need some modifications
 case "$chosen" in
     dual_work) xrandr --output eDP-1 --primary --mode 1920x1200 --pos 3440x240 --rotate normal --output HDMI-1 --off --output DP-1 --off --output DP-2 --off --output DP-1-1 --off --output DP-1-2 --off --output DP-1-3 --mode 3440x1440 --pos 0x0 --rotate normal; [[ -f ~/bin/mouse_setting.sh ]] && ~/bin/mouse_setting.sh;;
+    dual_home) xrandr --output eDP-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-1 --off --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off --output DP-1-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-1-2 --off --output DP-1-3 --off; [[ -f ~/bin/mouse_setting.sh ]] && ~/bin/mouse_setting.sh;;
     laptop) xrandr --output HDMI-2 --off --output HDMI-1 --off --output DP-1 --off --output DP-1-3 --off --output eDP-1 --primary --mode 1920x1200 --pos 0x0 --rotate normal --output DP-2 --off ;; # xrandr --output $INTERNAL_OUTPUT --auto --primary --output $EXTERNAL_OUTPUT --off ;;
     clone) xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --auto --same-as $INTERNAL_OUTPUT ;;
     dual) xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --auto --right-of $INTERNAL_OUTPUT --primary ;;

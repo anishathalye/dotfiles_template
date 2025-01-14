@@ -1,0 +1,123 @@
+// Documentation : http://randochartreuse.free.fr/mobac2.x/documentation/#bsh
+// Version : 05/08/2024
+
+// Nom de la carte affiché dans MOBAC
+	name = "Monde, cartes marines Garmin-Navionics-2m-Nav-Z(18)";
+
+// Nom du serveur
+	String MyServer = ".navionics.com"; 
+
+// MyUserAgent correspond à celui créé notamment  avec la clé IGN
+// Par défaut, on trouve souvent MyUserAgent = "Mozilla/5.0 Gecko/20100101 Firefox/49.0";
+	String MyUserAgent = "Mozilla/5.0 Gecko/20100101 Firefox/49.0";
+
+// MyReferer peut être demandé
+	String MyReferer = "https://maps.garmin.com/";
+	
+// MyOrigin est demandé
+	String MyOrigin = "https://maps.garmin.com";
+	
+// Initialisation du Token
+	String MyToken = "";
+	long MyVTimeStamp = 0;
+	long MyTimmer = 240000; // Temps (ms) de pause avant recherche d’un nouveau Token. 4 min = 240000 ms
+
+// MyFolder au format "dossier" ou "dossier1/dossier2/etc"
+	String MyFolder = "tile";
+	
+//******************************************************************************
+// LAYERS parameter: config_a_b_c
+//		a = 1 for depth in meters, 2 for depth in feet, 3 for fathoms
+//		b = 10.00: for 10.00 m safety depth (beginning of blue coloring) (unit equal to that set by a)
+//		c = 0 for pristine Navionics charts, 1 for Sonar Charts
+//
+// TRANSPARENT parameter: 
+//		FALSE for non-layer
+//		TRUE for layer
+//
+// UGC parameter: 
+//		FALSE for pristine Navionics charts
+//		TRUE for additinal user-generated content icons
+//******************************************************************************
+	String MyLayer       = "config_1_2.00_0"; // 2.00 varie entre 0 et 10
+	String MyTransparent = "FALSE";
+	String MyTheme       = "0";
+
+tileType = "jpg";	// Type d’image fourni par le serveur
+tileSize = 256;		// Facultatif : Supprimer la ligne dans le doute
+minZoom = 2;		// Facultatif : Zoom minimal souhaité (et/ou fourni par le serveur)
+maxZoom = 18;		// Facultatif : Zoom maximal souhaité (et/ou fourni par le serveur) -> Maximum 22 pour Mobac
+
+String getTileUrl(int Zoom, int X, int Y) 
+{
+	if (Zoom < 7) {
+		// gestion Zoom < 7, on prend une carte générique Google pour voir le monde entier
+		return "http://mt0.google.com/vt/lyrs=m@176103410&hl=fr&s=Galileo&scale=1&z=" + Zoom + "&x=" + X + "&y=" + Y;
+	}else{
+		Num_Server = (X % 4) + 1;	// 1 2 3 4 
+		// Le lien de test est non exploitable, car le token est expiré !
+		// "https://backend.navionics.com/tile/10/506/351?LAYERS=config_1_2_0&TRANSPARENT=FALSE&UGC=TRUE&theme=0&navtoken=eyJrZXkiOiJOQVZJT05JQ1NfV0VCQVBQX1AwMSIsImtleURvbWFpbiI6IndlYmFwcC5uYXZpb25pY3MuY29tIiwicmVmZXJlciI6IndlYmFwcC5uYXZpb25pY3MuY29tIiwicmFuZG9tIjoxNjMyNzYxMDU4NDQ2fQ"
+		// urlX_de_visualisation = "http://randochartreuse.free.fr/mobac2.x/images/cartes/navionics-0.png"
+		// Gestion du Token
+		VTimeStamp = System.currentTimeMillis();
+		if (VTimeStamp > (MyVTimeStamp + MyTimmer)) {		
+			MyVTimeStamp = VTimeStamp;
+			MyToken = GetNavToken();
+		}
+		return "https://tile" + Num_Server + MyServer + "/" + MyFolder + "/" + Zoom + "/" + X + "/" + Y + "?LAYERS=" + MyLayer + "&TRANSPARENT=" + MyTransparent + "&theme=" + MyTheme + "&navtoken=" + MyToken;
+	}
+}
+
+void addHeaders(java.net.HttpURLConnection conn) 
+{
+	conn.addRequestProperty("Referer",MyReferer);
+	conn.addRequestProperty("Origin",MyOrigin);
+	conn.addRequestProperty("User-Agent",MyUserAgent);	
+}
+
+// Fonction Token Navionics
+//
+//******************************************************************************
+// LAYERS parameter: config_a_b_c
+//		a = 1 for depth in meters, 2 for depth in feet, 3 for fathoms
+//		b = 10.00: for 10.00 m safety depth (beginning of blue coloring) (unit equal to that set by a)
+//		c = 0 for pristine Navionics charts, 1 for Sonar Charts
+//
+// TRANSPARENT parameter: 
+//		FALSE for non-layer
+//		TRUE for layer
+//
+// UGC parameter: 
+//		FALSE for pristine Navionics charts
+//		TRUE for additinal user-generated content icons
+//******************************************************************************
+GetNavToken()
+{
+	String Result;
+	int VResponseCode;
+	
+	URL url = new URL("https://tile1.navionics.com/tile/get_key/Navionics_webapi_04041/maps.garmin.com");
+	HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	connection.setRequestMethod("GET");
+	connection.setRequestProperty("Referer","https://maps.garmin.com/");
+	connection.setRequestProperty("Origin","https://maps.garmin.com");
+	VResponseCode = connection.getResponseCode();  
+	InputStream out = connection.getContent();
+	BufferedReader reader = new BufferedReader(new InputStreamReader(out, "iso-8859-1"), 8);
+	StringBuilder sb = new StringBuilder();
+	String line = null;
+		while ((line = reader.readLine()) != null) {	// Read line by line
+			sb.append(line + "\n");
+		}
+		String resString = sb.toString(); // Result is here
+		out.close(); // Close the stream
+		if (VResponseCode == 200) {
+			Result = resString;
+		}
+	connection.disconnect();
+	return Result;
+}
+
+//
+// FIN Token Navionics
+//

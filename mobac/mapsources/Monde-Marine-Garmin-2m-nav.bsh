@@ -1,0 +1,102 @@
+// Documentation : http://randochartreuse.free.fr/mobac2.x/documentation/#bsh
+// Version : 05/09/2024
+
+// Nom de la carte affiché dans MOBAC
+	name = "Monde, cartes marines Garmin-2m-Nav-Z(18)";
+
+// Nom du serveur
+	String MyServer = ".marine.garmin.com"; 
+
+// MyUserAgent correspond à celui créé notamment  avec la clé IGN
+// Par défaut, on trouve souvent MyUserAgent = "Mozilla/5.0 Gecko/20100101 Firefox/49.0";
+	String MyUserAgent = "Mozilla/5.0 Gecko/20100101 Firefox/49.0";
+
+// MyReferer peut être demandé
+	String MyReferer = "";
+	
+// MyOrigin est demandé
+	String MyOrigin = "https://maps.garmin.com";
+
+// MyFolder au format "dossier" ou "dossier1/dossier2/etc"
+	String MyFolder = "api/tile";
+	
+// Autres paramètres
+	String Myunits = "m";
+	String Mycharttype = "nav";
+	String Mysafetydepth = "2"; // Ombrage profondeur de 0 à 10
+	
+// Initialisation du Token
+	String MyToken = "";
+	long MyVTimeStamp = 0;
+	long MyTimmer = 240000; // Temps (ms) de pause avant recherche d’un nouveau Token. 4 min = 240000 ms
+
+// Paramètre spécifique à certains serveurs (Google, 4umaps, etc.). Parfois "jpeg" au lieu de "jpg"
+	String TileExt ="png";
+
+tileType = "jpg";	// Type d’image fourni par le serveur
+tileSize = 256;		// Facultatif : Supprimer la ligne dans le doute
+minZoom = 2;		// Facultatif : Zoom minimal souhaité (et/ou fourni par le serveur)
+maxZoom = 18;		// Facultatif : Zoom maximal souhaité (et/ou fourni par le serveur) -> Maximum 22 pour Mobac
+
+String getTileUrl(int Zoom, int X, int Y) 
+{
+	if (Zoom < 7) {
+		// gestion Zoom < 7, on prend une carte générique Google pour voir le monde entier
+		return "http://mt0.google.com/vt/lyrs=m@176103410&hl=fr&s=Galileo&scale=1&z=" + Zoom + "&x=" + X + "&y=" + Y;
+	}else{
+		Num_Server = (X % 4) + 1;	// 1 2 3 4 
+		// Le lien de test est non exploitable, car le token est expiré !
+		// "https://mcv.marine.garmin.com/api/tile/16/32428/22352.png?units=m&charttype=nav&safetydepth=2&token=92022cb5-e350-4484-b04d-59360c0f9d2c"
+		// urlX_de_visualisation = "http://randochartreuse.free.fr/mobac2.x/images/cartes/garmin-nav.png"
+		// Gestion du Token
+		VTimeStamp = System.currentTimeMillis();
+		if (VTimeStamp > (MyVTimeStamp + MyTimmer)) {		
+			MyVTimeStamp = VTimeStamp;
+			MyToken = GetGarminToken();
+		}
+		return "https://mcv" + Num_Server + MyServer + "/" + MyFolder + "/" + Zoom + "/" + X + "/" + Y + "." + TileExt + "?units=" + Myunits + "&charttype=" + Mycharttype + "&safetydepth=" + Mysafetydepth + "&token=" + MyToken;
+	}
+}
+
+void addHeaders(java.net.HttpURLConnection conn) 
+{
+	conn.addRequestProperty("Referer",MyReferer);
+	conn.addRequestProperty("Origin",MyOrigin);
+	conn.addRequestProperty("User-Agent",MyUserAgent);	
+}
+
+//
+// Fonction Token Garmin
+//
+GetGarminToken()
+{
+	String Result;
+	int VResponseCode;
+	
+	URL url = new URL("https://mcv.marine.garmin.com/api/token");
+	HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	connection.setRequestMethod("GET");
+	connection.setRequestProperty("Origin","https://maps.garmin.com");
+	//connection.setRequestProperty("referer","https://maps.garmin.com/");
+	connection.setRequestProperty("x-api-key","0E0223B5-F24A-4494-9A60-A969CDE7FFAF");
+	VResponseCode = connection.getResponseCode();  
+	//javax.swing.JOptionPane.showMessageDialog(null, VResponseCode);
+	InputStream out = connection.getContent();
+	BufferedReader reader = new BufferedReader(new InputStreamReader(out, "iso-8859-1"), 8);
+	StringBuilder sb = new StringBuilder();
+	String line = null;
+		while ((line = reader.readLine()) != null) {	// Read line by line
+			sb.append(line + "\n");
+		}
+		String resString = sb.toString(); // Result is here
+		out.close(); // Close the stream
+		if (VResponseCode == 200) {
+			Result = resString;
+		}
+	connection.disconnect();
+	return Result;
+}
+
+//
+// FIN Token Garmin
+//

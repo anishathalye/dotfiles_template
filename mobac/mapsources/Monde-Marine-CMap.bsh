@@ -1,0 +1,45 @@
+// Documentation : http://randochartreuse.free.fr/mobac2.x/documentation/#bsh
+// Version : 13/04/2021
+
+// Nom de la carte affiché dans MOBAC
+	name = "Monde, Cartes marines CMAP-Z(17)";
+
+// Nom du serveur
+	String MyServer = "tiles.c-map.com"; 
+
+// MyUserAgent correspond à celui créé notamment avec la clé IGN
+// Par défaut, on trouve souvent MyUserAgent = "Mozilla/5.0 Gecko/20100101 Firefox/49.0";
+	String MyUserAgent = "Mozilla/5.0 Gecko/20100101 Firefox/49.0";
+
+// MyReferer peut être demandé
+	String MyReferer = "https://www.c-map.com/";
+
+// MyFolder au format "dossier" ou "dossier1/dossier2/etc"
+	String MyFolder = "wmts/maxnp_int1/webmercator";
+
+// Paramètre spécifique à certains serveurs (Google, 4umaps, etc.). Parfois "jpeg" au lieu de "jpg"
+	String TileExt ="png";
+
+tileType = "png";	// Type d’image fourni par le serveur
+tileSize = 256;		// Facultatif : Supprimer la ligne dans le doute
+minZoom = 2;		// Facultatif : Zoom minimal souhaité (et/ou fourni par le serveur)
+maxZoom = 20;		// Facultatif : Zoom maximal souhaité (et/ou fourni par le serveur) -> Maximum 22 pour Mobac
+
+String getTileUrl(int Zoom, int X, int Y) 
+{
+	if (Zoom < 7) {
+		// gestion Zoom < 7, on prend une carte générique Google pour voir le monde entier
+		return "http://mt0.google.com/vt/lyrs=m@176103410&hl=fr&s=Galileo&scale=1&z=" + Zoom + "&x=" + X + "&y=" + Y;
+	}else{
+		// Le lien de test est non exploitable, car il faut un referer !
+		// "https://tiles.c-map.com/wmts/maxnp_int1/webmercator/15/16216/11174.png"
+		// urlX_de_visualisation = "http://randochartreuse.free.fr/mobac2.x/images/cartes/monde-marine-cmap.jpg"
+		return "https://" + MyServer + "/" + MyFolder + "/" + Zoom + "/" + X + "/" + Y + "." + TileExt;
+	}
+}
+
+void addHeaders(java.net.HttpURLConnection conn) 
+{
+	conn.addRequestProperty("Referer",MyReferer);
+	conn.addRequestProperty("User-Agent",MyUserAgent);	
+}
