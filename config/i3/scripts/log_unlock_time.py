@@ -3,9 +3,14 @@ import csv
 from datetime import datetime
 import os
 import sys
+import socket
 
+#
 # Set the location where your CSV file will be stored
-CSV_FILE = os.path.expanduser("~/Nextcloud/unlock_log.csv")  # Adjust the path as needed
+CSV_FILE = os.path.expanduser(
+    f"~/Nextcloud/unlock_log_{socket.gethostname()}.csv"
+)  # Adjust the path as needed
+
 
 def log_event(event_type):
     today_date = datetime.now().strftime("%Y-%m-%d")
@@ -14,12 +19,12 @@ def log_event(event_type):
 
     # Check if the CSV file exists; if not, create it and add the header
     if not os.path.isfile(CSV_FILE):
-        with open(CSV_FILE, mode='w', newline='') as file:
+        with open(CSV_FILE, mode="w", newline="") as file:
             writer = csv.writer(file)
             writer.writerow(["Date", "WorkIn", "WorkOut"])  # Header row
 
     # Read existing rows
-    with open(CSV_FILE, mode='r', newline='') as file:
+    with open(CSV_FILE, mode="r", newline="") as file:
         rows = list(csv.reader(file))
 
     # Check if header exists and is valid; if not, add it
@@ -47,12 +52,14 @@ def log_event(event_type):
         rows.append(new_row)
 
     # Write updated rows back to the CSV file
-    with open(CSV_FILE, mode='w', newline='') as file:
+    with open(CSV_FILE, mode="w", newline="") as file:
         writer = csv.writer(file)
         writer.writerows(rows)
 
+
 if __name__ == "__main__":
     import sys
+
     if len(sys.argv) != 2:
         print("Usage: python log_unlock_time.py <event_type>")
         sys.exit(1)
