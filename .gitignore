@@ -22,4 +22,6 @@ config/gh/hosts.yml
 bin/tldr
 mobac/mapsources/*.jar
 aws/cli/cache/*
+aws/sso/cache/*
 aws/credentials
+config/pgcli/log
