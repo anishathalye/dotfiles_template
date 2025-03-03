@@ -87,3 +87,5 @@ zinit light-mode for \
 ### End of Zinit's installer chunk
 #zprof #debug startup time
 
+
+if [ -e /home/lbesnard/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lbesnard/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

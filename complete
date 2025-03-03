@@ -1,5 +1,5 @@
-# load beets music tagging completions
-if command -v beet > /dev/null; then
-    eval "$(beet completion)"
-fi
+# # load beets music tagging completions
+# if command -v beet > /dev/null; then
+#     eval "$(beet completion)"
+# fi
 

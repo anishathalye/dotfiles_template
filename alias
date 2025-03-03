@@ -83,7 +83,9 @@ export PIPELINE_TASK_LOG_PATH=/mnt/ebs/log/pipeline/process
 # add ~/.zsh_functions to fpath, and then lazy autoload
 # every file in there as a function. THIS IS A REQUIREMENT
 fpath=(~/.zsh_functions $fpath);
-autoload -U $fpath[1]/*(.:t)
+if command -v autoload > /dev/null; then
+    autoload -U $fpath[1]/*(.:t)
+fi
 
 # For multiple functions files, just source them
 source $HOME/.zsh_functions/imos_ardc.zsh
@@ -159,6 +161,11 @@ if command -v gh > /dev/null; then
     done
 fi
 
+# load beets music tagging completions
+#if command -v beet > /dev/null; then
+#    eval "$(beet completion)"
+#fi
+#
 # forgit aliases https://github.com/wfxr/forgit written manually not to conflict
 # with grc tool
 alias ga=forgit::add
@@ -656,7 +663,7 @@ function funk_rsync_config() {
     local extra_rsync_options=($(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .rsync_options[]' "$config_file"))
 
     # Call funk_rsync with the extracted details and any extra rsync options passed to funk_rsync_config
-    funk_rsync "$server_ip" "$folder_to_bckp" "$dest" "${extra_rsync_options[@]}" "$@"
+    eval funk_rsync "$server_ip" "$folder_to_bckp" "$dest" "${extra_rsync_options[@]}" "$@"
 }
 
 

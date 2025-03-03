@@ -25,12 +25,12 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+xterm-color) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -39,40 +39,39 @@ esac
 #force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
+  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
+xterm* | rxvt*)
+  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+  ;;
+*) ;;
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 # You may want to put all your additions into a separate file like
@@ -80,22 +79,21 @@ fi
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+  . /etc/bash_completion
 fi
-
 
 # color shell
 PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;35m\]'
 trap 'echo -ne "\e[0m"' DEBUG
 
-function readCSV() { column -s, -t < $1 | less -#2 -N -S;}
+function readCSV() { column -s, -t <$1 | less -#2 -N -S; }
 
 #[ -f ~/.env ] && source ~/.env
 #[ -f ~/.env_private ] && source ~/.env_private
@@ -108,20 +106,24 @@ export HISTFILESIZE=5000
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
 #[[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
 
-
-PATH="$HOME/perl5/bin${PATH+:}${PATH}"; export PATH;
-PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
+PATH="$HOME/perl5/bin${PATH+:}${PATH}"
+export PATH
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"
+export PERL5LIB
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"
+export PERL_LOCAL_LIB_ROOT
+PERL_MB_OPT="--install_base \"$HOME/perl5\""
+export PERL_MB_OPT
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
+export PERL_MM_OPT
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # check where is linuxbrew installed
 if [[ -d $HOME/.linuxbrew ]]; then
-    export HOMEBREW_PREFIX=$HOME/.linuxbrew
+  export HOMEBREW_PREFIX=$HOME/.linuxbrew
 elif [[ -d /home/linuxbrew ]]; then
-    export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+  export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 fi
 
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
@@ -130,27 +132,17 @@ export INFOPATH="$HOMEBREW_PREFIX/share/info:$INFOPATH"
 
 zsh_brew_path=$HOMEBREW_PREFIX/bin/zsh
 if [ -f $zsh_brew_path ]; then
-    export SHELL=$zsh_brew_path
+  export SHELL=$zsh_brew_path
 fi
 
 # run tmux on ssh sessions. default shell will be usedL
-if [[ -z $TMUX && -n $SSH_TTY ]]; then
+if [[ -z $TMUX ]]; then
   me=$(whoami)
-
-  if tmux has-session -t $me 2>/dev/null; then
-     exec tmux -2 attach-session -t $me
+  if tmux has-session -t "$me" 2>/dev/null; then
+    exec tmux -2 attach-session -t "$me"
   else
-     exec tmux -2 new-session -s $me
+    exec tmux -2 new-session -s "$me"
   fi
 fi
 
-if [[ -z $TMUX && -z $SSH_TTY ]]; then
-  me=$(whoami)
-
-  if tmux has-session -t $me 2>/dev/null; then
-     exec tmux -2 attach-session -t $me
-  else
-     exec tmux -2 new-session -s $me
-  fi
-fi
 #. "$HOME/.cargo/env"

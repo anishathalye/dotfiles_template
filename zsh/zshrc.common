@@ -84,7 +84,7 @@ eval "$(pyenv init --path)"
 #[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
 setopt prompt_subst # Make sure prompt is able to be generated properly.
-
+#
 ## Load powerlevel10k theme
 ##zinit ice depth"1" # git clone depth
 ##zinit light romkatv/powerlevel10k
@@ -136,7 +136,7 @@ zi lucid light-mode wait"2" for \
     "OMZP::cp" # cp with rsync -> call cpv
     #"z-shell/zsh-navigation-tools" \
     #"OMZP::zsh-navigation-tools" \
-    
+
 
 zi lucid light-mode wait'3' for \
   "eastokes/aws-plugin-zsh" \
@@ -170,7 +170,7 @@ zi lucid light-mode wait'3' for \
     OMZP::"web-search" 
     #OMZP::"docker" \
 
-
+#
 if [ ! -n "${SSH_TTY+1}" ]; then
     zinit snippet OMZP::"tmux" #,   from:oh-my-zsh
 fi
@@ -326,7 +326,7 @@ compinit
 #type _fzf_complete_docker
 
 
-
+#
 # FOR ssh autocomplete
 # Highlight the current autocomplete option
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -337,8 +337,8 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns '*(.|:)*' l
 zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
 
 # Allow for autocomplete to be case insensitive
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
-  '+l:|?=** r:|?=**'
+# zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
+#   '+l:|?=** r:|?=**'
 
 # Initialize the autocompletion
 autoload -Uz compinit && compinit -i
