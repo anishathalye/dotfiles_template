@@ -612,7 +612,6 @@ function funk_rsync() {
         --exclude="*.jpg_original*" \
         --exclude="docker_photoprism" \
         --exclude="photoprism" \
-        --exclude=".*" \
         --exclude="komga/logs/.*" \
         --exclude="komga/lucene/.*" \
         --exclude="komga/artemis/.*" \
