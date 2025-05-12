@@ -624,7 +624,7 @@ function funk_rsync() {
         --exclude='Navidrome/cache/.*' \
         --exclude="*.log" --exclude="*.log\..*\.gz" \
         --exclude="*.page" --exclude="*.amq" \
-        --exclude=.deleted "${extra_rsync_command[@]}" || $dest does not exist
+        --exclude=.deleted "$@" || echo "$dest does not exist" # Use "$@" directly
 }
 
 function funk_rsync_config() {
