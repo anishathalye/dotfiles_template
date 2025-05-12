@@ -663,7 +663,7 @@ function funk_rsync_config() {
     local extra_rsync_options=($(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .rsync_options[]' "$config_file"))
 
     # Call funk_rsync with the extracted details and any extra rsync options passed to funk_rsync_config
-    eval funk_rsync "$server_ip" "$folder_to_bckp" "$dest" "${extra_rsync_options[@]}" "$@"
+    funk_rsync "$server_ip" "$folder_to_bckp" "$dest" "${extra_rsync_options[@]}" "$@"
 }
 
 
