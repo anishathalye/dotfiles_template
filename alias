@@ -660,7 +660,11 @@ function funk_rsync_config() {
     local server_ip=$(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .server' "$config_file")
     local folder_to_bckp=$(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .source' "$config_file")
     local dest=$(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .destination' "$config_file")
-    local extra_rsync_options=($(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .rsync_options[]' "$config_file"))
+    # Use a while read loop to read jq output line by line into the array, preserving spaces within lines
+    local extra_rsync_options=()
+    while IFS= read -r line; do
+        extra_rsync_options+=("$line")
+    done < <(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .rsync_options[]' "$config_file")
 
     # Call funk_rsync with the extracted details and any extra rsync options passed to funk_rsync_config
     funk_rsync "$server_ip" "$folder_to_bckp" "$dest" "${extra_rsync_options[@]}" "$@"
