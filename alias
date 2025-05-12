@@ -602,10 +602,10 @@ function funk_rsync() {
     local folder_to_bckp="$1"; shift
     local src="/data/$folder_to_bckp"
     local dest="$1/$folder_to_bckp";shift
-    local extra_rsync_command=("${@:1}")
-    echo "${extra_rsync_command[@]}"
+    # The remaining arguments in "$@" are the extra options passed from funk_rsync_config
     mkdir -p $dest
 
+    # Pass the remaining arguments "$@" directly to rsync
     [ -d $dest ] && rsync -auvh -P  --delete-after --delete-excluded -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $server_ip:$src/ $dest/ \
         --stats --progress --exclude ".*lrprev" --exclude jellyfin/ \
         --exclude "uploaded_piwigo" --exclude "piwigo" --exclude='*.tmp' \
