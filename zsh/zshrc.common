@@ -93,8 +93,9 @@ setopt prompt_subst # Make sure prompt is able to be generated properly.
 zinit ice as"command" from"gh-r" \
           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
           atpull"%atclone" src"init.zsh"
-zinit light starship/starship
+# zinit light starship/starship
 
+eval "$(starship init zsh)"
 
 # Option B – a load with Turbo-Mode being in use
 #zinit ice wait'0' lucid atload'zsh-startify'
@@ -126,7 +127,6 @@ zi has'zoxide' wait lucid for \
 zi lucid light-mode wait'[[ -n ${ZLAST_COMMANDS[(r)j*]} ]]' for \
     "OMZP::autojump"
     #
-eval "$(zoxide init zsh)"
 
 zi lucid light-mode wait"2" for \
     "OMZP::zsh-interactive-cd" \
@@ -369,3 +369,5 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+# https://github.com/zdharma-continuum/zinit/discussions/312
+eval "$(zoxide init zsh --cmd j)"
