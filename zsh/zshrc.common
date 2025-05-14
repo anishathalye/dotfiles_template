@@ -10,6 +10,17 @@ skip_global_compinit=1
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+# Unified duplicate code added by refactor
+_cmpl_inputlog() {
+    reply=($(ls -d $ERROR_DIR/* | sed 's@.*/@@'))
+    reply=($(echo $reply | tr -s " " "\012"))
+}
+compctl -K _cmpl_inputlog input_logf
+compctl -K _cmpl_inputlog input_log
+
+export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+export SHELL="$HOMEBREW_PREFIX/bin/zsh"
+
 # TMUX conf
 if [ ! -n "${SSH_TTY+1}" ]; then
 #if [[ ! -v SSH_TTY ]]; then
