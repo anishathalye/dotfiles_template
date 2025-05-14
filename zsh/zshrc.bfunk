@@ -1,11 +1,2 @@
-_cmpl_inputlog() {
-    reply=($(ls -d $ERROR_DIR/* | sed 's@.*/@@')) 
-    reply=($(echo $reply | tr -s " " "\012"))
-}
-compctl -K _cmpl_inputlog input_logf
-compctl -K _cmpl_inputlog input_log
-
-export PATH="$HOMEBREW_PREFIX/bin:$PATH"
-export SHELL="$HOMEBREW_PREFIX/bin/zsh"
 
 fpath=(~/.zplug/complete/beet $fpath)
