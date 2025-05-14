@@ -62,11 +62,6 @@ fi
 #setopt nosharehistory
 #setopt interactivecomments
 
-## Essential
-#source "${ZINIT_HOME}/zinit.zsh"
-#autoload -Uz _zinit
-#(( ${+_comps} )) && _comps[zinit]=_zinit
-##source ~/.zplug/init.zsh
 
 ## completion for cheat
 #_cmpl_cheat() {
@@ -351,8 +346,6 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<-
 # zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
 #   '+l:|?=** r:|?=**'
 
-# Initialize the autocompletion
-autoload -Uz compinit && compinit -i
 
 
 # Automatically rename tmux pane based on the running command
