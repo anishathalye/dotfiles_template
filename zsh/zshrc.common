@@ -36,13 +36,6 @@ export LANGUAGE="en_AU:en"
 #export LC_ALL="en_IE.UTF-8"
 export LANG="en_IE.UTF-8"
 
-## Turns out that compinit is ZSH checking the cached .zcompdump to see if it needs regenerating. The simplest fix is to only do that once a day. Thanks to this comment, we can achieve that pretty easily.
-#autoload -Uz compinit
-#if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-    #compinit;
-#else
-    #compinit -C;
-#fi;
 
 # check where is linuxbrew installed
 if [[ -d $HOME/.linuxbrew ]]; then
