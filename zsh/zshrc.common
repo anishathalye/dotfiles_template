@@ -314,4 +314,5 @@ function y() {
 }
 # https://github.com/zdharma-continuum/zinit/discussions/312
 eval "$(zoxide init zsh --cmd j)"
-unalias jq
+unalias jq 2>/dev/null
+
