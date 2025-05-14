@@ -25,3 +25,4 @@ aws/cli/cache/*
 aws/sso/cache/*
 aws/credentials
 config/pgcli/log
+.aider*
