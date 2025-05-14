@@ -7,7 +7,7 @@ networks:
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:latest
+    image: pihole/pihole:2024.07.0
     hostname: ubuntu
     ports:
       - "5353:53/tcp"
@@ -30,7 +30,6 @@ services:
     restart: always
 
   keeweb:
-    restart: unless-stopped
     image: antelle/keeweb
     container_name: keeweb
     ports:
@@ -56,15 +55,16 @@ services:
     restart: always
 #################
   nextcloud:
-    image: linuxserver/nextcloud
+    # to update, bump the major version one by one, i.e. 30->31->32 ...
+    image: linuxserver/nextcloud:31.0.0-ls373  #30.0.6-ls370
     container_name: nextcloud
     environment:
       - PUID=1000
       - PGID=1000
       - WATCHTOWER_CLEANUP=true
       - TZ=$TZ
-      - PHP_MEMORY_LIMIT=512M
-      - DOCKER_MODS=linuxserver/mods:nextcloud-mediadc|linuxserver/mods:universal-package-install
+      - PHP_MEMORY_LIMIT=1024M
+      - DOCKER_MODS=linuxserver/mods:nextcloud-mediadc|linuxserver/mods:universal-package-install|linuxserver/mods:nextcloud-memories
       - INSTALL_PACKAGES=ffmpeg
     labels:
       - com.centurylinklabs.watchtower.enable=true
@@ -79,7 +79,7 @@ services:
 
   ownfoil:
     container_name: ownfoil
-    image: a1ex4/ownfoil:v2
+    image: a1ex4/ownfoil:v1
     environment:
       # For write permission in config directory
       - PUID=1000
@@ -88,7 +88,7 @@ services:
       - $SWITCH_PATH:/games
       - $DOCKER_CONFIG_PATH/ownfoil:/app/config
     ports:
-      - "8001:8465"
+      - "8001:80"
     networks:
       frontend:
     dns:
@@ -241,53 +241,53 @@ services:
     restart: always
 
 ######################
-#  jackett:
-    #image: linuxserver/jackett
-    #container_name: jackett
-    #environment:
-      #- PUID=$PUID_USER
-      #- PGID=$PGID_USER
-      #- TZ=$TZ
-      #- AUTO_UPDATE=true #optional
-      #- WATCHTOWER_CLEANUP=true
-      ##- RUN_OPTS=run options here #optional
-    #volumes:
-      #- $DOCKER_CONFIG_PATH/jackett:/config
-      #- $TORRENT_PATH:/downloads
-    #ports:
-      #- 9117:9117
-    #dns:
-      #- $PIHOLE_DOCKER_SUB_IP_DNS
-    #networks:
-      #- frontend
-    #depends_on:
-      #- pihole
-      #- flaresolverr
-    #restart: unless-stopped
-    #labels:
-#      com.centurylinklabs.watchtower.enable: true
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    environment:
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - TZ=$TZ
+      - AUTO_UPDATE=true #optional
+      - WATCHTOWER_CLEANUP=true
+      #- RUN_OPTS=run options here #optional
+    volumes:
+      - $DOCKER_CONFIG_PATH/jackett:/config
+      - $TORRENT_PATH:/downloads
+    ports:
+      - 9117:9117
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    networks:
+      - frontend
+    depends_on:
+      - pihole
+      - flaresolverr
+    restart: unless-stopped
+    labels:
+      com.centurylinklabs.watchtower.enable: true
 ####################
-#  flaresolverr:
-    ## DockerHub mirror flaresolverr/flaresolverr:latest
-    #image: ghcr.io/flaresolverr/flaresolverr:latest
-    #container_name: flaresolverr
-    #environment:
-      #- LOG_LEVEL=${LOG_LEVEL:-info}
-      #- LOG_HTML=${LOG_HTML:-false}
-      #- CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
-      #- PUID=$PUID_USER
-      #- PGID=$PGID_USER
-      #- WATCHTOWER_CLEANUP=true
-    #dns:
-      #- 172.19.0.3
-    #depends_on:
-      #- pihole
-    #ports:
-      #- 8191:8191
-    #restart: unless-stopped
-    #labels:
-#      com.centurylinklabs.watchtower.enable: true
-##
+  flaresolverr:
+    # DockerHub mirror flaresolverr/flaresolverr:latest
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - PUID=$PUID_USER
+      - PGID=$PGID_USER
+      - WATCHTOWER_CLEANUP=true
+    dns:
+      - 172.19.0.3
+    depends_on:
+      - pihole
+    ports:
+      - 8191:8191
+    restart: unless-stopped
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+#
   transmission:
    image: haugene/transmission-openvpn
    container_name: transmission
@@ -295,7 +295,6 @@ services:
      - NET_ADMIN
    devices:
      - /dev/net/tun
-   restart: always
    ports:
      - "9091:9091"
      - "8888:8888"
@@ -501,18 +500,40 @@ services:
     ports:
       - 3307:3306
 
-  mealie:
-    container_name: mealie
-    image: hkotel/mealie:latest
+  mealie_v1:
+    container_name: mealie_v1
+    image: ghcr.io/mealie-recipes/mealie
     restart: unless-stopped
     ports:
-      - 9925:80
+      - 9926:9000
     environment:
       PUID: 1000
       PGID: 1000
-      TZ: America/Anchorage
+      TZ: $TZ
+      OPENAI_API_KEY: $OPENAI_API_KEY
+    volumes:
+      - $DOCKER_CONFIG_PATH/mealie_v1/data/:/app/data
+
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:v2.7.1 # 
+    container_name: mealie
+    restart: always
+    ports:
+        - "9925:9000" # 
+    deploy:
+      resources:
+        limits:
+          memory: 1000M # 
     volumes:
       - $DOCKER_CONFIG_PATH/mealie/data/:/app/data
+    environment:
+      # Set Backend ENV Variables Here
+      ALLOW_SIGNUP: "false"
+      PUID: 1000
+      PGID: 1000
+      TZ: $TZ
+      OPENAI_API_KEY: $OPENAI_API_KEY
+      BASE_URL: https://mealie.evryfunk.home
 
   portforward:
     image: marcnuri/port-forward
@@ -676,6 +697,23 @@ services:
       - $DOCKER_CONFIG_PATH/memos/:/var/opt/memos
     ports:
       - 5230:5230
+
+  lingodiary:
+    image: lozzaroo/lingodiary
+    ports:
+      - 8084:8084
+    volumes:
+      - $DOCKER_CONFIG_PATH/lingoDiary/:/app/.config/lingoDiary/ # Mount config file to /app inside the container
+      - /media/efunk_4tb_1/lingodiary/laurent/:/data/laurent/
+      - /media/efunk_4tb_1/lingodiary/johanne/:/data/johanne/
+      - /media/efunk_4tb_1/lingodiary/claudine/:/data/claudine/
+    environment:
+      CONFIG_PATH: /app/.config/lingoDiary/config.yaml # Update path to reflect /app location
+      SECRET_KEY: "4dea2020568dca5f8ad784e3110283fcf82f87c50c12f47b9a56ae95f572b0d2" # python -c "import secrets; print(secrets.token_hex(32))"
+      CONFIG_ROOT: /app/.config/lingoDiary # Update path to reflect /app location
+      USER_DB_FILE: /app/.config/lingoDiary/users.yaml # users password defined with python -c "import bcrypt; print(bcrypt.hashpw(b'mysecret', bcrypt.gensalt()).decode())"
+    user: "1000:1000" # Run container as non-root user
+    restart: always
 
 volumes:
   netdatalib:
