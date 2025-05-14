@@ -602,10 +602,10 @@ function funk_rsync() {
     local folder_to_bckp="$1"; shift
     local src="/data/$folder_to_bckp"
     local dest="$1/$folder_to_bckp";shift
-    local extra_rsync_command=("${@:1}")
-    echo "${extra_rsync_command[@]}"
+    # The remaining arguments in "$@" are the extra options passed from funk_rsync_config
     mkdir -p $dest
 
+    # Pass the remaining arguments "$@" directly to rsync
     [ -d $dest ] && rsync -auvh -P  --delete-after --delete-excluded -e "ssh -i ~/.ssh/id_rsa -p 9000 -l root" $server_ip:$src/ $dest/ \
         --stats --progress --exclude ".*lrprev" --exclude jellyfin/ \
         --exclude "uploaded_piwigo" --exclude "piwigo" --exclude='*.tmp' \
@@ -623,7 +623,7 @@ function funk_rsync() {
         --exclude='Navidrome/cache/.*' \
         --exclude="*.log" --exclude="*.log\..*\.gz" \
         --exclude="*.page" --exclude="*.amq" \
-        --exclude=.deleted "${extra_rsync_command[@]}" || $dest does not exist
+        --exclude=.deleted "$@" || echo "$dest does not exist" # Use "$@" directly
 }
 
 function funk_rsync_config() {
@@ -659,10 +659,14 @@ function funk_rsync_config() {
     local server_ip=$(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .server' "$config_file")
     local folder_to_bckp=$(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .source' "$config_file")
     local dest=$(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .destination' "$config_file")
-    local extra_rsync_options=($(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .rsync_options[]' "$config_file"))
+    # Use a while read loop to read jq output line by line into the array, preserving spaces within lines
+    local extra_rsync_options=()
+    while IFS= read -r line; do
+        extra_rsync_options+=("$line")
+    done < <(jq -r --arg task "$selected_task" '.tasks[] | select(.name == $task) | .rsync_options[]' "$config_file")
 
     # Call funk_rsync with the extracted details and any extra rsync options passed to funk_rsync_config
-    eval funk_rsync "$server_ip" "$folder_to_bckp" "$dest" "${extra_rsync_options[@]}" "$@"
+    funk_rsync "$server_ip" "$folder_to_bckp" "$dest" "${extra_rsync_options[@]}" "$@"
 }
 
 

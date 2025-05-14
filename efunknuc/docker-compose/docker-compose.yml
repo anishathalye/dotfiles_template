@@ -1,0 +1,76 @@
+version: "3.3"
+networks:
+   frontend:
+       ipam:
+         config:
+           - subnet: $DOCKER_SUBNET_1
+services:
+  ownfoil:
+    container_name: ownfoil
+    image: a1ex4/ownfoil:v2
+    environment:
+      # For write permission in config directory
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - $SWITCH_PATH:/games
+      - $DOCKER_CONFIG_PATH/ownfoil:/app/config
+    ports:
+      - "8001:8465"
+    networks:
+      frontend:
+    dns:
+      - $PIHOLE_DOCKER_SUB_IP_DNS
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+
+  rsync-server:
+    image: quentintin/rsync-server
+    container_name: rsync-server
+    volumes:
+      - $HOME/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
+      - $PICTURES_PATH/Pictures:/data/Pictures:ro
+    environment:
+      #- USERNAME=nouser
+      #- PASSWORD=nopass
+      PUID: $PUID_USER
+      PGID: $PGID_USER
+    ports:
+      #- "873:873" #uncomment if want to use rsyncd
+      - "9000:22"
+    restart: always
+
+
+  samba:
+    image: dperson/samba
+    container_name: samba
+    environment:
+      TZ: $TZ
+    ports:
+      - "139:139/tcp"
+      - "445:445/tcp"
+    read_only: true
+    tmpfs:
+      - /tmp
+    restart: always
+    stdin_open: true
+    tty: true
+    volumes:
+      - $PICTURES_PATH:/share5
+    command: |
+      -s "Pictures;/share5;yes;no;no;$USER;$USER;$USER;pictures ro except user"
+      -u "guest;guest"
+      -u "$USER;$SAMBA_PASSWORD"
+      -g "map to guest = Bad User"
+      -g "guest account = nobody"
+
+volumes:
+  netdatalib:
+  netdatacache:
+  photoprism-originals:
+    driver: local
+    driver_opts:
+      type: cifs
+      o: "username=$SAMBA_PICTURES_USER,password=$SAMBA_PICTURES_PASSWORD,rw"
+      device: "//$SERVER_URL/pictures"
+

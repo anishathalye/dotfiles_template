@@ -10,6 +10,17 @@ skip_global_compinit=1
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+# Unified duplicate code added by refactor
+_cmpl_inputlog() {
+    reply=($(ls -d $ERROR_DIR/* | sed 's@.*/@@'))
+    reply=($(echo $reply | tr -s " " "\012"))
+}
+compctl -K _cmpl_inputlog input_logf
+compctl -K _cmpl_inputlog input_log
+
+export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+export SHELL="$HOMEBREW_PREFIX/bin/zsh"
+
 # TMUX conf
 if [ ! -n "${SSH_TTY+1}" ]; then
 #if [[ ! -v SSH_TTY ]]; then
@@ -25,13 +36,6 @@ export LANGUAGE="en_AU:en"
 #export LC_ALL="en_IE.UTF-8"
 export LANG="en_IE.UTF-8"
 
-## Turns out that compinit is ZSH checking the cached .zcompdump to see if it needs regenerating. The simplest fix is to only do that once a day. Thanks to this comment, we can achieve that pretty easily.
-#autoload -Uz compinit
-#if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-    #compinit;
-#else
-    #compinit -C;
-#fi;
 
 # check where is linuxbrew installed
 if [[ -d $HOME/.linuxbrew ]]; then
@@ -51,11 +55,6 @@ fi
 #setopt nosharehistory
 #setopt interactivecomments
 
-## Essential
-#source "${ZINIT_HOME}/zinit.zsh"
-#autoload -Uz _zinit
-#(( ${+_comps} )) && _comps[zinit]=_zinit
-##source ~/.zplug/init.zsh
 
 ## completion for cheat
 #_cmpl_cheat() {
@@ -93,8 +92,9 @@ setopt prompt_subst # Make sure prompt is able to be generated properly.
 zinit ice as"command" from"gh-r" \
           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
           atpull"%atclone" src"init.zsh"
-zinit light starship/starship
+# zinit light starship/starship
 
+eval "$(starship init zsh)"
 
 # Option B – a load with Turbo-Mode being in use
 #zinit ice wait'0' lucid atload'zsh-startify'
@@ -126,7 +126,6 @@ zi has'zoxide' wait lucid for \
 zi lucid light-mode wait'[[ -n ${ZLAST_COMMANDS[(r)j*]} ]]' for \
     "OMZP::autojump"
     #
-eval "$(zoxide init zsh)"
 
 zi lucid light-mode wait"2" for \
     "OMZP::zsh-interactive-cd" \
@@ -340,8 +339,6 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<-
 # zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
 #   '+l:|?=** r:|?=**'
 
-# Initialize the autocompletion
-autoload -Uz compinit && compinit -i
 
 
 # Automatically rename tmux pane based on the running command
@@ -369,3 +366,5 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+# https://github.com/zdharma-continuum/zinit/discussions/312
+eval "$(zoxide init zsh --cmd j)"

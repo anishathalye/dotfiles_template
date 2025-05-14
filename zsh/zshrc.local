@@ -1,6 +1,3 @@
-# Background Agents
-#command -v ssh-agent >/dev/null 2>&1 && zinit snippet OMZP::"ssh-agent" #, from:oh-my-zsh
-#command -v gpg-agent >/dev/null 2>&1 && zinit snippet OMZP::"gpg-agent" #, from:oh-my-zsh
 
 zi lucid light-mode wait'2' \
  atinit'zstyle ":omz:plugins:ssh-agent" lazy yes' for \
