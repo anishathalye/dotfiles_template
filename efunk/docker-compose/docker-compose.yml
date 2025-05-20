@@ -187,6 +187,7 @@ services:
       - $DOCKER_CONFIG_PATH:/data/docker:ro
       - $NEXTCLOUD_DATA_PATH:/data/nextcloud:ro
       - $TORRENT_PATH/PS4:/data/torrent_ps4:ro
+      - /media/efunk_4tb_1/lingodiary/:/data/lingodiary/
     environment:
       #- USERNAME=nouser
       #- PASSWORD=nopass
@@ -699,6 +700,7 @@ services:
       - 5230:5230
 
   lingodiary:
+    container_name: lingodiary
     image: lozzaroo/lingodiary
     ports:
       - 8084:8084
@@ -714,6 +716,19 @@ services:
       USER_DB_FILE: /app/.config/lingoDiary/users.yaml # users password defined with python -c "import bcrypt; print(bcrypt.hashpw(b'mysecret', bcrypt.gensalt()).decode())"
     user: "1000:1000" # Run container as non-root user
     restart: always
+
+  lingodiary_cron:
+    image: alpine
+    container_name: lingodiary_cron
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=UTC
+    command: >
+      /bin/sh -c "echo '0 22 * * * /usr/bin/docker restart lingodiary' > /etc/crontabs/root && crond -f -L /dev/stdout"
+    depends_on:
+      - lingodiary
+
 
 volumes:
   netdatalib:
